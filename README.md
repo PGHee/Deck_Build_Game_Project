@@ -8,6 +8,7 @@
 
 ## 개발 기간 ##
 - 2024/03/27 ~ 2024/10/23 (예정)
+![image](https://github.com/PGHee/Deck_Build_Game_Project/assets/117708673/f3f480c5-9b55-4d22-9cc3-7a797923d762)
 
 ## 팀원 ##
 - 박건희
