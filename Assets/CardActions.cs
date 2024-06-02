@@ -24,19 +24,20 @@ public class CardActions : MonoBehaviour
         switch (killEffect.killEffectType)
         {
             case CardActionType.Damage:
-                DealRandomTargetDamage(FindObjectsOfType<MonsterState>().Where(m => m.currentHealth > 0).Select(m => m.gameObject).ToList(), killEffect.killEffectValue, 1);
+                DealRandomTargetDamage(FindObjectsOfType<MonsterState>().Where(m => m.currentHealth > 0).Select(m => m.gameObject).ToList(), killEffect.thirdValue, 1);
                 break;
             case CardActionType.Heal:
-                FindObjectOfType<PlayerState>().Heal(killEffect.killEffectValue);
+                FindObjectOfType<PlayerState>().Heal(killEffect.thirdValue);
                 break;
             case CardActionType.Shield:
-                FindObjectOfType<PlayerState>().ApplyShield(killEffect.killEffectValue);
+                FindObjectOfType<PlayerState>().ApplyShield(killEffect.thirdValue);
                 break;
             case CardActionType.RestoreResource:
-                FindObjectOfType<PlayerState>().RestoreResource(killEffect.killEffectValue);
+                FindObjectOfType<PlayerState>().RestoreResource(killEffect.thirdValue);
                 break;
         }
     }
+    
     public void DealRandomTargetDamage(List<GameObject> enemies, int damage, int hits)  // 공격 대상을 랜덤으로 지정해야 하는 경우에 동작함
     {
         if (enemies.Count == 0) return;
@@ -46,6 +47,36 @@ public class CardActions : MonoBehaviour
             DealSingleTargetDamage(enemies[randomIndex], damage);
         }
     }
+    
+    // 다중 타격 + 동일 대상 반복 타격 시 추가 타격 발생
+    public void DealRandomTargetDamageWithBonus(List<GameObject> enemies, int damage, int hits, int bonusHitFrequency)
+    {
+        if (enemies.Count == 0) return;
+
+        Dictionary<GameObject, int> hitCounts = new Dictionary<GameObject, int>();
+
+        for (int i = 0; i < hits; i++)
+        {
+            int randomIndex = Random.Range(0, enemies.Count);
+            GameObject target = enemies[randomIndex];
+            DealSingleTargetDamage(target, damage);
+
+            if (hitCounts.ContainsKey(target))
+            {
+                hitCounts[target]++;
+                if (hitCounts[target] % bonusHitFrequency == 0)
+                {
+                    DealSingleTargetDamage(target, damage);
+                }
+            }
+            else
+            {
+                hitCounts[target] = 1;
+            }
+        }
+    }
+
+
     public void DealAreaDamage(List<GameObject> targets, int damage)    // 공격 대상이 광역으로 발동되어야 하는 경우에 동작함
     {
         foreach (var target in targets)
@@ -53,11 +84,29 @@ public class CardActions : MonoBehaviour
             DealSingleTargetDamage(target, damage);
         }
     }
+
+    public void DealMultipleTargetDamage(GameObject target, int damage, int hits)   // 다중 타격하는 경우에 동작
+    {
+        for (int i = 0; i < hits; i++)
+        {
+            DealSingleTargetDamage(target, damage);
+        }
+    }
+
+    public void DealIncreasingDamage(GameObject target, int baseDamage, int hits)   // 다중 타격하되 점차 데미지가 증가하는 방식
+    {
+        for (int i = 0; i < hits; i++)
+        {
+            DealSingleTargetDamage(target, baseDamage + i);
+        }
+    }
+
     public void RestoreResource(PlayerState player, int amount)     // 카드의 능력이 자원 회복인 경우에 동작함
     {
         player.RestoreResource(amount); // amount를 인자로 전달
         Debug.Log($"Player restored {amount} resource. Current resource: {player.currentResource}");
     }
+
     public void ApplyPoison(GameObject target, int poisonAmount)    // 공격 대상에게 독을 부여하는 경우 동작함
     {
         MonsterState monsterState = target.GetComponent<MonsterState>();
@@ -67,6 +116,7 @@ public class CardActions : MonoBehaviour
             Debug.Log($"{target.name} poisoned with {poisonAmount} amount");
         }
     }
+
     public void ApplyStun(GameObject target)        // 공격 대상에게 스턴 상태이상을 부여해야하는 경우에 동작함.
     {                                               // 추후 값을 받아 해당 값에 따라 확률적으로 걸리게끔 수정이 필요함.
         target.GetComponent<MonsterState>().ApplyStun();

@@ -16,7 +16,10 @@ public enum CardActionType
     RandomTargetDamage,         // 대상을 랜덤으로 지정하는 데미지
     StunCheckDamage,            // 데미지 + 스턴 상태 이상을 갖고 있는 경우 추가 데미지
     PoisonCheckDamage,          // 독 + 중독 상태 이상을 갖고 있는 경우 추가 독
-    killEffect                  // 데미지 + 처치 시 추가 행동 (미완성임. 수정이 필요하니 건들지 말 것)
+    killEffect,                 // 처치 시 추가 행동. 데미지 행동 타입과 함께 써야함.
+    MultiHit,                   // 다중 타격
+    IncrementalDamage,          // 다중 타격 + 타격마다 데미지 증가
+    RandomTargetDamageWithBonus // 대상 랜덤 지정 데미지 + 동일 대상 일정 횟수 이상 타격 시 추가 타격
 }
 
 [System.Serializable]
@@ -26,7 +29,7 @@ public class CardAction
     public int value;                       // 지정된 행동 방식의 값을 정의
     public int secondaryValue;              // 지정된 행동 방식에서 두 번째 값이 필요한 경우에 정의
     public CardActionType killEffectType;   // 처치 시 해야할 추가 행동 방식을 지정
-    public int killEffectValue;             // 처치 시 지정된 행동 방식의 값을 정의
+    public int thirdValue;                  // 세 번째 값이 필요한 경우에 정의. 현재는 처치 시 추가 행동의 값과 동일 대상 타격 기준으로 사용
 }
 
 public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
@@ -97,33 +100,33 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
         }
     }
 
-    void ApplyEffects(MonsterState target)                  // 미리 지정해둔 카드의 행동 방식에 따라 적용 효과를 달리함. (몬스터 전용)
+    void ApplyEffects(MonsterState target)                          // 미리 지정해둔 카드의 행동 방식에 따라 적용 효과를 달리함. (몬스터 전용)
     {
         foreach (var action in actions)
         {
             switch (action.actionType)
             {
-                case CardActionType.Damage:                 // 카드 행동 방식이 데미지로 설정된 경우
+                case CardActionType.Damage:                         // 카드 행동 방식이 데미지로 설정된 경우
                     cardActions.DealSingleTargetDamage(target.gameObject, action.value, actions.FirstOrDefault(a => a.actionType == CardActionType.killEffect));
                     break;
-                case CardActionType.Poison:                 // 카드 행동 방식이 독으로 설정된 경우
+                case CardActionType.Poison:                         // 카드 행동 방식이 독으로 설정된 경우
                     cardActions.ApplyPoison(target.gameObject, action.value);
                     break;
-                case CardActionType.MultiDamage:            // 카드 행동 방식이 광역 데미지로 설정된 경우
+                case CardActionType.MultiDamage:                    // 카드 행동 방식이 광역 데미지로 설정된 경우
                     cardActions.DealAreaDamage(FindObjectsOfType<MonsterState>().Select(m => m.gameObject).ToList(), action.value);
                     break;
-                case CardActionType.MultiPoison:            // 카드 행동 방식이 광역 독으로 설정된 경우
+                case CardActionType.MultiPoison:                    // 카드 행동 방식이 광역 독으로 설정된 경우
                     foreach (var monster in FindObjectsOfType<MonsterState>())
                     {
                         cardActions.ApplyPoison(monster.gameObject, action.value);
                     }
                     break;
-                case CardActionType.Heal:                   // 카드 행동 방식이 회복, 방어, 자원 회복으로 설정된 경우
-                case CardActionType.Shield:                 // 이 함수 아래 쪽에 동일한 이름의 함수를 동작시킴 (아래쪽 함수는 플레이어 전용)
+                case CardActionType.Heal:                           // 카드 행동 방식이 회복, 방어, 자원 회복으로 설정된 경우
+                case CardActionType.Shield:                         // 이 함수 아래 쪽에 동일한 이름의 함수를 동작시킴 (아래쪽 함수는 플레이어 전용)
                 case CardActionType.RestoreResource:
-                    ApplyEffects(player); // 힐, 방어, 자원 회복은 플레이어에게 적용
+                    ApplyEffects(player);   // 힐, 방어, 자원 회복은 플레이어에게 적용
                     break;
-                case CardActionType.OverhealToDamage:       // 카드 행동 방식이 회복 후 초과량만큼 데미지로 설정된 경우
+                case CardActionType.OverhealToDamage:               // 카드 행동 방식이 회복 후 초과량만큼 데미지로 설정된 경우
                     int overheal = action.value - (player.maxHealth - player.currentHealth);
                     if (overheal > 0)
                     {
@@ -135,10 +138,10 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                         player.Heal(action.value);
                     }
                     break;
-                case CardActionType.RandomTargetDamage:     // 카드 행동 방식이 랜덤 대상에게 데미지로 설정된 경우
+                case CardActionType.RandomTargetDamage:             // 카드 행동 방식이 랜덤 대상에게 데미지로 설정된 경우
                     cardActions.DealRandomTargetDamage(FindObjectsOfType<MonsterState>().Select(m => m.gameObject).ToList(), action.value, action.secondaryValue);
                     break;
-                case CardActionType.StunCheckDamage:        // 카드 행동 방식이 스턴 상태 이상인 적에게 추가 데미지로 설정된 경우
+                case CardActionType.StunCheckDamage:                // 카드 행동 방식이 스턴 상태 이상인 적에게 추가 데미지로 설정된 경우
                     if (target.isStunned)
                     {
                         cardActions.DealSingleTargetDamage(target.gameObject, action.value + action.secondaryValue);
@@ -148,7 +151,13 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                         cardActions.DealSingleTargetDamage(target.gameObject, action.value);
                     }
                     break;
-                case CardActionType.PoisonCheckDamage:      // 카드 행동 방식이 중독 상태 이상인 적에게 추가 독으로 설정된 경우
+                case CardActionType.MultiHit:                       // 다중 타격
+                    cardActions.DealMultipleTargetDamage(target.gameObject, action.value, action.secondaryValue);
+                    break;
+                case CardActionType.IncrementalDamage:              // 다중 타격 + 타격 시마다 데미지 증가
+                    cardActions.DealIncreasingDamage(target.gameObject, action.value, action.secondaryValue);
+                    break;
+                case CardActionType.PoisonCheckDamage:              // 카드 행동 방식이 중독 상태 이상인 적에게 추가 독으로 설정된 경우
                     if (target.poisonStacks > 0)
                     {
                         cardActions.DealSingleTargetDamage(target.gameObject, action.value + action.secondaryValue);
@@ -157,6 +166,14 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                     {
                         cardActions.DealSingleTargetDamage(target.gameObject, action.value);
                     }
+                    break;
+                case CardActionType.RandomTargetDamageWithBonus:    // 랜덤 타겟 데미지 + 동일 대상 타격 시 추가 타격
+                    cardActions.DealRandomTargetDamageWithBonus(
+                        FindObjectsOfType<MonsterState>().Select(m => m.gameObject).ToList(), 
+                        action.value, 
+                        action.secondaryValue,
+                        action.thirdValue           // bonusHitFrequency를 위한 기준점.
+                    );
                     break;
             }
         }

@@ -597,11 +597,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 1
   actions:
-  - actionType: 7
-    value: 30
-    secondaryValue: 0
+  - actionType: 11
+    value: 1
+    secondaryValue: 5
     killEffectType: 3
-    killEffectValue: 14
+    thirdValue: 50
+  - actionType: 0
+    value: 100
+    secondaryValue: 5
+    killEffectType: 3
+    thirdValue: 2
 --- !u!212 &1516819416
 SpriteRenderer:
   m_ObjectHideFlags: 0
