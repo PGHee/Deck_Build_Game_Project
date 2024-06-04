@@ -1,42 +1,50 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public int maxHealth = 100;             // 플레이어의 최대 체력
-    public int currentHealth;               // 플레이어의 현재 체력
+    public int maxHealth = 100;
+    public int currentHealth;
+    public int level = 3;
+    public int maxLevel = 10;
+    public int experience = 0;
+    public int resource;
+    public int currentResource;
+    public int shield = 0;
 
-    public int level = 3;                   // 플레이어의 현재 레벨
-    public int maxLevel = 10;               // 플레이어의 최대 레벨
-    public int experience = 0;              // 플레이어의 경험치
+    // 패시브 효과 관련 변수
+    public float fireDamageMultiplier = 1.0f;
+    public int windHitBonus = 0;
+    public int woodPoisonBonus = 0;
+    public float lightningStunChance = 0.0f;
 
-    public int resource;                    // 플레이어의 최대 자원, 플레이어의 등급과 동일
-    public int currentResource;             // 플레이어의 현재 남은 자원
-
-    public int shield = 0;                  // 플레이어의 방어
-
-    public enum AttributeType { Fire, Water, Wood, Metal, Earth, Lightning, Wind, Light, Dark, Void }   // 숙련도용. 추후 수정 예정
+    public enum AttributeType { Fire, Water, Wood, Metal, Earth, Lightning, Wind, Light, Dark, Void }
     public Dictionary<AttributeType, int> attributeMastery;
     public Dictionary<AttributeType, int> attributeExperience;
+
+    private PassiveEffects passiveEffects;
 
     void Start()
     {
         currentHealth = maxHealth;
         resource = level;
         currentResource = resource;
+        InitializeAttributes();
 
-        // 속성 숙련도와 경험치 초기화
+        passiveEffects = new PassiveEffects(this);
+    }
+
+    void InitializeAttributes()
+    {
         attributeMastery = new Dictionary<AttributeType, int>();
         attributeExperience = new Dictionary<AttributeType, int>();
         foreach (AttributeType attr in System.Enum.GetValues(typeof(AttributeType)))
         {
-            attributeMastery[attr] = 1; // 초기 숙련도는 1
-            attributeExperience[attr] = 0; // 초기 경험치는 0
+            attributeMastery[attr] = 1;
+            attributeExperience[attr] = 0;
         }
     }
 
-    // 경험치를 추가하고 레벨 업을 처리하는 메서드
     public void AddExperience(int exp)
     {
         experience += exp;
@@ -47,21 +55,16 @@ public class PlayerState : MonoBehaviour
         }
     }
 
-    // 다음 레벨까지 필요한 경험치 계산 메서드
-    private int ExperienceToNextLevel()
-    {
-        return level * 100; // 레벨업에 필요한 경험치 계산 (예: 현재 레벨 * 100)
-    }
+    int ExperienceToNextLevel() => level * 100;
 
-    // 레벨 업 처리 메서드
-    private void LevelUp()
+    void LevelUp()
     {
         level++;
-        resource = level; // 자원을 새로운 등급으로 설정
-        currentResource = resource; // 자원 회복
+        resource = level;
+        currentResource = resource;
+        Debug.Log($"Level Up! New Level: {level}, Resource: {resource}");
     }
 
-    // 속성 경험치를 추가하고 숙련도 업을 처리하는 메서드
     public void AddAttributeExperience(AttributeType attribute, int exp)
     {
         attributeExperience[attribute] += exp;
@@ -72,50 +75,48 @@ public class PlayerState : MonoBehaviour
         }
     }
 
-    // 다음 속성 레벨까지 필요한 경험치 계산 메서드
-    private int ExperienceToNextAttributeLevel(AttributeType attribute)
+    int ExperienceToNextAttributeLevel(AttributeType attribute)
     {
-        return attributeMastery[attribute] * 50; // 숙련도 업에 필요한 경험치 계산 (예: 현재 숙련도 * 50)
+        int[] experienceRequired = { 3, 6, 9, 15, 25, 35, 55, 75, 95 };
+        int masteryLevel = attributeMastery[attribute] - 1;
+        return masteryLevel < experienceRequired.Length ? experienceRequired[masteryLevel] : int.MaxValue;
     }
 
-    // 속성 숙련도 업 처리 메서드
-    private void AttributeLevelUp(AttributeType attribute)
+    void AttributeLevelUp(AttributeType attribute)
     {
         attributeMastery[attribute]++;
+        passiveEffects.ApplyAttributePassiveEffect(attribute, attributeMastery[attribute]);
+        Debug.Log($"Attribute Level Up! {attribute} Mastery: {attributeMastery[attribute]}");
     }
 
-    // 체력 회복 메서드
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         Debug.Log($"Player healed by {amount}. Current health: {currentHealth}");
     }
 
-    // 자원 회복 메서드
     public void RestoreResource(int amount)
     {
         currentResource = Mathf.Min(currentResource + amount, resource);
         Debug.Log($"Player restored {amount} resource. Current resource: {currentResource}");
     }
 
-    // 방어 적용 메서드
     public void ApplyShield(int amount)
     {
         shield += amount;
-        Debug.Log($"Player gained {amount} shield. Current shield: {shield}");
+        Debug.Log($"Player shield increased by {amount}. Current shield: {shield}");
     }
 
-    // 자원 소비 메서드
     public void SpendResource(int amount)
     {
         if (currentResource >= amount)
         {
             currentResource -= amount;
-            Debug.Log($"Player spent {amount} resource. Current resource: {currentResource}");
+            Debug.Log($"Resource spent: {amount}. Current resource: {currentResource}");
         }
         else
         {
-            Debug.Log("Not enough resource.");
+            Debug.Log("Not enough resources.");
         }
     }
 
