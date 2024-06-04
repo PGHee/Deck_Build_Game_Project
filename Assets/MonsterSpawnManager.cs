@@ -9,8 +9,8 @@ public class MonsterSpawnManager : MonoBehaviour
 
     void Start()
     {
-        monsterPrefabs = new GameObject[5];
-        for (int i = 0; i < 5; i++)
+        monsterPrefabs = new GameObject[6];
+        for (int i = 0; i < 6; i++)
         {
             monsterPrefabs[i] = Resources.Load<GameObject>($"Prefabs/Monster{i + 1}");
         }
