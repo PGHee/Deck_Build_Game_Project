@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 655176848}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -400,12 +400,18 @@ MonoBehaviour:
   resource: 0
   currentResource: 0
   shield: 0
+  damageMultiplier: 1
   fireDamageMultiplier: 1
   windHitBonus: 0
   woodPoisonBonus: 0
   lightningStunChance: 0
   waterRegen: 0
   earthDefense: 0
+  activeBuffsAndDebuffs: []
+  isAreaEffect: 0
+  healOnDamage: 0
+  stunDuration: 0
+  isStunned: 0
 --- !u!212 &655176851
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -502,6 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81ab9d0c7b3ca547b016c108c175394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffDebuffManager: {fileID: 0}
 --- !u!4 &1047429658
 Transform:
   m_ObjectHideFlags: 0
@@ -586,7 +593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.25, y: -0.22}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1457296563
@@ -713,14 +720,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b79a8a4944c2548a313b04d30c3a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeType: 2
+  attributeType: 0
   cost: 1
-  actions:
-  - actionType: 0
-    value: 1
-    secondaryValue: 5
-    killEffectType: 3
-    thirdValue: 50
+  actions: []
+  buffsAndDebuffs:
+  - effectType: 0
+    isAreaEffect: 0
+    duration: 2
+    effectValue: 0.5
+    intValue: 0
 --- !u!212 &1516819416
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -837,6 +845,50 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
+--- !u!1 &1621142061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621142062}
+  - component: {fileID: 1621142063}
+  m_Layer: 0
+  m_Name: BuffDebuffManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1621142062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621142061}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.551782, y: -0.09985064, z: -0.014457199}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621142063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621142061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468516eaa2b4bcc47a754c5bc6835894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1771415537
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,17 +1032,63 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.12, y: 5.12}
   m_EdgeRadius: 0
+--- !u!1 &1925141432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1925141434}
+  - component: {fileID: 1925141433}
+  m_Layer: 0
+  m_Name: MonsterActions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1925141433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925141432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 051214ee58b605546848a04ef42304e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1925141434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925141432}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.44211304, y: 0.038186654, z: -9.47361}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 1210839077}
   - {fileID: 1457296565}
   - {fileID: 63516852}
   - {fileID: 287024460}
-  - {fileID: 1516819417}
-  - {fileID: 1210839077}
-  - {fileID: 1513876647}
-  - {fileID: 655176852}
   - {fileID: 1047429658}
   - {fileID: 1771415541}
+  - {fileID: 1513876647}
+  - {fileID: 1925141434}
+  - {fileID: 1621142062}
+  - {fileID: 655176852}
+  - {fileID: 1516819417}

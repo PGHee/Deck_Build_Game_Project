@@ -29,8 +29,7 @@ public class CardActions : MonoBehaviour
                 // Wood 속성의 패시브 효과는 ApplyPoison 함수에서 직접 처리 (별도 구현 필요 X)
                 break;
             case PlayerState.AttributeType.Lightning:
-                // Lightning 속성의 스턴 관련 패시브 효과 적용
-                // 예시로, 일정 확률로 스턴을 적용하는 패시브 효과
+                // Lightning 속성 패시브 효과도 함수에서 직접 처리 (별도 구현 필요 x)
                 break;
         }
     }
@@ -77,6 +76,7 @@ public class CardActions : MonoBehaviour
     public void DealRandomTargetDamage(List<GameObject> enemies, int damage, int hits, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
     {
         if (enemies.Count == 0) return;
+        damage = Mathf.RoundToInt(damage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
         for (int i = 0; i < hits; i++)
         {
@@ -88,6 +88,7 @@ public class CardActions : MonoBehaviour
     public void DealRandomTargetDamageWithBonus(List<GameObject> enemies, int damage, int hits, int bonusHitFrequency, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
     {
         if (enemies.Count == 0) return;
+        damage = Mathf.RoundToInt(damage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
         Dictionary<GameObject, int> hitCounts = new Dictionary<GameObject, int>();
         for (int i = 0; i < hits; i++)
@@ -114,6 +115,7 @@ public class CardActions : MonoBehaviour
     public void DealAreaDamage(List<GameObject> targets, int damage, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
     {
         int hits = 1;
+        damage = Mathf.RoundToInt(damage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
         foreach (var target in targets)
         {
@@ -126,6 +128,7 @@ public class CardActions : MonoBehaviour
 
     public void DealMultipleTargetDamage(GameObject target, int damage, int hits, CardAction killEffect = null, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
     {
+        damage = Mathf.RoundToInt(damage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
         for (int i = 0; i < hits; i++)
         {
@@ -135,6 +138,7 @@ public class CardActions : MonoBehaviour
 
     public void DealIncreasingDamage(GameObject target, int baseDamage, int hits, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
     {
+        baseDamage = Mathf.RoundToInt(baseDamage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref baseDamage, ref hits);
         for (int i = 0; i < hits; i++)
         {
