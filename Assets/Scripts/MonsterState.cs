@@ -7,17 +7,19 @@ public class MonsterState : MonoBehaviour
     public int maxHealth;                               // 몬스터의 최대 체력
     public int currentHealth;                           // 몬스터의 현재 체력
     public int attackPower;                             // 몬스터의 데미지 (비용값)
-    public float damageMultiplier = 1.0f;
 
-    public bool isStunned;                              // 몬스터의 스턴 상태 판별
+    public float damageMultiplier = 1.0f;               // 몬스터 데미지 비율
+    public float reflectDamage = 0.0f;                  // 몬스터 반사 버프 상태
+
+    public bool isStunned = false;                      // 몬스터의 스턴 상태 판별
+    public bool isConfuse = false;                      // 몬스터의 혼란 상태 판별
     public int poisonStacks;                            // 몬스터의 중독 상태 판별
 
     public bool IsStunned => isStunned;                 // IsStunned 프로퍼티 추가
     public bool IsPoisoned => poisonStacks > 0;         // IsPoisoned 프로퍼티 추가
 
     public List<BuffDebuff> activeBuffsAndDebuffs = new List<BuffDebuff>();
-    private bool healOnDamage = false;                  // HealOnDamage 버프 상태
-    public int stunDuration = 0;                        // 스턴 지속 시간 (디버프 용)
+    private float LifeSteal = 0.0f;                     // HealOnDamage 버프 상태
 
     void Start()
     {
@@ -73,10 +75,20 @@ public class MonsterState : MonoBehaviour
             case EffectType.IncreaseDamage:
                 damageMultiplier += effectValue;
                 break;
-            case EffectType.SkipTurn:
-                isStunned = stunDuration > 0;
+            case EffectType.LifeSteal:          // 몬스터 행동 구현 필요, 테스트 안해봄
+                LifeSteal += effectValue;
                 break;
-            // 다른 버프/디버프 처리 로직 추가
+            case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요
+                reflectDamage += effectValue;
+                break;
+            case EffectType.SkipTurn:
+                isStunned = true;
+                break;
+            case EffectType.RandomAction:       // 몬스터 행동 구현 필요
+                break;
+            case EffectType.Confuse:            // 몬스터 행동 구현 필요, 테스트 안해봄
+                isConfuse = true;
+                break;
         }
     }
 
@@ -87,34 +99,20 @@ public class MonsterState : MonoBehaviour
             case EffectType.IncreaseDamage:
                 damageMultiplier -= effectValue;
                 break;
+            case EffectType.LifeSteal:          // 몬스터 행동 구현 필요, 테스트 안해봄
+                LifeSteal -= effectValue;
+                break;
+            case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요
+                reflectDamage -= effectValue;
+                break;
             case EffectType.SkipTurn:
                 isStunned = false;
                 break;
-            // 다른 버프/디버프 제거 로직 추가
-        }
-    }
-
-    public void UpdateBuffsAndDebuffs()
-    {
-        for (int i = activeBuffsAndDebuffs.Count - 1; i >= 0; i--)
-        {
-            activeBuffsAndDebuffs[i].duration--;
-            if (activeBuffsAndDebuffs[i].duration <= 0)
-            {
-                if (activeBuffsAndDebuffs[i].effectType == EffectType.IncreaseDamage)
-                {
-                    damageMultiplier -= activeBuffsAndDebuffs[i].effectValue;
-                }
-                if (activeBuffsAndDebuffs[i].effectType == EffectType.SkipTurn)
-                {
-                    stunDuration -= activeBuffsAndDebuffs[i].duration;
-                }
-                if (activeBuffsAndDebuffs[i].effectType == EffectType.HealOnDamage)
-                {
-                    healOnDamage = false;
-                }
-                activeBuffsAndDebuffs.RemoveAt(i);
-            }
+            case EffectType.RandomAction:       // 몬스터 행동 구현 필요
+                break;
+            case EffectType.Confuse:            // 몬스터 행동 구현 필요, 테스트 안해봄
+                isConfuse = false;
+                break;
         }
     }
 

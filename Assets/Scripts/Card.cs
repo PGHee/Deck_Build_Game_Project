@@ -5,16 +5,17 @@ using System.Linq;
 
 public enum CardActionType
 {
-    Damage, Heal, Poison, Shield, MultiDamage, MultiPoison,
-    RestoreResource, OverhealToDamage, RandomTargetDamage,
-    StunCheckDamage, PoisonCheckDamage, killEffect, MultiHit,
-    IncrementalDamage, RandomTargetDamageWithBonus
+    Damage, MultiHit, AreaDamage, Poison, AreaPoison, 
+    RandomTargetDamage, RandomTargetDamageWithBonus, IncrementalDamage,
+    StunCheckDamage, PoisonCheckDamage, killEffect,
+    Heal, OverhealToDamage, Shield, RestoreResource
 }
 
 public enum EffectType
 {
-    IncreaseDamage, SkipTurn, RandomAction, AreaEffect,
-    Confuse, HealOnDamage, ReflectDamage, ReduceCost
+    IncreaseDamage, AreaEffect,
+    LifeSteal, ReflectDamage, ReduceCost,
+    SkipTurn, Confuse, RandomAction
 }
 
 [System.Serializable]
@@ -91,10 +92,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                     PlayerState targetPlayer = hit.collider.GetComponent<PlayerState>();
                     if (targetPlayer != null)
                     {
-                        if (actions.Any(action => IsDamageAction(action)))
-                        {
-                            Debug.Log("Cannot apply damage actions to player.");
-                        }
+                        if (actions.Any(action => IsDamageAction(action))) Debug.Log("Cannot apply damage actions to player.");
                         else
                         {
                             ApplyEffects(targetPlayer, null);
@@ -110,57 +108,36 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                         bool hasPlayerEffects = actions.Any(action => IsPlayerEffect(action));
                         bool hasMonsterEffects = actions.Any(action => IsDamageAction(action));
                         bool hasPlayerBuffs = buffsAndDebuffs.Any(buff => IsPlayerBuff(buff));
-                        bool hasMonsterBuffs = buffsAndDebuffs.Any(buff => IsMonsterDebuff(buff));
+                        bool hasMonsterDebuffs = buffsAndDebuffs.Any(buff => IsMonsterDebuff(buff));
 
-                        if (hasPlayerEffects && hasMonsterEffects)
+                        if ((hasPlayerEffects | hasPlayerBuffs) && (hasMonsterEffects | hasMonsterDebuffs))
                         {
                             foreach (var action in actions)
                             {
-                                if (IsPlayerEffect(action))
-                                {
-                                    ApplyPlayerEffects(player, action);
-                                }
-                                else if (IsDamageAction(action))
-                                {
-                                    ApplyDamageEffects(targetMonster, action);
-                                }
+                                if (IsPlayerEffect(action)) ApplyPlayerEffects(player, action);
+                                else if (IsDamageAction(action)) ApplyDamageEffects(targetMonster, action);
                             }
                             foreach (var buffDebuff in buffsAndDebuffs)
                             {
-                                if (IsPlayerBuff(buffDebuff))
-                                {
-                                    ApplyToPlayer(player, buffDebuff);
-                                }
+                                if (IsPlayerBuff(buffDebuff)) ApplyToPlayer(player, buffDebuff);
                                 else if (IsMonsterDebuff(buffDebuff))
                                 {
-                                    if (buffDebuff.isAreaEffect)
-                                    {
-                                        ApplyToAllTargets(buffDebuff);
-                                    }
-                                    else
-                                    {
-                                        ApplyToMonster(targetMonster, buffDebuff);
-                                    }
+                                    if (buffDebuff.isAreaEffect) ApplyToAllTargets(buffDebuff);
+                                    else ApplyToMonster(targetMonster, buffDebuff);
                                 }
                             }
                         }
-                        else if (hasMonsterEffects)
+                        else if (hasMonsterEffects | hasMonsterDebuffs) 
                         {
                             ApplyEffects(null, targetMonster);
                         }
-                        else if (hasPlayerEffects)
-                        {
-                            ApplyEffects(player, null);
-                        }
+                        else if (hasPlayerEffects | hasPlayerBuffs) ApplyEffects(player, null);
                         effectApplied = true;
                     }
                 }
             }
         }
-        else
-        {
-            Debug.Log("Not enough resources to play this card.");
-        }
+        else Debug.Log("Not enough resources to play this card.");
 
         // 원래 레이어로 복구
         gameObject.layer = originalLayer;
@@ -182,16 +159,16 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
             switch (action.actionType)
             {
                 case CardActionType.Damage:
-                case CardActionType.MultiDamage:
-                case CardActionType.Poison:
-                case CardActionType.MultiPoison:
                 case CardActionType.MultiHit:
+                case CardActionType.AreaDamage:
+                case CardActionType.Poison:
+                case CardActionType.AreaPoison:
                 case CardActionType.RandomTargetDamage:
-                case CardActionType.OverhealToDamage:
                 case CardActionType.RandomTargetDamageWithBonus:
+                case CardActionType.IncrementalDamage:
+                case CardActionType.OverhealToDamage:
                 case CardActionType.StunCheckDamage:
                 case CardActionType.PoisonCheckDamage:
-                case CardActionType.IncrementalDamage:
                     if (monsterTarget != null)
                     {
                         ApplyDamageEffects(monsterTarget, action);
@@ -207,7 +184,6 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                     break;
             }
         }
-
         foreach (var buffDebuff in buffsAndDebuffs)
         {
             switch (buffDebuff.effectType)
@@ -226,7 +202,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                     break;
                 case EffectType.IncreaseDamage:
                 case EffectType.AreaEffect:
-                case EffectType.HealOnDamage:
+                case EffectType.LifeSteal:
                 case EffectType.ReflectDamage:
                 case EffectType.ReduceCost:
                     if (playerTarget != null)
@@ -240,28 +216,56 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
 
     private void ApplyDamageEffects(MonsterState target, CardAction action)
     {
+        List<MonsterState> monsters = FindObjectsOfType<MonsterState>().ToList();
+        if(player.isConfuse)
+        {
+            int randomIndex = Random.Range(0, monsters.Count);
+            target = monsters[randomIndex];
+        }
         switch (action.actionType)
         {
             case CardActionType.Damage:
-                cardActions.DealMultipleTargetDamage(target.gameObject, action.value, 1, actions.FirstOrDefault(a => a.actionType == CardActionType.killEffect), attributeType);
+                if(player.isAreaEffect) cardActions.DealAreaDamage(monsters.Select(m => m.gameObject).ToList(), action.value, 1, attributeType);
+                else cardActions.DealMultipleHits(target.gameObject, action.value, 1, actions.FirstOrDefault(a => a.actionType == CardActionType.killEffect), attributeType);
+                break;
+            case CardActionType.MultiHit:
+                if(player.isAreaEffect) cardActions.DealAreaDamage(monsters.Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, attributeType);
+                else cardActions.DealMultipleHits(target.gameObject, action.value, action.secondaryValue, null, attributeType);
+                break;
+            case CardActionType.AreaDamage:
+                cardActions.DealAreaDamage(monsters.Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, attributeType);
                 break;
             case CardActionType.Poison:
-                cardActions.ApplyPoison(target.gameObject, action.value, attributeType);
+                if(player.isAreaEffect)
+                {
+                    foreach (var monster in FindObjectsOfType<MonsterState>())
+                    {
+                        cardActions.ApplyPoison(monster.gameObject, action.value, attributeType);
+                    }
+                }
+                else cardActions.ApplyPoison(target.gameObject, action.value, attributeType);
                 break;
-            case CardActionType.MultiDamage:
-                cardActions.DealAreaDamage(FindObjectsOfType<MonsterState>().Select(m => m.gameObject).ToList(), action.value, attributeType);
-                break;
-            case CardActionType.MultiPoison:
+            case CardActionType.AreaPoison:
                 foreach (var monster in FindObjectsOfType<MonsterState>())
                 {
                     cardActions.ApplyPoison(monster.gameObject, action.value, attributeType);
                 }
                 break;
-            case CardActionType.MultiHit:
-                cardActions.DealMultipleTargetDamage(target.gameObject, action.value, action.secondaryValue, null, attributeType);
-                break;
             case CardActionType.RandomTargetDamage:
-                cardActions.DealRandomTargetDamage(FindObjectsOfType<MonsterState>().Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, attributeType);
+                cardActions.DealRandomTargetDamage(monsters.Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, attributeType);
+                break;
+            case CardActionType.RandomTargetDamageWithBonus:
+                cardActions.DealRandomTargetDamageWithBonus(monsters.Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, action.thirdValue, attributeType);
+                break;
+            case CardActionType.IncrementalDamage:
+                if(player.isAreaEffect)
+                {
+                    foreach (var monster in FindObjectsOfType<MonsterState>())
+                    {
+                        cardActions.DealIncreasingDamage(monster.gameObject, action.value, action.secondaryValue, attributeType);
+                    }
+                }
+                else cardActions.DealIncreasingDamage(target.gameObject, action.value, action.secondaryValue, attributeType);
                 break;
             case CardActionType.OverhealToDamage:
                     if (target is MonsterState targetMonsterOverheal)
@@ -270,7 +274,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                         if (overheal > 0)
                         {
                             player.Heal(player.maxHealth - player.currentHealth);
-                            cardActions.DealMultipleTargetDamage(targetMonsterOverheal.gameObject, overheal, 1, null, attributeType);
+                            if(player.isAreaEffect) cardActions.DealAreaDamage(FindObjectsOfType<MonsterState>().Select(m => m.gameObject).ToList(), action.value, 1, attributeType);
+                            else cardActions.DealMultipleHits(targetMonsterOverheal.gameObject, overheal, 1, null, attributeType);
                         }
                         else
                         {
@@ -278,33 +283,35 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                         }
                     }
                     break;
-            case CardActionType.RandomTargetDamageWithBonus:
-                cardActions.DealRandomTargetDamageWithBonus(
-                    FindObjectsOfType<MonsterState>().Select(m => m.gameObject).ToList(),
-                    action.value, action.secondaryValue, action.thirdValue, attributeType);
-                break;
             case CardActionType.StunCheckDamage:
-                if (target.isStunned)
+                if(player.isAreaEffect)
                 {
-                    cardActions.DealMultipleTargetDamage(target.gameObject, action.value + action.secondaryValue, 1, null, attributeType);
+                    foreach (var monster in FindObjectsOfType<MonsterState>())
+                    {
+                        if (monster.isStunned) cardActions.DealMultipleHits(monster.gameObject, action.value + action.secondaryValue, 1, null, attributeType);
+                        else cardActions.DealMultipleHits(monster.gameObject, action.value, 1, null, attributeType);
+                    }
                 }
                 else
                 {
-                    cardActions.DealMultipleTargetDamage(target.gameObject, action.value, 1, null, attributeType);
+                    if (target.isStunned) cardActions.DealMultipleHits(target.gameObject, action.value + action.secondaryValue, 1, null, attributeType);
+                    else cardActions.DealMultipleHits(target.gameObject, action.value, 1, null, attributeType);
                 }
                 break;
             case CardActionType.PoisonCheckDamage:
-                if (target.poisonStacks > 0)
+                if(player.isAreaEffect)
                 {
-                    cardActions.DealSingleTargetDamage(target.gameObject, action.value + action.secondaryValue, null, attributeType);
+                    foreach (var monster in FindObjectsOfType<MonsterState>())
+                    {
+                        if (monster.poisonStacks > 0) cardActions.ApplyPoison(monster.gameObject, action.value + action.secondaryValue, attributeType);
+                        else cardActions.ApplyPoison(monster.gameObject, action.value, attributeType);
+                    }
                 }
                 else
                 {
-                    cardActions.DealSingleTargetDamage(target.gameObject, action.value, null, attributeType);
+                    if (target.poisonStacks > 0) cardActions.ApplyPoison(target.gameObject, action.value + action.secondaryValue, attributeType);
+                    else cardActions.ApplyPoison(target.gameObject, action.value, attributeType);
                 }
-                break;
-            case CardActionType.IncrementalDamage:
-                cardActions.DealIncreasingDamage(target.gameObject, action.value, action.secondaryValue, attributeType);
                 break;
         }
     }
@@ -335,8 +342,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
             case EffectType.AreaEffect:
                 buffDebuffManager.ApplyAreaEffectBuff(target.gameObject, buffDebuff.duration, buffDebuff.effectValue);
                 break;
-            case EffectType.HealOnDamage:
-                buffDebuffManager.ApplyHealOnDamageBuff(target.gameObject, buffDebuff.duration, buffDebuff.effectValue);
+            case EffectType.LifeSteal:
+                buffDebuffManager.ApplyLifeStealBuff(target.gameObject, buffDebuff.duration, buffDebuff.effectValue);
                 break;
             case EffectType.ReflectDamage:
                 buffDebuffManager.ApplyReflectDamageBuff(target.gameObject, buffDebuff.duration, buffDebuff.effectValue);
@@ -352,13 +359,13 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
         switch (buffDebuff.effectType)
         {
             case EffectType.SkipTurn:
-                buffDebuffManager.ApplySkipTurnBuff(target.gameObject, buffDebuff.duration);
+                buffDebuffManager.ApplySkipTurnDebuff(target.gameObject, buffDebuff.duration);
                 break;
             case EffectType.RandomAction:
-                buffDebuffManager.ApplyRandomActionBuff(target.gameObject, buffDebuff.duration);
+                buffDebuffManager.ApplyRandomActionDebuff(target.gameObject, buffDebuff.duration);
                 break;
             case EffectType.Confuse:
-                buffDebuffManager.ApplyConfuseBuff(target.gameObject, buffDebuff.duration);
+                buffDebuffManager.ApplyConfuseDebuff(target.gameObject, buffDebuff.duration);
                 break;
         }
     }
@@ -375,26 +382,23 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
     private int GetAttributeExperienceGain(int cost)
     {
         int[] experienceGain = { 0, 1, 3, 5, 7, 9, 11, 14, 17, 20 };
-        if (cost < experienceGain.Length)
-        {
-            return experienceGain[cost];
-        }
+        if (cost < experienceGain.Length) return experienceGain[cost];
         return 0;
     }
 
     private bool IsDamageAction(CardAction action)
     {
         return action.actionType == CardActionType.Damage ||
-               action.actionType == CardActionType.MultiDamage ||
-               action.actionType == CardActionType.Poison ||
-               action.actionType == CardActionType.MultiPoison ||
                action.actionType == CardActionType.MultiHit ||
+               action.actionType == CardActionType.AreaDamage ||
+               action.actionType == CardActionType.Poison ||
+               action.actionType == CardActionType.AreaPoison ||
                action.actionType == CardActionType.RandomTargetDamage ||
-               action.actionType == CardActionType.OverhealToDamage ||
                action.actionType == CardActionType.RandomTargetDamageWithBonus ||
+               action.actionType == CardActionType.IncrementalDamage ||
+               action.actionType == CardActionType.OverhealToDamage ||
                action.actionType == CardActionType.StunCheckDamage ||
-               action.actionType == CardActionType.PoisonCheckDamage ||
-               action.actionType == CardActionType.IncrementalDamage;
+               action.actionType == CardActionType.PoisonCheckDamage;
     }
 
     private bool IsPlayerEffect(CardAction action)
@@ -415,7 +419,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
     {
         return effect.effectType == EffectType.IncreaseDamage ||
                effect.effectType == EffectType.AreaEffect ||
-               effect.effectType == EffectType.HealOnDamage ||
+               effect.effectType == EffectType.LifeSteal ||
                effect.effectType == EffectType.ReflectDamage ||
                effect.effectType == EffectType.ReduceCost;
     }

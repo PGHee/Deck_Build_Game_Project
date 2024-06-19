@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
+    // 플레이어 기본 정보
     public int maxHealth = 100;
     public int currentHealth;
     public int level = 3;
@@ -11,7 +12,6 @@ public class PlayerState : MonoBehaviour
     public int resource;
     public int currentResource;
     public int shield = 0;
-    public float damageMultiplier = 1.0f;
 
     // 패시브 효과 관련 변수
     public float fireDamageMultiplier = 1.0f;
@@ -25,14 +25,19 @@ public class PlayerState : MonoBehaviour
     public Dictionary<AttributeType, int> attributeMastery;
     public Dictionary<AttributeType, int> attributeExperience;
 
-    private Animator animator;                      // 애니메이션 동작용
-    private Transform playerTransform;              // 애니메이션 크기 맞추는 용
-
-    public List<BuffDebuff> activeBuffsAndDebuffs = new List<BuffDebuff>();     // 현재 적용되고 있는 버프와 디버프
+    // 버프 관련 변수
+    public float damageMultiplier = 1.0f;           // 데미지 배율
     public bool isAreaEffect = false;               // 광역 공격 버프 상태
-    public bool healOnDamage = false;               // HealOnDamage 버프 상태
+    public float LifeSteal = 0.0f;                  // 흡혈 버프 상태
+    public float reflectDamage = 0.0f;              // 반사 버프 상태
+
+    // 디버프 관련 변수
     public int stunDuration = 0;                    // 스턴 지속 시간 (디버프용)
     public bool isStunned = false;                  // 플레이어가 스턴 상태인지 여부
+    public bool isConfuse = false;                  // 플레이어가 혼란 상태인지 여부
+
+    private Animator animator;                      // 애니메이션 동작용
+    private Transform playerTransform;              // 애니메이션 크기 맞추는 용
 
     void Start()
     {
@@ -178,10 +183,20 @@ public class PlayerState : MonoBehaviour
             case EffectType.AreaEffect:
                 isAreaEffect = true;
                 break;
-            case EffectType.SkipTurn:
-                isStunned = stunDuration > 0;
+            case EffectType.LifeSteal:
+                LifeSteal += effectValue;
                 break;
-            // 다른 버프/디버프 처리 로직 추가
+            case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요, 테스트 안함.
+                reflectDamage += effectValue;
+                break;
+            case EffectType.ReduceCost:         // 좀 더 고민해야 됨.
+                break;
+            case EffectType.SkipTurn:
+                isStunned = true;
+                break;
+            case EffectType.Confuse:
+                isConfuse = true;
+                break;
         }
     }
 
@@ -195,10 +210,20 @@ public class PlayerState : MonoBehaviour
             case EffectType.AreaEffect:
                 isAreaEffect = false;
                 break;
+            case EffectType.LifeSteal:
+                LifeSteal -= effectValue;
+                break;
+            case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요, 테스트 안함.
+                reflectDamage -= effectValue;
+                break;
+            case EffectType.ReduceCost:         // 좀 더 고민해야 됨.
+                break;
             case EffectType.SkipTurn:
                 isStunned = false;
                 break;
-            // 다른 버프/디버프 처리 로직 추가
+            case EffectType.Confuse:
+                isConfuse = false;
+                break;
         }
     }
 

@@ -33,6 +33,7 @@ public class CardActionDrawer : PropertyDrawer
             actionType.enumValueIndex == (int)CardActionType.StunCheckDamage || 
             actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage ||
             actionType.enumValueIndex == (int)CardActionType.MultiHit ||
+            actionType.enumValueIndex == (int)CardActionType.AreaDamage ||
             actionType.enumValueIndex == (int)CardActionType.IncrementalDamage ||
             actionType.enumValueIndex == (int)CardActionType.RandomTargetDamageWithBonus)
         {
@@ -62,6 +63,7 @@ public class CardActionDrawer : PropertyDrawer
             actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage  ||
             actionType.enumValueIndex == (int)CardActionType.killEffect ||
             actionType.enumValueIndex == (int)CardActionType.MultiHit ||
+            actionType.enumValueIndex == (int)CardActionType.AreaDamage ||
             actionType.enumValueIndex == (int)CardActionType.IncrementalDamage)
         {
             return EditorGUIUtility.singleLineHeight * 3 + 6;
@@ -73,5 +75,65 @@ public class CardActionDrawer : PropertyDrawer
         }
 
         return EditorGUIUtility.singleLineHeight * 2 + 4;
+    }
+}
+
+[CustomPropertyDrawer(typeof(BuffDebuff))]
+public class BuffDebuffDrawer : PropertyDrawer
+{
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        EditorGUI.BeginProperty(position, label, property);
+
+        var effectType = property.FindPropertyRelative("effectType");
+        var isAreaEffect = property.FindPropertyRelative("isAreaEffect");
+        var duration = property.FindPropertyRelative("duration");
+        var effectValue = property.FindPropertyRelative("effectValue");
+        var intValue = property.FindPropertyRelative("intValue");
+
+        Rect effectTypeRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+        Rect isAreaEffectRect = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight + 2, position.width, EditorGUIUtility.singleLineHeight);
+        Rect durationRect = new Rect(position.x, position.y + (EditorGUIUtility.singleLineHeight + 2) * 2, position.width, EditorGUIUtility.singleLineHeight);
+        Rect effectValueRect = new Rect(position.x, position.y + (EditorGUIUtility.singleLineHeight + 2) * 3, position.width, EditorGUIUtility.singleLineHeight);
+        Rect intValueRect = new Rect(position.x, position.y + (EditorGUIUtility.singleLineHeight + 2) * 3, position.width, EditorGUIUtility.singleLineHeight);
+
+        EditorGUI.PropertyField(effectTypeRect, effectType);
+        EditorGUI.PropertyField(isAreaEffectRect, isAreaEffect);
+        EditorGUI.PropertyField(durationRect, duration);
+
+        if (effectType.enumValueIndex == (int)EffectType.IncreaseDamage || 
+            effectType.enumValueIndex == (int)EffectType.LifeSteal || 
+            effectType.enumValueIndex == (int)EffectType.ReflectDamage)
+        {
+            EditorGUI.PropertyField(effectValueRect, effectValue);
+        }
+
+        if (effectType.enumValueIndex == (int)EffectType.ReduceCost)
+        {
+            EditorGUI.PropertyField(intValueRect, intValue);
+        }
+
+        EditorGUI.EndProperty();
+    }
+
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        var effectType = property.FindPropertyRelative("effectType");
+
+        int lineCount = 3; // 기본적으로 effectType, isAreaEffect, duration 포함
+
+        if (effectType.enumValueIndex == (int)EffectType.IncreaseDamage || 
+            effectType.enumValueIndex == (int)EffectType.LifeSteal || 
+            effectType.enumValueIndex == (int)EffectType.ReflectDamage)
+        {
+            lineCount++;
+        }
+
+        if (effectType.enumValueIndex == (int)EffectType.ReduceCost)
+        {
+            lineCount++;
+        }
+
+        return EditorGUIUtility.singleLineHeight * lineCount + (2 * (lineCount - 1));
     }
 }

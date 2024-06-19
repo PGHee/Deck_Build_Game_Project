@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BuffDebuffManager : MonoBehaviour
 {
-    private Dictionary<GameObject, List<(EffectType, int, float, int)>> entityBuffs = new Dictionary<GameObject, List<(EffectType, int, float, int)>>();
+    public Dictionary<GameObject, List<(EffectType, int, float, int)>> entityBuffs = new Dictionary<GameObject, List<(EffectType, int, float, int)>>();
+    public Dictionary<GameObject, List<(EffectType, int, float, int)>> entityDebuffs = new Dictionary<GameObject, List<(EffectType, int, float, int)>>();
 
     public void ApplyBuff(GameObject entity, EffectType effectType, int duration, float effectValue, int intValue)
     {
@@ -29,7 +30,46 @@ public class BuffDebuffManager : MonoBehaviour
         }
     }
 
+    public void ApplyDebuff(GameObject entity, EffectType effectType, int duration, float effectValue, int intValue)
+    {
+        if (!entityDebuffs.ContainsKey(entity))
+        {
+            entityDebuffs[entity] = new List<(EffectType, int, float, int)>();
+        }
+        entityDebuffs[entity].Add((effectType, duration, effectValue, intValue));
+
+        // 디버프 효과를 즉시 적용
+        PlayerState playerState = entity.GetComponent<PlayerState>();
+        if (playerState != null)
+        {
+            playerState.ApplyBuffDebuff(effectType, duration, effectValue, intValue);
+            return;
+        }
+
+        MonsterState monsterState = entity.GetComponent<MonsterState>();
+        if (monsterState != null)
+        {
+            monsterState.ApplyBuffDebuff(effectType, duration, effectValue, intValue);
+        }
+    }
+
     private void RemoveBuff(GameObject entity, EffectType effectType, float effectValue, int intValue)
+    {
+        PlayerState playerState = entity.GetComponent<PlayerState>();
+        if (playerState != null)
+        {
+            playerState.RemoveBuffDebuff(effectType, 0, effectValue, intValue);
+            return;
+        }
+
+        MonsterState monsterState = entity.GetComponent<MonsterState>();
+        if (monsterState != null)
+        {
+            monsterState.RemoveBuffDebuff(effectType, 0, effectValue, intValue);
+        }
+    }
+
+    private void RemoveDebuff(GameObject entity, EffectType effectType, float effectValue, int intValue)
     {
         PlayerState playerState = entity.GetComponent<PlayerState>();
         if (playerState != null)
@@ -66,19 +106,32 @@ public class BuffDebuffManager : MonoBehaviour
         }
     }
 
+    public void UpdateDebuffs()
+    {
+        foreach (var entity in entityDebuffs.Keys)
+        {
+            for (int i = entityDebuffs[entity].Count - 1; i >= 0; i--)
+            {
+                var debuff = entityDebuffs[entity][i];
+                debuff.Item2--; // duration 감소
+                if (debuff.Item2 <= 0)
+                {
+                    RemoveDebuff(entity, debuff.Item1, debuff.Item3, debuff.Item4);     // 디버프가 만료되면 효과 제거
+                    entityDebuffs[entity].RemoveAt(i);
+                }
+                else
+                {
+                    entityDebuffs[entity][i] = debuff;
+                }
+            }
+        }
+    }
+
+
+    // 버프
     public void ApplyIncreaseDamageBuff(GameObject entity, int duration, float effectValue)
     {
         ApplyBuff(entity, EffectType.IncreaseDamage, duration, effectValue, 0);
-    }
-
-    public void ApplySkipTurnBuff(GameObject entity, int duration)
-    {
-        ApplyBuff(entity, EffectType.SkipTurn, duration, 0f, 0);
-    }
-
-    public void ApplyRandomActionBuff(GameObject entity, int duration)
-    {
-        ApplyBuff(entity, EffectType.RandomAction, duration, 0f, 0);
     }
 
     public void ApplyAreaEffectBuff(GameObject entity, int duration, float effectValue)
@@ -86,14 +139,9 @@ public class BuffDebuffManager : MonoBehaviour
         ApplyBuff(entity, EffectType.AreaEffect, duration, 0f, 0);
     }
 
-    public void ApplyConfuseBuff(GameObject entity, int duration)
+    public void ApplyLifeStealBuff(GameObject entity, int duration, float effectValue)
     {
-        ApplyBuff(entity, EffectType.Confuse, duration, 0f, 0);
-    }
-
-    public void ApplyHealOnDamageBuff(GameObject entity, int duration, float effectValue)
-    {
-        ApplyBuff(entity, EffectType.HealOnDamage, duration, effectValue, 0);
+        ApplyBuff(entity, EffectType.LifeSteal, duration, effectValue, 0);
     }
 
     public void ApplyReflectDamageBuff(GameObject entity, int duration, float effectValue)
@@ -104,5 +152,22 @@ public class BuffDebuffManager : MonoBehaviour
     public void ApplyReduceCostBuff(GameObject entity, int duration, int intValue)
     {
         ApplyBuff(entity, EffectType.ReduceCost, duration, 0f, intValue);
+    }
+
+
+    // 디버프
+    public void ApplySkipTurnDebuff(GameObject entity, int duration)
+    {
+        ApplyDebuff(entity, EffectType.SkipTurn, duration, 0f, 0);
+    }
+
+    public void ApplyRandomActionDebuff(GameObject entity, int duration)
+    {
+        ApplyDebuff(entity, EffectType.RandomAction, duration, 0f, 0);
+    }
+
+    public void ApplyConfuseDebuff(GameObject entity, int duration)
+    {
+        ApplyDebuff(entity, EffectType.Confuse, duration, 0f, 0);
     }
 }

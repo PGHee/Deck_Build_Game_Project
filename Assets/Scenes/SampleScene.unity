@@ -400,18 +400,19 @@ MonoBehaviour:
   resource: 0
   currentResource: 0
   shield: 0
-  damageMultiplier: 1
   fireDamageMultiplier: 1
   windHitBonus: 0
   woodPoisonBonus: 0
   lightningStunChance: 0
   waterRegen: 0
   earthDefense: 0
-  activeBuffsAndDebuffs: []
+  damageMultiplier: 1
   isAreaEffect: 0
-  healOnDamage: 0
+  LifeSteal: 0
+  reflectDamage: 0
   stunDuration: 0
   isStunned: 0
+  isConfuse: 0
 --- !u!212 &655176851
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -723,12 +724,7 @@ MonoBehaviour:
   attributeType: 0
   cost: 1
   actions: []
-  buffsAndDebuffs:
-  - effectType: 0
-    isAreaEffect: 0
-    duration: 2
-    effectValue: 0.5
-    intValue: 0
+  buffsAndDebuffs: []
 --- !u!212 &1516819416
 SpriteRenderer:
   m_ObjectHideFlags: 0
