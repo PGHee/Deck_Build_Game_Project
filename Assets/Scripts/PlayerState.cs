@@ -29,6 +29,7 @@ public class PlayerState : MonoBehaviour
     public float damageMultiplier = 1.0f;           // 데미지 배율
     public bool isAreaEffect = false;               // 광역 공격 버프 상태
     public float LifeSteal = 0.0f;                  // 흡혈 버프 상태
+    public float reduceDamage = 0.0f;               // 데미지 감소 버프 상태
     public float reflectDamage = 0.0f;              // 반사 버프 상태
 
     // 디버프 관련 변수
@@ -186,6 +187,9 @@ public class PlayerState : MonoBehaviour
             case EffectType.LifeSteal:
                 LifeSteal += effectValue;
                 break;
+            case EffectType.ReduceDamage:
+                reduceDamage += effectValue;
+                break;
             case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요, 테스트 안함.
                 reflectDamage += effectValue;
                 break;
@@ -212,6 +216,9 @@ public class PlayerState : MonoBehaviour
                 break;
             case EffectType.LifeSteal:
                 LifeSteal -= effectValue;
+                break;
+            case EffectType.ReduceDamage:
+                reduceDamage -= effectValue;
                 break;
             case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요, 테스트 안함.
                 reflectDamage -= effectValue;

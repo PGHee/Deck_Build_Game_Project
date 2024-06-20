@@ -409,6 +409,7 @@ MonoBehaviour:
   damageMultiplier: 1
   isAreaEffect: 0
   LifeSteal: 0
+  reduceDamage: 0
   reflectDamage: 0
   stunDuration: 0
   isStunned: 0
@@ -723,7 +724,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributeType: 0
   cost: 1
-  actions: []
+  actions:
+  - actionType: 6
+    value: 0
+    secondaryValue: 0
+    killEffectType: 0
+    thirdValue: 0
   buffsAndDebuffs: []
 --- !u!212 &1516819416
 SpriteRenderer:

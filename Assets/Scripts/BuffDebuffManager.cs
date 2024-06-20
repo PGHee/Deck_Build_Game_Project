@@ -134,7 +134,7 @@ public class BuffDebuffManager : MonoBehaviour
         ApplyBuff(entity, EffectType.IncreaseDamage, duration, effectValue, 0);
     }
 
-    public void ApplyAreaEffectBuff(GameObject entity, int duration, float effectValue)
+    public void ApplyAreaEffectBuff(GameObject entity, int duration)
     {
         ApplyBuff(entity, EffectType.AreaEffect, duration, 0f, 0);
     }
@@ -142,6 +142,11 @@ public class BuffDebuffManager : MonoBehaviour
     public void ApplyLifeStealBuff(GameObject entity, int duration, float effectValue)
     {
         ApplyBuff(entity, EffectType.LifeSteal, duration, effectValue, 0);
+    }
+
+    public void ApplyReduceDamageBuff(GameObject entity, int duration, float effectValue)
+    {
+        ApplyBuff(entity, EffectType.ReduceDamage, duration, effectValue, 0);
     }
 
     public void ApplyReflectDamageBuff(GameObject entity, int duration, float effectValue)

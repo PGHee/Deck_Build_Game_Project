@@ -7,14 +7,15 @@ public enum CardActionType
 {
     Damage, MultiHit, AreaDamage, Poison, AreaPoison, 
     RandomTargetDamage, RandomTargetDamageWithBonus, IncrementalDamage,
-    StunCheckDamage, PoisonCheckDamage, killEffect,
+    ShieldAttack, StunCheckDamage, PoisonCheckDamage, killEffect,
     Heal, OverhealToDamage, Shield, RestoreResource
 }
 
 public enum EffectType
 {
     IncreaseDamage, AreaEffect,
-    LifeSteal, ReflectDamage, ReduceCost,
+    LifeSteal, ReduceDamage,
+    ReflectDamage, ReduceCost,
     SkipTurn, Confuse, RandomAction
 }
 
@@ -167,6 +168,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                 case CardActionType.RandomTargetDamageWithBonus:
                 case CardActionType.IncrementalDamage:
                 case CardActionType.OverhealToDamage:
+                case CardActionType.ShieldAttack:
                 case CardActionType.StunCheckDamage:
                 case CardActionType.PoisonCheckDamage:
                     if (monsterTarget != null)
@@ -203,6 +205,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                 case EffectType.IncreaseDamage:
                 case EffectType.AreaEffect:
                 case EffectType.LifeSteal:
+                case EffectType.ReduceDamage:
                 case EffectType.ReflectDamage:
                 case EffectType.ReduceCost:
                     if (playerTarget != null)
@@ -283,6 +286,10 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                         }
                     }
                     break;
+            case CardActionType.ShieldAttack:
+                if(player.isAreaEffect) cardActions.DealAreaDamage(monsters.Select(m => m.gameObject).ToList(), player.shield, 1, attributeType);
+                else cardActions.DealMultipleHits(target.gameObject, player.shield, 1, null, attributeType);
+                break;
             case CardActionType.StunCheckDamage:
                 if(player.isAreaEffect)
                 {
@@ -340,10 +347,13 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                 buffDebuffManager.ApplyIncreaseDamageBuff(target.gameObject, buffDebuff.duration, buffDebuff.effectValue);
                 break;
             case EffectType.AreaEffect:
-                buffDebuffManager.ApplyAreaEffectBuff(target.gameObject, buffDebuff.duration, buffDebuff.effectValue);
+                buffDebuffManager.ApplyAreaEffectBuff(target.gameObject, buffDebuff.duration);
                 break;
             case EffectType.LifeSteal:
                 buffDebuffManager.ApplyLifeStealBuff(target.gameObject, buffDebuff.duration, buffDebuff.effectValue);
+                break;
+            case EffectType.ReduceDamage:
+                buffDebuffManager.ApplyReduceDamageBuff(target.gameObject, buffDebuff.duration, buffDebuff.effectValue);
                 break;
             case EffectType.ReflectDamage:
                 buffDebuffManager.ApplyReflectDamageBuff(target.gameObject, buffDebuff.duration, buffDebuff.effectValue);
@@ -397,6 +407,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                action.actionType == CardActionType.RandomTargetDamageWithBonus ||
                action.actionType == CardActionType.IncrementalDamage ||
                action.actionType == CardActionType.OverhealToDamage ||
+               action.actionType == CardActionType.ShieldAttack ||
                action.actionType == CardActionType.StunCheckDamage ||
                action.actionType == CardActionType.PoisonCheckDamage;
     }
@@ -420,6 +431,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
         return effect.effectType == EffectType.IncreaseDamage ||
                effect.effectType == EffectType.AreaEffect ||
                effect.effectType == EffectType.LifeSteal ||
+               effect.effectType == EffectType.ReduceDamage ||
                effect.effectType == EffectType.ReflectDamage ||
                effect.effectType == EffectType.ReduceCost;
     }

@@ -24,7 +24,12 @@ public class CardActionDrawer : PropertyDrawer
 
         EditorGUI.PropertyField(actionTypeRect, actionType);
 
-        if (actionType.enumValueIndex != (int)CardActionType.killEffect)
+        if (actionType.enumValueIndex == (int)CardActionType.killEffect || 
+            actionType.enumValueIndex == (int)CardActionType.ShieldAttack)
+        {
+            
+        }
+        else
         {
             EditorGUI.PropertyField(valueRect, value);
         }
@@ -57,6 +62,10 @@ public class CardActionDrawer : PropertyDrawer
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) // 행동 방식 별 inspector창이 표현될 크기
     {
         var actionType = property.FindPropertyRelative("actionType");
+        if (actionType.enumValueIndex == (int)CardActionType.ShieldAttack)
+        {
+            return EditorGUIUtility.singleLineHeight;
+        }
 
         if (actionType.enumValueIndex == (int)CardActionType.RandomTargetDamage || 
             actionType.enumValueIndex == (int)CardActionType.StunCheckDamage || 
@@ -103,6 +112,7 @@ public class BuffDebuffDrawer : PropertyDrawer
 
         if (effectType.enumValueIndex == (int)EffectType.IncreaseDamage || 
             effectType.enumValueIndex == (int)EffectType.LifeSteal || 
+            effectType.enumValueIndex == (int)EffectType.ReduceDamage ||
             effectType.enumValueIndex == (int)EffectType.ReflectDamage)
         {
             EditorGUI.PropertyField(effectValueRect, effectValue);
@@ -124,6 +134,7 @@ public class BuffDebuffDrawer : PropertyDrawer
 
         if (effectType.enumValueIndex == (int)EffectType.IncreaseDamage || 
             effectType.enumValueIndex == (int)EffectType.LifeSteal || 
+            effectType.enumValueIndex == (int)EffectType.ReduceDamage ||
             effectType.enumValueIndex == (int)EffectType.ReflectDamage)
         {
             lineCount++;

@@ -40,6 +40,7 @@ public class CardActions : MonoBehaviour
         MonsterState monsterState = target.GetComponent<MonsterState>();
         if (monsterState != null)
         {
+            if(monsterState.reduceDamage > 0) damage = Mathf.RoundToInt(damage * (1-monsterState.reduceDamage));
             monsterState.TakeDamage(damage);
             Debug.Log($"{target.name} took {damage} damage. Current health: {monsterState.currentHealth}");
             if(player.LifeSteal > 0) player.Heal(Mathf.RoundToInt(damage * player.LifeSteal));
@@ -152,6 +153,7 @@ public class CardActions : MonoBehaviour
         }
     }
 
+    // 반사 데미지
     public void ReflectDamage(GameObject target, int damage)
     {
         MonsterState monsterState = target.GetComponent<MonsterState>();

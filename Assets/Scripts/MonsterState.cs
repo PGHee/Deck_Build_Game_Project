@@ -19,7 +19,8 @@ public class MonsterState : MonoBehaviour
     public bool IsPoisoned => poisonStacks > 0;         // IsPoisoned 프로퍼티 추가
 
     public List<BuffDebuff> activeBuffsAndDebuffs = new List<BuffDebuff>();
-    private float LifeSteal = 0.0f;                     // HealOnDamage 버프 상태
+    public float LifeSteal = 0.0f;                      // 흡혈 버프 상태
+    public float reduceDamage = 0.0f;                   // 데미지 감소 버프 상태
 
     void Start()
     {
@@ -78,6 +79,9 @@ public class MonsterState : MonoBehaviour
             case EffectType.LifeSteal:          // 몬스터 행동 구현 필요, 테스트 안해봄
                 LifeSteal += effectValue;
                 break;
+            case EffectType.ReduceDamage:
+                reduceDamage += effectValue;
+                break;
             case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요
                 reflectDamage += effectValue;
                 break;
@@ -101,6 +105,9 @@ public class MonsterState : MonoBehaviour
                 break;
             case EffectType.LifeSteal:          // 몬스터 행동 구현 필요, 테스트 안해봄
                 LifeSteal -= effectValue;
+                break;
+            case EffectType.ReduceDamage:
+                reduceDamage -= effectValue;
                 break;
             case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요
                 reflectDamage -= effectValue;
