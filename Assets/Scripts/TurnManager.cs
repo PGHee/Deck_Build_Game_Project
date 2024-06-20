@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager instance;
+    public BuffDebuffManager buffDebuffManager;
     private PlayerState player;
     private List<MonsterState> monsters;
     private bool isPlayerTurn;
@@ -27,6 +29,7 @@ public class TurnManager : MonoBehaviour
     {
         player = FindObjectOfType<PlayerState>();
         monsters = new List<MonsterState>(FindObjectsOfType<MonsterState>());
+        buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         StartPlayerTurn();
     }
 
@@ -38,13 +41,17 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    void StartPlayerTurn()
+    public void StartPlayerTurn()
     {
         isPlayerTurn = true;
         player.RestoreResource(player.resource);
-        player.ApplyTurnBasedPassives();            // 패시브 효과 적용
-        // 플레이어에게 존재하는 버프와 디버프 효과 적용 및 소모 (추후 추가)
-        Debug.Log("Player's turn started.");        // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
+        player.ApplyTurnBasedPassives();        // 패시브 효과 적용
+
+        // 플레이어에게 존재하는 버프와 디버프 효과 적용 및 소모
+        buffDebuffManager.UpdateBuffs();        // 버프 업데이트
+        buffDebuffManager.UpdateDebuffs();      // 디버프 업데이트
+
+        Debug.Log("Player's turn started.");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
     }
 
     public void EndPlayerTurn()
@@ -65,7 +72,8 @@ public class TurnManager : MonoBehaviour
             if (monster != null && monster.gameObject.activeInHierarchy)
             {
                 monster.ApplyPoisonDamage();            // 독 데미지와 스택 감소 적용
-                if (monster.IsStunned)
+                if (buffDebuffManager.entityDebuffs[monster.gameObject].Any(debuff => debuff.Item1 == EffectType.SkipTurn)) continue;
+                else if (monster.IsStunned)
                 {
                     monster.HandleStun();               // 스턴 상태 처리
                     continue;                           // 스턴 상태라면 행동을 스킵

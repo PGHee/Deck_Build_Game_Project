@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
+    // 플레이어 기본 정보
     public int maxHealth = 100;
     public int currentHealth;
     public int level = 3;
@@ -24,9 +25,20 @@ public class PlayerState : MonoBehaviour
     public Dictionary<AttributeType, int> attributeMastery;
     public Dictionary<AttributeType, int> attributeExperience;
 
+    // 버프 관련 변수
+    public float damageMultiplier = 1.0f;           // 데미지 배율
+    public bool isAreaEffect = false;               // 광역 공격 버프 상태
+    public float LifeSteal = 0.0f;                  // 흡혈 버프 상태
+    public float reduceDamage = 0.0f;               // 데미지 감소 버프 상태
+    public float reflectDamage = 0.0f;              // 반사 버프 상태
+
+    // 디버프 관련 변수
+    public int stunDuration = 0;                    // 스턴 지속 시간 (디버프용)
+    public bool isStunned = false;                  // 플레이어가 스턴 상태인지 여부
+    public bool isConfuse = false;                  // 플레이어가 혼란 상태인지 여부
+
     private Animator animator;                      // 애니메이션 동작용
     private Transform playerTransform;              // 애니메이션 크기 맞추는 용
-    private PassiveEffects passiveEffects;
 
     void Start()
     {
@@ -37,7 +49,6 @@ public class PlayerState : MonoBehaviour
 
         animator = GetComponent<Animator>();            // 애니메이션 동작용
         playerTransform = GetComponent<Transform>();    // 애니메이션 크기 맞추는 용
-        passiveEffects = new PassiveEffects(this);
     }
 
     void InitializeAttributes()
@@ -91,7 +102,7 @@ public class PlayerState : MonoBehaviour
     void AttributeLevelUp(AttributeType attribute)
     {
         attributeMastery[attribute]++;
-        passiveEffects.ApplyAttributePassiveEffect(attribute, attributeMastery[attribute]);
+        ApplyAttributePassiveEffect(attribute, attributeMastery[attribute]);
         Debug.Log($"Attribute Level Up! {attribute} Mastery: {attributeMastery[attribute]}");
     }
 
@@ -147,6 +158,7 @@ public class PlayerState : MonoBehaviour
         }
         Debug.Log($"Player took {damage} damage. Current health: {currentHealth}, Current shield: {shield}");
     }
+
     // 매 턴마다 적용되는 패시브 효과
     public void ApplyTurnBasedPassives()
     {
@@ -160,11 +172,103 @@ public class PlayerState : MonoBehaviour
             ApplyShield(earthDefense);
         }
     }
+
+    // 버프와 디버프를 적용하는 메서드 추가
+    public void ApplyBuffDebuff(EffectType effectType, int duration, float effectValue, int intValue)
+    {
+        switch (effectType)
+        {
+            case EffectType.IncreaseDamage:
+                damageMultiplier += effectValue;
+                break;
+            case EffectType.AreaEffect:
+                isAreaEffect = true;
+                break;
+            case EffectType.LifeSteal:
+                LifeSteal += effectValue;
+                break;
+            case EffectType.ReduceDamage:
+                reduceDamage += effectValue;
+                break;
+            case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요, 테스트 안함.
+                reflectDamage += effectValue;
+                break;
+            case EffectType.ReduceCost:         // 좀 더 고민해야 됨.
+                break;
+            case EffectType.SkipTurn:
+                isStunned = true;
+                break;
+            case EffectType.Confuse:
+                isConfuse = true;
+                break;
+        }
+    }
+
+    public void RemoveBuffDebuff(EffectType effectType, int duration, float effectValue, int intValue)
+    {
+        switch (effectType)
+        {
+            case EffectType.IncreaseDamage:
+                damageMultiplier -= effectValue;
+                break;
+            case EffectType.AreaEffect:
+                isAreaEffect = false;
+                break;
+            case EffectType.LifeSteal:
+                LifeSteal -= effectValue;
+                break;
+            case EffectType.ReduceDamage:
+                reduceDamage -= effectValue;
+                break;
+            case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요, 테스트 안함.
+                reflectDamage -= effectValue;
+                break;
+            case EffectType.ReduceCost:         // 좀 더 고민해야 됨.
+                break;
+            case EffectType.SkipTurn:
+                isStunned = false;
+                break;
+            case EffectType.Confuse:
+                isConfuse = false;
+                break;
+        }
+    }
+
+    public void ApplyStun()                             // 스턴 적용 메서드
+    {
+        isStunned = true;
+    }
+
+    public void ApplyAttributePassiveEffect(AttributeType attribute, int level)
+    {
+        switch (attribute)
+        {
+            case AttributeType.Fire:
+                fireDamageMultiplier = (level >= 6) ? 1.5f : (level >= 3) ? 1.25f : fireDamageMultiplier;
+                break;
+            case AttributeType.Wind:
+                windHitBonus = (level >= 6) ? 2 : (level >= 3) ? 1 : windHitBonus;
+                break;
+            case AttributeType.Wood:
+                woodPoisonBonus = (level >= 6) ? 3 : (level >= 3) ? 1 : woodPoisonBonus;
+                break;
+            case AttributeType.Water:
+                waterRegen = (level >= 6) ? 14 : (level >= 3) ? 4 : waterRegen;
+                break;
+            case AttributeType.Earth:
+                earthDefense = (level >= 6) ? 14 : (level >= 3) ? 4 : earthDefense;
+                break;
+            case AttributeType.Lightning:
+                lightningStunChance = (level >= 6) ? 0.30f : (level >= 3) ? 0.15f : lightningStunChance;
+                break;
+        }
+    }
+
     public void AttackMotion()
     {
         animator.SetTrigger("AttackTrigger");
     }
-    public void AdjustScale(float newScale)           // 애니메이션 동작 시 스케일 조절용
+    public void AdjustScale(float newScale)             // 애니메이션 동작 시 스케일 조절용
     {
         playerTransform.localScale = new Vector2(newScale, newScale);
     }
