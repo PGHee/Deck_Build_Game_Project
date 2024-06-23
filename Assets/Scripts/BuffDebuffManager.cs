@@ -227,10 +227,8 @@ public class BuffDebuffManager : MonoBehaviour
             case PlayerState.AttributeType.Wood:        // 구현 완
             case PlayerState.AttributeType.Lightning:   // 구현 완
             case PlayerState.AttributeType.Wind:        // 구현 완
-                break;
-            case PlayerState.AttributeType.Light:       // 빛 속성 코스트 2 감소
-                break;
-            case PlayerState.AttributeType.Dark:        // 어둠 속성 코스트 2 감소
+            case PlayerState.AttributeType.Light:       // 구현 완
+            case PlayerState.AttributeType.Dark:        // 구현 완
                 break;
             case PlayerState.AttributeType.Void:        // 매 턴 3장 추가 드로우
                 break;
@@ -255,9 +253,7 @@ public class BuffDebuffManager : MonoBehaviour
             case PlayerState.AttributeType.Wood:
             case PlayerState.AttributeType.Lightning:
             case PlayerState.AttributeType.Wind:
-                break;
             case PlayerState.AttributeType.Light:
-                break;
             case PlayerState.AttributeType.Dark:
                 break;
             case PlayerState.AttributeType.Void:
