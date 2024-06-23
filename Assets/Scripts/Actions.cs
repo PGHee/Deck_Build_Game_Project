@@ -2,16 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class CardActions : MonoBehaviour
+public class Actions : MonoBehaviour
 {
     private PlayerState player;
+    private BuffDebuffManager buffDebuff;
 
     void Start()
     {
         player = FindObjectOfType<PlayerState>();
+        buffDebuff = FindObjectOfType<BuffDebuffManager>();
     }
 
-    void ApplyPassiveEffects(PlayerState.AttributeType attributeType, ref int damage, ref int hits)
+    void ApplyPassiveEffects(PlayerState.AttributeType? attributeType, ref int damage, ref int hits)
     {
         if (player == null) return;
 
@@ -35,9 +37,11 @@ public class CardActions : MonoBehaviour
     }
 
     // 단일 대상 공격
-    public void DealSingleTargetDamage(GameObject target, int damage, CardAction killEffect = null, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
+    public void DealSingleTargetDamage(GameObject target, int damage, CardAction killEffect = null, PlayerState.AttributeType? attributeType = null)
     {
         MonsterState monsterState = target.GetComponent<MonsterState>();
+        MonsterState attackerState = MonsterState.currentAttacker;
+        if(buffDebuff.currentField == PlayerState.AttributeType.Wind && attributeType == PlayerState.AttributeType.Wind) damage += 1;
         if (monsterState != null)
         {
             if(monsterState.reduceDamage > 0) damage = Mathf.RoundToInt(damage * (1-monsterState.reduceDamage));
@@ -52,12 +56,15 @@ public class CardActions : MonoBehaviour
         PlayerState playerState = target.GetComponent<PlayerState>();
         if (playerState != null)
         {
+            if(playerState.reduceDamage > 0) damage = Mathf.RoundToInt(damage * (1-playerState.reduceDamage));
             playerState.TakeDamage(damage);
+            if(attackerState != null && attackerState.LifeSteal > 0) attackerState.Heal(Mathf.RoundToInt(damage * attackerState.LifeSteal));
+            if(playerState.reflectDamage > 0) ReflectDamage(attackerState.gameObject, Mathf.RoundToInt(damage * playerState.reflectDamage));
         }
     }
 
     // 단일 대상 다중 공격
-    public void DealMultipleHits(GameObject target, int damage, int hits, CardAction killEffect = null, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
+    public void DealMultipleHits(GameObject target, int damage, int hits, CardAction killEffect = null, PlayerState.AttributeType? attributeType = null)
     {
         damage = Mathf.RoundToInt(damage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
@@ -68,7 +75,7 @@ public class CardActions : MonoBehaviour
     }
 
     // 범위 공격
-    public void DealAreaDamage(List<GameObject> targets, int damage, int hits, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
+    public void DealAreaDamage(List<GameObject> targets, int damage, int hits, PlayerState.AttributeType? attributeType = null)
     {
         damage = Mathf.RoundToInt(damage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
@@ -102,7 +109,7 @@ public class CardActions : MonoBehaviour
     }
     
     // 랜덤 대상 공격
-    public void DealRandomTargetDamage(List<GameObject> enemies, int damage, int hits, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
+    public void DealRandomTargetDamage(List<GameObject> enemies, int damage, int hits, PlayerState.AttributeType? attributeType = null)
     {
         if (enemies.Count == 0) return;
         damage = Mathf.RoundToInt(damage * player.damageMultiplier);
@@ -115,7 +122,7 @@ public class CardActions : MonoBehaviour
     }
     
     // 랜덤 대상 공격 + 한 대상을 여러 번 타격 시 추가 공격
-    public void DealRandomTargetDamageWithBonus(List<GameObject> enemies, int damage, int hits, int bonusHitFrequency, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
+    public void DealRandomTargetDamageWithBonus(List<GameObject> enemies, int damage, int hits, int bonusHitFrequency, PlayerState.AttributeType? attributeType = null)
     {
         if (enemies.Count == 0) return;
         damage = Mathf.RoundToInt(damage * player.damageMultiplier);
@@ -143,7 +150,7 @@ public class CardActions : MonoBehaviour
     }
 
     // 타격할수록 데미지가 늘어나는 단일 대상 공격
-    public void DealIncreasingDamage(GameObject target, int baseDamage, int hits, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Fire)
+    public void DealIncreasingDamage(GameObject target, int baseDamage, int hits, PlayerState.AttributeType? attributeType = null)
     {
         baseDamage = Mathf.RoundToInt(baseDamage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref baseDamage, ref hits);
@@ -170,18 +177,26 @@ public class CardActions : MonoBehaviour
     }
 
     // 독 적용
-    public void ApplyPoison(GameObject target, int poisonAmount, PlayerState.AttributeType attributeType = PlayerState.AttributeType.Wood)
+    public void ApplyPoison(GameObject target, int poisonAmount, PlayerState.AttributeType? attributeType = null)
     {
+        if(buffDebuff.currentField == PlayerState.AttributeType.Wood) poisonAmount *= 2;
+
         MonsterState monsterState = target.GetComponent<MonsterState>();
-        if (monsterState != null)
+        if(monsterState != null)
         {
-            if (attributeType == PlayerState.AttributeType.Wood)
+            if(attributeType == PlayerState.AttributeType.Wood)
             {
                 poisonAmount += player.woodPoisonBonus;
                 Debug.Log("Wood attribute passive effect applied: Increased poison amount.");
             }
             monsterState.ApplyPoison(poisonAmount);
             Debug.Log($"{target.name} poisoned with {poisonAmount} amount");
+        }
+
+        PlayerState playerState = target.GetComponent<PlayerState>();
+        if(playerState != null)
+        {
+            playerState.ApplyPoison(poisonAmount);
         }
     }
 

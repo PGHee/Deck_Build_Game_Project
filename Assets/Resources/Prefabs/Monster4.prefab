@@ -101,8 +101,27 @@ MonoBehaviour:
   maxHealth: 60
   currentHealth: 60
   attackPower: 18
+  shield: 0
+  damageMultiplier: 1
+  LifeSteal: 0
+  reduceDamage: 0
+  reflectDamage: 0
   isStunned: 0
+  isConfuse: 0
   poisonStacks: 0
+  actions:
+  - actionType: 15
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0
+    intValue: 0
+  passives: []
+  selectedAction:
+    actionType: 0
+    isRandomTargetBuff: 0
+    duration: 0
+    floatValue: 0
+    intValue: 0
 --- !u!61 &-4004064950452274985
 BoxCollider2D:
   m_ObjectHideFlags: 0
