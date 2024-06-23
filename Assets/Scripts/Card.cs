@@ -77,6 +77,12 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
 
         bool effectApplied = false;
 
+        if((buffDebuffManager.currentField == PlayerState.AttributeType.Light && attributeType == PlayerState.AttributeType.Light) ||
+            (buffDebuffManager.currentField == PlayerState.AttributeType.Dark && attributeType == PlayerState.AttributeType.Dark))
+        {
+            cost = Mathf.Max(cost - 2, 0);
+        }
+
         // 플레이어의 턴인지 확인
         if (!TurnManager.instance.IsPlayerTurn)
         {
