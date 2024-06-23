@@ -6,6 +6,13 @@ public class BuffDebuffManager : MonoBehaviour
 {
     public Dictionary<GameObject, List<(EffectType, int, float, int)>> entityBuffs = new Dictionary<GameObject, List<(EffectType, int, float, int)>>();
     public Dictionary<GameObject, List<(EffectType, int, float, int)>> entityDebuffs = new Dictionary<GameObject, List<(EffectType, int, float, int)>>();
+    public PlayerState.AttributeType? currentField = null;     // 현재 필드 속성을 저장
+    private PlayerState player;
+
+    void Start()
+    {
+        player = FindObjectOfType<PlayerState>();
+    }
 
     public void ApplyBuff(GameObject entity, EffectType effectType, int duration, float effectValue, int intValue)
     {
@@ -159,6 +166,22 @@ public class BuffDebuffManager : MonoBehaviour
         ApplyBuff(entity, EffectType.ReduceCost, duration, 0f, intValue);
     }
 
+    public void ApplyPurification(GameObject entity)
+    {
+        if (entityDebuffs.ContainsKey(entity))
+        {
+            var debuffs = entityDebuffs[entity];
+            
+            // 모든 디버프를 제거
+            foreach (var debuff in debuffs)
+            {
+                RemoveDebuff(entity, debuff.Item1, debuff.Item3, debuff.Item4);
+            }
+
+            // 해당 엔티티의 디버프 리스트 초기화
+            entityDebuffs[entity].Clear();
+        }
+    }
 
     // 디버프
     public void ApplySkipTurnDebuff(GameObject entity, int duration)
@@ -166,13 +189,80 @@ public class BuffDebuffManager : MonoBehaviour
         ApplyDebuff(entity, EffectType.SkipTurn, duration, 0f, 0);
     }
 
-    public void ApplyRandomActionDebuff(GameObject entity, int duration)
+    public void ApplyRandomActionDebuff(GameObject entity)
     {
-        ApplyDebuff(entity, EffectType.RandomAction, duration, 0f, 0);
+        MonsterState monsterState = entity.GetComponent<MonsterState>();
+        monsterState.GetRandomAction();
     }
 
     public void ApplyConfuseDebuff(GameObject entity, int duration)
     {
         ApplyDebuff(entity, EffectType.Confuse, duration, 0f, 0);
+    }
+
+    // 필드 적용
+    public void ApplyField(PlayerState.AttributeType? attributeType = null)
+    {
+        if(currentField != null)
+        {
+            RemoveCurrentField();
+        }
+
+        currentField = attributeType;
+        Debug.Log($"Applied field: {attributeType}");
+        
+        switch(attributeType)
+        {
+            case PlayerState.AttributeType.Fire:
+                player.fireDamageMultiplier += 0.25f;
+                break;
+            case PlayerState.AttributeType.Water:
+                player.waterRegen += 8;
+                break;
+            case PlayerState.AttributeType.Metal:       // 골렘
+                break;
+            case PlayerState.AttributeType.Earth:
+                player.reduceDamage += 0.25f;
+                break;
+            case PlayerState.AttributeType.Wood:        // 구현 완
+            case PlayerState.AttributeType.Lightning:   // 구현 완
+            case PlayerState.AttributeType.Wind:        // 구현 완
+                break;
+            case PlayerState.AttributeType.Light:       // 빛 속성 코스트 2 감소
+                break;
+            case PlayerState.AttributeType.Dark:        // 어둠 속성 코스트 2 감소
+                break;
+            case PlayerState.AttributeType.Void:        // 매 턴 3장 추가 드로우
+                break;
+        }
+    }
+
+    private void RemoveCurrentField()
+    {
+        switch(currentField)
+        {
+            case PlayerState.AttributeType.Fire:
+                player.fireDamageMultiplier -= 0.25f;
+                break;
+            case PlayerState.AttributeType.Water:
+                player.waterRegen -= 8;
+                break;
+            case PlayerState.AttributeType.Metal:
+                break;
+            case PlayerState.AttributeType.Earth:
+                player.reduceDamage -= 0.25f;
+                break;
+            case PlayerState.AttributeType.Wood:
+            case PlayerState.AttributeType.Lightning:
+            case PlayerState.AttributeType.Wind:
+                break;
+            case PlayerState.AttributeType.Light:
+                break;
+            case PlayerState.AttributeType.Dark:
+                break;
+            case PlayerState.AttributeType.Void:
+                break;
+        }
+        currentField = null;
     }
 }

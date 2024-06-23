@@ -33,7 +33,7 @@ public class PlayerState : MonoBehaviour
     public float reflectDamage = 0.0f;              // 반사 버프 상태
 
     // 디버프 관련 변수
-    public int stunDuration = 0;                    // 스턴 지속 시간 (디버프용)
+    public int poisonStacks = 0;                    // 독 스택
     public bool isStunned = false;                  // 플레이어가 스턴 상태인지 여부
     public bool isConfuse = false;                  // 플레이어가 혼란 상태인지 여부
 
@@ -190,7 +190,7 @@ public class PlayerState : MonoBehaviour
             case EffectType.ReduceDamage:
                 reduceDamage += effectValue;
                 break;
-            case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요, 테스트 안함.
+            case EffectType.ReflectDamage:
                 reflectDamage += effectValue;
                 break;
             case EffectType.ReduceCost:         // 좀 더 고민해야 됨.
@@ -220,7 +220,7 @@ public class PlayerState : MonoBehaviour
             case EffectType.ReduceDamage:
                 reduceDamage -= effectValue;
                 break;
-            case EffectType.ReflectDamage:      // 몬스터 행동 구현 필요, 테스트 안함.
+            case EffectType.ReflectDamage:
                 reflectDamage -= effectValue;
                 break;
             case EffectType.ReduceCost:         // 좀 더 고민해야 됨.
@@ -231,6 +231,20 @@ public class PlayerState : MonoBehaviour
             case EffectType.Confuse:
                 isConfuse = false;
                 break;
+        }
+    }
+
+    public void ApplyPoison(int amount)                 // 독을 받을 때 동작
+    {
+        poisonStacks += amount;
+    }
+
+    public void ApplyPoisonDamage()                     // 독 데미지 적용 메서드
+    {
+        if (poisonStacks > 0)
+        {
+            TakeDamage(poisonStacks);
+            poisonStacks--;
         }
     }
 
@@ -267,10 +281,6 @@ public class PlayerState : MonoBehaviour
     public void AttackMotion()
     {
         animator.SetTrigger("AttackTrigger");
-    }
-    public void AdjustScale(float newScale)             // 애니메이션 동작 시 스케일 조절용
-    {
-        playerTransform.localScale = new Vector2(newScale, newScale);
     }
     // 상태이상 및 기타 게임 로직 메서드 추가 필요
 }

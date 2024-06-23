@@ -411,7 +411,7 @@ MonoBehaviour:
   LifeSteal: 0
   reduceDamage: 0
   reflectDamage: 0
-  stunDuration: 0
+  poisonStacks: 0
   isStunned: 0
   isConfuse: 0
 --- !u!212 &655176851
@@ -658,7 +658,7 @@ GameObject:
   - component: {fileID: 1513876647}
   - component: {fileID: 1513876646}
   m_Layer: 0
-  m_Name: CardActions
+  m_Name: Actions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -673,7 +673,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1513876645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58976e72212ecf948afe558eb134100a, type: 3}
+  m_Script: {fileID: 11500000, guid: 75622fe9f72db7e44b37fc0ddce00dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1513876647
@@ -724,13 +724,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributeType: 0
   cost: 1
-  actions:
-  - actionType: 6
-    value: 0
-    secondaryValue: 0
-    killEffectType: 0
-    thirdValue: 0
-  buffsAndDebuffs: []
+  actions: []
+  buffsAndDebuffs:
+  - effectType: 8
+    isAreaEffect: 0
+    duration: 0
+    effectValue: 0
+    intValue: 0
 --- !u!212 &1516819416
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1034,50 +1034,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.12, y: 5.12}
   m_EdgeRadius: 0
---- !u!1 &1925141432
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1925141434}
-  - component: {fileID: 1925141433}
-  m_Layer: 0
-  m_Name: MonsterActions
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1925141433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1925141432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 051214ee58b605546848a04ef42304e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1925141434
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1925141432}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.44211304, y: 0.038186654, z: -9.47361}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1090,7 +1046,6 @@ SceneRoots:
   - {fileID: 1047429658}
   - {fileID: 1771415541}
   - {fileID: 1513876647}
-  - {fileID: 1925141434}
   - {fileID: 1621142062}
   - {fileID: 655176852}
   - {fileID: 1516819417}

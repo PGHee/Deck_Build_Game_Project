@@ -13,10 +13,8 @@ public enum CardActionType
 
 public enum EffectType
 {
-    IncreaseDamage, AreaEffect,
-    LifeSteal, ReduceDamage,
-    ReflectDamage, ReduceCost,
-    SkipTurn, Confuse, RandomAction
+    IncreaseDamage, AreaEffect, LifeSteal, ReduceDamage, ReflectDamage, 
+    ReduceCost, Purification, Field, SkipTurn, Confuse, RandomAction
 }
 
 [System.Serializable]
@@ -48,7 +46,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
     public List<BuffDebuff> buffsAndDebuffs = new List<BuffDebuff>();   // 버프와 디버프 카드의 효과들
 
     private Vector3 startPosition;
-    private CardActions cardActions;
+    private Actions cardActions;
     private PlayerState player;
     private BuffDebuffManager buffDebuffManager;
     private int originalLayer;
@@ -56,7 +54,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
     void Start()
     {
         startPosition = transform.position;
-        cardActions = FindObjectOfType<CardActions>();              // CardActions 스크립트를 가진 오브젝트를 찾음
+        cardActions = FindObjectOfType<Actions>();                  // Actions 스크립트를 가진 오브젝트를 찾음
         player = FindObjectOfType<PlayerState>();                   // PlayerState 스크립트를 가진 오브젝트를 찾음
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();  // BuffDebuffManager 스크립트를 가진 오브젝트를 찾음
         originalLayer = gameObject.layer;                           // 오리지널 레이어 저장. 드래그한 카드가 레이캐스트에 충돌하는 것을 방지하기 위해 필요.
@@ -208,6 +206,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                 case EffectType.ReduceDamage:
                 case EffectType.ReflectDamage:
                 case EffectType.ReduceCost:
+                case EffectType.Purification:
+                case EffectType.Field:
                     if (playerTarget != null)
                     {
                         ApplyToPlayer(playerTarget, buffDebuff);
@@ -361,6 +361,12 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
             case EffectType.ReduceCost:
                 buffDebuffManager.ApplyReduceCostBuff(target.gameObject, buffDebuff.duration, buffDebuff.intValue);
                 break;
+            case EffectType.Purification:
+                buffDebuffManager.ApplyPurification(target.gameObject);
+                break;
+            case EffectType.Field:
+                buffDebuffManager.ApplyField(attributeType);
+                break;
         }
     }
 
@@ -372,7 +378,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                 buffDebuffManager.ApplySkipTurnDebuff(target.gameObject, buffDebuff.duration);
                 break;
             case EffectType.RandomAction:
-                buffDebuffManager.ApplyRandomActionDebuff(target.gameObject, buffDebuff.duration);
+                buffDebuffManager.ApplyRandomActionDebuff(target.gameObject);
                 break;
             case EffectType.Confuse:
                 buffDebuffManager.ApplyConfuseDebuff(target.gameObject, buffDebuff.duration);
@@ -433,6 +439,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                effect.effectType == EffectType.LifeSteal ||
                effect.effectType == EffectType.ReduceDamage ||
                effect.effectType == EffectType.ReflectDamage ||
-               effect.effectType == EffectType.ReduceCost;
+               effect.effectType == EffectType.ReduceCost ||
+               effect.effectType == EffectType.Purification ||
+               effect.effectType == EffectType.Field;
     }
 }

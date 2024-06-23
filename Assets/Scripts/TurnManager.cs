@@ -9,6 +9,7 @@ public class TurnManager : MonoBehaviour
     public BuffDebuffManager buffDebuffManager;
     private PlayerState player;
     private List<MonsterState> monsters;
+    private Actions cardActions;
     private bool isPlayerTurn;
 
     public bool IsPlayerTurn => isPlayerTurn;
@@ -29,7 +30,13 @@ public class TurnManager : MonoBehaviour
     {
         player = FindObjectOfType<PlayerState>();
         monsters = new List<MonsterState>(FindObjectsOfType<MonsterState>());
+        cardActions = FindObjectOfType<Actions>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
+        foreach(var monster in monsters)
+        {
+            monster.GetRandomAction();
+            Debug.Log("세팅 완");
+        }
         StartPlayerTurn();
     }
 
@@ -46,6 +53,7 @@ public class TurnManager : MonoBehaviour
         isPlayerTurn = true;
         player.RestoreResource(player.resource);
         player.ApplyTurnBasedPassives();        // 패시브 효과 적용
+        player.ApplyPoisonDamage();             // 독 데미지 적용
 
         // 플레이어에게 존재하는 버프와 디버프 효과 적용 및 소모
         buffDebuffManager.UpdateBuffs();        // 버프 업데이트
@@ -72,15 +80,21 @@ public class TurnManager : MonoBehaviour
             if (monster != null && monster.gameObject.activeInHierarchy)
             {
                 monster.ApplyPoisonDamage();            // 독 데미지와 스택 감소 적용
-                if (buffDebuffManager.entityDebuffs[monster.gameObject].Any(debuff => debuff.Item1 == EffectType.SkipTurn)) continue;
-                else if (monster.IsStunned)
+                if (buffDebuffManager.entityDebuffs.ContainsKey(monster.gameObject))
                 {
+                    if (buffDebuffManager.entityDebuffs[monster.gameObject].Any(debuff => debuff.Item1 == EffectType.SkipTurn)) continue;
+                }
+                else if (monster.isStunned)
+                {
+                    if(buffDebuffManager.currentField == PlayerState.AttributeType.Lightning) cardActions.DealSingleTargetDamage(monster.gameObject, 20);
                     monster.HandleStun();               // 스턴 상태 처리
                     continue;                           // 스턴 상태라면 행동을 스킵
                 }
                 // 몬스터의 행동 (추후 추가)
                 Debug.Log($"{monster.name} is taking action.");
+                monster.executeAction();
                 yield return new WaitForSeconds(3);     // 각 몬스터의 행동 사이에 딜레이 추가
+                monster.GetRandomAction();
             }
         }
         StartPlayerTurn();
