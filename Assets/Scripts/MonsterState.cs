@@ -124,6 +124,9 @@ public class MonsterState : MonoBehaviour
             case EffectType.ReflectDamage:
                 reflectDamage += effectValue;
                 break;
+            case EffectType.DecreaseDamage:
+                damageMultiplier -= effectValue;
+                break;
             case EffectType.SkipTurn:
                 isStunned = true;
                 break;
@@ -148,6 +151,9 @@ public class MonsterState : MonoBehaviour
                 break;
             case EffectType.ReflectDamage:
                 reflectDamage -= effectValue;
+                break;
+            case EffectType.DecreaseDamage:
+                damageMultiplier += effectValue;
                 break;
             case EffectType.SkipTurn:
                 isStunned = false;
@@ -231,7 +237,7 @@ public class MonsterState : MonoBehaviour
                 }
                 break;
             case ActionType.Poison:
-                monsterActions.ApplyPoison(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier * 0.5f));
+                monsterActions.ApplyPoison(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier * 0.5f), 1);
                 break;
             case ActionType.SelfDestruct:
                 monsterActions.DealSingleTargetDamage(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier * 1.5f));

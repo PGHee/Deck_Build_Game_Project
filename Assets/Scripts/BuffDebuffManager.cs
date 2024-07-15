@@ -184,6 +184,10 @@ public class BuffDebuffManager : MonoBehaviour
     }
 
     // 디버프
+    public void ApplyDecreaseDamageDebuff(GameObject entity, int duration, float effectValue)
+    {
+        ApplyDebuff(entity, EffectType.DecreaseDamage, duration, effectValue, 0);
+    }
     public void ApplySkipTurnDebuff(GameObject entity, int duration)
     {
         ApplyDebuff(entity, EffectType.SkipTurn, duration, 0f, 0);

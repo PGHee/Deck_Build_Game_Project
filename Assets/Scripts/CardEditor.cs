@@ -24,8 +24,11 @@ public class CardActionDrawer : PropertyDrawer
 
         EditorGUI.PropertyField(actionTypeRect, actionType);
 
-        if (actionType.enumValueIndex == (int)CardActionType.killEffect || 
-            actionType.enumValueIndex == (int)CardActionType.ShieldAttack)
+        if (actionType.enumValueIndex == (int)CardActionType.DoublePoison ||
+            actionType.enumValueIndex == (int)CardActionType.PoisonToDamage ||
+            actionType.enumValueIndex == (int)CardActionType.killEffect || 
+            actionType.enumValueIndex == (int)CardActionType.ShieldAttack ||
+            actionType.enumValueIndex == (int)CardActionType.DoubleShield)
         {
             
         }
@@ -62,7 +65,10 @@ public class CardActionDrawer : PropertyDrawer
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) // 행동 방식 별 inspector창이 표현될 크기
     {
         var actionType = property.FindPropertyRelative("actionType");
-        if (actionType.enumValueIndex == (int)CardActionType.ShieldAttack)
+        if (actionType.enumValueIndex == (int)CardActionType.DoublePoison ||
+            actionType.enumValueIndex == (int)CardActionType.PoisonToDamage ||
+            actionType.enumValueIndex == (int)CardActionType.ShieldAttack ||
+            actionType.enumValueIndex == (int)CardActionType.DoubleShield)
         {
             return EditorGUIUtility.singleLineHeight;
         }
@@ -113,7 +119,8 @@ public class BuffDebuffDrawer : PropertyDrawer
         if (effectType.enumValueIndex == (int)EffectType.IncreaseDamage || 
             effectType.enumValueIndex == (int)EffectType.LifeSteal || 
             effectType.enumValueIndex == (int)EffectType.ReduceDamage ||
-            effectType.enumValueIndex == (int)EffectType.ReflectDamage)
+            effectType.enumValueIndex == (int)EffectType.ReflectDamage ||
+            effectType.enumValueIndex == (int)EffectType.DecreaseDamage)
         {
             EditorGUI.PropertyField(effectValueRect, effectValue);
         }
@@ -135,7 +142,8 @@ public class BuffDebuffDrawer : PropertyDrawer
         if (effectType.enumValueIndex == (int)EffectType.IncreaseDamage || 
             effectType.enumValueIndex == (int)EffectType.LifeSteal || 
             effectType.enumValueIndex == (int)EffectType.ReduceDamage ||
-            effectType.enumValueIndex == (int)EffectType.ReflectDamage)
+            effectType.enumValueIndex == (int)EffectType.ReflectDamage ||
+            effectType.enumValueIndex == (int)EffectType.DecreaseDamage)
         {
             lineCount++;
         }

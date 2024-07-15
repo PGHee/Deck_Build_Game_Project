@@ -177,10 +177,8 @@ public class Actions : MonoBehaviour
     }
 
     // 독 적용
-    public void ApplyPoison(GameObject target, int poisonAmount, PlayerState.AttributeType? attributeType = null)
+    public void ApplyPoison(GameObject target, int poisonAmount, int hits, PlayerState.AttributeType? attributeType = null)
     {
-        if(buffDebuff.currentField == PlayerState.AttributeType.Wood) poisonAmount *= 2;
-
         MonsterState monsterState = target.GetComponent<MonsterState>();
         if(monsterState != null)
         {
@@ -189,14 +187,20 @@ public class Actions : MonoBehaviour
                 poisonAmount += player.woodPoisonBonus;
                 Debug.Log("Wood attribute passive effect applied: Increased poison amount.");
             }
-            monsterState.ApplyPoison(poisonAmount);
+            for(int i = 0; i < hits; i++)
+            {
+                monsterState.ApplyPoison(poisonAmount);
+            }
             Debug.Log($"{target.name} poisoned with {poisonAmount} amount");
         }
 
         PlayerState playerState = target.GetComponent<PlayerState>();
         if(playerState != null)
         {
-            playerState.ApplyPoison(poisonAmount);
+            for(int i = 0; i < hits; i++)
+            {
+                playerState.ApplyPoison(poisonAmount);
+            }
         }
     }
 

@@ -35,7 +35,6 @@ public class TurnManager : MonoBehaviour
         foreach(var monster in monsters)
         {
             monster.GetRandomAction();
-            Debug.Log("세팅 완");
         }
         StartPlayerTurn();
     }
@@ -79,6 +78,7 @@ public class TurnManager : MonoBehaviour
         {
             if (monster != null && monster.gameObject.activeInHierarchy)
             {
+                if(buffDebuffManager.currentField == PlayerState.AttributeType.Wood) monster.ApplyPoison(3);
                 monster.ApplyPoisonDamage();            // 독 데미지와 스택 감소 적용
                 if (buffDebuffManager.entityDebuffs.ContainsKey(monster.gameObject))
                 {

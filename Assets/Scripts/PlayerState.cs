@@ -193,7 +193,8 @@ public class PlayerState : MonoBehaviour
             case EffectType.ReflectDamage:
                 reflectDamage += effectValue;
                 break;
-            case EffectType.ReduceCost:         // 좀 더 고민해야 됨.
+            case EffectType.DecreaseDamage:
+                damageMultiplier -= effectValue;
                 break;
             case EffectType.SkipTurn:
                 isStunned = true;
@@ -223,7 +224,8 @@ public class PlayerState : MonoBehaviour
             case EffectType.ReflectDamage:
                 reflectDamage -= effectValue;
                 break;
-            case EffectType.ReduceCost:         // 좀 더 고민해야 됨.
+            case EffectType.DecreaseDamage:
+                damageMultiplier += effectValue;
                 break;
             case EffectType.SkipTurn:
                 isStunned = false;

@@ -2704,7 +2704,7 @@ MonoBehaviour:
   - {fileID: 1457296563}
   - {fileID: 63516851}
   - {fileID: 287024459}
-  monsterPrefabs: []
+  bossPrefabs: []
 --- !u!4 &1457296565
 Transform:
   m_ObjectHideFlags: 0
@@ -2847,13 +2847,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributeType: 0
   cost: 1
-  actions: []
-  buffsAndDebuffs:
-  - effectType: 8
-    isAreaEffect: 0
-    duration: 0
-    effectValue: 0
-    intValue: 0
+  actions:
+  - actionType: 5
+    value: 0
+    secondaryValue: 0
+    killEffectType: 0
+    thirdValue: 0
+  buffsAndDebuffs: []
 --- !u!212 &1516819416
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3144,6 +3144,51 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1557501732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1557501734}
+  - component: {fileID: 1557501733}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1557501733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557501732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f3085f9ee6d3749bc6cfcca88f59e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portalNums: 
+--- !u!4 &1557501734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557501732}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6177115, y: -2.315154, z: -0.063572705}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1565507108
 GameObject:
   m_ObjectHideFlags: 0
@@ -4299,6 +4344,7 @@ SceneRoots:
   - {fileID: 655176852}
   - {fileID: 1516819417}
   - {fileID: 756742570}
+  - {fileID: 1557501734}
   - {fileID: 1975168112}
   - {fileID: 1286724106}
   - {fileID: 967842889}
