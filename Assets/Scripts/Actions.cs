@@ -6,11 +6,15 @@ public class Actions : MonoBehaviour
 {
     private PlayerState player;
     private BuffDebuffManager buffDebuff;
+    private Effect effect;
+    private DamageText damageText;
 
     void Start()
     {
         player = FindObjectOfType<PlayerState>();
         buffDebuff = FindObjectOfType<BuffDebuffManager>();
+        effect = FindObjectOfType<Effect>();
+        damageText = FindObjectOfType<DamageText>();
     }
 
     void ApplyPassiveEffects(PlayerState.AttributeType? attributeType, ref int damage, ref int hits)
@@ -21,17 +25,9 @@ public class Actions : MonoBehaviour
         {
             case PlayerState.AttributeType.Fire:
                 damage = Mathf.RoundToInt(damage * player.fireDamageMultiplier);
-                Debug.Log("Fire attribute passive effect applied: Increased damage.");
                 break;
             case PlayerState.AttributeType.Wind:
                 hits += player.windHitBonus;
-                Debug.Log("Wind attribute passive effect applied: Increased hits.");
-                break;
-            case PlayerState.AttributeType.Wood:
-                // Wood 속성의 패시브 효과는 ApplyPoison 함수에서 직접 처리 (별도 구현 필요 X)
-                break;
-            case PlayerState.AttributeType.Lightning:
-                // Lightning 속성 패시브 효과도 함수에서 직접 처리 (별도 구현 필요 x)
                 break;
         }
     }
@@ -46,16 +42,17 @@ public class Actions : MonoBehaviour
         {
             if(monsterState.reduceDamage > 0) damage = Mathf.RoundToInt(damage * (1-monsterState.reduceDamage));
             monsterState.TakeDamage(damage);
-            Debug.Log($"{target.name} took {damage} damage. Current health: {monsterState.currentHealth}");
             if(player.LifeSteal > 0) player.Heal(Mathf.RoundToInt(damage * player.LifeSteal));
-            if(attributeType == PlayerState.AttributeType.Lightning) TryApplyStun(monsterState);
-            if(monsterState.currentHealth <= 0 && killEffect != null) ApplyKillEffect(killEffect);
+            if(attributeType == PlayerState.AttributeType.Lightning) TryApplyStun(target);
+            if(monsterState.currentHealth <= 0 && killEffect != null) ApplyKillEffect(killEffect, attributeType);
             if(monsterState.reflectDamage > 0) ReflectDamage(player.gameObject, Mathf.RoundToInt(damage * monsterState.reflectDamage));
         }
         
         PlayerState playerState = target.GetComponent<PlayerState>();
         if (playerState != null)
         {
+            effect.ApplyEffect(target, 1, 1, 0.1f);   // 수정 필요
+            damageText.ShowDamage(target, 9, damage, 1, 0.1f);
             if(playerState.reduceDamage > 0) damage = Mathf.RoundToInt(damage * (1-playerState.reduceDamage));
             playerState.TakeDamage(damage);
             if(attackerState != null && attackerState.LifeSteal > 0) attackerState.Heal(Mathf.RoundToInt(damage * attackerState.LifeSteal));
@@ -68,6 +65,8 @@ public class Actions : MonoBehaviour
     {
         damage = Mathf.RoundToInt(damage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
+        effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
+        damageText.ShowDamage(target, (int)attributeType, damage, hits, 0.1f);
         for (int i = 0; i < hits; i++)
         {
             DealSingleTargetDamage(target, damage, killEffect, attributeType);
@@ -79,6 +78,8 @@ public class Actions : MonoBehaviour
     {
         damage = Mathf.RoundToInt(damage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
+        effect.ApplyAreaEffect(targets, (int)attributeType, hits, 0.1f);
+        damageText.ShowAreaDamage(targets, (int)attributeType, damage, hits, 0.1f);
         foreach (var target in targets)
         {
             for (int i = 0; i < hits; i++)
@@ -89,12 +90,12 @@ public class Actions : MonoBehaviour
     }
 
     // 처치 시 추가 행동
-    void ApplyKillEffect(CardAction killEffect)
+    void ApplyKillEffect(CardAction killEffect, PlayerState.AttributeType? attributeType = null)
     {
         switch (killEffect.killEffectType)
         {
             case CardActionType.Damage:
-                DealRandomTargetDamage(FindObjectsOfType<MonsterState>().Where(m => m.currentHealth > 0).Select(m => m.gameObject).ToList(), killEffect.thirdValue, 1);
+                DealRandomTargetDamage(FindObjectsOfType<MonsterState>().Where(m => m.currentHealth > 0).Select(m => m.gameObject).ToList(), killEffect.thirdValue, 1, attributeType);
                 break;
             case CardActionType.Heal:
                 FindObjectOfType<PlayerState>().Heal(killEffect.thirdValue);
@@ -116,8 +117,17 @@ public class Actions : MonoBehaviour
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
         for (int i = 0; i < hits; i++)
         {
+            if (enemies.Count == 0) break;
             int randomIndex = Random.Range(0, enemies.Count);
+            GameObject target = enemies[randomIndex];
+            effect.ApplyEffect(target, (int)attributeType, 1, 0.1f * i);
+            damageText.ShowDamage(target, (int)attributeType, damage, 1, 0.1f * i);
             DealSingleTargetDamage(enemies[randomIndex], damage, null, attributeType);
+
+            if (target.GetComponent<MonsterState>().currentHealth <= 0)
+            {
+                enemies.RemoveAt(randomIndex);
+            }
         }
     }
     
@@ -130,8 +140,13 @@ public class Actions : MonoBehaviour
         Dictionary<GameObject, int> hitCounts = new Dictionary<GameObject, int>();
         for (int i = 0; i < hits; i++)
         {
+            if (enemies.Count == 0) break;
             int randomIndex = Random.Range(0, enemies.Count);
             GameObject target = enemies[randomIndex];
+            
+            // 데미지 적용 및 이펙트 호출
+            effect.ApplyEffect(target, (int)attributeType, 1, 0.1f * i);
+            damageText.ShowDamage(target, (int)attributeType, damage, 1, 0.1f * i);
             DealSingleTargetDamage(target, damage, null, attributeType);
 
             if (hitCounts.ContainsKey(target))
@@ -139,12 +154,20 @@ public class Actions : MonoBehaviour
                 hitCounts[target]++;
                 if (hitCounts[target] % bonusHitFrequency == 0)
                 {
+                    effect.ApplyEffect(target, (int)attributeType, 1, 0.1f * i);
+                    damageText.ShowDamage(target, (int)attributeType, damage, 1, 0.1f * i);
                     DealSingleTargetDamage(target, damage, null, attributeType);
                 }
             }
             else
             {
                 hitCounts[target] = 1;
+            }
+
+            // 체력이 0 이하인 경우 리스트에서 제거
+            if (target.GetComponent<MonsterState>().currentHealth <= 0)
+            {
+                enemies.RemoveAt(randomIndex);
             }
         }
     }
@@ -154,8 +177,10 @@ public class Actions : MonoBehaviour
     {
         baseDamage = Mathf.RoundToInt(baseDamage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref baseDamage, ref hits);
+        effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
         for (int i = 0; i < hits; i++)
         {
+            damageText.ShowDamage(target, (int)attributeType, baseDamage + i, 1, 0.1f * i);
             DealSingleTargetDamage(target, baseDamage + i, null, attributeType);
         }
     }
@@ -165,15 +190,24 @@ public class Actions : MonoBehaviour
     {
         MonsterState monsterState = target.GetComponent<MonsterState>();
         PlayerState playerState = target.GetComponent<PlayerState>();
-        if (monsterState != null) monsterState.TakeDamage(damage);
-        else if (playerState != null) playerState.TakeDamage(damage);
+        if (monsterState != null)
+        {
+            effect.ApplyEffect(target, 1, 1, 0.1f); // 수정 필요
+            damageText.ShowDamage(target, 9, damage, 1, 0.1f);
+            monsterState.TakeDamage(damage);
+        }
+        else if (playerState != null)
+        {
+            effect.ApplyEffect(target, 1, 1 , 0.1f); // 수정 필요
+            damageText.ShowDamage(target, 9, damage, 1, 0.1f);
+            playerState.TakeDamage(damage);
+        }
     }
 
     // 자원 회복
     public void RestoreResource(PlayerState player, int amount)
     {
         player.RestoreResource(amount);
-        Debug.Log($"Player restored {amount} resource. Current resource: {player.currentResource}");
     }
 
     // 독 적용
@@ -182,21 +216,15 @@ public class Actions : MonoBehaviour
         MonsterState monsterState = target.GetComponent<MonsterState>();
         if(monsterState != null)
         {
-            if(attributeType == PlayerState.AttributeType.Wood)
-            {
-                poisonAmount += player.woodPoisonBonus;
-                Debug.Log("Wood attribute passive effect applied: Increased poison amount.");
-            }
-            for(int i = 0; i < hits; i++)
-            {
-                monsterState.ApplyPoison(poisonAmount);
-            }
-            Debug.Log($"{target.name} poisoned with {poisonAmount} amount");
+            if(attributeType == PlayerState.AttributeType.Wood) poisonAmount += player.woodPoisonBonus;
+            effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
+            for(int i = 0; i < hits; i++) monsterState.ApplyPoison(poisonAmount);
         }
 
         PlayerState playerState = target.GetComponent<PlayerState>();
         if(playerState != null)
         {
+            effect.ApplyEffect(target, 1, hits, 0.1f); // 수정 필요
             for(int i = 0; i < hits; i++)
             {
                 playerState.ApplyPoison(poisonAmount);
@@ -205,13 +233,9 @@ public class Actions : MonoBehaviour
     }
 
     // 스턴 적용
-    void TryApplyStun(MonsterState monsterState)
+    void TryApplyStun(GameObject target)
     {
-        if (Random.value < player.lightningStunChance)
-        {
-            monsterState.ApplyStun();
-            Debug.Log($"{monsterState.name} is stunned.");
-        }
+        if (Random.value < player.lightningStunChance) buffDebuff.ApplySkipTurnDebuff(target, 1);
     }
 
     public void DrawCards(PlayerState player, int count)

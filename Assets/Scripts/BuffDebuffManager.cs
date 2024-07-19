@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BuffDebuffManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class BuffDebuffManager : MonoBehaviour
     public Dictionary<GameObject, List<(EffectType, int, float, int)>> entityDebuffs = new Dictionary<GameObject, List<(EffectType, int, float, int)>>();
     public PlayerState.AttributeType? currentField = null;     // 현재 필드 속성을 저장
     private PlayerState player;
+    public BuffDebuffUIManager uiManager;
 
     void Start()
     {
@@ -20,9 +22,13 @@ public class BuffDebuffManager : MonoBehaviour
         {
             entityBuffs[entity] = new List<(EffectType, int, float, int)>();
         }
-        entityBuffs[entity].Add((effectType, duration, effectValue, intValue));
+        HPBar hpBar = entity.GetComponentInChildren<HPBar>();
+        if (hpBar != null)
+        {
+            if (!entityBuffs[entity].Any(buff => buff.Item1 == effectType)) uiManager.AddBuffIcon(hpBar.buffIconPanel, effectType);
+        }
+        entityBuffs[entity].Add((effectType, duration, effectValue, intValue)); 
 
-        // 버프 효과를 즉시 적용
         PlayerState playerState = entity.GetComponent<PlayerState>();
         if (playerState != null)
         {
@@ -43,9 +49,13 @@ public class BuffDebuffManager : MonoBehaviour
         {
             entityDebuffs[entity] = new List<(EffectType, int, float, int)>();
         }
+        HPBar hpBar = entity.GetComponentInChildren<HPBar>();
+        if (hpBar != null)
+        {
+            if (!entityDebuffs[entity].Any(debuff => debuff.Item1 == effectType)) uiManager.AddDebuffIcon(hpBar.debuffIconPanel, effectType);
+        }
         entityDebuffs[entity].Add((effectType, duration, effectValue, intValue));
 
-        // 디버프 효과를 즉시 적용
         PlayerState playerState = entity.GetComponent<PlayerState>();
         if (playerState != null)
         {
@@ -62,33 +72,46 @@ public class BuffDebuffManager : MonoBehaviour
 
     private void RemoveBuff(GameObject entity, EffectType effectType, float effectValue, int intValue)
     {
+        HPBar hpBar = entity.GetComponentInChildren<HPBar>();
+        if (hpBar != null)
+        {
+            if (!entityBuffs[entity].Any(buff => buff.Item1 == effectType)) uiManager.RemoveBuffIcon(hpBar.buffIconPanel, effectType);
+        }
+
         PlayerState playerState = entity.GetComponent<PlayerState>();
         if (playerState != null)
         {
             playerState.RemoveBuffDebuff(effectType, 0, effectValue, intValue);
-            return;
         }
-
-        MonsterState monsterState = entity.GetComponent<MonsterState>();
-        if (monsterState != null)
-        {
-            monsterState.RemoveBuffDebuff(effectType, 0, effectValue, intValue);
+        else{
+            MonsterState monsterState = entity.GetComponent<MonsterState>();
+            if (monsterState != null)
+            {
+                monsterState.RemoveBuffDebuff(effectType, 0, effectValue, intValue);
+            }
         }
     }
 
     private void RemoveDebuff(GameObject entity, EffectType effectType, float effectValue, int intValue)
     {
+        HPBar hpBar = entity.GetComponentInChildren<HPBar>();
+        if (hpBar != null)
+        {
+            if (!entityDebuffs[entity].Any(debuff => debuff.Item1 == effectType)) uiManager.RemoveDebuffIcon(hpBar.debuffIconPanel, effectType);
+        }
+
         PlayerState playerState = entity.GetComponent<PlayerState>();
         if (playerState != null)
         {
             playerState.RemoveBuffDebuff(effectType, 0, effectValue, intValue);
-            return;
         }
-
-        MonsterState monsterState = entity.GetComponent<MonsterState>();
-        if (monsterState != null)
+        else
         {
-            monsterState.RemoveBuffDebuff(effectType, 0, effectValue, intValue);
+            MonsterState monsterState = entity.GetComponent<MonsterState>();
+            if (monsterState != null)
+            {
+                monsterState.RemoveBuffDebuff(effectType, 0, effectValue, intValue);
+            }
         }
     }
 
@@ -102,8 +125,8 @@ public class BuffDebuffManager : MonoBehaviour
                 buff.Item2--; // duration 감소
                 if (buff.Item2 <= 0)
                 {
-                    RemoveBuff(entity, buff.Item1, buff.Item3, buff.Item4);     // 버프가 만료되면 효과 제거
                     entityBuffs[entity].RemoveAt(i);
+                    RemoveBuff(entity, buff.Item1, buff.Item3, buff.Item4);             // 버프 만료 시 제거
                 }
                 else
                 {
@@ -123,8 +146,8 @@ public class BuffDebuffManager : MonoBehaviour
                 debuff.Item2--; // duration 감소
                 if (debuff.Item2 <= 0)
                 {
-                    RemoveDebuff(entity, debuff.Item1, debuff.Item3, debuff.Item4);     // 디버프가 만료되면 효과 제거
                     entityDebuffs[entity].RemoveAt(i);
+                    RemoveDebuff(entity, debuff.Item1, debuff.Item3, debuff.Item4);     // 디버프 만료 시 제거
                 }
                 else
                 {
@@ -133,7 +156,6 @@ public class BuffDebuffManager : MonoBehaviour
             }
         }
     }
-
 
     // 버프
     public void ApplyIncreaseDamageBuff(GameObject entity, int duration, float effectValue)
@@ -228,12 +250,6 @@ public class BuffDebuffManager : MonoBehaviour
             case PlayerState.AttributeType.Earth:
                 player.reduceDamage += 0.25f;
                 break;
-            case PlayerState.AttributeType.Wood:        // 구현 완
-            case PlayerState.AttributeType.Lightning:   // 구현 완
-            case PlayerState.AttributeType.Wind:        // 구현 완
-            case PlayerState.AttributeType.Light:       // 구현 완
-            case PlayerState.AttributeType.Dark:        // 구현 완
-                break;
             case PlayerState.AttributeType.Void:        // 매 턴 3장 추가 드로우
                 break;
         }
@@ -253,12 +269,6 @@ public class BuffDebuffManager : MonoBehaviour
                 break;
             case PlayerState.AttributeType.Earth:
                 player.reduceDamage -= 0.25f;
-                break;
-            case PlayerState.AttributeType.Wood:
-            case PlayerState.AttributeType.Lightning:
-            case PlayerState.AttributeType.Wind:
-            case PlayerState.AttributeType.Light:
-            case PlayerState.AttributeType.Dark:
                 break;
             case PlayerState.AttributeType.Void:
                 break;

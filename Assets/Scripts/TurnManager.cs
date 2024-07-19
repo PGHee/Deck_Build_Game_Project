@@ -10,8 +10,8 @@ public class TurnManager : MonoBehaviour
     private PlayerState player;
     private List<MonsterState> monsters;
     private Actions cardActions;
-    private bool isPlayerTurn;
 
+    private bool isPlayerTurn;
     public bool IsPlayerTurn => isPlayerTurn;
 
     void Awake()
@@ -50,7 +50,7 @@ public class TurnManager : MonoBehaviour
     public void StartPlayerTurn()
     {
         isPlayerTurn = true;
-        player.RestoreResource(player.resource);
+        player.currentResource = player.resource;
         player.ApplyTurnBasedPassives();        // 패시브 효과 적용
         player.ApplyPoisonDamage();             // 독 데미지 적용
 
@@ -58,6 +58,12 @@ public class TurnManager : MonoBehaviour
         buffDebuffManager.UpdateBuffs();        // 버프 업데이트
         buffDebuffManager.UpdateDebuffs();      // 디버프 업데이트
 
+        player.UpdateHPBar();
+        if (buffDebuffManager.entityDebuffs.ContainsKey(player.gameObject))
+        {
+            if (buffDebuffManager.entityDebuffs[player.gameObject].Any(debuff => debuff.Item1 == EffectType.SkipTurn)) EndPlayerTurn();
+        }
+        
         Debug.Log("Player's turn started.");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
     }
 
@@ -93,6 +99,7 @@ public class TurnManager : MonoBehaviour
                 // 몬스터의 행동 (추후 추가)
                 Debug.Log($"{monster.name} is taking action.");
                 monster.executeAction();
+                monster.AttackMotion();
                 yield return new WaitForSeconds(3);     // 각 몬스터의 행동 사이에 딜레이 추가
                 monster.GetRandomAction();
             }

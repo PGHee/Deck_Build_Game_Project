@@ -77,10 +77,11 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
 
         bool effectApplied = false;
 
-        if((buffDebuffManager.currentField == PlayerState.AttributeType.Light && attributeType == PlayerState.AttributeType.Light) ||
+        int adjustedCost = cost;
+        if ((buffDebuffManager.currentField == PlayerState.AttributeType.Light && attributeType == PlayerState.AttributeType.Light) ||
             (buffDebuffManager.currentField == PlayerState.AttributeType.Dark && attributeType == PlayerState.AttributeType.Dark))
         {
-            cost = Mathf.Max(cost - 2, 0);
+            adjustedCost = Mathf.Max(cost - 2, 0);
         }
 
         // 플레이어의 턴인지 확인
@@ -88,7 +89,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
         {
             Debug.Log("It's not the player's turn.");
         }
-        else if (player.currentResource >= cost) // 자원 검사를 추가하여 자원이 충분하지 않으면 효과를 적용하지 않음
+        else if (player.currentResource >= adjustedCost) // 자원 검사를 추가하여 자원이 충분하지 않으면 효과를 적용하지 않음
         {
             if (hit.collider != null)
             {
@@ -151,8 +152,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
         // 자원 소비 및 속성 경험치 추가
         if (effectApplied && player != null)
         {
-            player.SpendResource(cost);
-            player.AddAttributeExperience(attributeType, GetAttributeExperienceGain(cost));     // 카드 사용 후 속성 경험치 추가
+            player.SpendResource(adjustedCost);
+            player.AddAttributeExperience(attributeType, GetAttributeExperienceGain(adjustedCost));     // 카드 사용 후 속성 경험치 추가
             player.AttackMotion();          // attackMotion을 이곳으로 이동
         }
     }
@@ -281,12 +282,14 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                     {
                         cardActions.DealMultipleHits(monster.gameObject, monster.poisonStacks, 1, null, attributeType);
                         monster.poisonStacks = 0;
+                        monster.UpdateHPBar();
                     }
                 }
                 else 
                 {
                     cardActions.DealMultipleHits(target.gameObject, target.poisonStacks, 1, null, attributeType);
                     target.poisonStacks = 0;
+                    target.UpdateHPBar();
                 }
                 break;
             case CardActionType.RandomTargetDamage:

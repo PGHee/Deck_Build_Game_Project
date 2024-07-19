@@ -57,49 +57,86 @@ public class MonsterState : MonoBehaviour
     private Actions monsterActions;
     public Action selectedAction;                                       // 몬스터가 이번 턴에 할 행동
 
+    private HPBar hpBar;
+    private Effect effect;
+    private DamageText damageText;
+    public Transform buffIconPanel;
+    public Transform debuffIconPanel;
+
+    private Animator animator;
+
     void Start()
     {
         TurnManager.instance.RegisterMonster(this);
         monsterActions = FindObjectOfType<Actions>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
+        effect = FindObjectOfType<Effect>();
+        damageText = FindObjectOfType<DamageText>();
+        animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         isStunned = false;
         GetRandomAction();
     }
 
+    public void SetHPBar(HPBar hpBar)
+    {
+        this.hpBar = hpBar;
+        hpBar.UpdateHealth(currentHealth, maxHealth, shield, poisonStacks);   // HP 바 초기 상태 업데이트
+    }
+
+    public void UpdateHPBar()
+    {
+        hpBar.UpdateHealth(currentHealth, maxHealth, shield, poisonStacks);
+    }
+
     public void Heal(int amount)
     {
+        if (damageText != null) damageText.ShowDamage(this.gameObject, 2, amount, 1, 0.1f); //수정 필요
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        UpdateHPBar();
     }
-
-    public void TakeDamage(int damage)                  // 몬스터가 데미지를 받을 때 동작
+    
+    public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        Debug.Log($"{gameObject.name} took {damage} damage, remaining health: {currentHealth}");
-        
-        if (currentHealth <= 0) Die();
-    }
-
-    public void ApplyPoison(int amount)                 // 몬스터가 독을 받을 때 동작
-    {
-        poisonStacks += amount;
-    }
-
-    public void ApplyPoisonDamage()                     // 독 데미지 적용 메서드
-    {
-        if (poisonStacks > 0)
+        if (shield >= damage)
         {
-            TakeDamage(poisonStacks);
-            poisonStacks--;
+            shield -= damage;
+            UpdateHPBar();
+        }
+        else
+        {
+            int remainingDamage = damage - shield;
+            shield = 0;
+            currentHealth -= remainingDamage;
+            UpdateHPBar();
+            if (currentHealth <= 0) Die();
         }
     }
 
-    public void ApplyStun()                             // 몬스터가 스턴에 빠질 때 동작
+    public void ApplyPoison(int amount)                                     // 몬스터가 독을 받을 때 동작
+    {
+        poisonStacks += amount;
+        UpdateHPBar();
+    }
+
+    public void ApplyPoisonDamage()                                         // 독 데미지 적용 메서드
+    {
+        if (poisonStacks > 0)
+        {
+            effect.ApplyEffect(this.gameObject, 1, 1, 0.1f); // 수정 필요
+            if (damageText != null) damageText.ShowDamage(this.gameObject, 8, poisonStacks, 1, 0.1f); //수정 필요
+            TakeDamage(poisonStacks);
+            poisonStacks--;
+            UpdateHPBar();
+        }
+    }
+
+    public void ApplyStun()                                                 // 몬스터가 스턴에 빠질 때 동작
     {
         isStunned = true;
     }
 
-    public void HandleStun()                            // 스턴 처리 메서드
+    public void HandleStun()                                                // 스턴 처리 메서드
     {
         if (isStunned)
         {
@@ -176,7 +213,9 @@ public class MonsterState : MonoBehaviour
         else
         {
             Debug.Log($"{gameObject.name} died");
+            animator.SetTrigger("DieTrigger");
             Destroy(gameObject);
+            Destroy(hpBar.gameObject);
         }
     }
 
@@ -225,7 +264,10 @@ public class MonsterState : MonoBehaviour
                 Heal(Mathf.RoundToInt(attackPower * damageMultiplier * 0.75f));
                 break;
             case ActionType.Shield:
-                shield += Mathf.RoundToInt(attackPower * damageMultiplier * 0.75f);
+                int shieldAmount = Mathf.RoundToInt(attackPower * damageMultiplier * 0.75f);
+                if (damageText != null) damageText.ShowDamage(this.gameObject, 1, shieldAmount, 1, 0.1f); //수정 필요
+                shield += shieldAmount;
+                UpdateHPBar();
                 break;
             case ActionType.Heal:
                 Heal(Mathf.RoundToInt(maxHealth * damageMultiplier * 0.5f));
@@ -269,5 +311,10 @@ public class MonsterState : MonoBehaviour
                 buffDebuffManager.ApplyConfuseDebuff(targetObject, selectedAction.duration);
                 break;
         }
+    }
+
+    public void AttackMotion()
+    {
+        animator.SetTrigger("AttackTrigger");
     }
 }

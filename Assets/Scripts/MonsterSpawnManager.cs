@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MonsterSpawnManager : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class MonsterSpawnManager : MonoBehaviour
     public GameObject[] monsterPrefabs;         // 삭제 예정
     // public GameObject[,] monsterPrefabs;     // 몬스터 프리팹 배열
     public GameObject[,] elitePrefabs;          // 정예몬스터 프리팹 배열
-    public GameObject[] bossPrefabs;
+    public GameObject[] bossPrefabs;            // 보스몬스터 프리팹 배열
+    public GameObject hpBarPrefab;              // HP 바 프리팹
 
     void Start()
     {
@@ -28,10 +30,10 @@ public class MonsterSpawnManager : MonoBehaviour
         bossPrefabs = new GameObject[5];
         for (int i = 0; i < 5; i++)
         {
-            monsterPrefabs[i] = Resources.Load<GameObject>($"Prefabs/Monster{i + 1}");       // 삭제 예정
-            //for (int j = 0; j < 5; j++) monsterPrefabs[i, j] = Resources.Load<GameObject>($"Prefabs/Monster{i + 1}{j + 1}");
-            //for (int j = 0; j < 3; j++) elitePrefabs[i, j] = Resources.Load<GameObject>($"Prefabs/Elite{i + 1}{j + 1}");
-            //bossPrefabs[i] = Resources.Load<GameObject>($"Prefabs/Boss{i + 1}");
+            monsterPrefabs[i] = Resources.Load<GameObject>($"Prefabs/Monster/Monster{i + 1}");       // 삭제 예정
+            //for (int j = 0; j < 5; j++) monsterPrefabs[i, j] = Resources.Load<GameObject>($"Prefabs/Monster/Monster{i + 1}{j + 1}");
+            //for (int j = 0; j < 3; j++) elitePrefabs[i, j] = Resources.Load<GameObject>($"Prefabs/Monster/Elite{i + 1}{j + 1}");
+            //bossPrefabs[i] = Resources.Load<GameObject>($"Prefabs/Monster/Boss{i + 1}");
         }
         // 전투 시작 시 몬스터 스폰
         SpawnMonsters();
@@ -55,12 +57,37 @@ public class MonsterSpawnManager : MonoBehaviour
             GameObject monsterInstance = Instantiate(monsterPrefabs[monsterPrefabIndex], spawnPoints[spawnIndex].transform.position, Quaternion.identity);
             // GameObject monsterInstance = Instantiate(monsterPrefabs[stageNum, monsterPrefabIndex], spawnPoints[spawnIndex].transform.position, Quaternion.identity);
 
-            // 다음 스폰 지점 인덱스로 이동
-            spawnIndex++;
-            if (spawnIndex >= spawnPoints.Length)
-            {
-                spawnIndex = 0; // 인덱스 초기화
-            }
+            AddHPBar(monsterInstance);                              // 몬스터에 HP 바 추가
+            spawnIndex++;                                           // 다음 스폰 지점 인덱스로 이동
+            if (spawnIndex >= spawnPoints.Length) spawnIndex = 0;   // 인덱스 초기화
+        }
+    }
+
+    void AddHPBar(GameObject monsterInstance)
+    {
+        MonsterState monster = monsterInstance.GetComponent<MonsterState>();
+
+        // HP 바 설정
+        GameObject hpBarInstance = Instantiate(hpBarPrefab, monsterInstance.transform.position, Quaternion.identity);
+        HPBar hpBar = hpBarInstance.GetComponent<HPBar>();
+
+        // HPText 오브젝트를 찾아서 할당
+        TextMeshProUGUI healthText = hpBarInstance.GetComponentInChildren<TextMeshProUGUI>();
+        if (healthText != null)
+        {
+            hpBar.healthText = healthText;
+        }
+
+        hpBar.Initialize(monsterInstance.transform, monster.maxHealth, monster.shield, monster.poisonStacks, new Vector3(0, 0, 0));
+        monster.SetHPBar(hpBar);
+
+        // BuffIconPanel과 DebuffIconPanel을 찾아서 할당
+        Transform buffIconPanel = hpBarInstance.transform.Find("Canvas/BuffIconPanel");
+        Transform debuffIconPanel = hpBarInstance.transform.Find("Canvas/DebuffIconPanel");
+        if (buffIconPanel != null && debuffIconPanel != null)
+        {
+            monster.buffIconPanel = buffIconPanel;
+            monster.debuffIconPanel = debuffIconPanel;
         }
     }
 }

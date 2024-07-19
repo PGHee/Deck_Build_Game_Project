@@ -37,18 +37,31 @@ public class PlayerState : MonoBehaviour
     public bool isStunned = false;                  // 플레이어가 스턴 상태인지 여부
     public bool isConfuse = false;                  // 플레이어가 혼란 상태인지 여부
 
+    public GameObject hpBarPrefab;
+    public GameObject circleBarPrefab;
+    private HPBar hpBar;
+    public CircleBar circleBar;
+    private Effect effect;
+    private DamageText damageText;
     private Animator animator;                      // 애니메이션 동작용
     private Transform playerTransform;              // 애니메이션 크기 맞추는 용
 
     void Start()
     {
+        GameObject hpBarInstance = Instantiate(hpBarPrefab, transform.position, Quaternion.identity);
+        GameObject circleBarInstance = Instantiate(circleBarPrefab, transform.position, Quaternion.identity);
         currentHealth = maxHealth;
         resource = level;
         currentResource = resource;
-        InitializeAttributes();
 
-        animator = GetComponent<Animator>();            // 애니메이션 동작용
-        playerTransform = GetComponent<Transform>();    // 애니메이션 크기 맞추는 용
+        hpBar = hpBarInstance.GetComponent<HPBar>();                        // HP 출력용
+        circleBar = circleBarInstance.GetComponent<CircleBar>();            // 자원 출력용
+        effect = FindObjectOfType<Effect>();                                // 이펙트 출력용
+        damageText = FindObjectOfType<DamageText>();                        // 데미지 출력용
+        animator = GetComponent<Animator>();                                // 애니메이션 출력용
+        playerTransform = GetComponent<Transform>();                        // 애니메이션 크기 맞추는 용
+
+        InitializeAttributes();
     }
 
     void InitializeAttributes()
@@ -60,6 +73,8 @@ public class PlayerState : MonoBehaviour
             attributeMastery[attr] = 1;
             attributeExperience[attr] = 0;
         }
+        hpBar.Initialize(transform, maxHealth, shield, poisonStacks, new Vector3(0, -2.0f, 0));   // 오프셋은 필요에 따라 조정
+        circleBar.Initialize(transform, resource, new Vector3(0, 0, 0));
     }
 
     public void AddExperience(int exp)
@@ -106,35 +121,43 @@ public class PlayerState : MonoBehaviour
         Debug.Log($"Attribute Level Up! {attribute} Mastery: {attributeMastery[attribute]}");
     }
 
+    public void UpdateHPBar()
+    {
+        hpBar.UpdateHealth(currentHealth, maxHealth, shield, poisonStacks);
+        circleBar.UpdateCircle(currentResource, resource);
+    }
+
     public void Heal(int amount)
     {
+        effect.ApplyEffect(this.gameObject, 1, 1, 0.1f); //수정 필요
+        if (damageText != null) damageText.ShowDamage(this.gameObject, 2, amount, 1, 0.1f); //수정 필요
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
-        Debug.Log($"Player healed by {amount}. Current health: {currentHealth}");
     }
 
     public void RestoreResource(int amount)
     {
+        effect.ApplyEffect(this.gameObject, 1, 1, 0.1f); // 수정 필요
+        if (damageText != null) damageText.ShowDamage(this.gameObject, 2, amount, 1, 0.1f); //수정 필요
         currentResource = Mathf.Min(currentResource + amount, resource);
-        Debug.Log($"Player restored {amount} resource. Current resource: {currentResource}");
+        UpdateHPBar();
     }
 
     public void ApplyShield(int amount)
     {
+        effect.ApplyEffect(this.gameObject, 1, 1, 0.1f); // 수정 필요
+        if (damageText != null) damageText.ShowDamage(this.gameObject, 1, amount, 1, 0.1f); //수정 필요
         shield += amount;
-        Debug.Log($"Player shield increased by {amount}. Current shield: {shield}");
+        UpdateHPBar();
     }
 
     public void SpendResource(int amount)
     {
-        if (currentResource >= amount)
+        if (currentResource >= amount) 
         {
             currentResource -= amount;
-            Debug.Log($"Resource spent: {amount}. Current resource: {currentResource}");
+            UpdateHPBar();
         }
-        else
-        {
-            Debug.Log("Not enough resources.");
-        }
+        else Debug.Log("Not enough resources.");
     }
 
     // 데미지 처리 메서드
@@ -144,19 +167,20 @@ public class PlayerState : MonoBehaviour
         if (shield >= damage)
         {
             shield -= damage;
+            UpdateHPBar();
         }
         else
         {
             int remainingDamage = damage - shield;
             shield = 0;
             currentHealth -= remainingDamage;
+            UpdateHPBar();
             if (currentHealth <= 0)
             {
-                // 플레이어가 사망했을 때의 처리
-                Debug.Log("Player is dead.");
+                Destroy(gameObject);
+                Destroy(hpBar.gameObject);
             }
         }
-        Debug.Log($"Player took {damage} damage. Current health: {currentHealth}, Current shield: {shield}");
     }
 
     // 매 턴마다 적용되는 패시브 효과
@@ -239,14 +263,18 @@ public class PlayerState : MonoBehaviour
     public void ApplyPoison(int amount)                 // 독을 받을 때 동작
     {
         poisonStacks += amount;
+        hpBar.UpdateHealth(currentHealth, maxHealth, shield, poisonStacks);
     }
 
     public void ApplyPoisonDamage()                     // 독 데미지 적용 메서드
     {
         if (poisonStacks > 0)
         {
+            effect.ApplyEffect(this.gameObject, 1, 1, 0.1f); // 수정 필요
+            if (damageText != null) damageText.ShowDamage(this.gameObject, 8, poisonStacks, 1, 0.1f); //수정 필요
             TakeDamage(poisonStacks);
             poisonStacks--;
+            hpBar.UpdateHealth(currentHealth, maxHealth, shield, poisonStacks);
         }
     }
 
