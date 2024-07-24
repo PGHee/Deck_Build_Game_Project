@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+<<<<<<< Updated upstream:Assets/TEST/StageManager.cs
 public class StageInfo
 {
     public int stageNum;
@@ -19,6 +20,8 @@ public class StageInfo
         this.mapList = mapList; // 이동 가능한 맵의 종류, 확률을 갯수로 조절
     }
 }
+=======
+>>>>>>> Stashed changes:Assets/Scripts/StageManager.cs
 
 public class StageManager : MonoBehaviour
 {
