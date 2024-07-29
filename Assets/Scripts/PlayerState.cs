@@ -40,7 +40,7 @@ public class PlayerState : MonoBehaviour
     public GameObject hpBarPrefab;
     public GameObject circleBarPrefab;
     private HPBar hpBar;
-    public CircleBar circleBar;
+    private CircleBar circleBar;
     private Effect effect;
     private DamageText damageText;
     private Animator animator;                      // 애니메이션 동작용
@@ -80,14 +80,22 @@ public class PlayerState : MonoBehaviour
     public void AddExperience(int exp)
     {
         experience += exp;
-        while (experience >= ExperienceToNextLevel() && level < maxLevel)
+        while (level < maxLevel && experience >= ExperienceToNextLevel())
         {
             experience -= ExperienceToNextLevel();
             LevelUp();
         }
     }
 
-    int ExperienceToNextLevel() => level * 100;
+    public int ExperienceToNextLevel()
+    {
+        int[] experienceRequired = { 10, 30, 50, 80, 120, 160, 200, 250, 300 };
+        if (level - 1 < experienceRequired.Length)
+        {
+            return experienceRequired[level - 1];
+        }
+        return 0; // 만약 maxLevel을 초과하면 0을 반환 (혹은 다른 적절한 값을 반환)
+    }
 
     void LevelUp()
     {

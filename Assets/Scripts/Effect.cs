@@ -4,7 +4,14 @@ using System.Collections;
 
 public class Effect : MonoBehaviour
 {
-    public GameObject[] effects; // 각 카드에 사용할 이펙트 프리팹 배열
+    public GameObject[] effects;        // 각 카드에 사용할 이펙트 프리팹 배열
+    public AudioClip[] effectSounds;    // 각 이펙트에 사용할 사운드 클립 배열
+    private AudioSource audioSource;    // 사운드를 재생할 AudioSource
+
+    private void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();   // AudioSource 컴포넌트를 추가합니다.
+    }
 
     // 특정 카드 효과를 적용하는 메소드
     public void ApplyEffect(GameObject targetMonster, int effectIndex, int hitCount, float hitInterval)
@@ -63,6 +70,12 @@ public class Effect : MonoBehaviour
 
         // 이펙트 인스턴스 생성
         GameObject effectInstance = Instantiate(effects[effectIndex], spawnPosition, Quaternion.identity);
+
+        // 이펙트 사운드 재생
+        if (effectSounds != null && effectSounds.Length > effectIndex)
+        {
+            audioSource.PlayOneShot(effectSounds[effectIndex]);
+        }
 
         var spriteRenderer = effectInstance.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
