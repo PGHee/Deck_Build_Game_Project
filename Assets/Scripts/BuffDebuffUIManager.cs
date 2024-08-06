@@ -36,12 +36,12 @@ public class BuffDebuffUIManager : MonoBehaviour
         }
     }
 
-    public void AddBuffIcon(Transform panel, EffectType effectType)
+    public GameObject AddBuffIcon(Transform panel, EffectType effectType)
     {
         if (!iconPrefabs.ContainsKey(effectType))
         {
             Debug.LogError($"No buff icon prefab for effect type: {effectType}");
-            return;
+            return null;
         }
 
         if (!activeBuffIcons.ContainsKey(panel))
@@ -54,15 +54,19 @@ public class BuffDebuffUIManager : MonoBehaviour
             GameObject buffIcon = Instantiate(iconPrefabs[effectType], panel);
             activeBuffIcons[panel].Add(buffIcon);
             ReorganizeIcons(panel, activeBuffIcons[panel]);
+
+            return buffIcon;  // 생성된 아이콘을 반환
         }
+
+        return null;  // 아이콘이 이미 존재하면 null 반환
     }
 
-    public void AddDebuffIcon(Transform panel, EffectType effectType)
+    public GameObject AddDebuffIcon(Transform panel, EffectType effectType)
     {
         if (!iconPrefabs.ContainsKey(effectType))
         {
             Debug.LogError($"No debuff icon prefab for effect type: {effectType}");
-            return;
+            return null;
         }
 
         if (!activeDebuffIcons.ContainsKey(panel))
@@ -75,7 +79,11 @@ public class BuffDebuffUIManager : MonoBehaviour
             GameObject debuffIcon = Instantiate(iconPrefabs[effectType], panel);
             activeDebuffIcons[panel].Add(debuffIcon);
             ReorganizeIcons(panel, activeDebuffIcons[panel]);
+
+            return debuffIcon;  // 생성된 아이콘을 반환
         }
+
+        return null;  // 아이콘이 이미 존재하면 null 반환
     }
 
     public void RemoveBuffIcon(Transform panel, EffectType effectType)

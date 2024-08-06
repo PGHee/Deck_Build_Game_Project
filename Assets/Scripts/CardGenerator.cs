@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CardGenerator : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class CardGenerator : MonoBehaviour
         cardPrefabs = new GameObject[3];
         for (int i = 0; i < 3; i++)
         {
-            cardPrefabs[i] = Resources.Load<GameObject>($"Prefabs/CardPrefab{i + 1}");
+            cardPrefabs[i] = Resources.Load<GameObject>($"Prefabs/Card/Fi_{i + 1}");
         }
     }
 
@@ -40,10 +41,18 @@ public class CardGenerator : MonoBehaviour
     public void DrawFromDeck(int cardInd)
     {      
         GameObject go = Instantiate(cardPrefabs[cardInd - 1]);
-        go.transform.position = new Vector3(xposition, -4, zposition);
+        GameObject parentCardObject = GameObject.Find("Cards");
+        go.transform.SetParent(parentCardObject.transform, false);
+        go.transform.localPosition = new Vector3(xposition, -4, zposition);
         go.name = "card" + cardNameNum;
         handController.GetComponent<HandControl>().hands[cardNum] = go;
         handController.GetComponent<HandControl>().handCardNum++;
         cardNameNum++;
+
+        int sortingBase = cardNum * 2 + 4; // 기본적으로 카드 1개 당 2씩 증가
+        SortingGroup sortingGroup = go.GetComponent<SortingGroup>(); // 부모 카드의 Sorting Group의 Order in Layer 설정
+        Canvas cardCanvas = go.GetComponentInChildren<Canvas>(); // 자식 캔버스의 Sorting Order 설정
+        if (sortingGroup != null) sortingGroup.sortingOrder = sortingBase;
+        if (cardCanvas != null) cardCanvas.sortingOrder = sortingBase + 1;
     }
 }

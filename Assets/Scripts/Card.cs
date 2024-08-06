@@ -2,19 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
+using TMPro;
 
 public enum CardActionType
 {
-    Damage, MultiHit, AreaDamage, Poison, AreaPoison, DoublePoison, PoisonToDamage,
-    RandomTargetDamage, RandomTargetDamageWithBonus, IncrementalDamage,
-    ShieldAttack, StunCheckDamage, PoisonCheckDamage, killEffect,
-    Heal, OverhealToDamage, Shield, DoubleShield, RestoreResource
+    Damage, MultiHit, AreaDamage, RandomTargetDamage, RandomTargetDamageWithBonus, IncrementalDamage,
+    TrueDamage, TrueAreaDamage, ShieldAttack, OverhealToDamage, StunCheckDamage, 
+    Poison, AreaPoison, DoublePoison, PoisonToDamage, RandomTargetPoison, PoisonCheckDamage,
+    killEffect, Heal, Shield, DoubleShield, RestoreResource
 }
 
 public enum EffectType
 {
     IncreaseDamage, AreaEffect, LifeSteal, ReduceDamage, ReflectDamage, ReduceCost, Purification, 
-    Field, DecreaseDamage, SkipTurn, Confuse, RandomAction
+    Field, DecreaseDamage, SkipTurn, Confuse, RandomAction, DelayedImpact
 }
 
 [System.Serializable]
@@ -45,6 +46,22 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
     public List<CardAction> actions = new List<CardAction>();           // 공격 카드의 행동들
     public List<BuffDebuff> buffsAndDebuffs = new List<BuffDebuff>();   // 버프와 디버프 카드의 효과들
 
+    public Sprite cardFrontFrame;
+    public Sprite cardBackFrame;
+    public Sprite cardImage;
+    public string cardName;
+    public string cardDescription;
+    public Sprite[] attributeSprites;
+
+    public SpriteRenderer cardFront;
+    public SpriteRenderer cardBack;
+    public TextMeshProUGUI cardNameText;
+    public SpriteRenderer cardAttributeImageUI;
+    public SpriteRenderer cardImageUI;
+    public TextMeshProUGUI cardTypeText;
+    public TextMeshProUGUI cardDescriptionText;
+    public TextMeshProUGUI cardCostText;
+
     private Vector3 startPosition;
     private Actions cardActions;
     private PlayerState player;
@@ -57,6 +74,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
         cardActions = FindObjectOfType<Actions>();                  // Actions 스크립트를 가진 오브젝트를 찾음
         player = FindObjectOfType<PlayerState>();                   // PlayerState 스크립트를 가진 오브젝트를 찾음
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();  // BuffDebuffManager 스크립트를 가진 오브젝트를 찾음
+        UpdateCardUI();
         originalLayer = gameObject.layer;                           // 오리지널 레이어 저장. 드래그한 카드가 레이캐스트에 충돌하는 것을 방지하기 위해 필요.
     }
 
@@ -155,7 +173,39 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
             player.SpendResource(adjustedCost);
             player.AddAttributeExperience(attributeType, GetAttributeExperienceGain(adjustedCost));     // 카드 사용 후 속성 경험치 추가
             player.AttackMotion();          // attackMotion을 이곳으로 이동
+            Destroy(gameObject);
         }
+    }
+
+    public void UpdateCardUI()
+    {
+        cardFront.sprite = cardFrontFrame;
+        cardBack.sprite = cardBackFrame;
+        cardNameText.text = cardName;
+        cardImageUI.sprite = cardImage;
+        cardDescriptionText.text = GetCardDescription();
+        cardCostText.text = cost.ToString();
+        cardTypeText.text = GetCardType();
+        cardAttributeImageUI.sprite = attributeSprites[(int)attributeType];
+    }
+
+    public string GetCardType()
+    {
+        bool hasAttack = actions.Any(IsDamageAction);
+        bool hasSupport = actions.Any(IsPlayerEffect);
+        bool hasBuff = buffsAndDebuffs.Any(IsPlayerBuff);
+        bool hasDebuff = buffsAndDebuffs.Any(IsMonsterDebuff);
+        bool isField = buffsAndDebuffs.Any(buff => buff.effectType == EffectType.Field);
+
+        List<string> types = new List<string>();
+
+        if (hasAttack) types.Add("공격");
+        if (hasSupport) types.Add("지원");
+        if (hasBuff) types.Add("버프");
+        if (hasDebuff) types.Add("디버프");
+        if (isField) types.Add("필드");
+
+        return string.Join("+", types);
     }
 
     private void ApplyEffects(PlayerState playerTarget, MonsterState monsterTarget)
@@ -167,16 +217,19 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                 case CardActionType.Damage:
                 case CardActionType.MultiHit:
                 case CardActionType.AreaDamage:
+                case CardActionType.RandomTargetDamage:
+                case CardActionType.RandomTargetDamageWithBonus:
+                case CardActionType.IncrementalDamage:
+                case CardActionType.TrueDamage:
+                case CardActionType.TrueAreaDamage:
+                case CardActionType.ShieldAttack:
+                case CardActionType.OverhealToDamage:
+                case CardActionType.StunCheckDamage:
                 case CardActionType.Poison:
                 case CardActionType.AreaPoison:
                 case CardActionType.DoublePoison:
                 case CardActionType.PoisonToDamage:
-                case CardActionType.RandomTargetDamage:
-                case CardActionType.RandomTargetDamageWithBonus:
-                case CardActionType.IncrementalDamage:
-                case CardActionType.OverhealToDamage:
-                case CardActionType.ShieldAttack:
-                case CardActionType.StunCheckDamage:
+                case CardActionType.RandomTargetPoison:
                 case CardActionType.PoisonCheckDamage:
                     if (monsterTarget != null)
                     {
@@ -202,6 +255,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                 case EffectType.SkipTurn:
                 case EffectType.RandomAction:
                 case EffectType.Confuse:
+                case EffectType.DelayedImpact:
                     if (buffDebuff.isAreaEffect && monsterTarget != null)
                     {
                         ApplyToAllTargets(buffDebuff);
@@ -249,20 +303,87 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
             case CardActionType.AreaDamage:
                 cardActions.DealAreaDamage(monsters.Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, attributeType);
                 break;
+            case CardActionType.RandomTargetDamage:
+                cardActions.DealRandomTargetDamage(monsters.Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, attributeType);
+                break;
+            case CardActionType.RandomTargetDamageWithBonus:
+                cardActions.DealRandomTargetDamageWithBonus(monsters.Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, action.thirdValue, attributeType);
+                break;
+            case CardActionType.IncrementalDamage:
+                if(player.isAreaEffect)
+                {
+                    foreach (var monster in FindObjectsOfType<MonsterState>())
+                    {
+                        cardActions.DealIncreasingDamage(monster.gameObject, action.value, action.secondaryValue, attributeType);
+                    }
+                }
+                else cardActions.DealIncreasingDamage(target.gameObject, action.value, action.secondaryValue, attributeType);
+                break;
+            case CardActionType.TrueDamage:
+                if(player.isAreaEffect)
+                {
+                    foreach (var monster in FindObjectsOfType<MonsterState>())
+                    {
+                        cardActions.DealTrueDamage(monster.gameObject, action.value, action.secondaryValue, attributeType);
+                    }
+                }
+                else cardActions.DealTrueDamage(target.gameObject, action.value, action.secondaryValue, attributeType);
+                break;
+            case CardActionType.TrueAreaDamage:
+                foreach (var monster in FindObjectsOfType<MonsterState>())
+                {
+                    cardActions.DealTrueDamage(monster.gameObject, action.value, action.secondaryValue, attributeType);
+                }
+                break;
+            case CardActionType.ShieldAttack:
+                if(player.isAreaEffect) cardActions.DealAreaDamage(monsters.Select(m => m.gameObject).ToList(), player.shield, 1, attributeType);
+                else cardActions.DealMultipleHits(target.gameObject, player.shield, 1, null, attributeType);
+                break;
+            case CardActionType.OverhealToDamage:
+                    if (target is MonsterState targetMonsterOverheal)
+                    {
+                        int overheal = action.value - (player.maxHealth - player.currentHealth);
+                        if (overheal > 0)
+                        {
+                            player.Heal(player.maxHealth - player.currentHealth);
+                            if(player.isAreaEffect) cardActions.DealAreaDamage(FindObjectsOfType<MonsterState>().Select(m => m.gameObject).ToList(), action.value, 1, attributeType);
+                            else cardActions.DealMultipleHits(targetMonsterOverheal.gameObject, overheal, 1, null, attributeType);
+                        }
+                        else
+                        {
+                            player.Heal(action.value);
+                        }
+                    }
+                    break;
+            case CardActionType.StunCheckDamage:
+                if(player.isAreaEffect)
+                {
+                    foreach (var monster in FindObjectsOfType<MonsterState>())
+                    {
+                        if (monster.isStunned) cardActions.DealMultipleHits(monster.gameObject, action.value + action.secondaryValue, 1, null, attributeType);
+                        else cardActions.DealMultipleHits(monster.gameObject, action.value, 1, null, attributeType);
+                    }
+                }
+                else
+                {
+                    if (target.isStunned) cardActions.DealMultipleHits(target.gameObject, action.value + action.secondaryValue, 1, null, attributeType);
+                    else cardActions.DealMultipleHits(target.gameObject, action.value, 1, null, attributeType);
+                }
+                break;
             case CardActionType.Poison:
                 if(player.isAreaEffect)
                 {
                     foreach (var monster in FindObjectsOfType<MonsterState>())
                     {
-                        cardActions.ApplyPoison(monster.gameObject, action.value, action.secondaryValue, attributeType);
+                        cardActions.DealMultiplePoison(monster.gameObject, action.value, action.secondaryValue, attributeType);
                     }
                 }
-                else cardActions.ApplyPoison(target.gameObject, action.value, action.secondaryValue, attributeType);
+                else cardActions.DealMultiplePoison(target.gameObject, action.value, action.secondaryValue, attributeType);
                 break;
             case CardActionType.AreaPoison:
                 foreach (var monster in FindObjectsOfType<MonsterState>())
                 {
-                    cardActions.ApplyPoison(monster.gameObject, action.value, action.secondaryValue, attributeType);
+                    cardActions.DealMultiplePoison(monster.gameObject, action.value, action.secondaryValue, attributeType);
                 }
                 break;
             case CardActionType.DoublePoison:
@@ -270,10 +391,10 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                 {
                     foreach (var monster in FindObjectsOfType<MonsterState>())
                     {
-                        cardActions.ApplyPoison(monster.gameObject, monster.poisonStacks, 1, attributeType);
+                        cardActions.DealMultiplePoison(monster.gameObject, monster.poisonStacks, 1, attributeType);
                     }
                 }
-                else cardActions.ApplyPoison(target.gameObject, target.poisonStacks, 1, attributeType);
+                else cardActions.DealMultiplePoison(target.gameObject, target.poisonStacks, 1, attributeType);
                 break;
             case CardActionType.PoisonToDamage:
                 if(player.isAreaEffect)
@@ -292,70 +413,22 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
                     target.UpdateHPBar();
                 }
                 break;
-            case CardActionType.RandomTargetDamage:
-                cardActions.DealRandomTargetDamage(monsters.Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, attributeType);
-                break;
-            case CardActionType.RandomTargetDamageWithBonus:
-                cardActions.DealRandomTargetDamageWithBonus(monsters.Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, action.thirdValue, attributeType);
-                break;
-            case CardActionType.IncrementalDamage:
-                if(player.isAreaEffect)
-                {
-                    foreach (var monster in FindObjectsOfType<MonsterState>())
-                    {
-                        cardActions.DealIncreasingDamage(monster.gameObject, action.value, action.secondaryValue, attributeType);
-                    }
-                }
-                else cardActions.DealIncreasingDamage(target.gameObject, action.value, action.secondaryValue, attributeType);
-                break;
-            case CardActionType.OverhealToDamage:
-                    if (target is MonsterState targetMonsterOverheal)
-                    {
-                        int overheal = action.value - (player.maxHealth - player.currentHealth);
-                        if (overheal > 0)
-                        {
-                            player.Heal(player.maxHealth - player.currentHealth);
-                            if(player.isAreaEffect) cardActions.DealAreaDamage(FindObjectsOfType<MonsterState>().Select(m => m.gameObject).ToList(), action.value, 1, attributeType);
-                            else cardActions.DealMultipleHits(targetMonsterOverheal.gameObject, overheal, 1, null, attributeType);
-                        }
-                        else
-                        {
-                            player.Heal(action.value);
-                        }
-                    }
-                    break;
-            case CardActionType.ShieldAttack:
-                if(player.isAreaEffect) cardActions.DealAreaDamage(monsters.Select(m => m.gameObject).ToList(), player.shield, 1, attributeType);
-                else cardActions.DealMultipleHits(target.gameObject, player.shield, 1, null, attributeType);
-                break;
-            case CardActionType.StunCheckDamage:
-                if(player.isAreaEffect)
-                {
-                    foreach (var monster in FindObjectsOfType<MonsterState>())
-                    {
-                        if (monster.isStunned) cardActions.DealMultipleHits(monster.gameObject, action.value + action.secondaryValue, 1, null, attributeType);
-                        else cardActions.DealMultipleHits(monster.gameObject, action.value, 1, null, attributeType);
-                    }
-                }
-                else
-                {
-                    if (target.isStunned) cardActions.DealMultipleHits(target.gameObject, action.value + action.secondaryValue, 1, null, attributeType);
-                    else cardActions.DealMultipleHits(target.gameObject, action.value, 1, null, attributeType);
-                }
+            case CardActionType.RandomTargetPoison:
+                cardActions.DealRandomTargetPoison(monsters.Select(m => m.gameObject).ToList(), action.value, action.secondaryValue, attributeType);
                 break;
             case CardActionType.PoisonCheckDamage:
                 if(player.isAreaEffect)
                 {
                     foreach (var monster in FindObjectsOfType<MonsterState>())
                     {
-                        if (monster.poisonStacks > 0) cardActions.ApplyPoison(monster.gameObject, action.value + action.secondaryValue, 1, attributeType);
-                        else cardActions.ApplyPoison(monster.gameObject, action.value, 1, attributeType);
+                        if (monster.poisonStacks > 0) cardActions.DealMultiplePoison(monster.gameObject, action.value + action.secondaryValue, 1, attributeType);
+                        else cardActions.DealMultiplePoison(monster.gameObject, action.value, 1, attributeType);
                     }
                 }
                 else
                 {
-                    if (target.poisonStacks > 0) cardActions.ApplyPoison(target.gameObject, action.value + action.secondaryValue, 1, attributeType);
-                    else cardActions.ApplyPoison(target.gameObject, action.value, 1, attributeType);
+                    if (target.poisonStacks > 0) cardActions.DealMultiplePoison(target.gameObject, action.value + action.secondaryValue, 1, attributeType);
+                    else cardActions.DealMultiplePoison(target.gameObject, action.value, 1, attributeType);
                 }
                 break;
         }
@@ -427,6 +500,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
             case EffectType.Confuse:
                 buffDebuffManager.ApplyConfuseDebuff(target.gameObject, buffDebuff.duration);
                 break;
+            case EffectType.DelayedImpact:
+                buffDebuffManager.ApplyDelayedImpact(target.gameObject, buffDebuff.intValue);
+                break;
         }
     }
 
@@ -446,21 +522,183 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
         return 0;
     }
 
+    public string GetCardDescription()
+    {
+        string description = "";
+
+        foreach (var action in actions)
+        {
+            switch (action.actionType)
+            {
+                case CardActionType.Damage:
+                    description += $"적에게 {action.value} 데미지를 줍니다. ";
+                    break;
+                case CardActionType.MultiHit:
+                    description += $"적에게 {action.value} 데미지로 {action.secondaryValue}번 데미지를 줍니다. ";
+                    break;
+                case CardActionType.AreaDamage:
+                    description += $"적 전체에게 {action.value} 데미지로 {action.secondaryValue}번 데미지를 줍니다. ";
+                    break;
+                case CardActionType.RandomTargetDamage:
+                    description += $"랜덤한 적에게 {action.value} 데미지로 {action.secondaryValue}번 데미지를 줍니다. ";
+                    break;
+                case CardActionType.RandomTargetDamageWithBonus:
+                    description += $"랜덤한 적에게 {action.value} 데미지로 {action.secondaryValue}번 데미지를 주며, 동일한 대상에게 {action.thirdValue}번 타격 시 1회 추가 타격합니다. ";
+                    break;
+                case CardActionType.IncrementalDamage:
+                    description += $"적에게 타격할 때마다 1 데미지가 증가하는 공격을 {action.value} 데미지로 {action.secondaryValue}번 데미지를 줍니다. ";
+                    break;
+                case CardActionType.TrueDamage:
+                    description += $"적에게 {action.value}의 고정 데미지를 {action.secondaryValue}번 줍니다. ";
+                    break;
+                case CardActionType.TrueAreaDamage:
+                    description += $"적 전체에게 {action.value}의 고정 데미지를 {action.secondaryValue}번 줍니다. ";
+                    break;
+                case CardActionType.ShieldAttack:
+                    description += $"자신의 방어도만큼 적에게 데미지를 줍니다. ";
+                    break;
+                case CardActionType.OverhealToDamage:
+                    description += $"자신의 체력을 {action.value}만큼 회복하며, 초과된 회복량만큼 데미지를 줍니다. ";
+                    break;
+                case CardActionType.StunCheckDamage:
+                    description += $"적에게 {action.value} 데미지를 주고, 적이 스턴 상태라면 추가로 {action.secondaryValue} 데미지를 줍니다. ";
+                    break;
+                case CardActionType.Poison:
+                    description += $"적에게 {action.value}의 독을 {action.secondaryValue}번 부여합니다. ";
+                    break;
+                case CardActionType.AreaPoison:
+                    description += $"적 전체에게 {action.value}의 독을 {action.secondaryValue}번 부여합니다. ";
+                    break;
+                case CardActionType.DoublePoison:
+                    description += $"적에게 부여된 독이 2배가 됩니다. ";
+                    break;
+                case CardActionType.PoisonToDamage:
+                    description += $"적에게 부여된 독만큼 데미지를 주고, 독을 제거합니다. ";
+                    break;
+                case CardActionType.RandomTargetPoison:
+                    description += $"랜덤한 적에게 {action.value}의 독을 {action.secondaryValue}번 부여합니다. ";
+                    break;
+                case CardActionType.PoisonCheckDamage:
+                    description += $"적에게 {action.value} 데미지를 주고, 적이 중독 상태라면 추가로 {action.secondaryValue} 데미지를 줍니다. ";
+                    break;
+                case CardActionType.killEffect:
+                    switch (action.killEffectType)
+                    {
+                        case CardActionType.Damage:
+                            description += $"처치 시 추가로 랜덤한 적에게 {action.thirdValue} 데미지를 줍니다. ";
+                            break;
+                        case CardActionType.Heal:
+                            description += $"처치 시 추가로 자신의 체력을 {action.thirdValue}만큼 회복합니다. ";
+                            break;
+                        case CardActionType.Shield:
+                            description += $"처치 시 추가로 자신의 방어도를 {action.thirdValue}만큼 부여합니다. ";
+                            break;
+                        case CardActionType.RestoreResource:
+                            description += $"처치 시 추가로 자신의 서클을 {action.thirdValue}만큼 회복합니다. ";
+                            break;
+                    }
+                    break;
+                case CardActionType.Heal:
+                    description += $"자신의 체력을 {action.value}만큼 회복합니다. ";
+                    break;
+                case CardActionType.Shield:
+                    description += $"자신의 방어도를 {action.value}만큼 부여합니다. ";
+                    break;
+                case CardActionType.DoubleShield:
+                    description += $"자신에게 부여된 방어도가 2배가 됩니다. ";
+                    break;
+            }
+        }
+
+        foreach (var buffDebuff in buffsAndDebuffs)
+        {
+            switch (buffDebuff.effectType)
+            {
+                case EffectType.DecreaseDamage:
+                    description += $"적에게 {buffDebuff.duration}턴 동안 {buffDebuff.effectValue * 100}% 데미지 감소 디버프를 적용합니다. ";
+                    break;
+                case EffectType.SkipTurn:
+                    description += $"적에게 {buffDebuff.duration}턴 동안 행동 불가 디버프를 적용합니다. ";
+                    break;
+                case EffectType.RandomAction:
+                    description += $"적이 이번 턴에 수행할 행동을 변경합니다. ";
+                    break;
+                case EffectType.Confuse:
+                    description += $"적에게 {buffDebuff.duration}턴 동안 혼란 디버프를 적용합니다. ";
+                    break;
+                case EffectType.DelayedImpact:
+                    description += $"적에게 한 턴 뒤에 {buffDebuff.intValue} 데미지를 줍니다. ";
+                    break;
+                case EffectType.IncreaseDamage:
+                    description += $"자신에게 {buffDebuff.duration}턴 동안 {buffDebuff.effectValue * 100}% 데미지 증가 버프를 적용합니다. ";
+                    break;
+                case EffectType.AreaEffect:
+                    description += $"자신에게 {buffDebuff.duration}턴 동안 광역 공격 버프를 적용합니다. ";
+                    break;
+                case EffectType.LifeSteal:
+                    description += $"자신에게 {buffDebuff.duration}턴 동안 {buffDebuff.effectValue * 100}% 흡혈 버프를 적용합니다. ";
+                    break;
+                case EffectType.ReduceDamage:
+                    description += $"자신에게 {buffDebuff.duration}턴 동안 {buffDebuff.effectValue * 100}% 피해 감소 버프를 적용합니다. ";
+                    break;
+                case EffectType.ReflectDamage:
+                    description += $"자신에게 {buffDebuff.duration}턴 동안 {buffDebuff.effectValue * 100}% 반사 버프를 적용합니다. ";
+                    break;
+                case EffectType.Purification:
+                    description += $"자신에게 적용된 해로운 효과들을 정화합니다. ";
+                    break;
+                case EffectType.Field:
+                    switch (attributeType)
+                    {
+                        case PlayerState.AttributeType.Fire:
+                            description += $"필드를 불 속성으로 바꿉니다. 불 속성 마법의 데미지가 25% 증가합니다. ";
+                            break;
+                        case PlayerState.AttributeType.Water:
+                            description += $"필드를 물 속성으로 바꿉니다. 매 턴마다 자신의 체력을 8만큼 회복합니다.";
+                            break;
+                        case PlayerState.AttributeType.Wood:
+                            description += $"필드를 나무 속성으로 바꿉니다. 중독된 대상에게 매 턴마다 3의 독을 부여합니다. ";
+                            break;
+                        case PlayerState.AttributeType.Earth:
+                            description += $"필드를 땅 속성으로 바꿉니다. 자신이 받는 데미지가 25% 감소됩니다. ";
+                            break;
+                        case PlayerState.AttributeType.Lightning:
+                            description += $"필드를 전기 속성으로 바꿉니다. 매 턴 종료 시 스턴 상태의 적에게 20 데미지를 줍니다. ";
+                            break;
+                        case PlayerState.AttributeType.Wind:
+                            description += $"필드를 바람 속성으로 바꿉니다. 바람 마법의 고정 데미지가 1 추가됩니다.";
+                            break;
+                        case PlayerState.AttributeType.Light:
+                            description += $"필드를 빛 속성으로 바꿉니다. 빛 마법의 소모 서클이 2 감소합니다. ";
+                            break;
+                        case PlayerState.AttributeType.Dark:
+                            description += $"필드를 어둠 속성으로 바꿉니다. 어둠 마법의 소모 서클이 2 감소합니다. ";
+                            break;
+                    }
+                    break;
+            }
+        }
+        return description;
+    }
+
     private bool IsDamageAction(CardAction action)
     {
         return action.actionType == CardActionType.Damage ||
                action.actionType == CardActionType.MultiHit ||
                action.actionType == CardActionType.AreaDamage ||
+               action.actionType == CardActionType.RandomTargetDamage ||
+               action.actionType == CardActionType.RandomTargetDamageWithBonus ||
+               action.actionType == CardActionType.IncrementalDamage ||
+               action.actionType == CardActionType.TrueDamage ||
+               action.actionType == CardActionType.TrueAreaDamage ||
+               action.actionType == CardActionType.ShieldAttack ||
+               action.actionType == CardActionType.OverhealToDamage ||
+               action.actionType == CardActionType.StunCheckDamage ||
                action.actionType == CardActionType.Poison ||
                action.actionType == CardActionType.AreaPoison ||
                action.actionType == CardActionType.DoublePoison ||
                action.actionType == CardActionType.PoisonToDamage ||
-               action.actionType == CardActionType.RandomTargetDamage ||
-               action.actionType == CardActionType.RandomTargetDamageWithBonus ||
-               action.actionType == CardActionType.IncrementalDamage ||
-               action.actionType == CardActionType.OverhealToDamage ||
-               action.actionType == CardActionType.ShieldAttack ||
-               action.actionType == CardActionType.StunCheckDamage ||
+               action.actionType == CardActionType.RandomTargetPoison ||
                action.actionType == CardActionType.PoisonCheckDamage;
     }
 
@@ -477,7 +715,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
         return  effect.effectType == EffectType.DecreaseDamage ||
                 effect.effectType == EffectType.SkipTurn ||
                 effect.effectType == EffectType.RandomAction ||
-                effect.effectType == EffectType.Confuse;
+                effect.effectType == EffectType.Confuse ||
+                effect.effectType == EffectType.DelayedImpact;
     }
 
     private bool IsPlayerBuff(BuffDebuff effect)

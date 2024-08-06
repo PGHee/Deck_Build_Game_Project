@@ -24,10 +24,10 @@ public class CardActionDrawer : PropertyDrawer
 
         EditorGUI.PropertyField(actionTypeRect, actionType);
 
-        if (actionType.enumValueIndex == (int)CardActionType.DoublePoison ||
+        if (actionType.enumValueIndex == (int)CardActionType.ShieldAttack ||
+            actionType.enumValueIndex == (int)CardActionType.DoublePoison ||
             actionType.enumValueIndex == (int)CardActionType.PoisonToDamage ||
             actionType.enumValueIndex == (int)CardActionType.killEffect || 
-            actionType.enumValueIndex == (int)CardActionType.ShieldAttack ||
             actionType.enumValueIndex == (int)CardActionType.DoubleShield)
         {
             
@@ -39,13 +39,16 @@ public class CardActionDrawer : PropertyDrawer
 
         if (actionType.enumValueIndex == (int)CardActionType.MultiHit ||
             actionType.enumValueIndex == (int)CardActionType.AreaDamage ||
+            actionType.enumValueIndex == (int)CardActionType.RandomTargetDamage ||
+            actionType.enumValueIndex == (int)CardActionType.RandomTargetDamageWithBonus ||
+            actionType.enumValueIndex == (int)CardActionType.IncrementalDamage || 
+            actionType.enumValueIndex == (int)CardActionType.TrueDamage ||
+            actionType.enumValueIndex == (int)CardActionType.TrueAreaDamage ||
+            actionType.enumValueIndex == (int)CardActionType.StunCheckDamage || 
             actionType.enumValueIndex == (int)CardActionType.Poison ||
             actionType.enumValueIndex == (int)CardActionType.AreaPoison ||
-            actionType.enumValueIndex == (int)CardActionType.RandomTargetDamage || 
-            actionType.enumValueIndex == (int)CardActionType.StunCheckDamage || 
-            actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage ||
-            actionType.enumValueIndex == (int)CardActionType.IncrementalDamage ||
-            actionType.enumValueIndex == (int)CardActionType.RandomTargetDamageWithBonus)
+            actionType.enumValueIndex == (int)CardActionType.RandomTargetPoison ||
+            actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage)
         {
             EditorGUI.PropertyField(secondaryValueRect, secondaryValue);
         }
@@ -67,9 +70,9 @@ public class CardActionDrawer : PropertyDrawer
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) // 행동 방식 별 inspector창이 표현될 크기
     {
         var actionType = property.FindPropertyRelative("actionType");
-        if (actionType.enumValueIndex == (int)CardActionType.DoublePoison ||
+        if (actionType.enumValueIndex == (int)CardActionType.ShieldAttack ||
+            actionType.enumValueIndex == (int)CardActionType.DoublePoison ||
             actionType.enumValueIndex == (int)CardActionType.PoisonToDamage ||
-            actionType.enumValueIndex == (int)CardActionType.ShieldAttack ||
             actionType.enumValueIndex == (int)CardActionType.DoubleShield)
         {
             return EditorGUIUtility.singleLineHeight;
@@ -77,13 +80,16 @@ public class CardActionDrawer : PropertyDrawer
 
         if (actionType.enumValueIndex == (int)CardActionType.MultiHit ||
             actionType.enumValueIndex == (int)CardActionType.AreaDamage ||
+            actionType.enumValueIndex == (int)CardActionType.RandomTargetDamage ||
+            actionType.enumValueIndex == (int)CardActionType.IncrementalDamage ||
+            actionType.enumValueIndex == (int)CardActionType.TrueDamage ||
+            actionType.enumValueIndex == (int)CardActionType.TrueAreaDamage ||
+            actionType.enumValueIndex == (int)CardActionType.StunCheckDamage ||
             actionType.enumValueIndex == (int)CardActionType.Poison ||
             actionType.enumValueIndex == (int)CardActionType.AreaPoison ||
-            actionType.enumValueIndex == (int)CardActionType.killEffect ||
-            actionType.enumValueIndex == (int)CardActionType.RandomTargetDamage || 
-            actionType.enumValueIndex == (int)CardActionType.StunCheckDamage || 
-            actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage  ||
-            actionType.enumValueIndex == (int)CardActionType.IncrementalDamage)
+            actionType.enumValueIndex == (int)CardActionType.killEffect || 
+            actionType.enumValueIndex == (int)CardActionType.RandomTargetPoison ||
+            actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage)
         {
             return EditorGUIUtility.singleLineHeight * 3 + 6;
         }
@@ -114,11 +120,21 @@ public class BuffDebuffDrawer : PropertyDrawer
         Rect isAreaEffectRect = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight + 2, position.width, EditorGUIUtility.singleLineHeight);
         Rect durationRect = new Rect(position.x, position.y + (EditorGUIUtility.singleLineHeight + 2) * 2, position.width, EditorGUIUtility.singleLineHeight);
         Rect effectValueRect = new Rect(position.x, position.y + (EditorGUIUtility.singleLineHeight + 2) * 3, position.width, EditorGUIUtility.singleLineHeight);
-        Rect intValueRect = new Rect(position.x, position.y + (EditorGUIUtility.singleLineHeight + 2) * 3, position.width, EditorGUIUtility.singleLineHeight);
+        Rect intValueRect = new Rect(position.x, position.y + (EditorGUIUtility.singleLineHeight + 2) * 2, position.width, EditorGUIUtility.singleLineHeight);
 
         EditorGUI.PropertyField(effectTypeRect, effectType);
         EditorGUI.PropertyField(isAreaEffectRect, isAreaEffect);
-        EditorGUI.PropertyField(durationRect, duration);
+        if (effectType.enumValueIndex == (int)EffectType.Purification || 
+            effectType.enumValueIndex == (int)EffectType.Field || 
+            effectType.enumValueIndex == (int)EffectType.RandomAction || 
+            effectType.enumValueIndex == (int)EffectType.DelayedImpact)
+        {
+
+        }
+        else
+        {
+            EditorGUI.PropertyField(durationRect, duration);
+        }
 
         if (effectType.enumValueIndex == (int)EffectType.IncreaseDamage || 
             effectType.enumValueIndex == (int)EffectType.LifeSteal || 
@@ -129,7 +145,7 @@ public class BuffDebuffDrawer : PropertyDrawer
             EditorGUI.PropertyField(effectValueRect, effectValue);
         }
 
-        if (effectType.enumValueIndex == (int)EffectType.ReduceCost)
+        if (effectType.enumValueIndex == (int)EffectType.DelayedImpact)
         {
             EditorGUI.PropertyField(intValueRect, intValue);
         }
@@ -151,10 +167,11 @@ public class BuffDebuffDrawer : PropertyDrawer
         {
             lineCount++;
         }
-
-        if (effectType.enumValueIndex == (int)EffectType.ReduceCost)
+        else if (effectType.enumValueIndex == (int)EffectType.Purification ||
+            effectType.enumValueIndex == (int)EffectType.Field ||
+            effectType.enumValueIndex == (int)EffectType.RandomAction)
         {
-            lineCount++;
+            lineCount--;
         }
 
         return EditorGUIUtility.singleLineHeight * lineCount + (2 * (lineCount - 1));

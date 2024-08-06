@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 652345334cdc6aa4ba6d291b90a75154
+guid: 09106abf50c9603488c036bc1d7211b1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 76
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e2a3aeb20793d849be6c5bb1478d5b5
-      internalID: -2094407513
+      spriteID: f9463c966a83f6f449bcab69bcb62095
+      internalID: -881213142
       vertices: []
       indices: 
       edges: []
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9046afbe5023d9d4c814609a56abb05c
-      internalID: 396066793
+      spriteID: af86af3553d6cca46b0fd36d1d67d3aa
+      internalID: -274725800
       vertices: []
       indices: 
       edges: []
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d35ca43bb54d3d4a99883b85dfae600
-      internalID: -1438175574
+      spriteID: 9388eff7fcdb1f64fab523f32c9ae032
+      internalID: 722221803
       vertices: []
       indices: 
       edges: []
@@ -174,8 +174,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 314a73b42ddd0f7409e6591cac46af76
-      internalID: 1914070263
+      spriteID: 447fc5631dd67c145aa8d6b03e1873b6
+      internalID: -2141659497
       vertices: []
       indices: 
       edges: []
@@ -195,8 +195,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 833975ff7bdbf7b479db4eb3b7b71aa0
-      internalID: -508100769
+      spriteID: 960bca706bc13f04185fe42c882f2f7f
+      internalID: 1757874630
       vertices: []
       indices: 
       edges: []
@@ -216,8 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c31e9a7e790db73479aff9f3b358a9d0
-      internalID: 512592659
+      spriteID: 45ccfd1d931238e419cfeb95a3cec3b6
+      internalID: 459832210
       vertices: []
       indices: 
       edges: []
@@ -237,8 +237,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a0d8111116f8354489ce6cc5eb6eff1
-      internalID: -1118783424
+      spriteID: 2f84f822027b94748a9e5791cf34d9cf
+      internalID: -620955202
       vertices: []
       indices: 
       edges: []
@@ -258,8 +258,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a873fb08abac8cc49813b1210600277a
-      internalID: 1528913277
+      spriteID: f943f1c22d1c10045ab8fd5a0d5522a9
+      internalID: 1541954712
       vertices: []
       indices: 
       edges: []
@@ -279,8 +279,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a9b84e122f6ab149b9fb87be2cf3392
-      internalID: 2038946083
+      spriteID: 7131e15ce2291024d840b1f48d81f8ab
+      internalID: -411705724
       vertices: []
       indices: 
       edges: []
@@ -300,8 +300,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 907f618f3ee5cda46a5d368478d20829
-      internalID: 2091881439
+      spriteID: 7574afecf9a0c6348bbe37b45883e8a0
+      internalID: -1306346711
       vertices: []
       indices: 
       edges: []
@@ -317,16 +317,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Monster1_Die_0: -2094407513
-      Monster1_Die_1: 396066793
-      Monster1_Die_2: -1438175574
-      Monster1_Die_3: 1914070263
-      Monster1_Die_4: -508100769
-      Monster1_Die_5: 512592659
-      Monster1_Die_6: -1118783424
-      Monster1_Die_7: 1528913277
-      Monster1_Die_8: 2038946083
-      Monster1_Die_9: 2091881439
+      Monster1_Die_0: -881213142
+      Monster1_Die_1: -274725800
+      Monster1_Die_2: 722221803
+      Monster1_Die_3: -2141659497
+      Monster1_Die_4: 1757874630
+      Monster1_Die_5: 459832210
+      Monster1_Die_6: -620955202
+      Monster1_Die_7: 1541954712
+      Monster1_Die_8: -411705724
+      Monster1_Die_9: -1306346711
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

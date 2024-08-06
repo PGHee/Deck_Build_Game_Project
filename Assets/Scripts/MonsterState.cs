@@ -198,6 +198,13 @@ public class MonsterState : MonoBehaviour
             case EffectType.Confuse:
                 isConfuse = false;
                 break;
+            case EffectType.DelayedImpact:
+                if(duration == 0){
+                    effect.ApplyEffect(this.gameObject, 0, 1, 0.1f); // 수정 필요
+                    if (damageText != null) damageText.ShowDamage(this.gameObject, 0, intValue, 1, 0.1f); //수정 필요
+                    TakeDamage(intValue);
+                }
+                break;
         }
     }
 
@@ -279,7 +286,7 @@ public class MonsterState : MonoBehaviour
                 }
                 break;
             case ActionType.Poison:
-                monsterActions.ApplyPoison(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier * 0.5f), 1);
+                monsterActions.DealSingleTargetPoison(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier * 0.5f));
                 break;
             case ActionType.SelfDestruct:
                 monsterActions.DealSingleTargetDamage(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier * 1.5f));

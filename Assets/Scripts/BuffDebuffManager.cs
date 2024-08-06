@@ -25,7 +25,10 @@ public class BuffDebuffManager : MonoBehaviour
         HPBar hpBar = entity.GetComponentInChildren<HPBar>();
         if (hpBar != null)
         {
-            if (!entityBuffs[entity].Any(buff => buff.Item1 == effectType)) uiManager.AddBuffIcon(hpBar.buffIconPanel, effectType);
+            if (!entityBuffs[entity].Any(buff => buff.Item1 == effectType))
+            {
+                GameObject buffIcon = uiManager.AddBuffIcon(hpBar.buffIconPanel, effectType);
+            }
         }
         entityBuffs[entity].Add((effectType, duration, effectValue, intValue)); 
 
@@ -52,7 +55,10 @@ public class BuffDebuffManager : MonoBehaviour
         HPBar hpBar = entity.GetComponentInChildren<HPBar>();
         if (hpBar != null)
         {
-            if (!entityDebuffs[entity].Any(debuff => debuff.Item1 == effectType)) uiManager.AddDebuffIcon(hpBar.debuffIconPanel, effectType);
+            if (!entityDebuffs[entity].Any(debuff => debuff.Item1 == effectType))
+            {
+                GameObject debuffIcon = uiManager.AddDebuffIcon(hpBar.debuffIconPanel, effectType);
+            }
         }
         entityDebuffs[entity].Add((effectType, duration, effectValue, intValue));
 
@@ -224,6 +230,11 @@ public class BuffDebuffManager : MonoBehaviour
     public void ApplyConfuseDebuff(GameObject entity, int duration)
     {
         ApplyDebuff(entity, EffectType.Confuse, duration, 0f, 0);
+    }
+    
+    public void ApplyDelayedImpact(GameObject entity, int intValue)
+    {
+        ApplyDebuff(entity, EffectType.DelayedImpact, 1, 0f, intValue);
     }
 
     // 필드 적용

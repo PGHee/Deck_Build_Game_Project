@@ -10,7 +10,8 @@ public class Effect : MonoBehaviour
 
     private void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();   // AudioSource 컴포넌트를 추가합니다.
+        audioSource = gameObject.AddComponent<AudioSource>();           // AudioSource 컴포넌트를 추가합니다.
+        audioSource.volume = PlayerPrefs.GetFloat("effectVolume", 1f);  // PlayerPrefs에 저장된 이펙트 볼륨을 불러와 설정합니다.
     }
 
     // 특정 카드 효과를 적용하는 메소드
@@ -74,6 +75,7 @@ public class Effect : MonoBehaviour
         // 이펙트 사운드 재생
         if (effectSounds != null && effectSounds.Length > effectIndex)
         {
+            audioSource.volume = PlayerPrefs.GetFloat("effectVolume", 1f);
             audioSource.PlayOneShot(effectSounds[effectIndex]);
         }
 

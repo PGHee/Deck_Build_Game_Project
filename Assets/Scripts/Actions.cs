@@ -88,26 +88,6 @@ public class Actions : MonoBehaviour
             }
         }
     }
-
-    // 처치 시 추가 행동
-    void ApplyKillEffect(CardAction killEffect, PlayerState.AttributeType? attributeType = null)
-    {
-        switch (killEffect.killEffectType)
-        {
-            case CardActionType.Damage:
-                DealRandomTargetDamage(FindObjectsOfType<MonsterState>().Where(m => m.currentHealth > 0).Select(m => m.gameObject).ToList(), killEffect.thirdValue, 1, attributeType);
-                break;
-            case CardActionType.Heal:
-                FindObjectOfType<PlayerState>().Heal(killEffect.thirdValue);
-                break;
-            case CardActionType.Shield:
-                FindObjectOfType<PlayerState>().ApplyShield(killEffect.thirdValue);
-                break;
-            case CardActionType.RestoreResource:
-                FindObjectOfType<PlayerState>().RestoreResource(killEffect.thirdValue);
-                break;
-        }
-    }
     
     // 랜덤 대상 공격
     public void DealRandomTargetDamage(List<GameObject> enemies, int damage, int hits, PlayerState.AttributeType? attributeType = null)
@@ -185,6 +165,77 @@ public class Actions : MonoBehaviour
         }
     }
 
+    // 고정 데미지
+    public void DealTrueDamage(GameObject target, int damage, int hits, PlayerState.AttributeType? attributeType = null)
+    {
+        MonsterState monsterState = target.GetComponent<MonsterState>();
+        effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);   // 수정 필요
+        damageText.ShowDamage(target, (int)attributeType, damage, hits, 0.1f);
+        if (monsterState != null)
+        {
+            monsterState.TakeDamage(damage);
+            if(player.LifeSteal > 0) player.Heal(Mathf.RoundToInt(damage * player.LifeSteal));
+            if(monsterState.reflectDamage > 0) ReflectDamage(player.gameObject, Mathf.RoundToInt(damage * monsterState.reflectDamage));
+        }
+    }
+    
+    // 독 적용
+    public void DealSingleTargetPoison(GameObject target, int poisonAmount, PlayerState.AttributeType? attributeType = null)
+    {
+        MonsterState monsterState = target.GetComponent<MonsterState>();
+        if(monsterState != null)
+        {
+            if(attributeType == PlayerState.AttributeType.Wood) poisonAmount += player.woodPoisonBonus;
+            monsterState.ApplyPoison(poisonAmount);
+        }
+
+        PlayerState playerState = target.GetComponent<PlayerState>();
+        if(playerState != null)
+        {
+            effect.ApplyEffect(target, 1, 1, 0.1f); // 수정 필요
+            playerState.ApplyPoison(poisonAmount);
+        }
+    }
+
+    public void DealMultiplePoison(GameObject target, int poisonAmount, int hits, PlayerState.AttributeType? attributeType = null)
+    {
+        effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
+        for(int i = 0; i < hits; i++) DealSingleTargetPoison(target, poisonAmount, attributeType);
+    }
+    
+    public void DealRandomTargetPoison(List<GameObject> enemies, int poisonAmount, int hits, PlayerState.AttributeType? attributeType = null)
+    {
+        if (enemies.Count == 0) return;
+        if(attributeType == PlayerState.AttributeType.Wood) poisonAmount += player.woodPoisonBonus;
+        for (int i = 0; i < hits; i++)
+        {
+            int randomIndex = Random.Range(0, enemies.Count);
+            GameObject target = enemies[randomIndex];
+            effect.ApplyEffect(target, (int)attributeType, 1, 0.1f * i);
+            DealSingleTargetPoison(enemies[randomIndex], poisonAmount, attributeType);
+        }
+    }
+
+    // 처치 시 추가 행동
+    void ApplyKillEffect(CardAction killEffect, PlayerState.AttributeType? attributeType = null)
+    {
+        switch (killEffect.killEffectType)
+        {
+            case CardActionType.Damage:
+                DealRandomTargetDamage(FindObjectsOfType<MonsterState>().Where(m => m.currentHealth > 0).Select(m => m.gameObject).ToList(), killEffect.thirdValue, 1, attributeType);
+                break;
+            case CardActionType.Heal:
+                FindObjectOfType<PlayerState>().Heal(killEffect.thirdValue);
+                break;
+            case CardActionType.Shield:
+                FindObjectOfType<PlayerState>().ApplyShield(killEffect.thirdValue);
+                break;
+            case CardActionType.RestoreResource:
+                FindObjectOfType<PlayerState>().RestoreResource(killEffect.thirdValue);
+                break;
+        }
+    }
+
     // 반사 데미지
     public void ReflectDamage(GameObject target, int damage)
     {
@@ -208,28 +259,6 @@ public class Actions : MonoBehaviour
     public void RestoreResource(PlayerState player, int amount)
     {
         player.RestoreResource(amount);
-    }
-
-    // 독 적용
-    public void ApplyPoison(GameObject target, int poisonAmount, int hits, PlayerState.AttributeType? attributeType = null)
-    {
-        MonsterState monsterState = target.GetComponent<MonsterState>();
-        if(monsterState != null)
-        {
-            if(attributeType == PlayerState.AttributeType.Wood) poisonAmount += player.woodPoisonBonus;
-            effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
-            for(int i = 0; i < hits; i++) monsterState.ApplyPoison(poisonAmount);
-        }
-
-        PlayerState playerState = target.GetComponent<PlayerState>();
-        if(playerState != null)
-        {
-            effect.ApplyEffect(target, 1, hits, 0.1f); // 수정 필요
-            for(int i = 0; i < hits; i++)
-            {
-                playerState.ApplyPoison(poisonAmount);
-            }
-        }
     }
 
     // 스턴 적용

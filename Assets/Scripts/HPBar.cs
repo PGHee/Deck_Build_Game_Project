@@ -23,14 +23,8 @@ public class HPBar : MonoBehaviour
 
     private void Awake()
     {
-        // SpriteRenderer 컴포넌트의 sortingOrder 설정
         SpriteRenderer barRenderer = GetComponent<SpriteRenderer>();
         SpriteRenderer fillRenderer = barTransform.GetComponent<SpriteRenderer>();
-        Canvas canvas = GetComponentInChildren<Canvas>();
-        if (canvas != null)
-        {
-            canvas.sortingOrder = 10;
-        }
     }
 
     // Initialize 메서드
