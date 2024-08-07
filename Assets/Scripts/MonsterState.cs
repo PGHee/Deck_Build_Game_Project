@@ -276,9 +276,13 @@ public class MonsterState : MonoBehaviour
         {
             Debug.Log($"{gameObject.name} died");
             animator.SetTrigger("DieTrigger");
-            Destroy(gameObject);
             Destroy(hpBar.gameObject);
         }
+    }
+
+    public void OnDeathAnimationComplete()
+    {
+        Destroy(gameObject);  // 오브젝트 삭제
     }
 
     public void GetRandomAction()
@@ -301,6 +305,14 @@ public class MonsterState : MonoBehaviour
         {
             int randomIndex = Random.Range(0, monsters.Count);
             targetObject = monsters[randomIndex].gameObject;
+        }
+        else if(selectedAction.actionType == ActionType.IncreaseDamage ||
+                selectedAction.actionType == ActionType.IncreaseDamageStack ||
+                selectedAction.actionType == ActionType.LifeSteal ||
+                selectedAction.actionType == ActionType.ReduceDamage ||
+                selectedAction.actionType == ActionType.ReflectDamage)
+        {
+            targetObject = this.gameObject;
         }
 
         if(isConfuse)

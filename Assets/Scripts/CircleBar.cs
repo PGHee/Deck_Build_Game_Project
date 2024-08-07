@@ -18,7 +18,7 @@ public class CircleBar : MonoBehaviour
     public void Initialize(Transform target, int maxCircle, Vector3 offset)
     {
         transform.SetParent(target);
-        transform.localPosition = offset + new Vector3(0, 5.5f, 0);
+        transform.localPosition = offset + new Vector3(0, 2.0f, 0);
         UpdateCircle(maxCircle, maxCircle);
     }
 

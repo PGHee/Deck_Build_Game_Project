@@ -102,6 +102,8 @@ public class TurnManager : MonoBehaviour
                 monster.AttackMotion();
                 yield return new WaitForSeconds(3);     // 각 몬스터의 행동 사이에 딜레이 추가
                 monster.GetRandomAction();
+                monster.UpdateValueEffect();
+                monster.UpdateAction();
             }
         }
         StartPlayerTurn();
