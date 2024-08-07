@@ -19,6 +19,7 @@ public class MonsterSpawnManager : MonoBehaviour
     public GameObject[,] elitePrefabs;          // 정예몬스터 프리팹 배열
     public GameObject[] bossPrefabs;            // 보스몬스터 프리팹 배열
     public GameObject hpBarPrefab;              // HP 바 프리팹
+    public GameObject turnActionPrefab;
 
     void Start()
     {
@@ -58,6 +59,7 @@ public class MonsterSpawnManager : MonoBehaviour
             // GameObject monsterInstance = Instantiate(monsterPrefabs[stageNum, monsterPrefabIndex], spawnPoints[spawnIndex].transform.position, Quaternion.identity);
 
             AddHPBar(monsterInstance);                              // 몬스터에 HP 바 추가
+            AddAction(monsterInstance);                             // 몬스터에 액션 바 추가
             spawnIndex++;                                           // 다음 스폰 지점 인덱스로 이동
             if (spawnIndex >= spawnPoints.Length) spawnIndex = 0;   // 인덱스 초기화
         }
@@ -89,5 +91,21 @@ public class MonsterSpawnManager : MonoBehaviour
             monster.buffIconPanel = buffIconPanel;
             monster.debuffIconPanel = debuffIconPanel;
         }
+    }
+
+    void AddAction(GameObject monsterInstance)
+    {
+        MonsterState monster = monsterInstance.GetComponent<MonsterState>();
+
+        GameObject actionUIInstance = Instantiate(turnActionPrefab, monsterInstance.transform.position, Quaternion.identity);
+        TurnActionUI actionUI = actionUIInstance.GetComponent<TurnActionUI>();
+
+        TextMeshProUGUI monsterActionText = actionUIInstance.GetComponentInChildren<TextMeshProUGUI>();
+        if(monsterActionText != null)
+        {
+            actionUI.monsterActionText = monsterActionText;
+        }
+        actionUI.Initialize(monsterInstance.transform, monster.selectedAction.actionType);
+        monster.SetAction(actionUI);
     }
 }

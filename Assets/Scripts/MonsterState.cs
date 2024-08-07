@@ -58,12 +58,15 @@ public class MonsterState : MonoBehaviour
     public Action selectedAction;                                       // 몬스터가 이번 턴에 할 행동
 
     private HPBar hpBar;
+    private TurnActionUI actionUI;
     private Effect effect;
     private DamageText damageText;
     public Transform buffIconPanel;
     public Transform debuffIconPanel;
-
     private Animator animator;
+
+    private int intEffect = 0;
+    private float floatEffect = 0.0f;
 
     void Start()
     {
@@ -76,6 +79,8 @@ public class MonsterState : MonoBehaviour
         currentHealth = maxHealth;
         isStunned = false;
         GetRandomAction();
+        UpdateValueEffect();
+        UpdateAction();
     }
 
     public void SetHPBar(HPBar hpBar)
@@ -87,6 +92,56 @@ public class MonsterState : MonoBehaviour
     public void UpdateHPBar()
     {
         hpBar.UpdateHealth(currentHealth, maxHealth, shield, poisonStacks);
+    }
+
+    public void SetAction(TurnActionUI actionUI)
+    {
+        this.actionUI = actionUI;
+    }
+
+    public void UpdateAction()
+    {
+        actionUI.UpdateAction(selectedAction.actionType, intEffect, floatEffect);
+    }
+
+    public void UpdateValueEffect()
+    {
+        switch(selectedAction.actionType)
+        {
+            case ActionType.Damage:
+                intEffect = Mathf.RoundToInt(attackPower * damageMultiplier);
+                break;
+            case ActionType.StrongAttack:
+                intEffect = Mathf.RoundToInt(attackPower * damageMultiplier * 1.25f);
+                break;
+            case ActionType.LifeStealAttack:
+                intEffect = Mathf.RoundToInt(attackPower * damageMultiplier * 0.75f);
+                break;
+            case ActionType.Shield:
+                intEffect = Mathf.RoundToInt(attackPower * damageMultiplier * 0.75f);
+                break;
+            case ActionType.Heal:
+                intEffect = Mathf.RoundToInt(maxHealth * damageMultiplier * 0.5f);
+                break;
+            case ActionType.AreaHeal:
+                intEffect = Mathf.RoundToInt(maxHealth * damageMultiplier * 0.5f);
+                break;
+            case ActionType.Poison:
+                intEffect = Mathf.RoundToInt(attackPower * damageMultiplier * 0.5f);
+                break;
+            case ActionType.SelfDestruct:
+                intEffect = Mathf.RoundToInt(attackPower * damageMultiplier * 1.5f);
+                break;
+            case ActionType.IncreaseDamage:
+            case ActionType.IncreaseDamageStack:
+            case ActionType.LifeSteal:
+            case ActionType.ReduceDamage:
+            case ActionType.ReflectDamage:
+            case ActionType.SkipTurn:
+            case ActionType.Confuse:
+                floatEffect = selectedAction.floatValue * 100;
+                break;
+        }
     }
 
     public void Heal(int amount)
@@ -261,35 +316,34 @@ public class MonsterState : MonoBehaviour
         {
             // 행동
             case ActionType.Damage:
-                monsterActions.DealSingleTargetDamage(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier));
+                monsterActions.DealSingleTargetDamage(targetObject, intEffect);
                 break;
             case ActionType.StrongAttack:
-                monsterActions.DealSingleTargetDamage(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier * 1.25f));
+                monsterActions.DealSingleTargetDamage(targetObject, intEffect);
                 break;
             case ActionType.LifeStealAttack:
-                monsterActions.DealSingleTargetDamage(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier * 0.75f));
-                Heal(Mathf.RoundToInt(attackPower * damageMultiplier * 0.75f));
+                monsterActions.DealSingleTargetDamage(targetObject, intEffect);
+                Heal(intEffect);
                 break;
             case ActionType.Shield:
-                int shieldAmount = Mathf.RoundToInt(attackPower * damageMultiplier * 0.75f);
-                if (damageText != null) damageText.ShowDamage(this.gameObject, 1, shieldAmount, 1, 0.1f); //수정 필요
-                shield += shieldAmount;
+                if (damageText != null) damageText.ShowDamage(this.gameObject, 1, intEffect, 1, 0.1f); //수정 필요
+                shield += intEffect;
                 UpdateHPBar();
                 break;
             case ActionType.Heal:
-                Heal(Mathf.RoundToInt(maxHealth * damageMultiplier * 0.5f));
+                Heal(intEffect);
                 break;
             case ActionType.AreaHeal:
                 foreach(var monster in monsters)
                 {
-                    monster.Heal(Mathf.RoundToInt(maxHealth * damageMultiplier * 0.5f));
+                    monster.Heal(intEffect);
                 }
                 break;
             case ActionType.Poison:
-                monsterActions.DealSingleTargetPoison(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier * 0.5f));
+                monsterActions.DealSingleTargetPoison(targetObject, intEffect);
                 break;
             case ActionType.SelfDestruct:
-                monsterActions.DealSingleTargetDamage(targetObject, Mathf.RoundToInt(attackPower * damageMultiplier * 1.5f));
+                monsterActions.DealSingleTargetDamage(targetObject, intEffect);
                 Die();
                 break;
             case ActionType.Wait:

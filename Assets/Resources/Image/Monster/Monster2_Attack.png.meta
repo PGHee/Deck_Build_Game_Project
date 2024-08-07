@@ -105,14 +105,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2c04ec369f62c14ebcedc8585b9747c
-      internalID: 630541450
+      spriteID: 20b8fc5878569cf459f64d7d421fbc8c
+      internalID: 223853528
       vertices: []
       indices: 
       edges: []
@@ -126,14 +126,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4cfdac892a48c0d4b920f209b3746d15
-      internalID: 802064826
+      spriteID: 15b4adb3f8c73d341a3a4818b199b579
+      internalID: 1432970580
       vertices: []
       indices: 
       edges: []
@@ -147,14 +147,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 966286901d5dc6243bdb9dce8bf59553
-      internalID: -657122077
+      spriteID: 0de7290705a9382438da1cb7e1212f67
+      internalID: -645988359
       vertices: []
       indices: 
       edges: []
@@ -168,14 +168,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea91bc6ef19761c469537d657695ec18
-      internalID: 1381479456
+      spriteID: d9a5918539d18f745b85354c499603bf
+      internalID: 107663743
       vertices: []
       indices: 
       edges: []
@@ -189,14 +189,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e31bf31c083c1a243bb80cddbb7b1fa3
-      internalID: -892648190
+      spriteID: b53d7166624d0364c87b2e0058e140e0
+      internalID: -2058296624
       vertices: []
       indices: 
       edges: []
@@ -210,14 +210,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b00e05b4e76d084280c52e3b1b70b5a
-      internalID: 1891448479
+      spriteID: b9152847a21f15e4ebd0f66cd85bb219
+      internalID: 158558350
       vertices: []
       indices: 
       edges: []
@@ -231,14 +231,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a1608c5ae5ea19409507aad15ea2987
-      internalID: -1459932586
+      spriteID: 4905401854b95e44aa6f2078f4bc4ee0
+      internalID: -2057799052
       vertices: []
       indices: 
       edges: []
@@ -252,14 +252,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 623edd1f0b73d234daf5218feb4cbee3
-      internalID: 1670639953
+      spriteID: d9d77a02110c08644b168766c1b8a6d8
+      internalID: -2093041200
       vertices: []
       indices: 
       edges: []
@@ -273,14 +273,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 689985db7d6867241aeebaf239e852fe
-      internalID: 1789693831
+      spriteID: 50eb1e7d7c56c7d40850c95d043336f4
+      internalID: 447860790
       vertices: []
       indices: 
       edges: []
@@ -294,14 +294,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7e723b09ce46e640ac4ffc162752a92
-      internalID: -141655328
+      spriteID: c12fa0b7413aa3c4e841f20d5e0304bf
+      internalID: 998651003
       vertices: []
       indices: 
       edges: []
@@ -315,14 +315,14 @@ TextureImporter:
         width: 600
         height: 338
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: caf91c513ce3fb84a8237a3188972fce
-      internalID: -376645331
+      spriteID: 42397b670751911429bf2e8e3f5d26da
+      internalID: 2055984381
       vertices: []
       indices: 
       edges: []
@@ -338,18 +338,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Monster2_Attack_0: 630541450
-      Monster2_Attack_1: 802064826
-      Monster2_Attack_10: -376645331
-      Monster2_Attack_11: -1700782862
-      Monster2_Attack_2: -657122077
-      Monster2_Attack_3: 1381479456
-      Monster2_Attack_4: -892648190
-      Monster2_Attack_5: 1891448479
-      Monster2_Attack_6: -1459932586
-      Monster2_Attack_7: 1670639953
-      Monster2_Attack_8: 1789693831
-      Monster2_Attack_9: -141655328
+      Monster2_Attack_0: 223853528
+      Monster2_Attack_1: 1432970580
+      Monster2_Attack_10: 2055984381
+      Monster2_Attack_11: -658710522
+      Monster2_Attack_2: -645988359
+      Monster2_Attack_3: 107663743
+      Monster2_Attack_4: -2058296624
+      Monster2_Attack_5: 158558350
+      Monster2_Attack_6: -2057799052
+      Monster2_Attack_7: -2093041200
+      Monster2_Attack_8: 447860790
+      Monster2_Attack_9: 998651003
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

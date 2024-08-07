@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4b400508bb72bc4885377f3c7e18f70
-      internalID: -445566611
+      spriteID: 0a33cdef284713f4e9dba0edf879d8c9
+      internalID: 1380470491
       vertices: []
       indices: 
       edges: []
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69060a4c31b754e40b59799bef24fa6f
-      internalID: -1781401541
+      spriteID: f39e0e8182edaa0429ee3a4b36dab3a5
+      internalID: -478890358
       vertices: []
       indices: 
       edges: []
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a50650af924927d45a4ba463f98745ea
-      internalID: -1526705395
+      spriteID: 6af49ddd59edfce4294da3b91a184e33
+      internalID: 1832252136
       vertices: []
       indices: 
       edges: []
@@ -174,8 +174,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7161bc4bcaf3a0c4888549e801513bc0
-      internalID: -1032872537
+      spriteID: c57db7e50b34335478db170d4427aad2
+      internalID: -305693141
       vertices: []
       indices: 
       edges: []
@@ -191,10 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Monster1_Attack_0: -445566611
-      Monster1_Attack_1: -1781401541
-      Monster1_Attack_2: -1526705395
-      Monster1_Attack_3: -1032872537
+      Monster1_Attack_0: 1380470491
+      Monster1_Attack_1: -478890358
+      Monster1_Attack_2: 1832252136
+      Monster1_Attack_3: -305693141
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -11,6 +11,9 @@ public class BuffDebuffManager : MonoBehaviour
     private PlayerState player;
     public BuffDebuffUIManager uiManager;
 
+    public SpriteRenderer background;
+    public Sprite[] backgroundSprite;
+
     void Start()
     {
         player = FindObjectOfType<PlayerState>();
@@ -244,7 +247,7 @@ public class BuffDebuffManager : MonoBehaviour
         {
             RemoveCurrentField();
         }
-
+        background.sprite = backgroundSprite[(int)attributeType];
         currentField = attributeType;
         Debug.Log($"Applied field: {attributeType}");
         

@@ -50,7 +50,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
     public Sprite cardBackFrame;
     public Sprite cardImage;
     public string cardName;
-    public string cardDescription;
+    private string cardDescription;
     public Sprite[] attributeSprites;
 
     public SpriteRenderer cardFront;
