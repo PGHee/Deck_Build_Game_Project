@@ -61,8 +61,6 @@ MonoBehaviour:
   cardBackFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
   cardImage: {fileID: 21300000, guid: d383e93451a54954d9d3566edd692f4b, type: 3}
   cardName: Fi_2
-  cardDescription: "\uC801\uC5D0\uAC8C 2\uC758 \uACE0\uC815 \uB370\uBBF8\uC9C0\uB97C
-    \uC90D\uB2C8\uB2E4."
   attributeSprites:
   - {fileID: 21300000, guid: ef2cdaf7c60193240a2c02f35763827e, type: 3}
   - {fileID: 21300000, guid: ef2cdaf7c60193240a2c02f35763827e, type: 3}

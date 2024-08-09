@@ -38,7 +38,7 @@ public class BuffDebuff
     public int intValue;
 }
 
-public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
+public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public PlayerState.AttributeType attributeType;
     public int cost;
@@ -68,6 +68,22 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
     private BuffDebuffManager buffDebuffManager;
     private int originalLayer;
 
+    private bool isDragging = false;
+    public GameObject originalPrefab;
+    private GameObject zoomedCard; // 확대된 카드 오브젝트
+    private Camera mainCamera;
+    private Vector3 fixedScreenPosition = new Vector3(0.85f, 0.55f, 10f); // 화면 특정 위치, Z값은 카메라와의 거리
+    private Vector3 originalScale; // 원본 스케일
+
+    private void Awake()
+    {
+        if (originalPrefab == null)
+        {
+            string prefabName = gameObject.name.Replace("(Clone)", "").Trim(); // 프리팹 이름 추출
+            originalPrefab = Resources.Load<GameObject>($"Prefabs/Card/{prefabName}");
+        }
+    }
+
     void Start()
     {
         startPosition = transform.position;
@@ -76,6 +92,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();  // BuffDebuffManager 스크립트를 가진 오브젝트를 찾음
         UpdateCardUI();
         originalLayer = gameObject.layer;                           // 오리지널 레이어 저장. 드래그한 카드가 레이캐스트에 충돌하는 것을 방지하기 위해 필요.
+        mainCamera = Camera.main;                                   // 메인 카메라를 찾음
+        originalScale = transform.localScale;                       // 원본 스케일 저장
+
     }
 
     public void OnDrag(PointerEventData eventData)          // 카드를 드래그했을 때의 동작
@@ -87,14 +106,11 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void OnEndDrag(PointerEventData eventData)       // 카드의 드래그를 마쳤을 때의 동작
     {
-        // 드래그 중에 레이어를 일시적으로 변경하여 레이캐스트에 잡히지 않도록 설정
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast"); // 드래그 중에 레이어를 일시적으로 변경하여 레이캐스트에 잡히지 않도록 설정
 
         Vector3 worldPoint = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, -Camera.main.transform.position.z));
         RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
-
         bool effectApplied = false;
-
         int adjustedCost = cost;
         if ((buffDebuffManager.currentField == PlayerState.AttributeType.Light && attributeType == PlayerState.AttributeType.Light) ||
             (buffDebuffManager.currentField == PlayerState.AttributeType.Dark && attributeType == PlayerState.AttributeType.Dark))
@@ -102,12 +118,11 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
             adjustedCost = Mathf.Max(cost - 2, 0);
         }
 
-        // 플레이어의 턴인지 확인
-        if (!TurnManager.instance.IsPlayerTurn)
+        if (!TurnManager.instance.IsPlayerTurn)                 // 플레이어의 턴인지 확인
         {
             Debug.Log("It's not the player's turn.");
         }
-        else if (player.currentResource >= adjustedCost) // 자원 검사를 추가하여 자원이 충분하지 않으면 효과를 적용하지 않음
+        else if (player.currentResource >= adjustedCost)        // 자원 검사를 추가하여 자원이 충분하지 않으면 효과를 적용하지 않음
         {
             if (hit.collider != null)
             {
@@ -175,6 +190,35 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
             player.AttackMotion();          // attackMotion을 이곳으로 이동
             Destroy(gameObject);
         }
+
+        isDragging = false;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (isDragging) return;
+        if (originalPrefab != null)
+        {
+            zoomedCard = Instantiate(originalPrefab);   // 원본 프리팹을 복제하여 확대된 카드로 사용
+
+            // 화면의 특정 위치에 고정 (스크린 좌표를 월드 좌표로 변환)
+            Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width * fixedScreenPosition.x, Screen.height * fixedScreenPosition.y, fixedScreenPosition.z));
+            zoomedCard.transform.position = worldPosition;
+            zoomedCard.transform.localScale = originalScale * 2.0f; // 크기 조정
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (zoomedCard != null) // 마우스가 카드에서 벗어나면 확대된 카드 제거
+        {
+            Destroy(zoomedCard);
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        isDragging = true;
     }
 
     public void UpdateCardUI()
