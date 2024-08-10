@@ -45,6 +45,7 @@ public class PlayerState : MonoBehaviour
     private DamageText damageText;
     private Animator animator;                      // 애니메이션 동작용
     private Transform playerTransform;              // 애니메이션 크기 맞추는 용
+    private MagicCircleManager magicCircle;
 
     void Start()
     {
@@ -60,6 +61,7 @@ public class PlayerState : MonoBehaviour
         damageText = FindObjectOfType<DamageText>();                        // 데미지 출력용
         animator = GetComponent<Animator>();                                // 애니메이션 출력용
         playerTransform = GetComponent<Transform>();                        // 애니메이션 크기 맞추는 용
+        magicCircle = FindObjectOfType<MagicCircleManager>();
 
         InitializeAttributes();
     }
@@ -117,7 +119,7 @@ public class PlayerState : MonoBehaviour
 
     int ExperienceToNextAttributeLevel(AttributeType attribute)
     {
-        int[] experienceRequired = { 3, 6, 9, 15, 25, 35, 55, 75, 95 };
+        int[] experienceRequired = { 3, 5, 7, 10, 15, 20, 25, 30, 35 };
         int masteryLevel = attributeMastery[attribute] - 1;
         return masteryLevel < experienceRequired.Length ? experienceRequired[masteryLevel] : int.MaxValue;
     }
@@ -126,6 +128,7 @@ public class PlayerState : MonoBehaviour
     {
         attributeMastery[attribute]++;
         ApplyAttributePassiveEffect(attribute, attributeMastery[attribute]);
+        magicCircle.UpdateMagicCircle();
         Debug.Log($"Attribute Level Up! {attribute} Mastery: {attributeMastery[attribute]}");
     }
 
