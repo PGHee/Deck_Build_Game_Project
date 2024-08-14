@@ -111,71 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a33cdef284713f4e9dba0edf879d8c9
-      internalID: 1380470491
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Monster1_Attack_1
-      rect:
-        serializedVersion: 2
-        x: 600
-        y: 1014
-        width: 600
-        height: 338
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f39e0e8182edaa0429ee3a4b36dab3a5
-      internalID: -478890358
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Monster1_Attack_2
-      rect:
-        serializedVersion: 2
-        x: 1200
-        y: 1014
-        width: 600
-        height: 338
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6af49ddd59edfce4294da3b91a184e33
-      internalID: 1832252136
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Monster1_Attack_3
-      rect:
-        serializedVersion: 2
-        x: 1800
-        y: 1014
-        width: 600
-        height: 338
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c57db7e50b34335478db170d4427aad2
-      internalID: -305693141
+      spriteID: 6f383bafb1b4218a0800000000000000
+      internalID: -6335919142214597642
       vertices: []
       indices: 
       edges: []
@@ -183,7 +120,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -191,10 +128,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Monster1_Attack_0: 1380470491
-      Monster1_Attack_1: -478890358
-      Monster1_Attack_2: 1832252136
-      Monster1_Attack_3: -305693141
+      Monster1_Attack_0: -6335919142214597642
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

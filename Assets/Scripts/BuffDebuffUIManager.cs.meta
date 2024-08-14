@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/BuffDebuffUIManager.cs.meta
 guid: e88ad33db4c0f464aaec4b9d24feb97f
+========
+guid: dcc4e6a9aae3ffe4a9967ba1f77d3edf
+>>>>>>>> KJW:Assets/Scripts/ArtifactMountManager.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

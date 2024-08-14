@@ -11,7 +11,6 @@ public class MonsterSpawnManager : MonoBehaviour
     일반 몬스터, 정예 몬스터, 보스 몬스터로 구분하여 SpawnMonsters(), SpawnElite(), SpawnBoss() 함수를 제작할 예정임
     각 몬스터는 StageManager의 stageNum 값을 받아오는 것으로 해당 스테이지의 몬스터 중에 랜덤 스폰될 예정
     */
-    private StageManager stageManager;
 
     public GameObject[] spawnPoints;            // 몬스터가 스폰될 위치들
     public GameObject[] monsterPrefabs;         // 삭제 예정
@@ -23,7 +22,6 @@ public class MonsterSpawnManager : MonoBehaviour
 
     void Start()
     {
-        stageManager = FindObjectOfType<StageManager>();
 
         monsterPrefabs = new GameObject[5];
         // monsterPrefabs = new GameObject[5, 5];

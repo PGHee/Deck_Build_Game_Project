@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CardInHand
-  - Monster
+  - ClearButton
   layers:
   - Default
   - TransparentFX
@@ -43,6 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Effects
-    uniqueID: 761767957
+  - name: Background
+    uniqueID: 2497734977
+    locked: 0
+  - name: Design
+    uniqueID: 839398621
+    locked: 0
+  - name: Button
+    uniqueID: 4131640623
     locked: 0

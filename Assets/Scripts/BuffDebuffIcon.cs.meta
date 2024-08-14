@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 35c7873456bf0bd4589f1a21b0f4395b
+<<<<<<<< HEAD:Assets/Scripts/BuffDebuffIcon.cs.meta
+guid: 96b69db5cb8f04744ac51c80f9cc9416
+========
+guid: ff38588722466c04da345a41a04d526b
+>>>>>>>> KJW:Assets/Scripts/ArtifactInfo.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

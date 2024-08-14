@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/BuffDebuffIcon.cs.meta
+guid: 94835ecff19879147b6d24d6d254563b
+========
+guid: ff38588722466c04da345a41a04d526b
+>>>>>>>> KJW:Assets/Scripts/ArtifactInfo.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/StartScene.unity.meta
 guid: 566ad35ccc254e44bacb5822c7a33882
+========
+guid: ee3e49eb9ae383c44a47f1defdc906ed
+folderAsset: yes
+>>>>>>>> KJW:Assets/Animations.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

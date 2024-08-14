@@ -5,59 +5,93 @@ using UnityEngine.UI;
 
 public class PopupManager : MonoBehaviour
 {
-    public GameObject popupPanel; // 팝업 패널
-    public Text popupText; // 팝업의 텍스트 컴포넌트
-    public Image popupImage; // 팝업의 이미지 컴포넌트 (선택 사항)
-    public Transform contentArea; // 팝업 내 오브젝트가 생성될 위치
-    public GameObject prefabToInstantiate; // 생성할 프리팹
+    public GameObject popupPanel;
+    public GameObject popupPanelCardReward; // 팝업 패널
+    public GameObject popupPanelPortal;     // 포탈 패널
+    public GameObject popupPanelEvent;      // 이벤트 패널
+    public GameObject popupPanelArtifactMount;  // 아티팩트 장착 패널
+    public GameObject popupPanelShop;       // 상점
 
-    public GameObject prefab; // 생성할 프리팹(새로운 방법)
-    public Transform panel;   // 프리팹을 추가할 패널
-    public string testKey;
+    public GameObject popupPanelUIBar;
+
+    public Transform contentArea; // 팝업 내 오브젝트가 생성될 위치
+
+    public ArtifactMountManager artifactMountManager;
 
     void Start()
     {
-        popupPanel.SetActive(false); // 시작할 때 팝업 비활성화
+        DeactivePanels(); // 시작할 때 팝업 비활성화
     }
 
     void Update()
     {
-        // 예시: 조건이 달성되었을 때 팝업을 활성화
-        if (ConditionMet())
-        {
-            ShowPopup("축하합니다! 새로운 카드를 획득했습니다.", null); // 이미지가 필요 없을 경우 null로 설정
-        }
+
     }
 
-    bool ConditionMet()
+    public void ShowPopup(string message)
     {
-        // 여기에 특정 조건을 체크하는 로직을 구현
-        // 예를 들어, 점수가 일정 점수 이상이 되면 true를 반환
-        return Input.GetKeyDown(testKey);
+
+        switch (message)
+        {
+            case "CardReward":
+                popupPanelCardReward.SetActive(true);
+                break;
+
+            case "Portal":
+                popupPanelPortal.SetActive(true);
+                break;
+
+            case "Event":
+                popupPanelEvent.SetActive(true);
+                break;
+
+            case "ArtifactMount":
+                popupPanelArtifactMount.SetActive(true);
+                break;
+
+            case "Shop":
+                popupPanelShop.SetActive(true);
+                break;
+
+            default:
+                Debug.Log("알 수 없는 메시지를 받았습니다: " + message);
+                break;
+        }
+
+        popupPanelUIBar.SetActive(false);
     }
 
-    public void ShowPopup(string message, Sprite image)
+    public void ClosePopup(string message)
     {
-        popupPanel.SetActive(true);
 
-        GameObject go = Instantiate(Resources.Load<GameObject>($"Prefabs/Popup"));
-        go.name = "Popup";
-
-        if (image != null)
+        switch (message)
         {
-            //popupImage.sprite = image;
-            //popupImage.gameObject.SetActive(true);
-        }
-        else
-        {
-            //popupImage.gameObject.SetActive(false);
-        }
-    }
+            case "CardReward":
+                popupPanelCardReward.SetActive(false);
+                break;
 
-    public void ClosePopup()
-    {
-        popupPanel.SetActive(false);
-        Destroy(GameObject.Find("Popup"));
+            case "Portal":
+                popupPanelPortal.SetActive(false);
+                break;
+
+            case "Event":
+                popupPanelEvent.SetActive(false);
+                break;
+
+            case "ArtifactMount":
+                popupPanelArtifactMount.SetActive(false);
+                break;
+
+            case "Shop":
+                popupPanelShop.SetActive(false);
+                break;
+
+            default:
+                Debug.Log("알 수 없는 메시지를 받았습니다: " + message);
+                break;
+        }
+
+        popupPanelUIBar.SetActive(true);
     }
 
     void ClearPopupContents()
@@ -67,6 +101,15 @@ public class PopupManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public void DeactivePanels()
+    {
+        popupPanelCardReward.SetActive(false);
+        popupPanelPortal.SetActive(false);
+        popupPanelEvent.SetActive(false);
+        popupPanelArtifactMount.SetActive(false);
+        popupPanelShop.SetActive(false);
     }
 }
 
