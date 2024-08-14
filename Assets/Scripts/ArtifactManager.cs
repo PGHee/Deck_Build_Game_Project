@@ -42,8 +42,6 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
             artifactPrefabs[i] = Resources.Load<GameObject>($"Prefabs/artifact{i + 1}");
         }
 
-        artifactInvenList = null;
-
         artifactSynthesizeDict = new Dictionary<int[], int>();
 
         artifactSynthesizeDict.Add(new int[] {1, 2}, 3);
@@ -59,8 +57,8 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         
         if (Input.GetKeyDown("a")) //아티팩트 생성 후 정보 갱신
         {
-            GenerateArtifect(1);
-            GetArtifectInfo();
+            GenerateArtifact(1);
+            GetArtifactInfo();
         }
 
 
@@ -76,14 +74,14 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         }
     }
 
-    public void GenerateArtifect(int artifactNum)
+    public void GenerateArtifact(int artifactNum)
     {
         GameObject go = Instantiate(artifactPrefabs[artifactNum - 1]);
-        go.transform.position = new Vector3(-5, 4, 1);
+        go.transform.position = new Vector3(-7, 3, 1);
         go.name = "Artifact";
     }
 
-    public void GetArtifectInfo() // 착용된 아티팩트의 정보를 불러옴
+    public void GetArtifactInfo() // 착용된 아티팩트의 정보를 불러옴
     {
         artifact = GameObject.FindWithTag("Artifact");
         activeEffect = artifact.GetComponent<ArtifactInfo>().activeEffectInfo;
@@ -211,19 +209,29 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
 
     public void SynthesizeArtifact(int a, int b, int c)
     {
-        int outArtifact;
 
         if ((int)(a/10) == (int)(b/10) && (int)(b / 10) == (int)(c / 10)) // 3아티팩트의 등급이 같으면
         {
-            if (artifactSynthesizeDict.TryGetValue(new int[] {a,b}, out outArtifact))
+            int[] inputArtifacts = new int[] { a, b }; // 합성의 기준 아티팩트 2개
+
+            System.Array.Sort(inputArtifacts); //정렬
+
+
+            foreach (int[] key in artifactSynthesizeDict.Keys)
             {
-                AddArtifact2Inven(outArtifact);
+                if (key[0] == inputArtifacts[0] && key[1] == inputArtifacts[1])
+                {
+                    AddArtifact2Inven(artifactSynthesizeDict[key]);
+                }
+                else
+                {
+                    Debug.Log("no match");
+                }
             }
-            else
-            {
-                Debug.Log("no match");
-                Debug.Log(artifactSynthesizeDict);
-            }
+        }
+        else
+        {
+            Debug.Log("grade missmatch");
         }
     }
 

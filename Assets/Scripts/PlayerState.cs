@@ -12,6 +12,7 @@ public class PlayerState : MonoBehaviour
     public int resource;
     public int currentResource;
     public int shield = 0;
+    public int crystal = 100;
 
     // 패시브 효과 관련 변수
     public float fireDamageMultiplier = 1.0f;

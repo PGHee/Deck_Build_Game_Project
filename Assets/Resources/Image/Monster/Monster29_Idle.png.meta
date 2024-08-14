@@ -1,0 +1,510 @@
+fileFormatVersion: 2
+guid: c199948d7e04fb6479a61c4d3db78647
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Monster29_Idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1467.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3638df88fdc44fd48898f796eb9cab47
+      internalID: 1692398734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_1
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 1467.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 801b4559f10cdaa4d83ef5179913f151
+      internalID: -240677161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_2
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1467.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f630b8eb9d49564faddf3a68c19b7f8
+      internalID: 1693705789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_3
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 1467.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79982517e5859144882b0a1f7bddafee
+      internalID: -1593712238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_4
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 1467.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ecbcdb52dbbf5448bec3e603cd92e36
+      internalID: 1331108477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 978.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f9b30d67bf0dca49bcf65deb27a875d
+      internalID: 1447907001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_6
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 978.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4073de703a61cd241bbde71665d1a7aa
+      internalID: -1474418300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_7
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 978.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe7e29c3c7492b8408b97b4e2076d97e
+      internalID: -793147723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_8
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 978.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fea4d8c5b523c2b458997681daeaf216
+      internalID: -464996012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_9
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 978.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d53593d4ec7d5624f99f777a22f05869
+      internalID: 1686219942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 489.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09b12cd22bd32d947961bdc9b4ce49b7
+      internalID: -860452158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_11
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 489.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f99b2b84df8eb24799a74cd3bc41ef2
+      internalID: -916976108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_12
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 489.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19e8acb2ed088bc42b7033f3d6fb7a80
+      internalID: -365445380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_13
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 489.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e2b2c93d322a9d4aa61395737f573b1
+      internalID: 499232320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_14
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 489.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a645bd276a59e504aae9d666232af46b
+      internalID: 1808240116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2c543eaa6fc55d45aa82bc70d145eb5
+      internalID: 887508165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_16
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d28257d3eaa39da429ecd3ec1a55231d
+      internalID: -380533196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monster29_Idle_17
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0.75
+        width: 600
+        height: 489.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ee9662f42bf16d42a0324a5a9f329fc
+      internalID: -387764388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Monster29_Idle_0: 1692398734
+      Monster29_Idle_1: -240677161
+      Monster29_Idle_10: -860452158
+      Monster29_Idle_11: -916976108
+      Monster29_Idle_12: -365445380
+      Monster29_Idle_13: 499232320
+      Monster29_Idle_14: 1808240116
+      Monster29_Idle_15: 887508165
+      Monster29_Idle_16: -380533196
+      Monster29_Idle_17: -387764388
+      Monster29_Idle_2: 1693705789
+      Monster29_Idle_3: -1593712238
+      Monster29_Idle_4: 1331108477
+      Monster29_Idle_5: 1447907001
+      Monster29_Idle_6: -1474418300
+      Monster29_Idle_7: -793147723
+      Monster29_Idle_8: -464996012
+      Monster29_Idle_9: 1686219942
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

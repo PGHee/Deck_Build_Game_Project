@@ -23,6 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760240039183077135}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,7 +33,6 @@ Transform:
   - {fileID: 8206088845966288946}
   - {fileID: 5894880779001848639}
   m_Father: {fileID: 8972137717370903817}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1327189038611396897
 GameObject:
@@ -58,13 +58,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327189038611396897}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.8, z: -0.1}
   m_LocalScale: {x: 3.3626254, y: 2.3904, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6503914981031994705}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4860612442672321661
 SpriteRenderer:
@@ -128,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8972137717370903817}
   - component: {fileID: 5452809352741906398}
-  - component: {fileID: -2060711528140567543}
+  - component: {fileID: 1402848650363580217}
   m_Layer: 0
   m_Name: CardPrefab
   m_TagString: CardInHand
@@ -143,6 +143,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3743748032461543813}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -150,7 +151,6 @@ Transform:
   m_Children:
   - {fileID: 6503914981031994705}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &5452809352741906398
 BoxCollider2D:
@@ -162,6 +162,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -178,7 +197,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2, y: 3}
   m_EdgeRadius: 0
---- !u!114 &-2060711528140567543
+--- !u!114 &1402848650363580217
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,17 +206,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3743748032461543813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 836834bfcd914114eba404223719ed57, type: 3}
+  m_Script: {fileID: 11500000, guid: c4b79a8a4944c2548a313b04d30c3a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardName: 
-  cardNum: 0
-  cardType: 
-  cardGrade: 0
-  cardCircle: 0
-  cardDamage: 0
-  cardRepeat: 0
-  cardTarget: 0
+  attributeType: 0
+  cost: 1
+  actions:
+  - actionType: 0
+    value: 6
+    secondaryValue: 0
+    killEffectType: 0
+    thirdValue: 0
+  buffsAndDebuffs: []
 --- !u!1 &4212458675321288118
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,13 +242,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4212458675321288118}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6503914981031994705}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1020524917885342327
 SpriteRenderer:
@@ -306,13 +326,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4950683971862882235}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.0619042, y: 3.0868556, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6503914981031994705}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &407859863010843603
 SpriteRenderer:

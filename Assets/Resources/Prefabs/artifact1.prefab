@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerstate: {fileID: 0}
-  activeEffectInfo: 2
-  activeCoefInfo: 1
+  activeEffectInfo: 1
+  activeCoefInfo: 10
   passiveListInfo: 00000000
   passiveCoefListInfo:
   - 0.5
