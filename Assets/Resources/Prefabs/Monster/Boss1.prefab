@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9123820806366060981}
   - component: {fileID: 8863763494861882630}
   m_Layer: 0
-  m_Name: Monster40
+  m_Name: Boss1
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1386651133, guid: 9c2b9735baefce24089f3fd3cb5853af, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_Size: {x: 2.4, y: 3.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &6429448288199581606
@@ -135,7 +135,7 @@ Animator:
   m_GameObject: {fileID: 3712460802157944383}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ecb3f296049959f4885a4b6a5250e1b3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9259703275ede884ebae7ba2a1ba7e41, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

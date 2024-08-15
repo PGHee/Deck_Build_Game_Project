@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6944289015321443890}
   - component: {fileID: 5195986952666706564}
   m_Layer: 0
-  m_Name: Monster2
+  m_Name: Elite51
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2091888955, guid: 4bef71e4b943803439f17363979d12eb, type: 3}
+  m_Sprite: {fileID: 693298891614890468, guid: 4bef71e4b943803439f17363979d12eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,17 +132,23 @@ MonoBehaviour:
   isConfuse: 0
   poisonStacks: 0
   actions:
-  - actionType: 3
+  - actionType: 1
     isRandomTargetBuff: 0
     duration: 0
     floatValue: 0
     intValue: 0
-  - actionType: 12
+  - actionType: 0
     isRandomTargetBuff: 0
     duration: 3
     floatValue: 0.5
     intValue: 0
-  passives: []
+  - actionType: 8
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0.5
+    intValue: 0
+  passives:
+  - passiveType: 1
   selectedAction:
     actionType: 0
     isRandomTargetBuff: 0

@@ -37,10 +37,12 @@ public class TurnActionUI : MonoBehaviour
             case ActionType.LifeSteal:
             case ActionType.ReduceDamage:
             case ActionType.ReflectDamage:
+                monsterActionText.text = floatEffect + "%";
+                monsterActionUI.sprite = monsterActionSprite[(int)monsterAction];
+                break;
             case ActionType.SkipTurn:
             case ActionType.Confuse:
-                if(floatEffect != 0) monsterActionText.text = floatEffect + "%";
-                else monsterActionText.text = "";
+                monsterActionText.text = "";
                 monsterActionUI.sprite = monsterActionSprite[(int)monsterAction];
                 break;
         }

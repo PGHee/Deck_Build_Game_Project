@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8503762442122643795
+--- !u!1 &5220656954758747403
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5664830202754324045}
-  - component: {fileID: 2416837967057051104}
-  - component: {fileID: 6344325406979266090}
-  - component: {fileID: 9056732783493303283}
-  - component: {fileID: 7340036990953233174}
+  - component: {fileID: 3510215495645833277}
+  - component: {fileID: 7265683667915496528}
+  - component: {fileID: 8833463608227647606}
+  - component: {fileID: 6597409691998582100}
+  - component: {fileID: 5022582482221504648}
   m_Layer: 0
-  m_Name: Monster20
+  m_Name: Elite52
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5664830202754324045
+--- !u!4 &3510215495645833277
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8503762442122643795}
+  m_GameObject: {fileID: 5220656954758747403}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.26, y: -4.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2416837967057051104
+--- !u!212 &7265683667915496528
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8503762442122643795}
+  m_GameObject: {fileID: 5220656954758747403}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,66 +76,28 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1060101143, guid: 2e267d89f6a463d49b8883beb232c0b4, type: 3}
+  m_Sprite: {fileID: -1862884300, guid: fca63a51c126a3a43aa4d1ea2d55515c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.4, y: 3.6}
+  m_Size: {x: 6.0000005, y: 3.3808596}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6344325406979266090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8503762442122643795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 517c0489aa2d4fd4aa274bd310ea81fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 30
-  currentHealth: 30
-  attackPower: 10
-  shield: 0
-  damageMultiplier: 1
-  LifeSteal: 0
-  reduceDamage: 0
-  reflectDamage: 0
-  isStunned: 0
-  isConfuse: 0
-  poisonStacks: 0
-  actions:
-  - actionType: 15
-    isRandomTargetBuff: 0
-    duration: 3
-    floatValue: 0
-    intValue: 0
-  passives: []
-  selectedAction:
-    actionType: 0
-    isRandomTargetBuff: 0
-    duration: 0
-    floatValue: 0
-    intValue: 0
-  buffIconPanel: {fileID: 0}
-  debuffIconPanel: {fileID: 0}
---- !u!95 &9056732783493303283
+--- !u!95 &8833463608227647606
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8503762442122643795}
+  m_GameObject: {fileID: 5220656954758747403}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0733b5bf86e73874e8f3b8d7d50e7e4b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6f2ad0000d6148c4dae7a8a96785dfd2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -146,13 +108,62 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &7340036990953233174
+--- !u!114 &6597409691998582100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5220656954758747403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517c0489aa2d4fd4aa274bd310ea81fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 14
+  currentHealth: 14
+  attackPower: 8
+  shield: 0
+  damageMultiplier: 1
+  LifeSteal: 0
+  reduceDamage: 0
+  reflectDamage: 0
+  isStunned: 0
+  isConfuse: 0
+  poisonStacks: 0
+  actions:
+  - actionType: 14
+    isRandomTargetBuff: 0
+    duration: 2
+    floatValue: 0
+    intValue: 0
+  - actionType: 10
+    isRandomTargetBuff: 1
+    duration: 999
+    floatValue: 0.25
+    intValue: 0
+  - actionType: 8
+    isRandomTargetBuff: 0
+    duration: 1
+    floatValue: 0
+    intValue: 0
+  passives:
+  - passiveType: 1
+  selectedAction:
+    actionType: 0
+    isRandomTargetBuff: 0
+    duration: 0
+    floatValue: 0
+    intValue: 0
+  buffIconPanel: {fileID: 0}
+  debuffIconPanel: {fileID: 0}
+--- !u!61 &5022582482221504648
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8503762442122643795}
+  m_GameObject: {fileID: 5220656954758747403}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -182,12 +193,12 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.0000005, y: 6.511231}
-    newSize: {x: 2.4, y: 3.6}
+    oldSize: {x: 6.3157897, y: 3.5587995}
+    newSize: {x: 6.0000005, y: 3.3808596}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.4, y: 3.6}
+  m_Size: {x: 3, y: 4}
   m_EdgeRadius: 0
