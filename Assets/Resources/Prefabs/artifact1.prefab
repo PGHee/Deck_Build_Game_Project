@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 317094740307749382}
   - component: {fileID: 4301401284024980985}
-  - component: {fileID: 2503602512211475315}
   - component: {fileID: -8389714407249845374}
+  - component: {fileID: 8542041004780399891}
   m_Layer: 0
   m_Name: artifact1
   m_TagString: Artifact
@@ -86,25 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2503602512211475315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8013344560810297594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff38588722466c04da345a41a04d526b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerstate: {fileID: 0}
-  activeEffectInfo: 1
-  activeCoefInfo: 10
-  passiveListInfo: 00000000
-  passiveCoefListInfo:
-  - 0.5
-  artifactManager: {fileID: 0}
 --- !u!61 &-8389714407249845374
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,3 +131,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &8542041004780399891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8013344560810297594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94835ecff19879147b6d24d6d254563b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerstate: {fileID: 0}
+  activeEffectInfo: 0
+  activeCoefInfo: 10
+  passiveListInfo: 
+  passiveCoefListInfo: []
+  artifactManager: {fileID: 0}

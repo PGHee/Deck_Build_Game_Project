@@ -12,7 +12,7 @@ public class PopupManager : MonoBehaviour
     public GameObject popupPanelArtifactMount;  // ��Ƽ��Ʈ ���� �г�
     public GameObject popupPanelShop;       // ����
 
-    public GameObject popupPanelUIBar;
+    //public GameObject popupPanelUIBar;
 
     public Transform contentArea; // �˾� �� ������Ʈ�� ������ ��ġ
 
@@ -53,7 +53,7 @@ public class PopupManager : MonoBehaviour
                 break;
         }
 
-        popupPanelUIBar.SetActive(false);
+        //popupPanelUIBar.SetActive(false);
     }
 
     public void ClosePopup(string message)
@@ -86,7 +86,7 @@ public class PopupManager : MonoBehaviour
                 break;
         }
 
-        popupPanelUIBar.SetActive(true);
+        //popupPanelUIBar.SetActive(true);
     }
 
     void ClearPopupContents()

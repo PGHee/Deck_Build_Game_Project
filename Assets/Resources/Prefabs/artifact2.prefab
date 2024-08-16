@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 317094740307749382}
   - component: {fileID: 4301401284024980985}
-  - component: {fileID: 2503602512211475315}
+  - component: {fileID: 7647274753223097907}
   m_Layer: 0
   m_Name: artifact2
   m_TagString: Artifact
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2503602512211475315
+--- !u!114 &7647274753223097907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,13 +94,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8013344560810297594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff38588722466c04da345a41a04d526b, type: 3}
+  m_Script: {fileID: 11500000, guid: 94835ecff19879147b6d24d6d254563b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerstate: {fileID: 0}
   activeEffectInfo: 1
-  activeCoefInfo: 1
-  passiveListInfo: 02000000
-  passiveCoefListInfo:
-  - 0.5
+  activeCoefInfo: 10
+  passiveListInfo: 
+  passiveCoefListInfo: []
   artifactManager: {fileID: 0}
