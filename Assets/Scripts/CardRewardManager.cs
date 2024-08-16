@@ -23,12 +23,6 @@ public class CardRewardManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void randomRewardCards(int[] elements, int[] levels)
     {
         cardPrefabs = new GameObject[3];

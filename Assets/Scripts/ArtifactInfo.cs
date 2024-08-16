@@ -20,12 +20,6 @@ public class ArtifactInfo : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnMouseDown()
     {
         artifactManager = GameObject.Find("ArtifactManager");

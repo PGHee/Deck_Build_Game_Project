@@ -6,26 +6,21 @@ using UnityEngine.UI;
 public class PopupManager : MonoBehaviour
 {
     public GameObject popupPanel;
-    public GameObject popupPanelCardReward; // ÆË¾÷ ÆÐ³Î
-    public GameObject popupPanelPortal;     // Æ÷Å» ÆÐ³Î
-    public GameObject popupPanelEvent;      // ÀÌº¥Æ® ÆÐ³Î
-    public GameObject popupPanelArtifactMount;  // ¾ÆÆ¼ÆÑÆ® ÀåÂø ÆÐ³Î
-    public GameObject popupPanelShop;       // »óÁ¡
+    public GameObject popupPanelCardReward; // ï¿½Ë¾ï¿½ ï¿½Ð³ï¿½
+    public GameObject popupPanelPortal;     // ï¿½ï¿½Å» ï¿½Ð³ï¿½
+    public GameObject popupPanelEvent;      // ï¿½Ìºï¿½Æ® ï¿½Ð³ï¿½
+    public GameObject popupPanelArtifactMount;  // ï¿½ï¿½Æ¼ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½
+    public GameObject popupPanelShop;       // ï¿½ï¿½ï¿½ï¿½
 
     public GameObject popupPanelUIBar;
 
-    public Transform contentArea; // ÆË¾÷ ³» ¿ÀºêÁ§Æ®°¡ »ý¼ºµÉ À§Ä¡
+    public Transform contentArea; // ï¿½Ë¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 
     public ArtifactMountManager artifactMountManager;
 
     void Start()
     {
-        DeactivePanels(); // ½ÃÀÛÇÒ ¶§ ÆË¾÷ ºñÈ°¼ºÈ­
-    }
-
-    void Update()
-    {
-
+        DeactivePanels(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ë¾ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
     }
 
     public void ShowPopup(string message)
@@ -54,7 +49,7 @@ public class PopupManager : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("¾Ë ¼ö ¾ø´Â ¸Þ½ÃÁö¸¦ ¹Þ¾Ò½À´Ï´Ù: " + message);
+                Debug.Log("ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Ò½ï¿½ï¿½Ï´ï¿½: " + message);
                 break;
         }
 
@@ -87,7 +82,7 @@ public class PopupManager : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("¾Ë ¼ö ¾ø´Â ¸Þ½ÃÁö¸¦ ¹Þ¾Ò½À´Ï´Ù: " + message);
+                Debug.Log("ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Ò½ï¿½ï¿½Ï´ï¿½: " + message);
                 break;
         }
 
@@ -96,7 +91,7 @@ public class PopupManager : MonoBehaviour
 
     void ClearPopupContents()
     {
-        // ÆË¾÷ÀÇ ³»¿ë¹°À» Á¤¸®
+        // ï¿½Ë¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ë¹°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         foreach (Transform child in contentArea)
         {
             Destroy(child.gameObject);

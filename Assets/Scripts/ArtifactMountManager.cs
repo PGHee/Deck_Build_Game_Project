@@ -19,7 +19,7 @@ public class ArtifactMountManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ArtifactListPage = 0; // ±âº» ÆäÀÌÁö´Â 0¹ø
+        ArtifactListPage = 0; // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½
         artifactPrefabs = new GameObject[3];
         for (int i = 0; i < 3; i++)
         {
@@ -27,13 +27,7 @@ public class ArtifactMountManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void ArtifactListUp() // ¾ÆÆ¼ÆÑÆ® ÀÎº¥Åä¸®¸¦ uiÃ¢¿¡ ³ª¿­
+    public void ArtifactListUp() // ï¿½ï¿½Æ¼ï¿½ï¿½Æ® ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ uiÃ¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         SetAllButtonClear();
 
@@ -54,27 +48,27 @@ public class ArtifactMountManager : MonoBehaviour
         for (int i = 0; i < pageArtifactNum; i++)
         {
             clearButtonsArtifact[i].GetComponent<Image>().sprite = artifactPrefabs[artifactInvenList[15 * ArtifactListPage + i] - 1].GetComponent<SpriteRenderer>().sprite;
-            // ÇöÀç »ö»óÀ» °¡Á®¿Í ¾ËÆÄ °ª¸¸ º¯°æ
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Color color = clearButtonsArtifact[i].GetComponent<Image>().color;
             color.a = 255.0f;
 
-            // º¯°æµÈ »ö»óÀ» ´Ù½Ã ¼³Á¤
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½
             clearButtonsArtifact[i].GetComponent<Image>().color = color;
         }
     }
 
-    public void GetClearButtonArtifact() // uiÃ¢ÀÇ Åõ¸í ¹öÆ°µéÀ» ÁöÁ¤
+    public void GetClearButtonArtifact() // uiÃ¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         clearButtonsArtifact = GameObject.FindGameObjectsWithTag("ClearButton");
     }
 
-    public void SetPageNext() // ´ÙÀ½ ÆäÀÌÁö
+    public void SetPageNext() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         ArtifactListPage++;
         ArtifactListUp();
     }
 
-    public void SetPageBefore() // ÀÌÀü ÆäÀÌÁö
+    public void SetPageBefore() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         ArtifactListPage--;
         if (ArtifactListPage < 0)
@@ -84,17 +78,17 @@ public class ArtifactMountManager : MonoBehaviour
         ArtifactListUp();
     }
 
-    public void SetAllButtonClear() // ¾ÆÆ¼ÆÑÆ® ³ª¿­ ½Ã ³²´Â ¹öÆ°, ÃÊ±â ¹öÆ° Åõ¸íÈ­
+    public void SetAllButtonClear() // ï¿½ï¿½Æ¼ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°, ï¿½Ê±ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½È­
     {
         GetClearButtonArtifact();
 
         for(int i = 0; i < clearButtonsArtifact.Length; i++)
         {
-            // ÇöÀç »ö»óÀ» °¡Á®¿Í ¾ËÆÄ °ª¸¸ º¯°æ
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Color color = clearButtonsArtifact[i].GetComponent<Image>().color;
             color.a = 0.0f;
 
-            // º¯°æµÈ »ö»óÀ» ´Ù½Ã ¼³Á¤
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½
             clearButtonsArtifact[i].GetComponent<Image>().color = color;
         }
     }
@@ -103,13 +97,13 @@ public class ArtifactMountManager : MonoBehaviour
     {
         if (ButtonNum < pageArtifactNum)
         {
-            // ±âÁ¸¿¡ ÀåÂøµÈ ¾ÆÆ¼ÆÑÆ® ¿ÀºêÁ§Æ® Á¦°Å
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             GameObject artifactMounted = GameObject.FindWithTag("Artifact");
             if (artifactMounted != null)
             {
                 Destroy(artifactMounted);
             }
-            // ¾À¿¡ ¾ÆÆ¼ÆÑÆ® ¹èÄ¡
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½Æ® ï¿½ï¿½Ä¡
             artifactManager.GenerateArtifact(artifactInvenList[15 * ArtifactListPage + ButtonNum]);
             artifactManager.GetArtifactInfo();
 
@@ -120,7 +114,7 @@ public class ArtifactMountManager : MonoBehaviour
             Color color = artifactMountImage.GetComponent<Image>().color;
             color.a = 255.0f;
 
-            // º¯°æµÈ »ö»óÀ» ´Ù½Ã ¼³Á¤
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½
             artifactMountImage.GetComponent<Image>().color = color;
         }
         

@@ -6,9 +6,9 @@ using TMPro;
 public class MonsterSpawnManager : MonoBehaviour
 {
     public GameObject[] spawnPoints;            // 몬스터가 스폰될 위치들
-    public GameObject[,] monsterPrefabs;     // 몬스터 프리팹 배열
-    public GameObject[,] elitePrefabs;          // 정예몬스터 프리팹 배열
-    public GameObject[] bossPrefabs;            // 보스몬스터 프리팹 배열
+    private GameObject[,] monsterPrefabs;        // 몬스터 프리팹 배열
+    private GameObject[,] elitePrefabs;          // 정예몬스터 프리팹 배열
+    private GameObject[] bossPrefabs;            // 보스몬스터 프리팹 배열
     public GameObject hpBarPrefab;              // HP 바 프리팹
     public GameObject turnActionPrefab;
 
@@ -23,13 +23,9 @@ public class MonsterSpawnManager : MonoBehaviour
             for (int j = 0; j < 2; j++) elitePrefabs[i, j] = Resources.Load<GameObject>($"Prefabs/Monster/Elite{i + 1}{j + 1}");
             bossPrefabs[i] = Resources.Load<GameObject>($"Prefabs/Monster/Boss{i + 1}");
         }
-        // 전투 시작 시 몬스터 스폰
-        SpawnNormalMonsters();
-        //SpawnEliteMonster();
-        //SpawnBossMonster();
     }
 
-    void SpawnNormalMonsters()
+    public void SpawnNormalMonsters()
     {
         int monsterCount = Random.Range(1, 4);                      // 스폰할 몬스터 수를 1에서 3 사이로 랜덤 설정
         int spawnIndex = 0;                                         // 현재 스폰 지점 인덱스
@@ -37,6 +33,7 @@ public class MonsterSpawnManager : MonoBehaviour
         for (int i = 0; i < monsterCount; i++)                      // 현재 스폰 지점에서 소환될 몬스터를 결정하고 소환
         {
             int monsterPrefabIndex = Random.Range(0, 4);            // 스폰할 몬스터 프리팹 랜덤 선택
+            Debug.Log(monsterPrefabs[stageNum - 1, monsterPrefabIndex]);
             GameObject monsterInstance = Instantiate(monsterPrefabs[stageNum - 1, monsterPrefabIndex], spawnPoints[spawnIndex].transform.position, Quaternion.identity);
             AddHPBar(monsterInstance);                              // 몬스터에 HP 바 추가
             AddAction(monsterInstance);                             // 몬스터에 액션 바 추가

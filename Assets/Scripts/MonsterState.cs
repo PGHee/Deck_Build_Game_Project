@@ -282,6 +282,7 @@ public class MonsterState : MonoBehaviour
 
     public void OnDeathAnimationComplete()
     {
+        TurnManager.instance.CheckBattleEnd();
         Destroy(gameObject);  // 오브젝트 삭제
     }
 

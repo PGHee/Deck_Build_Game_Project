@@ -18,27 +18,21 @@ public class ShopManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void GetPlayerState() // ÇÃ·¹ÀÌ¾î Á¤º¸ È¹µæ
+    public void GetPlayerState() // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
     {
         playerLevel = playerState.level;
         attributeMastery = playerState.attributeMastery;
     } 
 
-    public void FeedbackPlayerState()   // ÇÃ·¹ÀÌ¾î Á¤º¸ ¹ÝÈ¯(ÃÖ½ÅÈ­)
+    public void FeedbackPlayerState()   // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯(ï¿½Ö½ï¿½È­)
     {
 
     }
 
-    public int RandomSelectCard()  // »óÁ¡¿¡ ¶ã Ä«µå ·£´ý ¼±Á¤
+    public int RandomSelectCard()  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         GetPlayerState();
-        // ·£´ýÀ¸·Î »ý¼ºµÉ Ä«µåµéÀÇ ÇÁ¸®ÆÕ ¹øÈ£ ¼±Á¤ 
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ 
         List<int> attributeLevelList = new List<int>(attributeMastery.Values);
 
         int sumLevel = attributeLevelList.Sum();
@@ -62,7 +56,7 @@ public class ShopManager : MonoBehaviour
     {
         GetClearButtonShop();
 
-        for (int i = 0; i < 10; i++)    // ÆÇ¸ÅÇÏ´Â Ä«µå ¼ö ¸¸Å­ ¹Ýº¹ ¹üÀ§ ÁöÁ¤, ÇöÀç max´Â 15±îÁö
+        for (int i = 0; i < 10; i++)    // ï¿½Ç¸ï¿½ï¿½Ï´ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å­ ï¿½Ýºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ maxï¿½ï¿½ 15ï¿½ï¿½ï¿½ï¿½
         {
             int sellCardNum = RandomSelectCard();
             dynamicButtonManager.CardSpriteToButton(sellCardNum, clearButtonsShop[i]);

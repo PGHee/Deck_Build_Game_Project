@@ -7,7 +7,7 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager instance;
     public BuffDebuffManager buffDebuffManager;
-    private PlayerState player;
+    public PlayerState player;
     private List<MonsterState> monsters;
     private Actions cardActions;
 
@@ -28,13 +28,16 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        player = FindObjectOfType<PlayerState>();
-        monsters = new List<MonsterState>(FindObjectsOfType<MonsterState>());
         cardActions = FindObjectOfType<Actions>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
-        foreach(var monster in monsters)
+    }
+
+    public void StartBattle()
+    {
+        monsters = new List<MonsterState>(FindObjectsOfType<MonsterState>()); // 씬 내의 모든 몬스터를 가져옴
+        foreach (var monster in monsters)
         {
-            monster.GetRandomAction();
+            monster.GetRandomAction(); // 각 몬스터의 첫 행동 설정
         }
         StartPlayerTurn();
     }
@@ -53,8 +56,6 @@ public class TurnManager : MonoBehaviour
         player.currentResource = player.resource;
         player.ApplyTurnBasedPassives();        // 패시브 효과 적용
         player.ApplyPoisonDamage();             // 독 데미지 적용
-
-        // 플레이어에게 존재하는 버프와 디버프 효과 적용 및 소모
         buffDebuffManager.UpdateBuffs();        // 버프 업데이트
         buffDebuffManager.UpdateDebuffs();      // 디버프 업데이트
 
@@ -79,7 +80,6 @@ public class TurnManager : MonoBehaviour
     IEnumerator MonsterTurn()
     {
         Debug.Log("Monster's turn started.");
-        // 몬스터에게 존재하는 버프와 디버프 효과 적용 및 소모 (추후 추가)
         foreach (var monster in monsters)
         {
             if (monster != null && monster.gameObject.activeInHierarchy)
@@ -96,7 +96,6 @@ public class TurnManager : MonoBehaviour
                     monster.HandleStun();               // 스턴 상태 처리
                     continue;                           // 스턴 상태라면 행동을 스킵
                 }
-                // 몬스터의 행동 (추후 추가)
                 Debug.Log($"{monster.name} is taking action.");
                 monster.executeAction();
                 monster.AttackMotion();
@@ -121,7 +120,11 @@ public class TurnManager : MonoBehaviour
         else if (monsters.TrueForAll(m => m.currentHealth <= 0))
         {
             Debug.Log("All monsters are defeated. Battle ended.");
-            // 전투 종료 처리 (승리)
+            /*
+            전투 종료 처리 (승리)
+            이 부분에 종료 시 보상(리워드) 획득 함수를 추가하고, 포탈을 활성화시킬 수 있도록 연결이 필요함
+            이어서 전투가 종료된 직후에 수중에 있는 핸드들이 전부 사라지도록 만들어져야함.
+            */
             this.enabled = false;
         }
     }
