@@ -11,6 +11,7 @@ public class PopupManager : MonoBehaviour
     public GameObject popupPanelEvent;      // �̺�Ʈ �г�
     public GameObject popupPanelArtifactMount;  // ��Ƽ��Ʈ ���� �г�
     public GameObject popupPanelShop;       // ����
+    public GameObject popupPanelAttributeLV;
 
     //public GameObject popupPanelUIBar;
 
@@ -48,6 +49,10 @@ public class PopupManager : MonoBehaviour
                 popupPanelShop.SetActive(true);
                 break;
 
+            case "AttributeLV":
+                popupPanelAttributeLV.SetActive(true);
+                break;
+
             default:
                 Debug.Log("�� �� ���� �޽����� �޾ҽ��ϴ�: " + message);
                 break;
@@ -81,6 +86,10 @@ public class PopupManager : MonoBehaviour
                 popupPanelShop.SetActive(false);
                 break;
 
+            case "AttributeLV":
+                popupPanelAttributeLV.SetActive(false);
+                break;
+
             default:
                 Debug.Log("�� �� ���� �޽����� �޾ҽ��ϴ�: " + message);
                 break;
@@ -105,6 +114,7 @@ public class PopupManager : MonoBehaviour
         popupPanelEvent.SetActive(false);
         popupPanelArtifactMount.SetActive(false);
         popupPanelShop.SetActive(false);
+        popupPanelAttributeLV.SetActive(false);
     }
 }
 

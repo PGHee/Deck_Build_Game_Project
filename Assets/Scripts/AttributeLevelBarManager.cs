@@ -1,0 +1,54 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+
+
+public class AttributeLevelBarManager : MonoBehaviour
+{
+
+    public Image[] shapeImage; // 채워나갈 이미지
+    public float[] fillAmount; // 채워질 비율 (0.0 ~ 1.0)
+    public TextMeshProUGUI[] LevelText;
+    public int[] experienceRequired;
+    //public int[] attributeMastery;
+    //public int[] attributeExperience;
+
+    public PlayerState plyerState;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        experienceRequired = new int[] { 3, 5, 7, 10, 15, 20, 25, 30, 30 };
+    }
+
+    public void UpdateAttributeLevelImage()
+    {
+        fillAmount = new float[10];
+        List<int> attributeLVList = new List<int>(plyerState.attributeMastery.Values);
+        List<int> attributeEXPList = new List<int>(plyerState.attributeExperience.Values);
+
+        for (int i = 0; i < 10; i++)
+        {
+            fillAmount[i] = (float)((float)attributeEXPList[i] / (float)experienceRequired[attributeLVList[i] - 1]);
+            if (fillAmount[i] == 0.0f)
+            {
+                fillAmount[i] = +0.05f;
+            }
+            shapeImage[i].fillAmount = fillAmount[i];
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            LevelText[i].text = "[" + attributeLVList[i] + "] " + attributeEXPList[i] + "/" + experienceRequired[attributeLVList[i] - 1] + "";
+        }
+    }
+
+    public void UpdateAttributeLevel()
+    {
+        plyerState.AddAttributeExperience(PlayerState.AttributeType.Fire, 1);
+    }
+}
+

@@ -17,6 +17,11 @@ public class StageManager : MonoBehaviour
         {
             GenerateShopOpener();
         }
+
+        if (Input.GetKeyDown("v"))
+        {
+            GenerateEventOpener();
+        }
     }
 
     public void GenerateShopOpener()
@@ -25,6 +30,19 @@ public class StageManager : MonoBehaviour
         GameObject go = Instantiate(shopOpener);
         go.transform.position = new Vector3(5 , 0, -2);
         go.name = "shopOpener";
+    }
+
+    public void GenerateEventOpener()
+    {
+        GameObject eventOpener = Resources.Load<GameObject>($"Prefabs/EventOpener");
+        GameObject go = Instantiate(eventOpener);
+        go.transform.position = new Vector3(5, 0, -2);
+        go.name = "eventOpener";
+    }
+
+    public void DestroyEventOpener()
+    {
+        Destroy(GameObject.Find("eventOpener"));
     }
 
     public void DestroyShopOpener()

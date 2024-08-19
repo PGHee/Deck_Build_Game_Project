@@ -16,7 +16,7 @@ public class DynamicButtonManager : MonoBehaviour
     public void CardSpriteToButton(int cardNum, GameObject clearButton)
     {
         //GameObject cardPrefab = Resources.Load<GameObject>($"Prefabs/CardPrefab{cardNum}");
-        GameObject cardPrefab = Resources.Load<GameObject>($"Prefabs/CardPrefab");
+        GameObject cardPrefab = Resources.Load<GameObject>($"Prefabs/CardPrefab4");
         // 자식 오브젝트들의 스프라이트를 모두 가져오기
         Transform[] childTransforms = cardPrefab.GetComponentsInChildren<Transform>();
 
@@ -48,7 +48,7 @@ public class DynamicButtonManager : MonoBehaviour
                 // 원하는 위치 조정 (여기서는 중앙에 배치) 이거 해야함!!!!
                 RectTransform rectTransform = newImage.GetComponent<RectTransform>();
                 rectTransform.anchoredPosition = Vector2.zero; // 중심에 배치
-                rectTransform.sizeDelta = clearButton.GetComponent<RectTransform>().sizeDelta; // 버튼 크기에 맞추기
+                //rectTransform.sizeDelta = clearButton.GetComponent<RectTransform>().sizeDelta; // 버튼 크기에 맞추기
             }
         }
         Debug.Log(cardNum);

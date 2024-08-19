@@ -46,7 +46,7 @@ public class HandControl : MonoBehaviour
             }
             for (int j = 0; j < handCardNum; j++)
             {
-                float xposition = (0 - (float)handCardNum)/2 + j;
+                float xposition = (0 - (float)handCardNum)/(2.0f) + j + 0.5f;
                 //float zposition = 0.0f;
                 //hands[j].transform.position = new Vector3(xposition, hands[j].transform.position.y, zposition - j);
                 
@@ -54,7 +54,7 @@ public class HandControl : MonoBehaviour
                 float y = Mathf.Sqrt(radius * radius - xposition * xposition) + center.y;
 
                 // 현재 위치를 새로운 좌표로 이동
-                hands[j].transform.position = new Vector3(xposition, y, transform.position.z);
+                hands[j].transform.position = new Vector3((2.0f) * xposition, y - 1, transform.position.z);
 
                 Debug.Log(hands[j].transform.position);
 
