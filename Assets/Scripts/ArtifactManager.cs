@@ -8,8 +8,10 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public GameObject player;
     public PlayerState playerState;
     public GameObject artifact;
+    public Actions actions;
 
     public bool artifactReady;
+    public bool artifactDamageReady;
     public enum ActiveEffect { Heal, Shiled, Draw, Damage}
     public enum PassiveEffect 
     { 
@@ -27,6 +29,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public int activeCoef;
     public List<EffectType> passiveEffectList;
     public List<float> passiveCoefList;
+    public int artifactCost;
 
     public GameObject[] artifactPrefabs;
     public int[] artifactInvenList;
@@ -45,6 +48,8 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         artifactSynthesizeDict = new Dictionary<int[], int>();
 
         artifactSynthesizeDict.Add(new int[] {1, 2}, 3);
+
+        artifactDamageReady = false;
     }
 
     // Update is called once per frame
@@ -72,6 +77,43 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         {
             SynthesizeArtifact(1, 2, 1);
         }
+
+        if (artifactDamageReady)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                // 마우스 클릭 위치를 월드 좌표로 변환
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                // 해당 위치로 레이캐스트 발사
+                RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+                // 오브젝트가 감지되었는지 확인
+                if (hit.collider != null)
+                {
+                    // 감지된 오브젝트의 이름 출력
+                    Debug.Log("Clicked on object: " + hit.collider.name);
+
+                    if (hit.collider.CompareTag("Monster"))
+                    {
+                        actions.DealMultipleHits(hit.collider.gameObject, activeCoef, 1, null, PlayerState.AttributeType.Fire);
+                        artifactReady = false;
+                        CostSpend();
+                        Debug.Log("Target damaged");
+                    }
+                    else
+                    {
+                        Debug.Log(" Wrong target!!");
+                        artifactDamageReady = false;
+                    }
+                }
+                else
+                {
+                    Debug.Log("No target Detected");
+                    artifactDamageReady = false;
+                }
+            }
+        }
     }
 
     public void GenerateArtifact(int artifactNum)
@@ -88,6 +130,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         activeCoef = artifact.GetComponent<ArtifactInfo>().activeCoefInfo;
         passiveEffectList = artifact.GetComponent<ArtifactInfo>().passiveListInfo;
         passiveCoefList = artifact.GetComponent<ArtifactInfo>().passiveCoefListInfo;
+        artifactCost = artifact.GetComponent<ArtifactInfo>().artifactCost;
 
         ResetArtifactReady();
     }
@@ -116,33 +159,44 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     {
         if (artifactReady)
         {
-            switch (activeEffect)
+            if (playerState.currentResource >= artifactCost)
             {
-                case ActiveEffect.Draw:
-                    for (int i = 0; i < activeCoef; i++)
-                    {
-                        deckManager.CardDraw();
-                    }
-                    break;
+                switch (activeEffect)
+                {
+                    case ActiveEffect.Draw:
+                        for (int i = 0; i < activeCoef; i++)
+                        {
+                            deckManager.CardDraw();
+                        }
+                        CostSpend();
+                        break;
 
-                case ActiveEffect.Damage:
-                    Debug.Log("Damage_Artifact");
-                    break;
+                    case ActiveEffect.Damage:
+                        Debug.Log("Damage_Artifact");
+                        artifactDamageReady = true;
+                        break;
 
-                case ActiveEffect.Heal:
-                    playerState.Heal(activeCoef);
-                    break;
+                    case ActiveEffect.Heal:
+                        playerState.Heal(activeCoef);
+                        CostSpend();
+                        break;
 
-                case ActiveEffect.Shiled:
-                    playerState.ApplyShield(activeCoef);
-                    break;
+                    case ActiveEffect.Shiled:
+                        playerState.ApplyShield(activeCoef);
+                        CostSpend();
+                        break;
 
-                default:
-                    Debug.Log("none identifiyed active");
-                    break;
+                    default:
+                        Debug.Log("none identifiyed active");
+                        break;
+                }
+
+                artifactReady = false; //사용 불가로 변경
             }
-
-            artifactReady = false; //사용 불가로 변경
+            else
+            {
+                Debug.Log("Not enough Resources");
+            }
         }
         else
         {
@@ -222,6 +276,9 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
                 if (key[0] == inputArtifacts[0] && key[1] == inputArtifacts[1])
                 {
                     AddArtifact2Inven(artifactSynthesizeDict[key]);
+                    DeleteArtifact2Inven(a);
+                    DeleteArtifact2Inven(b);
+                    DeleteArtifact2Inven(c);
                 }
                 else
                 {
@@ -235,5 +292,9 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         }
     }
 
+    public void CostSpend()
+    {
+        playerState.SpendResource(artifactCost);
+    }
 
 }

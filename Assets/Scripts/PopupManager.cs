@@ -10,6 +10,7 @@ public class PopupManager : MonoBehaviour
     public GameObject popupPanelPortal;     // ��Ż �г�
     public GameObject popupPanelEvent;      // �̺�Ʈ �г�
     public GameObject popupPanelArtifactMount;  // ��Ƽ��Ʈ ���� �г�
+    public GameObject popupPanelArtifactSynthesis;  // ��Ƽ��Ʈ ���� �г�
     public GameObject popupPanelShop;       // ����
     public GameObject popupPanelAttributeLV;
 
@@ -45,6 +46,10 @@ public class PopupManager : MonoBehaviour
                 popupPanelArtifactMount.SetActive(true);
                 break;
 
+            case "ArtifactSynthesis":
+                popupPanelArtifactSynthesis.SetActive(true);
+                break;
+
             case "Shop":
                 popupPanelShop.SetActive(true);
                 break;
@@ -54,7 +59,7 @@ public class PopupManager : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("�� �� ���� �޽����� �޾ҽ��ϴ�: " + message);
+                Debug.Log("wrong message: " + message);
                 break;
         }
 
@@ -80,6 +85,10 @@ public class PopupManager : MonoBehaviour
 
             case "ArtifactMount":
                 popupPanelArtifactMount.SetActive(false);
+                break;
+
+            case "ArtifactSynthesis":
+                popupPanelArtifactSynthesis.SetActive(false);
                 break;
 
             case "Shop":
@@ -113,6 +122,7 @@ public class PopupManager : MonoBehaviour
         popupPanelPortal.SetActive(false);
         popupPanelEvent.SetActive(false);
         popupPanelArtifactMount.SetActive(false);
+        popupPanelArtifactSynthesis.SetActive(false);
         popupPanelShop.SetActive(false);
         popupPanelAttributeLV.SetActive(false);
     }

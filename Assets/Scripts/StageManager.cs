@@ -22,6 +22,13 @@ public class StageManager : MonoBehaviour
         {
             GenerateEventOpener();
         }
+
+        if (Input.GetKeyDown("y"))
+        {
+            GenerateArtifactSynthesisOpener();
+        }
+
+
     }
 
     public void GenerateShopOpener()
@@ -40,6 +47,14 @@ public class StageManager : MonoBehaviour
         go.name = "eventOpener";
     }
 
+    public void GenerateArtifactSynthesisOpener()
+    {
+        GameObject artifactSynthesisOpener = Resources.Load<GameObject>($"Prefabs/ArtifactSynthesisOpener");
+        GameObject go = Instantiate(artifactSynthesisOpener);
+        go.transform.position = new Vector3(5, 0, -2);
+        go.name = "artifactSynthesisOpener";
+    }
+
     public void DestroyEventOpener()
     {
         Destroy(GameObject.Find("eventOpener"));
@@ -48,6 +63,11 @@ public class StageManager : MonoBehaviour
     public void DestroyShopOpener()
     {
         Destroy(GameObject.Find("shopOpener"));
+    }
+
+    public void DestroyArtifactSynthesisOpener()
+    {
+        Destroy(GameObject.Find("artifactSynthesisOpener"));
     }
 
 }
