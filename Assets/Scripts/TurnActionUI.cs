@@ -27,7 +27,6 @@ public class TurnActionUI : MonoBehaviour
             case ActionType.AreaHeal:
             case ActionType.Poison:
             case ActionType.SelfDestruct:
-            case ActionType.Wait:
                 if(intEffect != 0) monsterActionText.text = intEffect + "";
                 else monsterActionText.text = "";
                 monsterActionUI.sprite = monsterActionSprite[(int)monsterAction];
@@ -40,6 +39,7 @@ public class TurnActionUI : MonoBehaviour
                 monsterActionText.text = floatEffect + "%";
                 monsterActionUI.sprite = monsterActionSprite[(int)monsterAction];
                 break;
+            case ActionType.Wait:
             case ActionType.SkipTurn:
             case ActionType.Confuse:
                 monsterActionText.text = "";

@@ -10,6 +10,7 @@ public class TurnManager : MonoBehaviour
     public PlayerState player;
     private List<MonsterState> monsters;
     private Actions cardActions;
+    private SystemMessage message;
 
     private bool isPlayerTurn;
     public bool IsPlayerTurn => isPlayerTurn;
@@ -30,6 +31,7 @@ public class TurnManager : MonoBehaviour
     {
         cardActions = FindObjectOfType<Actions>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
+        message = FindObjectOfType<SystemMessage>();
     }
 
     public void StartBattle()
@@ -65,7 +67,7 @@ public class TurnManager : MonoBehaviour
             if (buffDebuffManager.entityDebuffs[player.gameObject].Any(debuff => debuff.Item1 == EffectType.SkipTurn)) EndPlayerTurn();
         }
         
-        Debug.Log("Player's turn started.");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
+        message.ShowSystemMessage("플레이어 턴");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
     }
 
     public void EndPlayerTurn()
@@ -79,7 +81,8 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator MonsterTurn()
     {
-        Debug.Log("Monster's turn started.");
+        message.ShowSystemMessage("몬스터 턴 시작");
+        CheckBondedRevive();
         foreach (var monster in monsters)
         {
             if (monster != null && monster.gameObject.activeInHierarchy)
@@ -96,17 +99,40 @@ public class TurnManager : MonoBehaviour
                     monster.HandleStun();               // 스턴 상태 처리
                     continue;                           // 스턴 상태라면 행동을 스킵
                 }
-                Debug.Log($"{monster.name} is taking action.");
                 monster.executeAction();
-                monster.AttackMotion();
+                if(monster.selectedAction.actionType != ActionType.Wait) monster.AttackMotion();
                 yield return new WaitForSeconds(1);     // 각 몬스터의 행동 사이에 딜레이 추가
                 monster.GetRandomAction();
                 monster.UpdateValueEffect();
                 monster.UpdateAction();
-                yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(1);
             }
         }
         StartPlayerTurn();
+    }
+
+    private void CheckBondedRevive()
+    {
+        List<MonsterState> bondedMonsters = FindObjectsOfType<MonsterState>().Where(m => m.passives.Any(p => p.passiveType == PassiveType.Bond)).ToList();
+        bool allWaitingForDeath = bondedMonsters.All(m => m.gameObject.tag == "WaitingForDeath");   // 결속된 몬스터의 죽음 대기 확인
+
+        if (allWaitingForDeath)
+        {
+            foreach (MonsterState monster in bondedMonsters)
+            {
+                monster.animator.SetTrigger("DieTrigger");
+                Destroy(monster.hpBar.gameObject);
+            }
+        }
+        else
+        {
+            foreach (MonsterState monster in bondedMonsters.Where(m => m.gameObject.tag == "WaitingForDeath"))
+            {
+                monster.Heal(Mathf.RoundToInt(monster.maxHealth * 0.25f));
+                monster.gameObject.tag = monster.originalTag;   // 태그를 원래 태그로 복구
+                monster.UpdateHPBar();                          // 부활 후 HP 바 업데이트
+            }
+        }
     }
 
     public void CheckBattleEnd()

@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517c0489aa2d4fd4aa274bd310ea81fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  currentHealth: 20
-  attackPower: 4
+  maxHealth: 66
+  currentHealth: 66
+  attackPower: 48
   shield: 0
   damageMultiplier: 1
   LifeSteal: 0
@@ -155,8 +155,11 @@ MonoBehaviour:
     duration: 0
     floatValue: 0
     intValue: 0
+  hpBar: {fileID: 0}
   buffIconPanel: {fileID: 0}
   debuffIconPanel: {fileID: 0}
+  animator: {fileID: 0}
+  originalTag: 
 --- !u!61 &5195986952666706564
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5619187533453361520}
   - component: {fileID: 1736944674090250205}
   m_Layer: 5
-  m_Name: DamageTextPrefab2
+  m_Name: Text02_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

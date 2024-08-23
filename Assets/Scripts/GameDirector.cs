@@ -8,9 +8,13 @@ public class GameDirector : MonoBehaviour
     public int currentMap;         // 현재 맵 번호
     private MonsterSpawnManager spawnManager;
     private TurnManager turnManager;
+    private SystemMessage message;
+    private TitleMessageManager titleMessage;
 
     void Start()
     {
+        message = FindObjectOfType<SystemMessage>();
+        titleMessage = FindObjectOfType<TitleMessageManager>();
         spawnManager = FindObjectOfType<MonsterSpawnManager>();
         turnManager = TurnManager.instance;
         InitGame();
@@ -25,15 +29,16 @@ public class GameDirector : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("q")) StartNormalBattle();
-        if (Input.GetKeyDown("w")) StartEliteBattle();
-        if (Input.GetKeyDown("e")) StartBossBattle();
+        if (Input.GetKeyDown("q")) StartCoroutine(StartNormalBattle());
+        if (Input.GetKeyDown("w")) StartCoroutine(StartEliteBattle());
+        if (Input.GetKeyDown("e")) StartCoroutine(StartBossBattle());
     }
 
     void InitGame()
     {
         currentStage = 1;
         currentMap = 1;
+        titleMessage.ShowTitleMessage($"{currentStage} - {currentMap}");
     }
 
     public void OnPortalEntered(string portalType)
@@ -41,13 +46,13 @@ public class GameDirector : MonoBehaviour
         switch (portalType)
         {
             case "NormalBattle":
-                StartNormalBattle();
+                StartCoroutine(StartNormalBattle());
                 break;
             case "EliteBattle":
-                StartEliteBattle();
+                StartCoroutine(StartEliteBattle());
                 break;
             case "BossBattle":
-                StartBossBattle();
+                StartCoroutine(StartBossBattle());
                 break;
             case "Village":
                 EnterVillage();
@@ -63,25 +68,29 @@ public class GameDirector : MonoBehaviour
             currentMap = 1;
             currentStage++;
         }
+        titleMessage.ShowTitleMessage($"{currentStage} - {currentMap}");
     }
 
-    void StartNormalBattle()
+    IEnumerator StartNormalBattle()
     {
-        Debug.Log("Normal Battle Start");
+        message.ShowSystemMessage("전투 시작!");
+        yield return new WaitForSeconds(1);
         spawnManager.SpawnNormalMonsters();
         turnManager.StartBattle();
     }
 
-    void StartEliteBattle()
+    IEnumerator StartEliteBattle()
     {
-        Debug.Log("Elite Battle Start");
+        message.ShowSystemMessage("정예 몬스터 등장! 전투 시작");
+        yield return new WaitForSeconds(1);
         spawnManager.SpawnEliteMonster();
         turnManager.StartBattle();
     }
 
-    void StartBossBattle()
+    IEnumerator StartBossBattle()
     {
-        Debug.Log("Boss Battle Start");
+        message.ShowSystemMessage("보스 등장!! 전투 시작");
+        yield return new WaitForSeconds(1);
         spawnManager.SpawnBossMonster();
         turnManager.StartBattle();
     }

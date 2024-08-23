@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517c0489aa2d4fd4aa274bd310ea81fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  currentHealth: 0
-  attackPower: 0
+  maxHealth: 144
+  currentHealth: 144
+  attackPower: 72
   shield: 0
   damageMultiplier: 1
   LifeSteal: 0
@@ -131,16 +131,35 @@ MonoBehaviour:
   isStunned: 0
   isConfuse: 0
   poisonStacks: 0
-  actions: []
-  passives: []
+  actions:
+  - actionType: 1
+    isRandomTargetBuff: 0
+    duration: 0
+    floatValue: 0
+    intValue: 0
+  - actionType: 2
+    isRandomTargetBuff: 0
+    duration: 0
+    floatValue: 0
+    intValue: 0
+  - actionType: 14
+    isRandomTargetBuff: 0
+    duration: 2
+    floatValue: 0
+    intValue: 0
+  passives:
+  - passiveType: 0
   selectedAction:
     actionType: 0
     isRandomTargetBuff: 0
     duration: 0
     floatValue: 0
     intValue: 0
+  hpBar: {fileID: 0}
   buffIconPanel: {fileID: 0}
   debuffIconPanel: {fileID: 0}
+  animator: {fileID: 0}
+  originalTag: 
 --- !u!61 &7632652373152406117
 BoxCollider2D:
   m_ObjectHideFlags: 0

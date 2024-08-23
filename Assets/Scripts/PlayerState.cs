@@ -46,6 +46,7 @@ public class PlayerState : MonoBehaviour
     private Animator animator;                      // 애니메이션 동작용
     private Transform playerTransform;              // 애니메이션 크기 맞추는 용
     private MagicCircleManager magicCircle;
+    private SystemMessage message;
 
     void Start()
     {
@@ -62,6 +63,7 @@ public class PlayerState : MonoBehaviour
         animator = GetComponent<Animator>();                                // 애니메이션 출력용
         playerTransform = GetComponent<Transform>();                        // 애니메이션 크기 맞추는 용
         magicCircle = FindObjectOfType<MagicCircleManager>();
+        message = FindObjectOfType<SystemMessage>();
 
         InitializeAttributes();
     }
@@ -104,7 +106,7 @@ public class PlayerState : MonoBehaviour
         level++;
         resource = level;
         currentResource = resource;
-        Debug.Log($"Level Up! New Level: {level}, Resource: {resource}");
+        message.ShowSystemMessage("레벨 업!");
     }
 
     public void AddAttributeExperience(AttributeType attribute, int exp)
@@ -129,7 +131,7 @@ public class PlayerState : MonoBehaviour
         attributeMastery[attribute]++;
         ApplyAttributePassiveEffect(attribute, attributeMastery[attribute]);
         magicCircle.UpdateMagicCircle();
-        Debug.Log($"Attribute Level Up! {attribute} Mastery: {attributeMastery[attribute]}");
+        message.ShowSystemMessage($"속성 레벨 업! {attribute} 레벨: {attributeMastery[attribute]}");
     }
 
     public void UpdateHPBar()

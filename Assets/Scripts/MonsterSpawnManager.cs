@@ -6,14 +6,17 @@ using TMPro;
 public class MonsterSpawnManager : MonoBehaviour
 {
     public GameObject[] spawnPoints;            // 몬스터가 스폰될 위치들
-    private GameObject[,] monsterPrefabs;        // 몬스터 프리팹 배열
-    private GameObject[,] elitePrefabs;          // 정예몬스터 프리팹 배열
-    private GameObject[] bossPrefabs;            // 보스몬스터 프리팹 배열
+    private GameObject[,] monsterPrefabs;       // 몬스터 프리팹 배열
+    private GameObject[,] elitePrefabs;         // 정예몬스터 프리팹 배열
+    private GameObject[] bossPrefabs;           // 보스몬스터 프리팹 배열
     public GameObject hpBarPrefab;              // HP 바 프리팹
     public GameObject turnActionPrefab;
 
+    private GameDirector gameDirector;
+
     void Start()
     {
+        gameDirector = FindObjectOfType<GameDirector>();
         monsterPrefabs = new GameObject[5, 4];
         elitePrefabs = new GameObject[5, 2];
         bossPrefabs = new GameObject[5];
@@ -29,7 +32,7 @@ public class MonsterSpawnManager : MonoBehaviour
     {
         int monsterCount = Random.Range(1, 4);                      // 스폰할 몬스터 수를 1에서 3 사이로 랜덤 설정
         int spawnIndex = 0;                                         // 현재 스폰 지점 인덱스
-        int stageNum = 1;                                           // 스테이지 번호
+        int stageNum = gameDirector.currentStage;                   // 스테이지 번호
         for (int i = 0; i < monsterCount; i++)                      // 현재 스폰 지점에서 소환될 몬스터를 결정하고 소환
         {
             int monsterPrefabIndex = Random.Range(0, 4);            // 스폰할 몬스터 프리팹 랜덤 선택
@@ -44,7 +47,7 @@ public class MonsterSpawnManager : MonoBehaviour
 
     public void SpawnEliteMonster()
     {
-        int stageNum = 1; // 스테이지 번호
+        int stageNum = gameDirector.currentStage;
         if (stageNum == 5)
         {
             // 5스테이지에서는 엘리트 몬스터 1번과 2번이 같이 출현
@@ -71,7 +74,7 @@ public class MonsterSpawnManager : MonoBehaviour
 
     public void SpawnBossMonster()
     {
-        int stageNum = 1;                                           // 스테이지 번호
+        int stageNum = gameDirector.currentStage;
         GameObject bossInstance = Instantiate(bossPrefabs[stageNum - 1], spawnPoints[0].transform.position, Quaternion.identity);
         AddHPBar(bossInstance);
         AddAction(bossInstance);

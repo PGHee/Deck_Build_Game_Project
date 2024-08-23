@@ -57,13 +57,15 @@ public class MonsterState : MonoBehaviour
     private Actions monsterActions;
     public Action selectedAction;                                       // 몬스터가 이번 턴에 할 행동
 
-    private HPBar hpBar;
+    public HPBar hpBar;
     private TurnActionUI actionUI;
     private Effect effect;
     private DamageText damageText;
     public Transform buffIconPanel;
     public Transform debuffIconPanel;
-    private Animator animator;
+    public Animator animator;
+
+    public string originalTag;
 
     private int intEffect = 0;
     private float floatEffect = 0.0f;
@@ -78,6 +80,7 @@ public class MonsterState : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         isStunned = false;
+        originalTag = gameObject.tag;
         GetRandomAction();
         UpdateValueEffect();
         UpdateAction();
@@ -263,21 +266,32 @@ public class MonsterState : MonoBehaviour
         }
     }
 
-    void Die()  // 몬스터의 체력이 0 밑으로 떨어지면 사망 처리 됨.
+    void Die()
     {
-        Passive revivePassive = passives.Find(p => p.passiveType == PassiveType.Revive);
+        Passive bondPassive = passives.Find(p => p.passiveType == PassiveType.Bond);        // 결속 패시브 확인
+        if (bondPassive != null)
+        {
+            gameObject.tag = "WaitingForDeath";         // 태그를 "WaitingForDeath"로 변경하여 타겟팅에서 제외
+            currentHealth = 0;                          // 체력은 0으로 고정
+            UpdateHPBar();                              // HP 바 업데이트
+            buffDebuffManager.ApplySkipTurnDebuff(this.gameObject, 1);
+            Debug.Log($"{gameObject.name} is waiting for death.");
+            return;
+        }
+
+        Passive revivePassive = passives.Find(p => p.passiveType == PassiveType.Revive);    // 부활 패시브 확인
         if (revivePassive != null)
         {
             passives.Remove(revivePassive);
             currentHealth = Mathf.RoundToInt(maxHealth * 0.5f);
+            UpdateHPBar();
             Debug.Log($"{gameObject.name} has revived with {currentHealth} health.");
+            return;
         }
-        else
-        {
-            Debug.Log($"{gameObject.name} died");
-            animator.SetTrigger("DieTrigger");
-            Destroy(hpBar.gameObject);
-        }
+        // 완전히 사망 처리합니다.
+        Debug.Log($"{gameObject.name} died");
+        animator.SetTrigger("DieTrigger");
+        Destroy(hpBar.gameObject);
     }
 
     public void OnDeathAnimationComplete()
@@ -285,6 +299,7 @@ public class MonsterState : MonoBehaviour
         TurnManager.instance.CheckBattleEnd();
         Destroy(gameObject);  // 오브젝트 삭제
     }
+
 
     public void GetRandomAction()
     {

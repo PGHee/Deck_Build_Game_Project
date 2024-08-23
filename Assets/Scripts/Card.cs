@@ -75,6 +75,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     private Vector3 fixedScreenPosition = new Vector3(0.85f, 0.55f, 10f); // 화면 특정 위치, Z값은 카메라와의 거리
     private Vector3 originalScale; // 원본 스케일
 
+    private SystemMessage message;
+
     private void Awake()
     {
         if (originalPrefab == null)
@@ -86,6 +88,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 
     void Start()
     {
+        message = FindObjectOfType<SystemMessage>();
         startPosition = transform.position;
         cardActions = FindObjectOfType<Actions>();                  // Actions 스크립트를 가진 오브젝트를 찾음
         player = FindObjectOfType<PlayerState>();                   // PlayerState 스크립트를 가진 오브젝트를 찾음
@@ -120,7 +123,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 
         if (!TurnManager.instance.IsPlayerTurn)                 // 플레이어의 턴인지 확인
         {
-            Debug.Log("It's not the player's turn.");
+            message.ShowSystemMessage("플레이어 턴이 아닙니다.");
         }
         else if (player.currentResource >= adjustedCost)        // 자원 검사를 추가하여 자원이 충분하지 않으면 효과를 적용하지 않음
         {
@@ -131,7 +134,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                     PlayerState targetPlayer = hit.collider.GetComponent<PlayerState>();
                     if (targetPlayer != null)
                     {
-                        if (actions.Any(action => IsDamageAction(action))) Debug.Log("Cannot apply damage actions to player.");
+                        if (actions.Any(action => IsDamageAction(action))) message.ShowSystemMessage("몬스터에게 사용해 주세요.");
                         else
                         {
                             ApplyEffects(targetPlayer, null);
@@ -176,7 +179,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 }
             }
         }
-        else Debug.Log("Not enough resources to play this card.");
+        else message.ShowSystemMessage("보유한 서클이 부족합니다.");
 
         // 원래 레이어로 복구
         gameObject.layer = originalLayer;
@@ -328,7 +331,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 
     private void ApplyDamageEffects(MonsterState target, CardAction action)
     {
-        List<MonsterState> monsters = FindObjectsOfType<MonsterState>().ToList();
+        List<GameObject> monsterObjects = GameObject.FindGameObjectsWithTag("Monster").ToList();
+        List<MonsterState> monsters = monsterObjects.Select(obj => obj.GetComponent<MonsterState>()).ToList();
         if(player.isConfuse)
         {
             int randomIndex = Random.Range(0, monsters.Count);

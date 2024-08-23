@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5619187533453361520}
   - component: {fileID: 1736944674090250205}
   m_Layer: 5
-  m_Name: DamageTextPrefab3
+  m_Name: Text08_Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 1, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 0.5882353, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

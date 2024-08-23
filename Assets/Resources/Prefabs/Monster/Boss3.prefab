@@ -99,9 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517c0489aa2d4fd4aa274bd310ea81fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
-  currentHealth: 30
-  attackPower: 10
+  maxHealth: 96
+  currentHealth: 96
+  attackPower: 48
   shield: 0
   damageMultiplier: 1
   LifeSteal: 0
@@ -111,10 +111,80 @@ MonoBehaviour:
   isConfuse: 0
   poisonStacks: 0
   actions:
-  - actionType: 15
+  - actionType: 0
     isRandomTargetBuff: 0
     duration: 3
     floatValue: 0
+    intValue: 0
+  - actionType: 1
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0
+    intValue: 0
+  - actionType: 2
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0
+    intValue: 0
+  - actionType: 3
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0
+    intValue: 0
+  - actionType: 4
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0
+    intValue: 0
+  - actionType: 5
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0
+    intValue: 0
+  - actionType: 6
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0
+    intValue: 0
+  - actionType: 7
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0
+    intValue: 0
+  - actionType: 8
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0
+    intValue: 0
+  - actionType: 9
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0.5
+    intValue: 0
+  - actionType: 10
+    isRandomTargetBuff: 0
+    duration: 9999
+    floatValue: 0.25
+    intValue: 0
+  - actionType: 11
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0.5
+    intValue: 0
+  - actionType: 13
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0.5
+    intValue: 0
+  - actionType: 14
+    isRandomTargetBuff: 0
+    duration: 2
+    floatValue: 0.5
+    intValue: 0
+  - actionType: 15
+    isRandomTargetBuff: 0
+    duration: 3
+    floatValue: 0.5
     intValue: 0
   passives: []
   selectedAction:
@@ -123,8 +193,11 @@ MonoBehaviour:
     duration: 0
     floatValue: 0
     intValue: 0
+  hpBar: {fileID: 0}
   buffIconPanel: {fileID: 0}
   debuffIconPanel: {fileID: 0}
+  animator: {fileID: 0}
+  originalTag: 
 --- !u!95 &9123820806366060981
 Animator:
   serializedVersion: 5
