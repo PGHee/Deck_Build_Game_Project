@@ -101,8 +101,9 @@ MonoBehaviour:
   playerstate: {fileID: 0}
   activeEffectInfo: 1
   activeCoefInfo: 10
-  passiveListInfo: 
-  passiveCoefListInfo: []
+  passiveListInfo: 02000000
+  passiveCoefListInfo:
+  - 0.2
   artifactManager: {fileID: 0}
   artifactCost: 0
 --- !u!61 &-6280688709253794760

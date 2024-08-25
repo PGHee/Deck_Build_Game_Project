@@ -44,10 +44,12 @@ public class PopupManager : MonoBehaviour
 
             case "ArtifactMount":
                 popupPanelArtifactMount.SetActive(true);
+                artifactMountManager.UnmountArtifact();
                 break;
 
             case "ArtifactSynthesis":
                 popupPanelArtifactSynthesis.SetActive(true);
+                artifactMountManager.UnmountArtifact();
                 break;
 
             case "Shop":
@@ -85,6 +87,7 @@ public class PopupManager : MonoBehaviour
 
             case "ArtifactMount":
                 popupPanelArtifactMount.SetActive(false);
+                artifactMountManager.MountedArtifactBuffApply();
                 break;
 
             case "ArtifactSynthesis":

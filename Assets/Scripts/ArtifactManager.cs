@@ -121,6 +121,8 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         GameObject go = Instantiate(artifactPrefabs[artifactNum - 1]);
         go.transform.position = new Vector3(-7, 3, 1);
         go.name = "Artifact";
+
+        GetArtifactInfo();
     }
 
     public void GetArtifactInfo() // 착용된 아티팩트의 정보를 불러옴
@@ -137,17 +139,22 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
 
     public void ArtifactBuffApply() // 전투 시작 시 플레이어에게 아티팩트의 버프 적용
     {
-        for (int i = 0; i < passiveEffectList.Count; i++)
+        GameObject mountedArtifact = GameObject.FindWithTag("Artifact");
+        if (mountedArtifact != null)
         {
-            playerState.ApplyBuffDebuff(passiveEffectList[i], 1, passiveCoefList[i], 0);
-        }
+            for (int i = 0; i < passiveEffectList.Count; i++)
+            {
+                playerState.ApplyBuffDebuff(passiveEffectList[i], 1, passiveCoefList[i], 0); // 버프 수치 적용
+            }
+        }    
     }
 
-    public void ArtfactActiveApply() // 아티팩트 액티브 효과 적용 
+    public void ArtifactBuffRemove()
     {
-        // 효과 처리
-
-        artifactReady = false; //사용 불가로 변경
+        for (int i = 0; i < passiveEffectList.Count; i++)
+        {
+            playerState.RemoveBuffDebuff(passiveEffectList[i], 1, passiveCoefList[i], 0);
+        }
     }
 
     public void ResetArtifactReady()  // 아티팩트의 사용 횟수 초기화

@@ -61,7 +61,6 @@ MonoBehaviour:
   cardBackFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
   cardImage: {fileID: 21300000, guid: 6e5aebaad900cb14e89ad5d02ea1b0a6, type: 3}
   cardName: Da_1
-  cardDescription: "\uC801\uC5D0\uAC8C 6\uC758 \uB370\uBBF8\uC9C0\uB97C \uC90D\uB2C8\uB2E4."
   attributeSprites:
   - {fileID: 21300000, guid: ef2cdaf7c60193240a2c02f35763827e, type: 3}
   - {fileID: 21300000, guid: ef2cdaf7c60193240a2c02f35763827e, type: 3}
@@ -81,6 +80,7 @@ MonoBehaviour:
   cardTypeText: {fileID: 548043996326488027}
   cardDescriptionText: {fileID: 798499940291741318}
   cardCostText: {fileID: 4814046934912346136}
+  originalPrefab: {fileID: 0}
 --- !u!61 &2993644917563829978
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -518,9 +518,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4272181665448912511}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5655070508303800530}
@@ -530,9 +530,9 @@ RectTransform:
   m_Father: {fileID: 1393444969328344739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 844.5, y: 427.5}
+  m_SizeDelta: {x: 844.5, y: 427.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5096775870959469328
 Canvas:

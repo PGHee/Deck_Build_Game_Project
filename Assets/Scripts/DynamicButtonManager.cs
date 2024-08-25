@@ -53,4 +53,5 @@ public class DynamicButtonManager : MonoBehaviour
         }
         Debug.Log(cardNum);
     }
+
 }
