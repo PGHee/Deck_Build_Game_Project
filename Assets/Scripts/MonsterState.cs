@@ -303,10 +303,6 @@ public class MonsterState : MonoBehaviour
 
     public void GetRandomAction()
     {
-        if (actions.Count == 0)
-        {
-            Debug.LogError("No actions available to select.");
-        }
         int randomIndex = Random.Range(0, actions.Count);
         selectedAction = actions[randomIndex];
     }
@@ -316,6 +312,7 @@ public class MonsterState : MonoBehaviour
         PlayerState target = FindObjectOfType<PlayerState>();
         List<MonsterState> monsters = FindObjectsOfType<MonsterState>().ToList();
         GameObject targetObject = target.gameObject;
+        actionUI.StartPulseEffect();
 
         if(selectedAction.isRandomTargetBuff)
         {

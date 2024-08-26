@@ -385,3 +385,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d3687a4b9d8b2f446bbeb083fa149b85, type: 3}
   - {fileID: 21300000, guid: d32a8a20eb63423439eddca95189a176, type: 3}
   - {fileID: 21300000, guid: 378d320d83c006b45b1f57b6fb0dc87d, type: 3}
+  pulseDuration: 0.2
+  pulseScale: 1.2
+  pulseCount: 2
