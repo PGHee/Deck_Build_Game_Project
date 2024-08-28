@@ -73,11 +73,6 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
             ArtifactBuffApply();
         }
 
-        if (Input.GetKeyDown("s")) //아티팩트 합성 실험
-        {
-            SynthesizeArtifact(1, 2, 1);
-        }
-
         if (artifactDamageReady)
         {
             if (Input.GetMouseButtonUp(0))

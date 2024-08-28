@@ -22,7 +22,7 @@ public class RewardManager : MonoBehaviour
 
     public void GetReward(string message, int num, int price)
     {
-        if (playerState.crystal > price)
+        if (playerState.crystal >= price)
         {
             switch (message)
             {

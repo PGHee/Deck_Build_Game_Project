@@ -8,6 +8,7 @@ public class GameDirector : MonoBehaviour
     public int currentMap;         // 현재 맵 번호
     private MonsterSpawnManager spawnManager;
     private TurnManager turnManager;
+    public StageManager stageManager;
 
     void Start()
     {
@@ -90,12 +91,15 @@ public class GameDirector : MonoBehaviour
     {
         Debug.Log("Entering Village");
         // 마을 컨텐츠 로직
+        stageManager.GenerateShopOpener();
+        stageManager.GenerateArtifactSynthesisOpener();
     }
 
     void StartEvent()
     {
         Debug.Log("Triggering Event");
         // 이벤트 컨텐츠 로직
+        stageManager.GenerateEventOpener();
     }
 
     void EndGame()

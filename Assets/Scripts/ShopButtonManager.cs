@@ -19,8 +19,8 @@ public class ShopButtonManager : MonoBehaviour,IPointerEnterHandler, IPointerExi
     // Start is called before the first frame update
     void Start()
     {
-        cardPrefabNum = 9999;
-        artifactPrefabNum = 9999;
+        //cardPrefabNum = 9999;
+        //artifactPrefabNum = 9999;
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class ShopButtonManager : MonoBehaviour,IPointerEnterHandler, IPointerExi
         switch (artifactPrefabNum)
         {
             case 9999:  // If shop item is card
-                originalPrefab = Resources.Load<GameObject>($"Prefabs/Card/Fi_{cardPrefabNum}");
+                originalPrefab = Resources.Load<GameObject>($"Prefabs/Card/{CardNameConverter.CardNumToCode(cardPrefabNum)}");
 
                 if (originalPrefab != null)
                 {
@@ -66,7 +66,7 @@ public class ShopButtonManager : MonoBehaviour,IPointerEnterHandler, IPointerExi
     {
         if (zoomedCard != null) // 마우스가 카드에서 벗어나면 확대된 카드 제거
         {
-            //Destroy(zoomedCard);
+            Destroy(zoomedCard);
         }
     }
 }

@@ -286,4 +286,30 @@ public class DeckManager : MonoBehaviour
             deckArrayOrigin[j] = dest[j];
         }
     }
+
+    public void DeleteOriginCard(int cardNum)
+    {
+        int deleteIndex = 9999;
+        for (int i = 0; i < deckArrayOrigin.Length; i++)
+        {
+            if (deckArrayOrigin[i] == cardNum)
+            {
+                deleteIndex = i;
+                break;
+            }
+            else deleteIndex = 9999;
+            Debug.Log("None card");
+        }
+
+        if (deleteIndex < 9999)
+        {
+            int[] dest = new int[deckArrayOrigin.Length - 1];
+            for (int i = 0, j = 0; i < deckArrayOrigin.Length; i++)
+            {
+                if (i == deleteIndex) continue;
+                dest[j++] = deckArrayOrigin[i];
+            }
+            deckArrayOrigin = dest;
+        }
+    }
 }
