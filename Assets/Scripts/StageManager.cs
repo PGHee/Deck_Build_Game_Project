@@ -63,7 +63,7 @@ public class StageManager : MonoBehaviour
         Destroy(GameObject.Find("artifactSynthesisOpener"));
     }
 
-    //Æ÷Å» °ü·Ã
+    //ï¿½ï¿½Å» ï¿½ï¿½ï¿½ï¿½
 
     public void GenerateRandomPortal()
     {
@@ -73,7 +73,7 @@ public class StageManager : MonoBehaviour
             GameObject go0 = Instantiate(portal_0);
             go0.transform.position = new Vector3(6, 0, -2);
             go0.name = "BossBattle";
-            go0.GetComponent<PortalInfo>().name = "BossBattle";
+            go0.GetComponent<PortalInfo>().portalName = "BossBattle";
         }
         else
         {
