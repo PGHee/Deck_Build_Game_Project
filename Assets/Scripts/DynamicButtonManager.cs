@@ -15,42 +15,39 @@ public class DynamicButtonManager : MonoBehaviour
 
     public void CardSpriteToButton(int cardNum, GameObject clearButton)
     {
-        //GameObject cardPrefab = Resources.Load<GameObject>($"Prefabs/CardPrefab{cardNum}");
-        GameObject cardPrefab = Resources.Load<GameObject>($"Prefabs/CardPrefab4");
-        // 자식 오브젝트들의 스프라이트를 모두 가져오기
-        Transform[] childTransforms = cardPrefab.GetComponentsInChildren<Transform>();
+        GameObject cardPrefab = Resources.Load<GameObject>($"Prefabs/Card/{CardNameConverter.CardNumToCode(cardNum)}");
 
-        foreach (Transform childTransform in childTransforms)
+        Sprite spriteFromPrefab = cardPrefab.GetComponent<Card>().cardImage;
+
+        if (spriteFromPrefab != null)
         {
-            Sprite sprite = null;
-            SpriteRenderer spriteRenderer = childTransform.GetComponent<SpriteRenderer>();
-            Image image = childTransform.GetComponent<Image>();
-
-            if (spriteRenderer != null)
-            {
-                sprite = spriteRenderer.sprite;
-            }
-            else if (image != null)
-            {
-                sprite = image.sprite;
-            }
-
-            // 스프라이트가 있는 경우 UI 버튼에 새로운 Image로 추가
-            if (sprite != null)
-            {
-                // 새로운 UI Image 생성
-                GameObject newImageObject = new GameObject("SpriteImage");
-                newImageObject.transform.SetParent(clearButton.transform, false);
-
-                Image newImage = newImageObject.AddComponent<Image>();
-                newImage.sprite = sprite;
-
-                // 원하는 위치 조정 (여기서는 중앙에 배치) 이거 해야함!!!!
-                RectTransform rectTransform = newImage.GetComponent<RectTransform>();
-                rectTransform.anchoredPosition = Vector2.zero; // 중심에 배치
-                //rectTransform.sizeDelta = clearButton.GetComponent<RectTransform>().sizeDelta; // 버튼 크기에 맞추기
-            }
+            // 버튼의 이미지 컴포넌트를 가져와 스프라이트를 변경합니다.
+            clearButton.GetComponent<Image>().sprite = spriteFromPrefab;
         }
+        else
+        {
+            Debug.LogError("프리팹에서 스프라이트를 가져올 수 없습니다. 프리팹에 SpriteRenderer가 포함되어 있는지 확인하세요.");
+        }   
         Debug.Log(cardNum);
     }
+
+    public void ArtifactSpriteToButton(int artifactNum, GameObject clearButton)
+    {
+        GameObject artifactPrefab = Resources.Load<GameObject>($"Prefabs/Artifact{artifactNum}");
+
+        Sprite spriteFromPrefab = artifactPrefab.GetComponent<SpriteRenderer>().sprite;
+
+        // 스프라이트가 정상적으로 가져와졌는지 확인합니다.
+        if (spriteFromPrefab != null)
+        {
+            // 버튼의 이미지 컴포넌트를 가져와 스프라이트를 변경합니다.
+            clearButton.GetComponent<Image>().sprite = spriteFromPrefab;
+        }
+        else
+        {
+            Debug.LogError("프리팹에서 스프라이트를 가져올 수 없습니다. 프리팹에 SpriteRenderer가 포함되어 있는지 확인하세요.");
+        }
+        Debug.Log(artifactNum);
+    }
+
 }

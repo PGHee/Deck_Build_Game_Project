@@ -146,6 +146,8 @@ MonoBehaviour:
   playerstate: {fileID: 0}
   activeEffectInfo: 0
   activeCoefInfo: 10
-  passiveListInfo: 
-  passiveCoefListInfo: []
+  passiveListInfo: 00000000
+  passiveCoefListInfo:
+  - 0.1
   artifactManager: {fileID: 0}
+  artifactCost: 0

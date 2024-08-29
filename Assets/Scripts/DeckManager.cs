@@ -198,7 +198,7 @@ public class DeckManager : MonoBehaviour
         graveArray = new int[] { };
     }
 
-    // 덱오리진, 덱, 묘지에 카드를 추가할 때 사용가능(보상이나 기믹)
+    // 덱오리진, 덱, 묘지에 카드를 추가할 때 사용가능
     public int[] AddCard(int[] array, int cardprefabnum)
     {
         int[] dest = new int[array.Length + 1];
@@ -219,6 +219,23 @@ public class DeckManager : MonoBehaviour
         }
         return dest;
     }
+    // 카드 보상 덱에 추가
+    public void AddRewardCard(int num)
+    {
+        int[] dest = new int[deckArrayOrigin.Length + 1];
+        for (int i = 0, j = 0; i < deckArrayOrigin.Length; i++)
+        {
+            dest[j++] = deckArrayOrigin[i];
+        }
+        dest[dest.Length - 1] = num;
+
+        deckArrayOrigin = new int[dest.Length];
+        for (int j = 0; j < dest.Length; j++)
+        {
+            deckArrayOrigin[j] = dest[j];
+        }
+    }
+
     public void AddRewardCard1()
     {
         int[] rewardCardIndex = cardRewardManager.cardPrefabNum;
@@ -267,6 +284,32 @@ public class DeckManager : MonoBehaviour
         for (int j = 0; j < dest.Length; j++)
         {
             deckArrayOrigin[j] = dest[j];
+        }
+    }
+
+    public void DeleteOriginCard(int cardNum)
+    {
+        int deleteIndex = 9999;
+        for (int i = 0; i < deckArrayOrigin.Length; i++)
+        {
+            if (deckArrayOrigin[i] == cardNum)
+            {
+                deleteIndex = i;
+                break;
+            }
+            else deleteIndex = 9999;
+            Debug.Log("None card");
+        }
+
+        if (deleteIndex < 9999)
+        {
+            int[] dest = new int[deckArrayOrigin.Length - 1];
+            for (int i = 0, j = 0; i < deckArrayOrigin.Length; i++)
+            {
+                if (i == deleteIndex) continue;
+                dest[j++] = deckArrayOrigin[i];
+            }
+            deckArrayOrigin = dest;
         }
     }
 }

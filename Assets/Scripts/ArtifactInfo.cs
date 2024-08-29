@@ -11,6 +11,7 @@ public class ArtifactInfo : MonoBehaviour
     public List<EffectType> passiveListInfo;
     public List<float> passiveCoefListInfo;
     public GameObject artifactManager;
+    public int artifactCost;
 
 
 

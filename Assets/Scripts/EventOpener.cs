@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EventOpener : MonoBehaviour
 {
-    public GameObject shopManager;
+    public GameObject eventManager;
     public GameObject popupManager;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,7 @@ public class EventOpener : MonoBehaviour
         popupManager = GameObject.Find("PopupManager");
         popupManager.GetComponent<PopupManager>().ShowPopup("Event");
 
-        shopManager = GameObject.Find("EventManager");
+        eventManager = GameObject.Find("EventManager");
+        eventManager.GetComponent<EventManager>().SetEvent();
     }
 }

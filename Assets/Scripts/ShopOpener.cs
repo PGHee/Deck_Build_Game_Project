@@ -19,6 +19,9 @@ public class ShopOpener : MonoBehaviour
         popupManager.GetComponent<PopupManager>().ShowPopup("Shop");
 
         shopManager = GameObject.Find("ShopManager");
-        shopManager.GetComponent<ShopManager>().SetCardsToShop();
+        shopManager.GetComponent<ShopManager>().RestartShop();
+        //shopManager.GetComponent<ShopManager>().SetCardsToShop();
+        //shopManager.GetComponent<ShopManager>().SetArtifactsToShop();
+
     }
 }

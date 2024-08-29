@@ -12,6 +12,7 @@ public class PlayerState : MonoBehaviour
     public int resource;
     public int currentResource;
     public int shield = 0;
+    public int crystal = 100;
 
     // 패시브 효과 관련 변수
     public float fireDamageMultiplier = 1.0f;
@@ -326,4 +327,17 @@ public class PlayerState : MonoBehaviour
         animator.SetTrigger("AttackTrigger");
     }
     // 상태이상 및 기타 게임 로직 메서드 추가 필요
+
+    public void SpendCrystal(int num)
+    {
+        if(crystal >= num)
+        {
+            crystal -= num;
+        }
+    }
+
+    public void GainCrystal(int num)
+    {
+        crystal += num;
+    }
 }

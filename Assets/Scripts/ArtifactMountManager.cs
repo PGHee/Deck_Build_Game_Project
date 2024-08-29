@@ -103,9 +103,8 @@ public class ArtifactMountManager : MonoBehaviour
             {
                 Destroy(artifactMounted);
             }
-            // ���� ��Ƽ��Ʈ ��ġ
+            
             artifactManager.GenerateArtifact(artifactInvenList[15 * ArtifactListPage + ButtonNum]);
-            artifactManager.GetArtifactInfo();
 
             GameObject artifactMountImage = GameObject.Find("Artifact_Mount_Sprite");
 
@@ -117,6 +116,27 @@ public class ArtifactMountManager : MonoBehaviour
             // ����� ������ �ٽ� ����
             artifactMountImage.GetComponent<Image>().color = color;
         }
-        
+    }
+
+    public void UnmountArtifact()
+    {
+        // 아티팩트 장착 해제
+        // 버그 방지를 위해 작동
+        // 아티팩트 장착 창 열람 시, 아티팩트 합성 창 열람 시 작동!!!! 
+        GameObject mountedArtifact = GameObject.FindWithTag("Artifact");
+        if (mountedArtifact != null)
+        {
+            Destroy(GameObject.FindWithTag("Artifact")); // 씬에 배치된 아티팩트 제거
+            artifactManager.ArtifactBuffRemove();
+        }
+    }
+
+    public void MountedArtifactBuffApply()
+    {
+        GameObject mountedArtifact = GameObject.FindWithTag("Artifact");
+        if (mountedArtifact != null)
+        {
+            artifactManager.ArtifactBuffApply();
+        }
     }
 }
