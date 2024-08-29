@@ -84,13 +84,13 @@ public class StageManager : MonoBehaviour
             GameObject go1 = Instantiate(portal_1);
             go1.transform.position = new Vector3(5, 0, -2);
             go1.name = portal1;
-            go1.GetComponent<PortalInfo>().name = portal1;
+            go1.GetComponent<PortalInfo>().portalName = portal1;
 
             GameObject portal_2 = Resources.Load<GameObject>($"Prefabs/{portal2}Portal");
             GameObject go2 = Instantiate(portal_2);
             go2.transform.position = new Vector3(7, 0, -2);
             go2.name = portal2;
-            go2.GetComponent<PortalInfo>().name = portal2;
+            go2.GetComponent<PortalInfo>().portalName = portal2;
         }
     }
 }

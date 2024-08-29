@@ -128,7 +128,7 @@ public class ArtifactSynthesisManager : MonoBehaviour
 
     public void UnmountArtifactToSynthsis(int ImageNum)
     {
-        if (ArtifactsToSynthesis[ImageNum] != null)
+        if (ArtifactsToSynthesis[ImageNum] < 999)
         {
             GameObject artifactSynthImage = GameObject.Find("Artifact_Synth_Sprite" + ImageNum + ""); // find object to unapply sprite(num is 0~2)
             artifactSynthImage.GetComponent<Image>().sprite = null;
