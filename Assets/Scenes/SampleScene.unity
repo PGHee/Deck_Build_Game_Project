@@ -16390,8 +16390,8 @@ MonoBehaviour:
   rewardManager: {fileID: 1674798270}
   eventNum: 0
   eventPrefab: {fileID: 0}
-  eventImage: {fileID: 0}
-  eventText: {fileID: 0}
+  eventImage: {fileID: 27954380}
+  eventText: {fileID: 654189456}
   eventInput: 
   eventOutput: 
   eventInputNum: 0
@@ -22295,9 +22295,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f5197f6a32f9944ad0cfc752ce257b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerState: {fileID: 0}
-  deckManager: {fileID: 0}
-  artifactManager: {fileID: 0}
+  playerState: {fileID: 655176850}
+  deckManager: {fileID: 1541460942}
+  artifactManager: {fileID: 932850248}
 --- !u!4 &1674798271
 Transform:
   m_ObjectHideFlags: 0
