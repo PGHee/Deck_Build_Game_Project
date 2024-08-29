@@ -14,12 +14,6 @@ public class RewardManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void GetReward(string message, int num, int price)
     {
         if (playerState.crystal >= price)
