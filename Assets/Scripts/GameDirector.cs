@@ -11,6 +11,8 @@ public class GameDirector : MonoBehaviour
     private SystemMessage message;
     private TitleMessageManager titleMessage;
 
+    public StageManager stageManager;
+
     void Start()
     {
         message = FindObjectOfType<SystemMessage>();
@@ -99,12 +101,15 @@ public class GameDirector : MonoBehaviour
     {
         Debug.Log("Entering Village");
         // 마을 컨텐츠 로직
+        stageManager.GenerateShopOpener();
+        stageManager.GenerateArtifactSynthesisOpener();
     }
 
     void StartEvent()
     {
         Debug.Log("Triggering Event");
         // 이벤트 컨텐츠 로직
+        stageManager.GenerateEventOpener();
     }
 
     void EndGame()
