@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9055254942985285858}
   m_Layer: 0
   m_Name: Fi_2
-  m_TagString: Untagged
+  m_TagString: CardInHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,6 +80,7 @@ MonoBehaviour:
   cardTypeText: {fileID: 548043996326488027}
   cardDescriptionText: {fileID: 798499940291741318}
   cardCostText: {fileID: 4814046934912346136}
+  originalPrefab: {fileID: 0}
 --- !u!61 &2993644917563829978
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -67,6 +67,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     private PlayerState player;
     private BuffDebuffManager buffDebuffManager;
     private int originalLayer;
+    public HandControl handController;
+    public DeckManager deckManager;
+
 
     private bool isDragging = false;
     public GameObject originalPrefab;
@@ -97,6 +100,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         originalLayer = gameObject.layer;                           // 오리지널 레이어 저장. 드래그한 카드가 레이캐스트에 충돌하는 것을 방지하기 위해 필요.
         mainCamera = Camera.main;                                   // 메인 카메라를 찾음
         originalScale = transform.localScale;                       // 원본 스케일 저장
+        handController = FindObjectOfType<HandControl>();
+        deckManager = FindObjectOfType<DeckManager>();
 
     }
 
@@ -191,7 +196,12 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
             player.SpendResource(adjustedCost);
             player.AddAttributeExperience(attributeType, GetAttributeExperienceGain(adjustedCost));     // 카드 사용 후 속성 경험치 추가
             player.AttackMotion();          // attackMotion을 이곳으로 이동
+
+            handController.HandSort(gameObject, false);     // 자신을 제외한 카드 정렬
+            deckManager.graveArray = deckManager.Card2Grave(int.Parse(gameObject.name));    // 사용한 카드 묘지로
+
             Destroy(gameObject);
+            
         }
 
         isDragging = false;
@@ -222,6 +232,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     public void OnBeginDrag(PointerEventData eventData)
     {
         isDragging = true;
+        startPosition = transform.position;
     }
 
     public void UpdateCardUI()

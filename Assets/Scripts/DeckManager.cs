@@ -13,15 +13,17 @@ public class DeckManager : MonoBehaviour
 
     public CardGenerator cardGenerator;
     public CardRewardManager cardRewardManager;
+    public HandControl handController;
 
     // Start is called before the first frame update
     void Start()
     {
-        deckArrayOrigin = new int[] {1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3};
+        deckArrayOrigin = new int[] {1, 101, 201, 301, 402, 502, 602, 702, 3, 3, 3, 3, 3};
 
         deckArray = CopyOrigin2Deck();
 
         DeckRandomSuffle(deckArray);
+        handController = FindObjectOfType<HandControl>();
     }
 
     // Update is called once per frame
@@ -30,12 +32,6 @@ public class DeckManager : MonoBehaviour
         if (Input.GetKeyDown("c"))
         {
             CardDraw();
-        }
-
-        if (Input.GetKeyDown("a"))
-        {
-            deckArray = DelCardFromDeck(deckArray, deckArray.Length - 1);
-            DeckArrayPrint(deckArray);
         }
     }
 
@@ -74,7 +70,8 @@ public class DeckManager : MonoBehaviour
         //Debug.Log(array[array.Length - 1]);
 
         // 핸드의 카드 수가 최대값보다 적으면
-        if (cardGenerator.cardNum < 9)
+        GameObject[] hands = GameObject.FindGameObjectsWithTag("CardInHand");
+        if (hands.Length < 9)
         {
             //카드 생성
             cardGenerator.DrawFromDeck(deckArray[deckArray.Length - 1]);
@@ -87,6 +84,8 @@ public class DeckManager : MonoBehaviour
         // 생성 or 묘지로 간 카드를 deckArray에서 삭제
         deckArray = DelCardFromDeck(deckArray, deckArray.Length - 1);
         DeckArrayPrint(deckArray);
+
+        handController.HandSort(null, true);
     }
 
     // 덱에서 카드 생성(빛속성 숙련도 효과)
@@ -310,6 +309,14 @@ public class DeckManager : MonoBehaviour
                 dest[j++] = deckArrayOrigin[i];
             }
             deckArrayOrigin = dest;
+        }
+    }
+
+    public void TurnStartCard()
+    {
+        for(int i = 0; i <  4; i++) // change this number to adjust draw
+        {
+            CardDraw();
         }
     }
 }

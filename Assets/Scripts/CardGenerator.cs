@@ -40,12 +40,12 @@ public class CardGenerator : MonoBehaviour
 
     public void DrawFromDeck(int cardInd)
     {      
-        GameObject go = Instantiate(cardPrefabs[cardInd - 1]);
+        GameObject go = Instantiate(Resources.Load<GameObject>($"Prefabs/Card/{CardNameConverter.CardNumToCode(cardInd)}"));
         GameObject parentCardObject = GameObject.Find("Cards");
         go.transform.SetParent(parentCardObject.transform, false);
         go.transform.localPosition = new Vector3(xposition, -4, zposition);
-        go.name = "card" + cardNameNum;
-        handController.GetComponent<HandControl>().hands[cardNum] = go;
+        go.name = "" + cardInd;
+        //handController.GetComponent<HandControl>().hands[cardNum] = go;
         handController.GetComponent<HandControl>().handCardNum++;
         cardNameNum++;
 

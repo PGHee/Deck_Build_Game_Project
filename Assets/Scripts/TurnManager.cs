@@ -8,9 +8,11 @@ public class TurnManager : MonoBehaviour
     public static TurnManager instance;
     public BuffDebuffManager buffDebuffManager;
     public PlayerState player;
+    public DeckManager deckManager;
     private List<MonsterState> monsters;
     private Actions cardActions;
     private SystemMessage message;
+    public HandControl handController;
 
     private bool isPlayerTurn;
     public bool IsPlayerTurn => isPlayerTurn;
@@ -32,6 +34,7 @@ public class TurnManager : MonoBehaviour
         cardActions = FindObjectOfType<Actions>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         message = FindObjectOfType<SystemMessage>();
+        handController = FindObjectOfType<HandControl>();
     }
 
     public void StartBattle()
@@ -66,7 +69,9 @@ public class TurnManager : MonoBehaviour
         {
             if (buffDebuffManager.entityDebuffs[player.gameObject].Any(debuff => debuff.Item1 == EffectType.SkipTurn)) EndPlayerTurn();
         }
-        
+
+        deckManager.TurnStartCard(); // draw cards when Pturn start
+
         message.ShowSystemMessage("플레이어 턴");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
     }
 
@@ -74,6 +79,7 @@ public class TurnManager : MonoBehaviour
     {
         if (isPlayerTurn)
         {
+            handController.DiscardAllHand();
             isPlayerTurn = false;
             StartCoroutine(MonsterTurn());
         }
@@ -151,6 +157,8 @@ public class TurnManager : MonoBehaviour
             이 부분에 종료 시 보상(리워드) 획득 함수를 추가하고, 포탈을 활성화시킬 수 있도록 연결이 필요함
             이어서 전투가 종료된 직후에 수중에 있는 핸드들이 전부 사라지도록 만들어져야함.
             */
+
+            handController.DiscardAllHand(); // 핸드 비움
 
             GameObject popupManager = GameObject.Find("PopupManager");
             popupManager.GetComponent<PopupManager>().ShowPopup("BattleReward");

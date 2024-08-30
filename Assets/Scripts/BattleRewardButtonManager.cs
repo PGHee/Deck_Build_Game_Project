@@ -40,8 +40,6 @@ public class BattleRewardButtonManager : MonoBehaviour, IPointerEnterHandler, IP
                     zoomedCard.transform.position = worldPosition;
                     zoomedCard.transform.localScale = zoomedCard.transform.localScale * 1.5f; // 크기 조정
 
-                    Debug.Log("Generate Shop Item Info");
-
                     Canvas canvas = zoomedCard.GetComponentInChildren<Canvas>();
                     if (canvas != null)
                     {

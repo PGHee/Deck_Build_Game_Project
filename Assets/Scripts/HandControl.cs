@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class HandControl : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class HandControl : MonoBehaviour
 
     public GameObject cardController;
     public GameObject cardGenerater;
+    public DeckManager deckManager;
 
     public float radius = 20.0f;
     public Vector2 center = new Vector2(0f, -19f);
@@ -20,47 +22,55 @@ public class HandControl : MonoBehaviour
     {
         cardController = GameObject.Find("CardController");
         cardGenerater = GameObject.Find("CardGenerater");
-        hands = new GameObject[10];
+        deckManager = FindObjectOfType<DeckManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        HandSort();
-    }
 
-    void HandSort()
+    public void HandSort(GameObject card, bool cardAdded)
     {
-        if (handCardNum != handCardNumCh) // 핸드의 수가 변하면
+        if (cardAdded)
         {
-            if (handCardNum < handCardNumCh)// 핸드의 수가 줄어든 경우
-            {
-                for (int i = 0; i < 9; i++) // 모든 핸드 오브젝트 순서대로
-                {
-                    if (hands[i] == null && hands[i + 1] != null)
-                    {
-                        hands[i] = hands[i + 1];
-                        hands[i + 1] = null;
-                    }
-                }
-            }
-            for (int j = 0; j < handCardNum; j++)
-            {
-                float xposition = (0 - (float)handCardNum)/(2.0f) + j + 0.5f;
-                //float zposition = 0.0f;
-                //hands[j].transform.position = new Vector3(xposition, hands[j].transform.position.y, zposition - j);
-                
-                // 원의 방정식에 x 값을 대입하여 y 값을 계산
-                float y = Mathf.Sqrt(radius * radius - xposition * xposition) + center.y;
+            hands = GameObject.FindGameObjectsWithTag("CardInHand");
+        }
+        else
+        {
+            hands = GameObject.FindGameObjectsWithTag("CardInHand");
+            List<GameObject> handsList = new List<GameObject>(hands);
+            handsList.Remove(card);
+            hands = handsList.ToArray();
+        }
 
-                // 현재 위치를 새로운 좌표로 이동
-                hands[j].transform.position = new Vector3((2.0f) * xposition, y - 1, transform.position.z);
+        for (int j = 0; j < hands.Length; j++)
+        {
+            float xposition = (0 - (float)hands.Length) / (2.0f) + j + 0.5f;
+            //float zposition = 0.0f;
+            //hands[j].transform.position = new Vector3(xposition, hands[j].transform.position.y, zposition - j);
 
-                Debug.Log(hands[j].transform.position);
+            // 원의 방정식에 x 값을 대입하여 y 값을 계산
+            float y = Mathf.Sqrt(radius * radius - xposition * xposition) + center.y;
 
-                hands[j].transform.rotation = Quaternion.Euler(0, 0, xposition * -3);
-            }
-            handCardNumCh = handCardNum;
+            // 현재 위치를 새로운 좌표로 이동
+            hands[j].transform.position = new Vector3((2.0f) * xposition, y - 1, transform.position.z);
+
+            Debug.Log(hands[j].transform.position);
+
+            hands[j].transform.rotation = Quaternion.Euler(0, 0, xposition * -3);
+        }
+
+        handCardNumCh = handCardNum;        
+    }
+
+    public void DiscardAllHand()
+    {
+        hands = GameObject.FindGameObjectsWithTag("CardInHand");
+        for (int i = 0; i < hands.Length; i++)
+        {
+            deckManager.graveArray = deckManager.Card2Grave(int.Parse(hands[i].name));
+        }
+
+        for (int j = 0; j < hands.Length; j++)
+        {
+            Destroy(hands[j]);
         }
     }
 }

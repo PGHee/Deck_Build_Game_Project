@@ -32,7 +32,10 @@ public class BattleRewardManager : MonoBehaviour
 
     public void RestartBattleReward()
     {
-        GetClearButtonBattleReward();
+        GetClearButtonBattleReward();    
+
+        GameObject crystalAmount = GameObject.Find("CrystalAmount");
+        crystalAmount.GetComponent<TextMeshProUGUI>().text = "";    // reset crystal text
 
         if (battleRewardStep == 0)
         {
@@ -87,6 +90,14 @@ public class BattleRewardManager : MonoBehaviour
     public void GetClearButtonBattleReward()
     {
         clearButtonsBattleReward = GameObject.FindGameObjectsWithTag("ClearButton");
+    }
+
+    public void ClearButtonBattleReward(GameObject button)
+    {
+        Color color = button.GetComponent<Image>().color;
+        color.a = 0.0f;
+
+        button.GetComponent<Image>().color = color;
     }
 
     public void BlurClearButtonBattleReward(GameObject button)
@@ -163,7 +174,7 @@ public class BattleRewardManager : MonoBehaviour
 
             dynamicButtonManager.ArtifactSpriteToButton(rewardArtifactNum, clearButtonsBattleReward[i]); // 일러만 가져오도록 수정 필요
 
-            clearButtonsBattleReward[i + 5].GetComponent<BattleRewardButtonManager>().artifactPrefabNum = rewardArtifactNum;
+            clearButtonsBattleReward[i].GetComponent<BattleRewardButtonManager>().artifactPrefabNum = rewardArtifactNum;
             rewardArtifactNums[i] = rewardArtifactNum;
         }
     }
@@ -177,6 +188,15 @@ public class BattleRewardManager : MonoBehaviour
         
         GameObject gameDirector = GameObject.Find("GameDirector");
         rewardCrystal = gameDirector.GetComponent<GameDirector>().currentStage * 10 * rewardCrystal;
+
+
+        GameObject crystalAmount = GameObject.Find("CrystalAmount");
+        crystalAmount.GetComponent<TextMeshProUGUI>().text = "+" + rewardCrystal + " crystal";
+
+        clearButtonsBattleReward[0].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/amethyst");
+        clearButtonsBattleReward[1].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/amethyst");
+        clearButtonsBattleReward[2].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/amethyst");
+
     }
 
     public void GetBattleReward(int buttonNum)
@@ -184,12 +204,10 @@ public class BattleRewardManager : MonoBehaviour
         if (battleRewardStep == 0)
         {
             rewardManager.GetReward("Card", rewardCardNums[buttonNum], 0);
-            BlurClearButtonBattleReward(clearButtonsBattleReward[buttonNum]);
         }
         else if(battleRewardStep == 1)
         {
             rewardManager.GetReward("Artifact", rewardArtifactNums[buttonNum], 0);
-            BlurClearButtonBattleReward(clearButtonsBattleReward[buttonNum]);
         }
         else
         {
