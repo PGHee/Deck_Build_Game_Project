@@ -151,6 +151,14 @@ public class TurnManager : MonoBehaviour
             이 부분에 종료 시 보상(리워드) 획득 함수를 추가하고, 포탈을 활성화시킬 수 있도록 연결이 필요함
             이어서 전투가 종료된 직후에 수중에 있는 핸드들이 전부 사라지도록 만들어져야함.
             */
+
+            GameObject popupManager = GameObject.Find("PopupManager");
+            popupManager.GetComponent<PopupManager>().ShowPopup("BattleReward");
+
+            GameObject battleRewardManager = GameObject.Find("BattleRewardManager");
+            battleRewardManager.GetComponent<BattleRewardManager>().rewardCrystal = monsters.Count;
+            battleRewardManager.GetComponent<BattleRewardManager>().RestartBattleReward();
+
             this.enabled = false;
         }
     }

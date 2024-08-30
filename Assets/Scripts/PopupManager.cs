@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PopupManager : MonoBehaviour
 {
     public GameObject popupPanel;
-    public GameObject popupPanelCardReward; // �˾� �г�
+    public GameObject popupPanelBattleReward; // �˾� �г�
     public GameObject popupPanelPortal;     // ��Ż �г�
     public GameObject popupPanelEvent;      // �̺�Ʈ �г�
     public GameObject popupPanelArtifactMount;  // ��Ƽ��Ʈ ���� �г�
@@ -30,8 +30,8 @@ public class PopupManager : MonoBehaviour
 
         switch (message)
         {
-            case "CardReward":
-                popupPanelCardReward.SetActive(true);
+            case "BattleReward":
+                popupPanelBattleReward.SetActive(true);
                 break;
 
             case "Portal":
@@ -73,8 +73,8 @@ public class PopupManager : MonoBehaviour
 
         switch (message)
         {
-            case "CardReward":
-                popupPanelCardReward.SetActive(false);
+            case "BattleReward":
+                popupPanelBattleReward.SetActive(false);
                 break;
 
             case "Portal":
@@ -103,7 +103,7 @@ public class PopupManager : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("�� �� ���� �޽����� �޾ҽ��ϴ�: " + message);
+                Debug.Log("wrong map message: " + message);
                 break;
         }
 
@@ -121,7 +121,7 @@ public class PopupManager : MonoBehaviour
 
     public void DeactivePanels()
     {
-        popupPanelCardReward.SetActive(false);
+        popupPanelBattleReward.SetActive(false);
         popupPanelPortal.SetActive(false);
         popupPanelEvent.SetActive(false);
         popupPanelArtifactMount.SetActive(false);

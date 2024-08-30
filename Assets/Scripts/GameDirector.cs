@@ -6,6 +6,7 @@ public class GameDirector : MonoBehaviour
 {
     public int currentStage;       // 현재 스테이지 번호
     public int currentMap;         // 현재 맵 번호
+    public string currentMapName;
     private MonsterSpawnManager spawnManager;
     private TurnManager turnManager;
     private SystemMessage message;

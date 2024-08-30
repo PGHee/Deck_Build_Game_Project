@@ -19,7 +19,8 @@ public class PortalInfo : MonoBehaviour
         gameDirector = GameObject.Find("GameDirector");
         gameDirector.GetComponent<GameDirector>().OnPortalEntered(portalName);
         GameObject[] portals = GameObject.FindGameObjectsWithTag("Portal");
-        foreach(GameObject portal in portals)
+        gameDirector.GetComponent<GameDirector>().currentMapName = portalName;
+        foreach (GameObject portal in portals)
         {
             Destroy(portal);
         }
