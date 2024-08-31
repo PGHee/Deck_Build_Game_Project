@@ -12,6 +12,7 @@ public class TurnManager : MonoBehaviour
     private List<MonsterState> monsters;
     private Actions cardActions;
     private SystemMessage message;
+    public ArtifactManager artifactManager;
     public HandControl handController;
 
     private bool isPlayerTurn;
@@ -35,6 +36,7 @@ public class TurnManager : MonoBehaviour
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         message = FindObjectOfType<SystemMessage>();
         handController = FindObjectOfType<HandControl>();
+        artifactManager = FindObjectOfType<ArtifactManager>();
     }
 
     public void StartBattle()
@@ -64,6 +66,8 @@ public class TurnManager : MonoBehaviour
         buffDebuffManager.UpdateBuffs();        // 버프 업데이트
         buffDebuffManager.UpdateDebuffs();      // 디버프 업데이트
 
+        artifactManager.ResetArtifactReady();
+
         player.UpdateHPBar();
         if (buffDebuffManager.entityDebuffs.ContainsKey(player.gameObject))
         {
@@ -82,6 +86,7 @@ public class TurnManager : MonoBehaviour
             handController.DiscardAllHand();
             isPlayerTurn = false;
             StartCoroutine(MonsterTurn());
+            artifactManager.DeactivateArtfactReady();
         }
     }
 

@@ -11,6 +11,7 @@ public class GameDirector : MonoBehaviour
     private TurnManager turnManager;
     private SystemMessage message;
     private TitleMessageManager titleMessage;
+    private PopupManager popupManager;
 
     public StageManager stageManager;
 
@@ -20,6 +21,7 @@ public class GameDirector : MonoBehaviour
         titleMessage = FindObjectOfType<TitleMessageManager>();
         spawnManager = FindObjectOfType<MonsterSpawnManager>();
         turnManager = TurnManager.instance;
+        popupManager = FindObjectOfType<PopupManager>();
         InitGame();
     }
 
@@ -102,8 +104,7 @@ public class GameDirector : MonoBehaviour
     {
         Debug.Log("Entering Village");
         // 마을 컨텐츠 로직
-        stageManager.GenerateShopOpener();
-        stageManager.GenerateArtifactSynthesisOpener();
+        popupManager.ShowPopup("VillageChief");
     }
 
     void StartEvent()

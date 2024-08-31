@@ -13,16 +13,22 @@ public class PopupManager : MonoBehaviour
     public GameObject popupPanelArtifactSynthesis;  // ��Ƽ��Ʈ ���� �г�
     public GameObject popupPanelShop;       // ����
     public GameObject popupPanelAttributeLV;
+    public GameObject popupPanelVillageChief;
 
     //public GameObject popupPanelUIBar;
 
     public Transform contentArea; // �˾� �� ������Ʈ�� ������ ��ġ
 
     public ArtifactMountManager artifactMountManager;
+    public GameDirector gameDirector;
+    public AttributeLevelBarManager attributeLevelBarManager;
 
     void Start()
     {
         DeactivePanels(); // ������ �� �˾� ��Ȱ��ȭ
+
+        gameDirector = FindObjectOfType<GameDirector>();
+        attributeLevelBarManager = FindObjectOfType<AttributeLevelBarManager>();
     }
 
     public void ShowPopup(string message)
@@ -43,8 +49,17 @@ public class PopupManager : MonoBehaviour
                 break;
 
             case "ArtifactMount":
-                popupPanelArtifactMount.SetActive(true);
-                artifactMountManager.UnmountArtifact();
+                if (!(gameDirector.currentMapName.Contains("Battle")))
+                {
+                    popupPanelArtifactMount.SetActive(true);
+                    artifactMountManager.UnmountArtifact();
+                }
+                else
+                {
+                    popupPanelAttributeLV.SetActive(true);
+
+                    attributeLevelBarManager.UpdateAttributeLevelImage();
+                }
                 break;
 
             case "ArtifactSynthesis":
@@ -59,6 +74,11 @@ public class PopupManager : MonoBehaviour
             case "AttributeLV":
                 popupPanelAttributeLV.SetActive(true);
                 break;
+
+            case "VillageChief":
+                popupPanelVillageChief.SetActive(true);
+                break;
+
 
             default:
                 Debug.Log("wrong message: " + message);
@@ -102,6 +122,10 @@ public class PopupManager : MonoBehaviour
                 popupPanelAttributeLV.SetActive(false);
                 break;
 
+            case "VillageChief":
+                popupPanelVillageChief.SetActive(false);
+                break;
+
             default:
                 Debug.Log("wrong map message: " + message);
                 break;
@@ -128,6 +152,7 @@ public class PopupManager : MonoBehaviour
         popupPanelArtifactSynthesis.SetActive(false);
         popupPanelShop.SetActive(false);
         popupPanelAttributeLV.SetActive(false);
+        popupPanelVillageChief.SetActive(false);
     }
 }
 

@@ -55,27 +55,14 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     // Update is called once per frame
     void Update()
     {
-        if (artifact)  // 아티팩트 오브젝트가 있을 때만 블러처리 
+        if (artifact)  // 아티팩트 오브젝트가 있을 때만 블러처리 체크
         {
             ArtifactBlurONOFF(); 
-        }
-        
-        if (Input.GetKeyDown("a")) //아티팩트 생성 후 정보 갱신
-        {
-            GenerateArtifact(1);
-            GetArtifactInfo();
-        }
-
-
-        if (Input.GetKeyDown("q")) //액티브 패시브 둘다 적용
-        {
-            ActiveEffectApply();
-            ArtifactBuffApply();
         }
 
         if (artifactDamageReady)
         {
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) && artifactReady)
             {
                 // 마우스 클릭 위치를 월드 좌표로 변환
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -100,14 +87,21 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
                     {
                         Debug.Log(" Wrong target!!");
                         artifactDamageReady = false;
+                        artifactReady = true;
                     }
                 }
                 else
                 {
                     Debug.Log("No target Detected");
                     artifactDamageReady = false;
+                    artifactReady = true;
                 }
             }
+            else
+            {
+                //artifactDamageReady = false;
+                //artifactReady = true;
+            }           
         }
     }
 
@@ -129,7 +123,6 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         passiveCoefList = artifact.GetComponent<ArtifactInfo>().passiveCoefListInfo;
         artifactCost = artifact.GetComponent<ArtifactInfo>().artifactCost;
 
-        ResetArtifactReady();
     }
 
     public void ArtifactBuffApply() // 전투 시작 시 플레이어에게 아티팩트의 버프 적용
@@ -157,6 +150,11 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         artifactReady = true;   // 사용 가능으로 변경
     }
 
+    public void DeactivateArtfactReady()
+    {
+        artifactReady = false;
+    }
+
     public void ActiveEffectApply() // 플레이어에 영향을 주는 액티브(회복,방어도,드로우)
     {
         if (artifactReady)
@@ -171,6 +169,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
                             deckManager.CardDraw();
                         }
                         CostSpend();
+                        artifactReady = false;
                         break;
 
                     case ActiveEffect.Damage:
@@ -181,11 +180,13 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
                     case ActiveEffect.Heal:
                         playerState.Heal(activeCoef);
                         CostSpend();
+                        artifactReady = false;
                         break;
 
                     case ActiveEffect.Shiled:
                         playerState.ApplyShield(activeCoef);
                         CostSpend();
+                        artifactReady = false;
                         break;
 
                     default:
@@ -193,7 +194,6 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
                         break;
                 }
 
-                artifactReady = false; //사용 불가로 변경
             }
             else
             {

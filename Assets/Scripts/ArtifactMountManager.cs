@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ArtifactMountManager : MonoBehaviour
 {
     public ArtifactManager artifactManager;
+    public GameDirector gameDirector;
 
     public int ArtifactListPage;
     public int[] artifactInvenList;
@@ -19,6 +20,7 @@ public class ArtifactMountManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameDirector = FindObjectOfType<GameDirector>();
         ArtifactListPage = 0; // �⺻ �������� 0��
         artifactPrefabs = new GameObject[3];
         for (int i = 0; i < 3; i++)
@@ -29,32 +31,35 @@ public class ArtifactMountManager : MonoBehaviour
 
     public void ArtifactListUp() // ��Ƽ��Ʈ �κ��丮�� uiâ�� ����
     {
-        SetAllButtonClear();
-
-        GetClearButtonArtifact();
-
-        artifactInvenList = artifactManager.artifactInvenList;
-
-        if (artifactInvenList.Length > 15 * (ArtifactListPage + 1))
+        if (!(gameDirector.currentMapName.Contains("Battle")))
         {
-            pageArtifactNum = 15;
-        }
-        else
-        {
-            pageArtifactNum = artifactInvenList.Length % 15;
-            ArtifactListPage = (int)((artifactInvenList.Length - artifactInvenList.Length % 15) / 15);
-        }
+            SetAllButtonClear();
 
-        for (int i = 0; i < pageArtifactNum; i++)
-        {
-            clearButtonsArtifact[i].GetComponent<Image>().sprite = artifactPrefabs[artifactInvenList[15 * ArtifactListPage + i] - 1].GetComponent<SpriteRenderer>().sprite;
-            // ���� ������ ������ ���� ���� ����
-            Color color = clearButtonsArtifact[i].GetComponent<Image>().color;
-            color.a = 255.0f;
+            GetClearButtonArtifact();
 
-            // ����� ������ �ٽ� ����
-            clearButtonsArtifact[i].GetComponent<Image>().color = color;
-        }
+            artifactInvenList = artifactManager.artifactInvenList;
+
+            if (artifactInvenList.Length > 15 * (ArtifactListPage + 1))
+            {
+                pageArtifactNum = 15;
+            }
+            else
+            {
+                pageArtifactNum = artifactInvenList.Length % 15;
+                ArtifactListPage = (int)((artifactInvenList.Length - artifactInvenList.Length % 15) / 15);
+            }
+
+            for (int i = 0; i < pageArtifactNum; i++)
+            {
+                clearButtonsArtifact[i].GetComponent<Image>().sprite = artifactPrefabs[artifactInvenList[15 * ArtifactListPage + i] - 1].GetComponent<SpriteRenderer>().sprite;
+                // ���� ������ ������ ���� ���� ����
+                Color color = clearButtonsArtifact[i].GetComponent<Image>().color;
+                color.a = 255.0f;
+
+                // ����� ������ �ٽ� ����
+                clearButtonsArtifact[i].GetComponent<Image>().color = color;
+            }
+        }       
     }
 
     public void GetClearButtonArtifact() // uiâ�� ���� ��ư���� ����
@@ -95,7 +100,7 @@ public class ArtifactMountManager : MonoBehaviour
 
     public void MountArtifact(int ButtonNum)
     {
-        if (ButtonNum < pageArtifactNum)
+        if (ButtonNum < pageArtifactNum && !(gameDirector.currentMapName.Contains("Battle")))
         {
             // ������ ������ ��Ƽ��Ʈ ������Ʈ ����
             GameObject artifactMounted = GameObject.FindWithTag("Artifact");
@@ -122,7 +127,7 @@ public class ArtifactMountManager : MonoBehaviour
     {
         // 아티팩트 장착 해제
         // 버그 방지를 위해 작동
-        // 아티팩트 장착 창 열람 시, 아티팩트 합성 창 열람 시 작동!!!! 
+        // 아티팩트 합성 창 열람 시 작동!!!! 
         GameObject mountedArtifact = GameObject.FindWithTag("Artifact");
         if (mountedArtifact != null)
         {

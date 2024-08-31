@@ -150,4 +150,4 @@ MonoBehaviour:
   passiveCoefListInfo:
   - 0.1
   artifactManager: {fileID: 0}
-  artifactCost: 0
+  artifactCost: 1
