@@ -56,7 +56,7 @@ MonoBehaviour:
     secondaryValue: 1
     killEffectType: 0
     thirdValue: 0
-  - actionType: 14
+  - actionType: 18
     value: 14
     secondaryValue: 1
     killEffectType: 0
@@ -85,6 +85,8 @@ MonoBehaviour:
   cardTypeText: {fileID: 548043996326488027}
   cardDescriptionText: {fileID: 798499940291741318}
   cardCostText: {fileID: 4814046934912346136}
+  handController: {fileID: 0}
+  deckManager: {fileID: 0}
   originalPrefab: {fileID: 0}
 --- !u!61 &2993644917563829978
 BoxCollider2D:

@@ -12,6 +12,7 @@ public class GameDirector : MonoBehaviour
     private SystemMessage message;
     private TitleMessageManager titleMessage;
     private PopupManager popupManager;
+    public FadeManager fadeManager;
 
     public StageManager stageManager;
     public GameObject endTurnButton;
@@ -25,13 +26,6 @@ public class GameDirector : MonoBehaviour
         popupManager = FindObjectOfType<PopupManager>();
         InitGame();
     }
-
-    /* 
-    현재 Start()에 넣으면 스폰 매니저의 Start()가 씹히는 문제가 있긴하나, 어차피 포탈을 탄 경우에 전투가 시작될 것이라 상관 없을 듯
-    update함수는 안쓰는 것이 과부하를 적게 일으키나, 현재 포탈이 연결되지 않은 상태라 update로 구현되었고, 삭제 예정
-    아래의 각 함수들을 포탈에 연결하여 호출하는 방식으로 작성해주길 바람.
-    이어서 마을과 이벤트 맵을 호출하는 함수들도 아래에 있는 함수에 연결해주어야 함.
-    */
 
     void Update()
     {
@@ -49,6 +43,8 @@ public class GameDirector : MonoBehaviour
 
     public void OnPortalEntered(string portalType)
     {
+        fadeManager.gameObject.SetActive(true);
+        fadeManager.StartFadeInOut();
         switch (portalType)
         {
             case "NormalBattle":

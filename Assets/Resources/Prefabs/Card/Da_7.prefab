@@ -80,6 +80,8 @@ MonoBehaviour:
   cardTypeText: {fileID: 548043996326488027}
   cardDescriptionText: {fileID: 798499940291741318}
   cardCostText: {fileID: 4814046934912346136}
+  handController: {fileID: 0}
+  deckManager: {fileID: 0}
   originalPrefab: {fileID: 0}
 --- !u!61 &2993644917563829978
 BoxCollider2D:
@@ -443,7 +445,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &5364741307932429931
 MonoBehaviour:
   m_ObjectHideFlags: 0
