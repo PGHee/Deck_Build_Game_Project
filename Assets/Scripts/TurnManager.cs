@@ -14,6 +14,7 @@ public class TurnManager : MonoBehaviour
     private SystemMessage message;
     public ArtifactManager artifactManager;
     public HandControl handController;
+    public GameObject endTurnButton;
 
     private bool isPlayerTurn;
     public bool IsPlayerTurn => isPlayerTurn;
@@ -157,12 +158,8 @@ public class TurnManager : MonoBehaviour
         else if (monsters.TrueForAll(m => m.currentHealth <= 0))
         {
             Debug.Log("All monsters are defeated. Battle ended.");
-            /*
-            전투 종료 처리 (승리)
-            이 부분에 종료 시 보상(리워드) 획득 함수를 추가하고, 포탈을 활성화시킬 수 있도록 연결이 필요함
-            이어서 전투가 종료된 직후에 수중에 있는 핸드들이 전부 사라지도록 만들어져야함.
-            */
 
+            endTurnButton.SetActive(false);
             handController.DiscardAllHand(); // 핸드 비움
 
             GameObject popupManager = GameObject.Find("PopupManager");

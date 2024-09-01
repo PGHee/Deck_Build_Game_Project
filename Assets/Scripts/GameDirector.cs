@@ -14,6 +14,7 @@ public class GameDirector : MonoBehaviour
     private PopupManager popupManager;
 
     public StageManager stageManager;
+    public GameObject endTurnButton;
 
     void Start()
     {
@@ -80,6 +81,7 @@ public class GameDirector : MonoBehaviour
     {
         message.ShowSystemMessage("전투 시작!");
         yield return new WaitForSeconds(1);
+        endTurnButton.SetActive(true);
         spawnManager.SpawnNormalMonsters();
         turnManager.StartBattle();
     }
@@ -88,6 +90,7 @@ public class GameDirector : MonoBehaviour
     {
         message.ShowSystemMessage("정예 몬스터 등장! 전투 시작");
         yield return new WaitForSeconds(1);
+        endTurnButton.SetActive(true);
         spawnManager.SpawnEliteMonster();
         turnManager.StartBattle();
     }
@@ -96,6 +99,7 @@ public class GameDirector : MonoBehaviour
     {
         message.ShowSystemMessage("보스 등장!! 전투 시작");
         yield return new WaitForSeconds(1);
+        endTurnButton.SetActive(true);
         spawnManager.SpawnBossMonster();
         turnManager.StartBattle();
     }
@@ -103,14 +107,12 @@ public class GameDirector : MonoBehaviour
     void EnterVillage()
     {
         Debug.Log("Entering Village");
-        // 마을 컨텐츠 로직
         popupManager.ShowPopup("VillageChief");
     }
 
     void StartEvent()
     {
         Debug.Log("Triggering Event");
-        // 이벤트 컨텐츠 로직
         stageManager.GenerateEventOpener();
     }
 
