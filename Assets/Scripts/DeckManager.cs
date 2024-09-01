@@ -94,12 +94,13 @@ public class DeckManager : MonoBehaviour
         // 묘지에 카드가 없으면
         if (deckArray.Length < 1)
         {
-            Debug.Log("Empty Grave");
+            Debug.Log("Empty Deck");
         }
         else
         {
+            GameObject[] hands = GameObject.FindGameObjectsWithTag("CardInHand");
             // 핸드의 카드 수가 최대값보다 적으면
-            if (cardGenerator.cardNum < 9)
+            if (hands.Length < 9)
             {
                 //카드 생성
                 cardGenerator.DrawFromDeck(deckArray[ind]);
@@ -123,8 +124,9 @@ public class DeckManager : MonoBehaviour
         }
         else
         {
+            GameObject[] hands = GameObject.FindGameObjectsWithTag("CardInHand");
             // 핸드의 카드 수가 최대값보다 적으면
-            if (cardGenerator.cardNum < 9)
+            if (hands.Length < 9)
             {
                 //카드 생성
                 cardGenerator.DrawFromDeck(graveArray[ind]);

@@ -9,7 +9,7 @@ public class ShopButtonManager : MonoBehaviour,IPointerEnterHandler, IPointerExi
     public int cardPrefabNum;
     public int artifactPrefabNum;
 
-    private Vector3 fixedScreenPosition = new Vector3(0.85f, 0.55f, 10f);
+    private Vector3 fixedScreenPosition = new Vector3(0.9f, 0.55f, 10f);
     private GameObject zoomedCard;
     public GameObject originalPrefab;
 
