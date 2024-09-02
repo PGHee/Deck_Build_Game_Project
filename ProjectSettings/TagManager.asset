@@ -9,6 +9,7 @@ TagManager:
   - Artifact
   - Monster
   - WaitingForDeath
+  - Line_UI
   layers:
   - Default
   - TransparentFX
