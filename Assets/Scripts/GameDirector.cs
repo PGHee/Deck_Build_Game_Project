@@ -13,6 +13,7 @@ public class GameDirector : MonoBehaviour
     private TitleMessageManager titleMessage;
     private PopupManager popupManager;
     public FadeManager fadeManager;
+    private DeckManager deckManager;
 
     public StageManager stageManager;
     public GameObject endTurnButton;
@@ -24,6 +25,7 @@ public class GameDirector : MonoBehaviour
         spawnManager = FindObjectOfType<MonsterSpawnManager>();
         turnManager = TurnManager.instance;
         popupManager = FindObjectOfType<PopupManager>();
+        deckManager = FindObjectOfType<DeckManager>();
         InitGame();
     }
 
@@ -39,6 +41,8 @@ public class GameDirector : MonoBehaviour
         currentStage = 1;
         currentMap = 1;
         titleMessage.ShowTitleMessage($"{currentStage} - {currentMap}");
+
+        popupManager.ShowPopup("StartDeck");
     }
 
     public void OnPortalEntered(string portalType)
@@ -71,6 +75,9 @@ public class GameDirector : MonoBehaviour
             currentStage++;
         }
         titleMessage.ShowTitleMessage($"{currentStage} - {currentMap}");
+
+        deckManager.deckArray = deckManager.CopyOrigin2Deck();
+        deckManager.DeckRandomSuffle(deckManager.deckArray);
     }
 
     IEnumerator StartNormalBattle()
