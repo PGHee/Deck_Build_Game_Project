@@ -15,6 +15,7 @@ public class PopupManager : MonoBehaviour
     public GameObject popupPanelAttributeLV;
     public GameObject popupPanelVillageChief;
     public GameObject popupPanelDeckList;
+    public GameObject popupPanelStartDeck;
 
     //public GameObject popupPanelUIBar;
 
@@ -84,6 +85,10 @@ public class PopupManager : MonoBehaviour
                 popupPanelDeckList.SetActive(true);
                 break;
 
+            case "StartDeck":
+                popupPanelStartDeck.SetActive(true);
+                break;
+
             default:
                 Debug.Log("wrong message: " + message);
                 break;
@@ -134,6 +139,10 @@ public class PopupManager : MonoBehaviour
                 popupPanelDeckList.SetActive(false);
                 break;
 
+            case "StartDeck":
+                popupPanelStartDeck.SetActive(false);
+                break;
+
             default:
                 Debug.Log("wrong map message: " + message);
                 break;
@@ -162,6 +171,7 @@ public class PopupManager : MonoBehaviour
         popupPanelAttributeLV.SetActive(false);
         popupPanelVillageChief.SetActive(false);
         popupPanelDeckList.SetActive(false);
+        popupPanelStartDeck.SetActive(false);
     }
 }
 
