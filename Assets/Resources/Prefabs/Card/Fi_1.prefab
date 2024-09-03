@@ -53,7 +53,7 @@ MonoBehaviour:
   actions:
   - actionType: 0
     value: 6
-    secondaryValue: 0
+    secondaryValue: 1
     killEffectType: 0
     thirdValue: 0
   buffsAndDebuffs: []
@@ -80,6 +80,8 @@ MonoBehaviour:
   cardTypeText: {fileID: 548043996326488027}
   cardDescriptionText: {fileID: 798499940291741318}
   cardCostText: {fileID: 4814046934912346136}
+  handController: {fileID: 0}
+  deckManager: {fileID: 0}
   originalPrefab: {fileID: 0}
 --- !u!61 &2993644917563829978
 BoxCollider2D:

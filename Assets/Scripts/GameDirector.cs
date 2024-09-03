@@ -29,13 +29,6 @@ public class GameDirector : MonoBehaviour
         InitGame();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown("q")) StartCoroutine(StartNormalBattle());
-        if (Input.GetKeyDown("w")) StartCoroutine(StartEliteBattle());
-        if (Input.GetKeyDown("e")) StartCoroutine(StartBossBattle());
-    }
-
     void InitGame()
     {
         currentStage = 1;

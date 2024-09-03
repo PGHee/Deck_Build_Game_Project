@@ -100,25 +100,29 @@ public class TurnManager : MonoBehaviour
             if (monster != null && monster.gameObject.activeInHierarchy)
             {
                 if(buffDebuffManager.currentField == PlayerState.AttributeType.Wood) monster.ApplyPoison(3);
-                monster.ApplyPoisonDamage();            // 독 데미지와 스택 감소 적용
-                if (buffDebuffManager.entityDebuffs.ContainsKey(monster.gameObject))
-                {
-                    if (buffDebuffManager.entityDebuffs[monster.gameObject].Any(debuff => debuff.Item1 == EffectType.SkipTurn)) continue;
-                }
-                else if (monster.isStunned)
-                {
-                    if(buffDebuffManager.currentField == PlayerState.AttributeType.Lightning) cardActions.DealSingleTargetDamage(monster.gameObject, 20);
-                    monster.HandleStun();               // 스턴 상태 처리
-                    continue;                           // 스턴 상태라면 행동을 스킵
-                }
-                monster.executeAction();
-                if(monster.selectedAction.actionType != ActionType.Wait) monster.AttackMotion();
-                yield return new WaitForSeconds(1);     // 각 몬스터의 행동 사이에 딜레이 추가
-                monster.GetRandomAction();
-                monster.UpdateValueEffect();
-                monster.UpdateAction();
                 yield return new WaitForSeconds(1);
+                monster.ApplyPoisonDamage();            // 독 데미지와 스택 감소 적용
+                if(monster.currentHealth > 0)
+                {
+                    if (buffDebuffManager.entityDebuffs.ContainsKey(monster.gameObject))
+                    {
+                        if (buffDebuffManager.entityDebuffs[monster.gameObject].Any(debuff => debuff.Item1 == EffectType.SkipTurn)) continue;
+                    }
+                    else if (monster.isStunned)
+                    {
+                        if(buffDebuffManager.currentField == PlayerState.AttributeType.Lightning) cardActions.DealSingleTargetDamage(monster.gameObject, 20);
+                        monster.HandleStun();               // 스턴 상태 처리
+                        continue;                           // 스턴 상태라면 행동을 스킵
+                    }
+                    monster.executeAction();
+                    if(monster.selectedAction.actionType != ActionType.Wait) monster.AttackMotion();
+                    monster.GetRandomAction();
+                    monster.UpdateValueEffect();
+                    monster.UpdateAction();
+                    yield return new WaitForSeconds(1);
+                }
             }
+                
         }
         StartPlayerTurn();
     }
