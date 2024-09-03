@@ -289,8 +289,8 @@ public class MonsterState : MonoBehaviour
             return;
         }
         // 완전히 사망 처리합니다.
-        Debug.Log($"{gameObject.name} died");
         animator.SetTrigger("DieTrigger");
+        buffDebuffManager.RemoveAllEffects(this.gameObject);
         Destroy(hpBar.gameObject);
     }
 

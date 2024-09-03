@@ -124,6 +124,32 @@ public class BuffDebuffManager : MonoBehaviour
         }
     }
 
+    public void RemoveAllEffects(GameObject entity)
+    {
+        HPBar hpBar = entity.GetComponentInChildren<HPBar>();
+        // 버프를 제거
+        if (entityBuffs.ContainsKey(entity))
+        {
+            foreach (var buff in entityBuffs[entity])
+            {
+                RemoveBuff(entity, buff.Item1, buff.Item3, buff.Item4);
+                uiManager.RemoveBuffIcon(hpBar.buffIconPanel, buff.Item1);
+            }
+            entityBuffs.Remove(entity);
+        }
+
+        // 디버프를 제거
+        if (entityDebuffs.ContainsKey(entity))
+        {
+            foreach (var debuff in entityDebuffs[entity])
+            {
+                RemoveDebuff(entity, debuff.Item1, debuff.Item3, debuff.Item4);
+                uiManager.RemoveDebuffIcon(hpBar.debuffIconPanel, debuff.Item1);
+            }
+            entityDebuffs.Remove(entity);
+        }
+    }
+
     public void UpdateBuffs()
     {
         foreach (var entity in entityBuffs.Keys)

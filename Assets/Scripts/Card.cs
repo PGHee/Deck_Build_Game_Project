@@ -126,7 +126,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
             adjustedCost = Mathf.Max(cost - 2, 0);
         }
 
-        if (!TurnManager.instance.IsPlayerTurn)                 // 플레이어의 턴인지 확인
+        if (TurnManager.instance.enabled && !TurnManager.instance.IsPlayerTurn)                 // 플레이어의 턴인지 확인
         {
             message.ShowSystemMessage("플레이어 턴이 아닙니다.");
         }

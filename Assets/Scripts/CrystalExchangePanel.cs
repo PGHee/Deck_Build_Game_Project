@@ -62,23 +62,24 @@ public class CrystalExchangePanel : MonoBehaviour
     // 교환 승인 버튼을 눌렀을 때 호출되는 함수
     public void OnConfirmButtonClicked()
     {
-        if(!TurnManager.instance.IsPlayerTurn) message.ShowSystemMessage("플레이어의 턴에만 교환할 수 있습니다.");
-        int crystalCost = targetRecoverAmount * crystalCostPerResource;
-
-        if (playerState.crystal >= crystalCost)
+        if(!TurnManager.instance.enabled) message.ShowSystemMessage("전투 중인 경우에만 교환할 수 있습니다.");
+        else if(TurnManager.instance.enabled && !TurnManager.instance.IsPlayerTurn) message.ShowSystemMessage("플레이어의 턴에만 교환할 수 있습니다.");
+        else if(TurnManager.instance.enabled && TurnManager.instance.IsPlayerTurn)
         {
-            playerState.currentResource += targetRecoverAmount;     // 서클 회복
-            playerState.crystal -= crystalCost;                     // 크리스탈 감소
+            int crystalCost = targetRecoverAmount * crystalCostPerResource;
+            if (playerState.crystal >= crystalCost)
+            {
+                playerState.currentResource += targetRecoverAmount;     // 서클 회복
+                playerState.crystal -= crystalCost;                     // 크리스탈 감소
 
-            // UI 업데이트 및 교환 완료 후 초기화
-            targetRecoverAmount = 0;
-            UpdateUI();
-            playerState.UpdateHPBar();
+                // UI 업데이트 및 교환 완료 후 초기화
+                targetRecoverAmount = 0;
+                UpdateUI();
+                playerState.UpdateHPBar();
+            }
+            else message.ShowSystemMessage("플레이어의 마석이 부족합니다.");  // 크리스탈이 부족한 경우 메시지 출력
         }
-        else
-        {
-            message.ShowSystemMessage("플레이어의 마석이 부족합니다.");  // 크리스탈이 부족한 경우 메시지 출력
-        }
+        
     }
 
     // 교환 취소 버튼을 눌렀을 때 호출되는 함수

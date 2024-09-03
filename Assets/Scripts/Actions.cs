@@ -43,7 +43,7 @@ public class Actions : MonoBehaviour
             if(monsterState.reduceDamage > 0) damage = Mathf.RoundToInt(damage * (1-monsterState.reduceDamage));
             monsterState.TakeDamage(damage);
             if(player.LifeSteal > 0) player.Heal(Mathf.RoundToInt(damage * player.LifeSteal));
-            if(attributeType == PlayerState.AttributeType.Lightning) TryApplyStun(target);
+            if(attributeType == PlayerState.AttributeType.Lightning) TryApplyStun(target, monsterState);
             if(monsterState.currentHealth <= 0 && killEffect != null) ApplyKillEffect(killEffect, attributeType);
             if(monsterState.reflectDamage > 0) ReflectDamage(player.gameObject, Mathf.RoundToInt(damage * monsterState.reflectDamage));
         }
@@ -262,9 +262,9 @@ public class Actions : MonoBehaviour
     }
 
     // 스턴 적용
-    void TryApplyStun(GameObject target)
+    void TryApplyStun(GameObject target, MonsterState monsterState)
     {
-        if (Random.value < player.lightningStunChance) buffDebuff.ApplySkipTurnDebuff(target, 1);
+        if (Random.value < player.lightningStunChance && monsterState.currentHealth > 0) buffDebuff.ApplySkipTurnDebuff(target, 1);
     }
 
     public void DrawCards(PlayerState player, int count)

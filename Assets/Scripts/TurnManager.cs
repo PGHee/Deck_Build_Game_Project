@@ -38,10 +38,12 @@ public class TurnManager : MonoBehaviour
         message = FindObjectOfType<SystemMessage>();
         handController = FindObjectOfType<HandControl>();
         artifactManager = FindObjectOfType<ArtifactManager>();
+        this.enabled = false;
     }
 
     public void StartBattle()
     {
+        this.enabled = true;
         monsters = new List<MonsterState>(FindObjectsOfType<MonsterState>()); // 씬 내의 모든 몬스터를 가져옴
         foreach (var monster in monsters)
         {
@@ -125,7 +127,7 @@ public class TurnManager : MonoBehaviour
             }
                 
         }
-        StartPlayerTurn();
+        if(!monsters.TrueForAll(m => m.currentHealth <= 0)) StartPlayerTurn();
     }
 
     private void CheckBondedRevive()
@@ -166,6 +168,8 @@ public class TurnManager : MonoBehaviour
 
             endTurnButton.SetActive(false);
             handController.DiscardAllHand(); // 핸드 비움
+
+            player.ResetPlayerStateAfterBattle();
 
             GameObject popupManager = GameObject.Find("PopupManager");
             popupManager.GetComponent<PopupManager>().ShowPopup("BattleReward");

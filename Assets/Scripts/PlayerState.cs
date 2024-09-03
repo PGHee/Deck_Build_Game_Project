@@ -48,6 +48,7 @@ public class PlayerState : MonoBehaviour
     private Transform playerTransform;              // 애니메이션 크기 맞추는 용
     private MagicCircleManager magicCircle;
     private SystemMessage message;
+    private BuffDebuffManager buffDebuffManager;
 
     void Start()
     {
@@ -65,6 +66,7 @@ public class PlayerState : MonoBehaviour
         playerTransform = GetComponent<Transform>();                        // 애니메이션 크기 맞추는 용
         magicCircle = FindObjectOfType<MagicCircleManager>();
         message = FindObjectOfType<SystemMessage>();
+        buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
 
         InitializeAttributes();
     }
@@ -295,6 +297,18 @@ public class PlayerState : MonoBehaviour
     public void ApplyStun()                             // 스턴 적용 메서드
     {
         isStunned = true;
+    }
+
+    public void ResetPlayerStateAfterBattle()
+    {
+        
+        currentResource = resource;         // 리소스 초기화
+        shield = 0;                         // 보호막, 독 스택 초기화
+        poisonStacks = 0;
+        isStunned = false;                  // 스턴, 혼란 상태 초기화
+        isConfuse = false;
+        buffDebuffManager.RemoveAllEffects(this.gameObject);    // 버프 및 디버프 제거
+        UpdateHPBar();
     }
 
     public void ApplyAttributePassiveEffect(AttributeType attribute, int level)
