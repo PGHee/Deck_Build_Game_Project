@@ -116,6 +116,7 @@ public class TurnManager : MonoBehaviour
                     }
                     monster.executeAction();
                     if(monster.selectedAction.actionType != ActionType.Wait) monster.AttackMotion();
+                    yield return new WaitForSeconds(1);
                     monster.GetRandomAction();
                     monster.UpdateValueEffect();
                     monster.UpdateAction();
@@ -161,7 +162,7 @@ public class TurnManager : MonoBehaviour
         }
         else if (monsters.TrueForAll(m => m.currentHealth <= 0))
         {
-            Debug.Log("All monsters are defeated. Battle ended.");
+            message.ShowSystemMessage("승리!");
 
             endTurnButton.SetActive(false);
             handController.DiscardAllHand(); // 핸드 비움

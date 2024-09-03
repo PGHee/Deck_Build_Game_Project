@@ -209,7 +209,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isDragging) return;
+        if (isDragging && zoomedCard != null) Destroy(zoomedCard);
+        else if(isDragging) return;
+        
         if (originalPrefab != null)
         {
             zoomedCard = Instantiate(originalPrefab);   // 원본 프리팹을 복제하여 확대된 카드로 사용
