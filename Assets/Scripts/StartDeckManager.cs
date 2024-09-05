@@ -12,6 +12,8 @@ public class StartDeckManager : MonoBehaviour
     public int[] chosenAttributeNums;
     public GameObject[] clearButtonsStartDeck;
     public RectTransform parentObject;
+    public RectTransform thisRectTransform;
+    public RectTransform parentRectTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -69,16 +71,24 @@ public class StartDeckManager : MonoBehaviour
             rectTransform.anchoredPosition = parentObject.InverseTransformPoint(GetMiddle(clearButtonsStartDeck[chosenAttributeNums[i]], clearButtonsStartDeck[chosenAttributeNums[(i + 1) % 3]]));
             rectTransform.sizeDelta = new Vector2(GetDistance(clearButtonsStartDeck[chosenAttributeNums[i]], clearButtonsStartDeck[chosenAttributeNums[(i + 1) % 3]]), rectTransform.sizeDelta.y); // 가로 길이를 거리로 설정
             rectTransform.rotation = Quaternion.Euler(0, 0, GetAngle(clearButtonsStartDeck[chosenAttributeNums[i]], clearButtonsStartDeck[chosenAttributeNums[(i + 1) % 3]])); // 각도 설정
+            //UpdateSize(go);
         }
 
+        for (int j = 0; j < chosenAttributeNums.Length; j++)
+        {
+            GameObject go_circle = Instantiate(Resources.Load<GameObject>($"Prefabs/UI/Circle_Attribute"), clearButtonsStartDeck[chosenAttributeNums[j]].GetComponent<RectTransform>().position, Quaternion.identity, parentObject);
+        }
+        
     }
 
     public float GetDistance(GameObject bt1, GameObject bt2)
     {
-        Vector3 pos1 = bt1.GetComponent<RectTransform>().position;
-        Vector3 pos2 = bt2.GetComponent<RectTransform>().position;
+        Vector3 pos1 = Camera.main.ScreenToWorldPoint(bt1.GetComponent<RectTransform>().position);
+        Vector3 pos2 = Camera.main.ScreenToWorldPoint(bt2.GetComponent<RectTransform>().position);
 
-        float distance = Vector3.Distance(pos1, pos2);
+        float distance = Vector3.Distance(pos1, pos2) * 50;
+
+        Debug.Log("distance ="+ distance+ "");
         
         return distance;
     }
@@ -127,9 +137,19 @@ public class StartDeckManager : MonoBehaviour
         else
         {
             Debug.Log("Choose 3 Attribute");
-        }
-        
+        }     
     }
+    void UpdateSize(GameObject line_UI)
+    {
+        thisRectTransform = line_UI.GetComponent<RectTransform>();
 
+        // 부모 오브젝트의 크기와 비율을 가져옵니다.
+        float parentWidth = parentRectTransform.rect.width;
+        float parentHeight = parentRectTransform.rect.height;
+        float parentAspectRatio = parentWidth / parentHeight;
+
+        // 자식 오브젝트의 비율을 부모와 동일하게 맞춥니다.
+        thisRectTransform.sizeDelta = new Vector2(parentWidth, parentWidth / parentAspectRatio);
+    }
 
 }

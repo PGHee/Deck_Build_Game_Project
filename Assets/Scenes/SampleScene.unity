@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3846,7 +3845,6 @@ GameObject:
   - component: {fileID: 273267002}
   - component: {fileID: 273267001}
   - component: {fileID: 273267000}
-  - component: {fileID: 273266999}
   - component: {fileID: 273266998}
   m_Layer: 5
   m_Name: Atrtibute0
@@ -3919,23 +3917,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &273266999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273266996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08592462bdb001a45be5160cf794fc05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefabNum: 9999
-  artifactPrefabNum: 9999
-  originalPrefab: {fileID: 0}
-  canvasSize: {x: 0, y: 0}
-  canvasPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &273267000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4762,18 +4743,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 417790854}
-        m_TargetAssemblyTypeName: VillageChiefManager, Assembly-CSharp
-        m_MethodName: ArtifactSynthesisEntered
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 474652578}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: ClosePopup
@@ -5691,7 +5660,6 @@ GameObject:
   - component: {fileID: 359684918}
   - component: {fileID: 359684917}
   - component: {fileID: 359684916}
-  - component: {fileID: 359684915}
   - component: {fileID: 359684914}
   m_Layer: 5
   m_Name: Atrtibute1
@@ -5764,23 +5732,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &359684915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359684912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08592462bdb001a45be5160cf794fc05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefabNum: 9999
-  artifactPrefabNum: 9999
-  originalPrefab: {fileID: 0}
-  canvasSize: {x: 0, y: 0}
-  canvasPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &359684916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6452,6 +6403,8 @@ MonoBehaviour:
   - {fileID: 2123069518}
   - {fileID: 1198088659}
   parentObject: {fileID: 1548463078}
+  thisRectTransform: {fileID: 0}
+  parentRectTransform: {fileID: 944888155}
 --- !u!1 &406529380
 GameObject:
   m_ObjectHideFlags: 0
@@ -17505,18 +17458,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 417790854}
-        m_TargetAssemblyTypeName: VillageChiefManager, Assembly-CSharp
-        m_MethodName: ShopEntered
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 474652578}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: ClosePopup
@@ -21131,7 +21072,6 @@ GameObject:
   - component: {fileID: 1198088665}
   - component: {fileID: 1198088664}
   - component: {fileID: 1198088663}
-  - component: {fileID: 1198088662}
   - component: {fileID: 1198088661}
   m_Layer: 5
   m_Name: Atrtibute7
@@ -21204,23 +21144,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1198088662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198088659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08592462bdb001a45be5160cf794fc05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefabNum: 9999
-  artifactPrefabNum: 9999
-  originalPrefab: {fileID: 0}
-  canvasSize: {x: 0, y: 0}
-  canvasPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1198088663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22403,6 +22326,7 @@ MonoBehaviour:
   sellArtifactNums: 
   sellArtifactPrices: 
   buyHP: 0
+  shopFirstOpen: 0
   PriceText:
   - {fileID: 1047956869}
   - {fileID: 1920842068}
@@ -23620,7 +23544,6 @@ GameObject:
   - component: {fileID: 1340417527}
   - component: {fileID: 1340417526}
   - component: {fileID: 1340417525}
-  - component: {fileID: 1340417524}
   - component: {fileID: 1340417523}
   m_Layer: 5
   m_Name: Atrtibute5
@@ -23693,23 +23616,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1340417524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340417521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08592462bdb001a45be5160cf794fc05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefabNum: 9999
-  artifactPrefabNum: 9999
-  originalPrefab: {fileID: 0}
-  canvasSize: {x: 0, y: 0}
-  canvasPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1340417525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25050,6 +24956,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1250756370}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: trueShopFirstOpen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1441712489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25232,7 +25150,6 @@ GameObject:
   - component: {fileID: 1454406029}
   - component: {fileID: 1454406028}
   - component: {fileID: 1454406027}
-  - component: {fileID: 1454406026}
   - component: {fileID: 1454406025}
   m_Layer: 5
   m_Name: Atrtibute3
@@ -25305,23 +25222,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1454406026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454406023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08592462bdb001a45be5160cf794fc05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefabNum: 9999
-  artifactPrefabNum: 9999
-  originalPrefab: {fileID: 0}
-  canvasSize: {x: 0, y: 0}
-  canvasPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1454406027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27256,7 +27156,6 @@ GameObject:
   - component: {fileID: 1524362492}
   - component: {fileID: 1524362491}
   - component: {fileID: 1524362490}
-  - component: {fileID: 1524362489}
   - component: {fileID: 1524362488}
   m_Layer: 5
   m_Name: Atrtibute4
@@ -27329,23 +27228,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1524362489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524362486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08592462bdb001a45be5160cf794fc05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefabNum: 9999
-  artifactPrefabNum: 9999
-  originalPrefab: {fileID: 0}
-  canvasSize: {x: 0, y: 0}
-  canvasPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1524362490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28887,6 +28769,7 @@ MonoBehaviour:
   rewardCardNums: 
   rewardArtifactNums: 
   rewardCrystal: 0
+  rewardEXP: 0
   battleRewardStep: 0
 --- !u!1 &1641355308
 GameObject:
@@ -32480,7 +32363,6 @@ GameObject:
   - component: {fileID: 1943810589}
   - component: {fileID: 1943810588}
   - component: {fileID: 1943810587}
-  - component: {fileID: 1943810586}
   - component: {fileID: 1943810585}
   m_Layer: 5
   m_Name: Atrtibute2
@@ -32553,23 +32435,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1943810586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943810583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08592462bdb001a45be5160cf794fc05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefabNum: 9999
-  artifactPrefabNum: 9999
-  originalPrefab: {fileID: 0}
-  canvasSize: {x: 0, y: 0}
-  canvasPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1943810587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35567,7 +35432,6 @@ GameObject:
   - component: {fileID: 2123069524}
   - component: {fileID: 2123069523}
   - component: {fileID: 2123069522}
-  - component: {fileID: 2123069521}
   - component: {fileID: 2123069520}
   m_Layer: 5
   m_Name: Atrtibute6
@@ -35640,23 +35504,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2123069521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123069518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08592462bdb001a45be5160cf794fc05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefabNum: 9999
-  artifactPrefabNum: 9999
-  originalPrefab: {fileID: 0}
-  canvasSize: {x: 0, y: 0}
-  canvasPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2123069522
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class Actions : MonoBehaviour
     private BuffDebuffManager buffDebuff;
     private Effect effect;
     private DamageText damageText;
+    private HandControl handControl;
 
     void Start()
     {
@@ -267,13 +268,53 @@ public class Actions : MonoBehaviour
         if (Random.value < player.lightningStunChance) buffDebuff.ApplySkipTurnDebuff(target, 1);
     }
 
-    public void DrawCards(PlayerState player, int count)
+    public void Draw(PlayerState player, int count)
     {
         //카드의 효과로 인한 드로우. 추후 카드 덱 관리하는 매니저의 카드 드로우 함수를 불러올 예정
     }
 
-    public void DiscardCards(PlayerState player, int count)
+    public void Dump(PlayerState player, int count)
     {
         //카드의 효과로 인한 패 버리기. 추후 카드 덱 관리 매니저에 존재하는 핸드 버리기 함수를 불러올 예정
+    }
+
+    public void CrystalDamage(GameObject target, int damage, int costCrystal, int hits, CardAction killEffect = null, PlayerState.AttributeType? attributeType = null)
+    {
+        damage = Mathf.RoundToInt(damage * player.damageMultiplier);
+        if (player.crystal >= costCrystal)
+        {
+            player.SpendCrystal(costCrystal);
+        }
+        else
+        {
+            damage = 0;
+        }
+        ApplyPassiveEffects(attributeType, ref damage, ref hits);
+        effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
+        damageText.ShowDamage(target, (int)attributeType, damage, hits, 0.1f);
+        for (int i = 0; i < hits; i++)
+        {
+            DealMultipleHits(target, damage, hits, killEffect, attributeType);
+        }
+    }
+
+    public void CardRemoveDamage(GameObject target, int damage, int costCrystal, int hits, CardAction killEffect = null, PlayerState.AttributeType? attributeType = null)
+    {
+        damage = Mathf.RoundToInt(damage * player.damageMultiplier);
+        if (player.crystal >= costCrystal)
+        {
+            player.SpendCrystal(costCrystal);
+        }
+        else
+        {
+            damage = 0;
+        }
+        ApplyPassiveEffects(attributeType, ref damage, ref hits);
+        effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
+        damageText.ShowDamage(target, (int)attributeType, damage, hits, 0.1f);
+        for (int i = 0; i < hits; i++)
+        {
+            DealSingleTargetDamage(target, damage, killEffect, attributeType);
+        }
     }
 }

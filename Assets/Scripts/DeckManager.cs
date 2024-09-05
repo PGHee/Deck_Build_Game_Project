@@ -18,7 +18,7 @@ public class DeckManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        deckArrayOrigin = new int[] {1, 101, 201, 301, 402, 502, 602, 702, 3, 3, 3, 3, 3};
+        deckArrayOrigin = new int[] {1,1,2,2};
 
         deckArray = CopyOrigin2Deck();
 
@@ -55,7 +55,6 @@ public class DeckManager : MonoBehaviour
         {
             num += array[i] * (int)Mathf.Pow(10f, (float)(array.Length-i-1));
         }
-        Debug.Log(num);
     }
 
     // 덱에서 카드 한장 뽑아 생성

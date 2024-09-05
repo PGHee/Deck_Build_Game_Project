@@ -10,7 +10,6 @@ public class CardGenerator : MonoBehaviour
     int zposition = 0;
     public int cardNum = 0;
     public int cardNameNum = 0;
-    int maxCardNum = 9;
     public GameObject handController;
     public GameObject[] cardPrefabs;
     public HandControl handControl;
@@ -40,7 +39,7 @@ public class CardGenerator : MonoBehaviour
 
     public void DrawFromDeck(int cardInd)
     {      
-        GameObject go = Instantiate(Resources.Load<GameObject>($"Prefabs/Card/{CardNameConverter.CardNumToCode(cardInd)}"));
+        GameObject go = Instantiate(Resources.Load<GameObject>($"Prefabs/Card/{CardNameConverter.CardNumToCode(cardInd - 1)}"));
         GameObject parentCardObject = GameObject.Find("Cards");
         go.transform.SetParent(parentCardObject.transform, false);
         go.transform.localPosition = new Vector3(xposition, -4, zposition);

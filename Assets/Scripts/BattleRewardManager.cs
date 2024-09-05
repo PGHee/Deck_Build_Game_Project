@@ -18,6 +18,7 @@ public class BattleRewardManager : MonoBehaviour
     public int[] rewardCardNums;
     public int[] rewardArtifactNums;
     public int rewardCrystal;
+    public int rewardEXP;
 
     public int battleRewardStep;
 
@@ -27,7 +28,7 @@ public class BattleRewardManager : MonoBehaviour
         rewardCardNums = new int[3];
         rewardArtifactNums = new int[3];
         battleRewardStep = 0;
-        rewardCrystal = 100;
+        rewardCrystal = 0;
     }
 
     public void RestartBattleReward()
@@ -132,11 +133,17 @@ public class BattleRewardManager : MonoBehaviour
 
             if (randomNum <= 0)
             {
-                return (int)(i * 100 + Random.Range(0, attributeLevelList[i] * 2));
+                if (attributeLevelList[i] == 10)
+                {
+                    return (int)(i * 100 + Random.Range(0, 9 * 2 + 1));
+                }
+                else
+                {
+                    return (int)(i * 100 + Random.Range(0, attributeLevelList[i] * 2 + 1));
+                } 
             }
         }
-
-        return (int)(9 * 100 + Random.Range(0, attributeLevelList[9] * 2));
+        return (int)(Random.Range(0,10) * 100 + Random.Range(0, attributeLevelList[9] * 2 + 1));
     }
 
     public int RandomSelectArtifact()
@@ -189,6 +196,21 @@ public class BattleRewardManager : MonoBehaviour
         GameObject gameDirector = GameObject.Find("GameDirector");
         rewardCrystal = gameDirector.GetComponent<GameDirector>().currentStage * 10 * rewardCrystal;
 
+        rewardEXP = gameDirector.GetComponent<GameDirector>().currentStage * 10 * rewardEXP;
+
+        string mapName = gameDirector.GetComponent<GameDirector>().currentMapName;
+
+        if (mapName == "BossBattle")
+        {
+            rewardCrystal = rewardCrystal * 10;
+            rewardEXP = rewardEXP * 10;
+        }
+        else if (mapName == "EliteBattle")
+        {
+            rewardCrystal = rewardCrystal * 2;
+            rewardEXP = rewardEXP * 2;
+        }
+
 
         GameObject crystalAmount = GameObject.Find("CrystalAmount");
         crystalAmount.GetComponent<TextMeshProUGUI>().text = "+" + rewardCrystal + " crystal";
@@ -196,7 +218,6 @@ public class BattleRewardManager : MonoBehaviour
         clearButtonsBattleReward[0].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/amethyst");
         clearButtonsBattleReward[1].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/amethyst");
         clearButtonsBattleReward[2].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/amethyst");
-
     }
 
     public void GetBattleReward(int buttonNum)
@@ -212,6 +233,7 @@ public class BattleRewardManager : MonoBehaviour
         else
         {
             playerState.crystal = playerState.crystal + rewardCrystal;
+            playerState.AddExperience(rewardEXP);
         }
 
         battleRewardStep++;

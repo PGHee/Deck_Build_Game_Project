@@ -172,6 +172,7 @@ public class TurnManager : MonoBehaviour
 
             GameObject battleRewardManager = GameObject.Find("BattleRewardManager");
             battleRewardManager.GetComponent<BattleRewardManager>().rewardCrystal = monsters.Count;
+            battleRewardManager.GetComponent<BattleRewardManager>().rewardEXP = monsters.Count;
             battleRewardManager.GetComponent<BattleRewardManager>().RestartBattleReward();
 
             this.enabled = false;

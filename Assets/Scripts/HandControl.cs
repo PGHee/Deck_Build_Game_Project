@@ -52,8 +52,6 @@ public class HandControl : MonoBehaviour
             // 현재 위치를 새로운 좌표로 이동
             hands[j].transform.position = new Vector3((2.0f) * xposition, y - 1, transform.position.z);
 
-            Debug.Log(hands[j].transform.position);
-
             hands[j].transform.rotation = Quaternion.Euler(0, 0, xposition * -3);
         }
 
