@@ -10,6 +10,7 @@ public class ShopManager : MonoBehaviour
     public PlayerState playerState;
     public DynamicButtonManager dynamicButtonManager;
     public RewardManager rewardManager;
+    private SystemMessage message;
     public GameObject[] clearButtonsShop;
 
     public int playerLevel;
@@ -22,6 +23,7 @@ public class ShopManager : MonoBehaviour
     public int[] sellArtifactPrices;
 
     public bool buyHP;
+    public bool shopFirstOpen;
 
     public TextMeshProUGUI[] PriceText;
 
@@ -33,19 +35,26 @@ public class ShopManager : MonoBehaviour
         sellArtifactNums = new int[3];
         sellArtifactPrices = new int[3];
         buyHP = false;
+        shopFirstOpen = true;
+        message = FindObjectOfType<SystemMessage>();
     }
 
     public void RestartShop()
     {
-        SetCardsToShop();
-        SetArtifactsToShop();
-        buyHP = true;
-
-        GetClearButtonShop();
-        foreach(GameObject button in clearButtonsShop)
+        if (shopFirstOpen)
         {
-            UnBlurClearButtonShop(button);
-        }
+            SetCardsToShop();
+            SetArtifactsToShop();
+            buyHP = true;
+
+            GetClearButtonShop();
+            foreach (GameObject button in clearButtonsShop)
+            {
+                UnBlurClearButtonShop(button);
+            }
+
+            shopFirstOpen = false;
+        }    
     }
 
     public void GetPlayerState() // �÷��̾� ���� ȹ��
@@ -69,17 +78,23 @@ public class ShopManager : MonoBehaviour
         int randomNum = Random.Range(1, sumLevel);
         Debug.Log("randomNum:" + randomNum + "");
 
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             randomNum = randomNum - attributeLevelList[i];
 
             if (randomNum <= 0)
             {
-                return (int)(i * 100 + Random.Range(0, attributeLevelList[i] * 2));
+                if (attributeLevelList[i] == 10)
+                {
+                    return (int)(i * 100 + Random.Range(0, 9 * 2 + 1));
+                }
+                else
+                {
+                    return (int)(i * 100 + Random.Range(0, attributeLevelList[i] * 2 + 1));
+                }
             }
         }
-
-        return (int)(9 * 100 + Random.Range(0, attributeLevelList[9] * 2));
+        return (int)(Random.Range(0, 10) * 100 + Random.Range(0, attributeLevelList[9] * 2 + 1));
     }
 
     public void SetCardsToShop()
@@ -125,14 +140,28 @@ public class ShopManager : MonoBehaviour
     {
         if (sellCardNums[buttonNum] > 0)
         {
-            rewardManager.GetReward("Card", sellCardNums[buttonNum], sellCardPrices[buttonNum]);
-            sellCardNums[buttonNum] = 0;
-            BlurClearButtonShop(clearButtonsShop[buttonNum]);
+
+            if (sellCardPrices[buttonNum] <= playerState.crystal)
+            {
+                rewardManager.GetReward("Card", sellCardNums[buttonNum], sellCardPrices[buttonNum]);
+                sellCardNums[buttonNum] = 0;
+
+                message.ShowSystemMessage("구매 감사합니다!");
+            }
+            else
+            {
+                message.ShowSystemMessage("지갑이 얇아 보이는걸?");
+            }               
         }
         else
         {
-            Debug.Log("You already bought this card");
-        }    
+            message.ShowSystemMessage("이런! 품절이야");
+        }
+
+        if (sellCardNums[buttonNum] == 0)
+        {
+            BlurClearButtonShop(clearButtonsShop[buttonNum]);
+        }       
     }
 
     public int RandomSelectArtifact()
@@ -161,13 +190,25 @@ public class ShopManager : MonoBehaviour
     {
         if (sellArtifactNums[buttonNum] > 0)
         {
-            rewardManager.GetReward("Artifact", sellArtifactNums[buttonNum], sellArtifactPrices[buttonNum]);
-            sellArtifactNums[buttonNum] = 0;
-            BlurClearButtonShop(clearButtonsShop[buttonNum + 5]); //아티팩트 버튼은 5번부터 시작함
+            if (sellArtifactPrices[buttonNum] <= playerState.crystal)
+            {
+                rewardManager.GetReward("Artifact", sellArtifactNums[buttonNum], sellArtifactPrices[buttonNum]);
+                sellArtifactNums[buttonNum] = 0;
+                message.ShowSystemMessage("다른것도 어떠신가요?");
+            }
+            else
+            {
+                message.ShowSystemMessage("흠....");
+            }                    
         }
         else
         {
-            Debug.Log("You already bought this Artifact");
+            message.ShowSystemMessage("그건 품절이야");
+        }
+
+        if (sellArtifactNums[buttonNum] == 0)
+        {
+            BlurClearButtonShop(clearButtonsShop[buttonNum + 5]); //아티팩트 버튼은 5번부터 시작함
         }
     }
 
@@ -183,11 +224,18 @@ public class ShopManager : MonoBehaviour
             BlurClearButtonShop(clearButtonsShop[10]);
 
             buyHP = false;
+
+            message.ShowSystemMessage("입맛엔 맞으시나요?");
         }
         else
         {
-            Debug.Log("HP Unable");
+            message.ShowSystemMessage("재고가 없어");
         }
+    }
+
+    public void trueShopFirstOpen()
+    {
+        shopFirstOpen = true;
     }
 }
 

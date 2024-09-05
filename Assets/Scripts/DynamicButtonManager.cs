@@ -27,8 +27,7 @@ public class DynamicButtonManager : MonoBehaviour
         else
         {
             Debug.LogError("프리팹에서 스프라이트를 가져올 수 없습니다. 프리팹에 SpriteRenderer가 포함되어 있는지 확인하세요.");
-        }   
-        Debug.Log(cardNum);
+        }
     }
 
     public void ArtifactSpriteToButton(int artifactNum, GameObject clearButton)
@@ -47,7 +46,6 @@ public class DynamicButtonManager : MonoBehaviour
         {
             Debug.LogError("프리팹에서 스프라이트를 가져올 수 없습니다. 프리팹에 SpriteRenderer가 포함되어 있는지 확인하세요.");
         }
-        Debug.Log(artifactNum);
     }
 
 }

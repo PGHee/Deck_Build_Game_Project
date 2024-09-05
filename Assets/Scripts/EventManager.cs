@@ -11,6 +11,7 @@ public class EventManager : MonoBehaviour
     public DeckManager deckManager;
     public ArtifactManager artifactManager;
     public RewardManager rewardManager;
+    private SystemMessage message;
 
     public int eventNum;
     public GameObject eventPrefab;
@@ -23,6 +24,11 @@ public class EventManager : MonoBehaviour
 
     public int eventInputNum;
     public int eventOutputNum;
+
+    void Start()
+    {
+        message = FindObjectOfType<SystemMessage>();
+    }
 
 
     public void RandomSelectEvent()
@@ -66,7 +72,7 @@ public class EventManager : MonoBehaviour
                         deckManager.DeleteOriginCard(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
                     }
-                    else Debug.Log("no card");
+                    else message.ShowSystemMessage("맞는 카드가 없어");
                     break;
 
                 case "Artifact":
@@ -75,7 +81,7 @@ public class EventManager : MonoBehaviour
                         artifactManager.DeleteArtifact2Inven(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
                     }
-                    else Debug.Log("no artifact");
+                    else message.ShowSystemMessage("맞는 아티팩트가 없어");
                     break ;
 
                 case "HP":
@@ -83,7 +89,7 @@ public class EventManager : MonoBehaviour
                     {
                         playerState.TakeDamage(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
-                    }
+                    }else message.ShowSystemMessage("체력이 부족해");
                     break ;
 
                 default:

@@ -9,13 +9,14 @@ public enum CardActionType
     Damage, MultiHit, AreaDamage, RandomTargetDamage, RandomTargetDamageWithBonus, IncrementalDamage,
     TrueDamage, TrueAreaDamage, ShieldAttack, OverhealToDamage, StunCheckDamage, 
     Poison, AreaPoison, DoublePoison, PoisonToDamage, RandomTargetPoison, PoisonCheckDamage,
-    killEffect, Heal, Shield, DoubleShield, RestoreResource
+    killEffect, Heal, Shield, DoubleShield, RestoreResource, CrystalDamage, RemoveHandDamage, RemoveHandShield, 
+    Dump, Draw, RestoreCost, Search
 }
 
 public enum EffectType
 {
     IncreaseDamage, AreaEffect, LifeSteal, ReduceDamage, ReflectDamage, ReduceCost, Purification, 
-    Field, DecreaseDamage, SkipTurn, Confuse, RandomAction, DelayedImpact
+    Field, DecreaseDamage, SkipTurn, Confuse, RandomAction, DelayedImpact, InvestCrystal
 }
 
 [System.Serializable]
@@ -291,6 +292,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 case CardActionType.PoisonToDamage:
                 case CardActionType.RandomTargetPoison:
                 case CardActionType.PoisonCheckDamage:
+                case CardActionType.CrystalDamage:
+                case CardActionType.RemoveHandDamage:
                     if (monsterTarget != null)
                     {
                         ApplyDamageEffects(monsterTarget, action);
@@ -300,6 +303,12 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 case CardActionType.Shield:
                 case CardActionType.DoubleShield:
                 case CardActionType.RestoreResource:
+                case CardActionType.RemoveHandShield:
+                case CardActionType.Dump:
+                case CardActionType.Draw:
+                case CardActionType.RestoreCost:
+                case CardActionType.Search:
+
                     if (playerTarget != null)
                     {
                         ApplyPlayerEffects(playerTarget, action);
@@ -333,6 +342,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 case EffectType.ReduceCost:
                 case EffectType.Purification:
                 case EffectType.Field:
+                case EffectType.InvestCrystal:
                     if (playerTarget != null)
                     {
                         ApplyToPlayer(playerTarget, buffDebuff);
@@ -492,6 +502,16 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                     else cardActions.DealMultiplePoison(target.gameObject, action.value, 1, attributeType);
                 }
                 break;
+            case CardActionType.CrystalDamage:
+                if (player.isAreaEffect)
+                {
+                    foreach (var monster in FindObjectsOfType<MonsterState>())
+                    {
+                        cardActions.CrystalDamage(monster.gameObject, action.value , action.secondaryValue, action.thirdValue, actions.FirstOrDefault(a => a.actionType == CardActionType.killEffect), attributeType);
+                    }
+                }
+                else cardActions.CrystalDamage(target.gameObject, action.value, action.secondaryValue, action.thirdValue, actions.FirstOrDefault(a => a.actionType == CardActionType.killEffect), attributeType);
+                break;
         }
     }
 
@@ -642,6 +662,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 case CardActionType.PoisonCheckDamage:
                     description += $"적에게 {action.value} 데미지를 주고, 적이 중독 상태라면 추가로 {action.secondaryValue} 데미지를 줍니다. ";
                     break;
+                case CardActionType.CrystalDamage:
+                    description += $"{action.secondaryValue} 크리스탈을 소모하고, 적에게 {action.value} 데미지를 줍니다. ";
+                    break;
                 case CardActionType.killEffect:
                     switch (action.killEffectType)
                     {
@@ -760,7 +783,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                action.actionType == CardActionType.DoublePoison ||
                action.actionType == CardActionType.PoisonToDamage ||
                action.actionType == CardActionType.RandomTargetPoison ||
-               action.actionType == CardActionType.PoisonCheckDamage;
+               action.actionType == CardActionType.PoisonCheckDamage ||
+               action.actionType == CardActionType.CrystalDamage ||
+               action.actionType == CardActionType.RemoveHandDamage;
     }
 
     private bool IsPlayerEffect(CardAction action)
@@ -768,7 +793,12 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         return action.actionType == CardActionType.Heal ||
                action.actionType == CardActionType.Shield ||
                action.actionType == CardActionType.DoubleShield ||
-               action.actionType == CardActionType.RestoreResource;
+               action.actionType == CardActionType.RestoreResource ||
+               action.actionType == CardActionType.RemoveHandShield ||
+               action.actionType == CardActionType.Dump ||
+               action.actionType == CardActionType.Draw ||
+               action.actionType == CardActionType.RestoreCost ||
+               action.actionType == CardActionType.Search;
     }
 
     private bool IsMonsterDebuff(BuffDebuff effect)
@@ -789,6 +819,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                effect.effectType == EffectType.ReflectDamage ||
                effect.effectType == EffectType.ReduceCost ||
                effect.effectType == EffectType.Purification ||
-               effect.effectType == EffectType.Field;
+               effect.effectType == EffectType.Field ||
+               effect.effectType == EffectType.InvestCrystal;
     }
 }

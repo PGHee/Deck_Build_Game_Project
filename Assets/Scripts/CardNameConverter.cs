@@ -15,8 +15,8 @@ public class CardNameConverter : MonoBehaviour
             case 1:
                 return ("Wa_" + (cardNum % 100 + 1)+ "");
                 
-            //case 2: 독 카드 제작 후 해금
-                //return ("Po_" + (cardNum % 100 + 1)+ "");
+            case 2:
+                return ("Tr_" + (cardNum % 100 + 1)+ "");
                 
             case 3:
                 return ("Gr_" + (cardNum % 100 + 1) + "");
