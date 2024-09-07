@@ -48,12 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b79a8a4944c2548a313b04d30c3a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeType: 6
+  attributeType: 9
   cost: 2
   actions:
-  - actionType: 1
-    value: 3
-    secondaryValue: 3
+  - actionType: 23
+    value: 6
+    secondaryValue: 1
     killEffectType: 0
     thirdValue: 0
   buffsAndDebuffs: []

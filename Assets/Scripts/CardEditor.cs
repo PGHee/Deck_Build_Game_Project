@@ -48,7 +48,10 @@ public class CardActionDrawer : PropertyDrawer
             actionType.enumValueIndex == (int)CardActionType.Poison ||
             actionType.enumValueIndex == (int)CardActionType.AreaPoison ||
             actionType.enumValueIndex == (int)CardActionType.RandomTargetPoison ||
-            actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage)
+            actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage ||
+            actionType.enumValueIndex == (int)CardActionType.CrystalDamage ||
+            actionType.enumValueIndex == (int)CardActionType.RemoveHandDamage)
+
         {
             EditorGUI.PropertyField(secondaryValueRect, secondaryValue);
         }
@@ -59,7 +62,8 @@ public class CardActionDrawer : PropertyDrawer
             EditorGUI.PropertyField(killEffectValueRect, killEffectValue);
         }
 
-        if (actionType.enumValueIndex == (int)CardActionType.RandomTargetDamageWithBonus)
+        if (actionType.enumValueIndex == (int)CardActionType.RandomTargetDamageWithBonus ||
+            actionType.enumValueIndex == (int)CardActionType.CrystalDamage)
         {
             EditorGUI.PropertyField(bonusAttackValue, bouseAttackValue);
         }
@@ -89,12 +93,14 @@ public class CardActionDrawer : PropertyDrawer
             actionType.enumValueIndex == (int)CardActionType.AreaPoison ||
             actionType.enumValueIndex == (int)CardActionType.killEffect || 
             actionType.enumValueIndex == (int)CardActionType.RandomTargetPoison ||
-            actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage)
+            actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage ||
+            actionType.enumValueIndex == (int)CardActionType.RemoveHandDamage)
         {
             return EditorGUIUtility.singleLineHeight * 3 + 6;
         }
 
-        if(actionType.enumValueIndex == (int)CardActionType.RandomTargetDamageWithBonus)
+        if(actionType.enumValueIndex == (int)CardActionType.RandomTargetDamageWithBonus ||
+           actionType.enumValueIndex == (int)CardActionType.CrystalDamage)
         {
             return EditorGUIUtility.singleLineHeight * 4 + 8;
         }

@@ -9,6 +9,7 @@ public class Actions : MonoBehaviour
     private Effect effect;
     private DamageText damageText;
     private HandControl handControl;
+    private DeckManager deckManager;
 
     void Start()
     {
@@ -16,6 +17,8 @@ public class Actions : MonoBehaviour
         buffDebuff = FindObjectOfType<BuffDebuffManager>();
         effect = FindObjectOfType<Effect>();
         damageText = FindObjectOfType<DamageText>();
+        deckManager = FindObjectOfType<DeckManager>();
+        handControl = FindObjectOfType<HandControl>();
     }
 
     void ApplyPassiveEffects(PlayerState.AttributeType? attributeType, ref int damage, ref int hits)
@@ -271,13 +274,34 @@ public class Actions : MonoBehaviour
     public void Draw(PlayerState player, int count)
     {
         //카드의 효과로 인한 드로우. 추후 카드 덱 관리하는 매니저의 카드 드로우 함수를 불러올 예정
+        for (int i = 0; i < count; i++)
+        {
+            deckManager.CardDraw();
+        }
+        
     }
 
     public void Dump(PlayerState player, int count)
-    {
-        //카드의 효과로 인한 패 버리기. 추후 카드 덱 관리 매니저에 존재하는 핸드 버리기 함수를 불러올 예정
+    {  
+        for (int i = 0; i < count; i++)
+        {
+            GameObject[] cardInHands = GameObject.FindGameObjectsWithTag("CardInHand");
+            int randNum = Random.Range(0, cardInHands.Length);
+            if (cardInHands[randNum].layer != LayerMask.NameToLayer("Ignore Raycast") && cardInHands[randNum] != null)
+            {
+                handControl.HandSort(cardInHands[randNum], false);
+                cardInHands[randNum].tag = "Untagged";
+                deckManager.graveArray = deckManager.Card2Grave(int.Parse(cardInHands[randNum].name));
+                Destroy(cardInHands[randNum]);
+            }
+            else
+            {
+                i--;
+            } 
+        }
     }
 
+    // 크리스탈 소비 데미지
     public void CrystalDamage(GameObject target, int damage, int costCrystal, int hits, CardAction killEffect = null, PlayerState.AttributeType? attributeType = null)
     {
         damage = Mathf.RoundToInt(damage * player.damageMultiplier);
@@ -289,32 +313,11 @@ public class Actions : MonoBehaviour
         {
             damage = 0;
         }
-        ApplyPassiveEffects(attributeType, ref damage, ref hits);
-        effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
-        damageText.ShowDamage(target, (int)attributeType, damage, hits, 0.1f);
+        //effect.ApplyEffect(target, (int)attributeType, 1, 0.1f);
+        //damageText.ShowDamage(target, (int)attributeType, damage, hits, 0.1f);
         for (int i = 0; i < hits; i++)
         {
             DealMultipleHits(target, damage, hits, killEffect, attributeType);
-        }
-    }
-
-    public void CardRemoveDamage(GameObject target, int damage, int costCrystal, int hits, CardAction killEffect = null, PlayerState.AttributeType? attributeType = null)
-    {
-        damage = Mathf.RoundToInt(damage * player.damageMultiplier);
-        if (player.crystal >= costCrystal)
-        {
-            player.SpendCrystal(costCrystal);
-        }
-        else
-        {
-            damage = 0;
-        }
-        ApplyPassiveEffects(attributeType, ref damage, ref hits);
-        effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
-        damageText.ShowDamage(target, (int)attributeType, damage, hits, 0.1f);
-        for (int i = 0; i < hits; i++)
-        {
-            DealSingleTargetDamage(target, damage, killEffect, attributeType);
         }
     }
 }

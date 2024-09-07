@@ -512,6 +512,30 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 }
                 else cardActions.CrystalDamage(target.gameObject, action.value, action.secondaryValue, action.thirdValue, actions.FirstOrDefault(a => a.actionType == CardActionType.killEffect), attributeType);
                 break;
+            case CardActionType.RemoveHandDamage:
+                GameObject[] cardInHands = GameObject.FindGameObjectsWithTag("CardInHand");
+                int cardNum = cardInHands.Length - 1;
+                if (cardNum < 0) cardNum = 0;
+
+                if (player.isAreaEffect)
+                {
+                    foreach (var monster in FindObjectsOfType<MonsterState>())
+                    {
+                        cardActions.DealMultipleHits(target.gameObject, action.value * cardNum, action.secondaryValue, actions.FirstOrDefault(a => a.actionType == CardActionType.killEffect), attributeType);
+                    }
+                }
+                else cardActions.DealMultipleHits(target.gameObject, action.value * cardNum, action.secondaryValue, actions.FirstOrDefault(a => a.actionType == CardActionType.killEffect), attributeType);
+
+                foreach (GameObject card in cardInHands)
+                {
+                    if (card.layer != LayerMask.NameToLayer("Ignore Raycast"))
+                    {
+                        deckManager.graveArray = deckManager.Card2Grave(int.Parse(card.name));
+                        Destroy(card);
+                        Debug.Log(card.name);
+                    }
+                }
+                break;
         }
     }
 
@@ -530,6 +554,12 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 break;
             case CardActionType.RestoreResource:
                 target.RestoreResource(action.value);
+                break;
+            case CardActionType.Draw:
+                cardActions.Draw(null, action.value);
+                break;
+            case CardActionType.Dump:
+                cardActions.Dump(null, action.value);
                 break;
         }
     }
@@ -664,6 +694,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                     break;
                 case CardActionType.CrystalDamage:
                     description += $"{action.secondaryValue} 크리스탈을 소모하고, 적에게 {action.value} 데미지를 줍니다. ";
+                    break;
+                case CardActionType.RemoveHandDamage:
+                    description += $" 패의 카드 한장 당 적에게 {action.value} 데미지를 주고 모든 패를 버립니다. ";
                     break;
                 case CardActionType.killEffect:
                     switch (action.killEffectType)

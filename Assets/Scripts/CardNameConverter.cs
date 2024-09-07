@@ -33,8 +33,8 @@ public class CardNameConverter : MonoBehaviour
             case 7:
                 return ("Da_" + (cardNum % 100 + 1) + "");
                 
-            //case 8: 노말 카드 제작 이후 해금
-                //return ("No_" + (cardNum % 100 + 1) + "");
+            case 8:
+                return ("No_" + (cardNum % 100 + 1) + "");
                 
             default:
                 Debug.Log("un identified card number");

@@ -51,11 +51,11 @@ MonoBehaviour:
   attributeType: 9
   cost: 0
   actions:
-  - actionType: 13
-    value: 5
-    secondaryValue: 4
+  - actionType: 22
+    value: 18
+    secondaryValue: 90
     killEffectType: 0
-    thirdValue: 0
+    thirdValue: 1
   buffsAndDebuffs: []
   cardFrontFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
   cardBackFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
