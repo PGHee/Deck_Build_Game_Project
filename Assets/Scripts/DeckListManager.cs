@@ -9,6 +9,7 @@ public class DeckListManager : MonoBehaviour
     public GameDirector gameDirector;
     public DynamicButtonManager dynamicButtonManager;
 
+    public bool search;
     public int cardListPage;
     public int[] cardList;
     public int pageCardNum;
@@ -25,14 +26,17 @@ public class DeckListManager : MonoBehaviour
         dynamicButtonManager = FindObjectOfType<DynamicButtonManager>();
 
         cardListPage = 0;
+        search = true;
     }
 
     public void CardListUp(string deckType)
     {
+        search = true;
         switch (deckType)
         {
             case "DeckArrayOrigin":
                 cardList = deckManager.deckArrayOrigin;
+                search = false;
                 break;
 
             case "DeckArray":
@@ -121,7 +125,15 @@ public class DeckListManager : MonoBehaviour
     {
         if (ButtonNum < pageCardNum && gameDirector.currentMapName.Contains("Battle") && deckTypeListUP != "DeckArrayOrigin")
         {
-            deckManager.CardSearch(15 * cardListPage + ButtonNum);
+            if (search)
+            {
+                deckManager.CardSearch(15 * cardListPage + ButtonNum);
+                search = false;
+            }
+            else
+            {
+                Debug.Log(" already search card");
+            }    
         }
     }
 }

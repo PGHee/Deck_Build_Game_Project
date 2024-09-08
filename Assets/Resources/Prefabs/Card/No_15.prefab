@@ -48,9 +48,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b79a8a4944c2548a313b04d30c3a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeType: 6
-  cost: 8
-  actions: []
+  attributeType: 9
+  cost: 6
+  actions:
+  - actionType: 29
+    value: 200
+    secondaryValue: 4
+    killEffectType: 0
+    thirdValue: 500
   buffsAndDebuffs:
   - effectType: 7
     isAreaEffect: 0

@@ -12,6 +12,7 @@ public class TurnManager : MonoBehaviour
     private List<MonsterState> monsters;
     private Actions cardActions;
     private SystemMessage message;
+    private InvestCrystalManager investCrystal;
     public ArtifactManager artifactManager;
     public HandControl handController;
     public GameObject endTurnButton;
@@ -38,6 +39,7 @@ public class TurnManager : MonoBehaviour
         message = FindObjectOfType<SystemMessage>();
         handController = FindObjectOfType<HandControl>();
         artifactManager = FindObjectOfType<ArtifactManager>();
+        investCrystal = FindObjectOfType<InvestCrystalManager>();
         this.enabled = false;
     }
 
@@ -90,6 +92,7 @@ public class TurnManager : MonoBehaviour
             isPlayerTurn = false;
             StartCoroutine(MonsterTurn());
             artifactManager.DeactivateArtfactReady();
+            investCrystal.CheckInvest();
         }
     }
 
@@ -168,6 +171,7 @@ public class TurnManager : MonoBehaviour
 
             endTurnButton.SetActive(false);
             handController.DiscardAllHand(); // 핸드 비움
+            investCrystal.ClearInvest(); // 투자 정보 삭제
 
             player.ResetPlayerStateAfterBattle();
 

@@ -10,13 +10,13 @@ public enum CardActionType
     TrueDamage, TrueAreaDamage, ShieldAttack, OverhealToDamage, StunCheckDamage, 
     Poison, AreaPoison, DoublePoison, PoisonToDamage, RandomTargetPoison, PoisonCheckDamage,
     killEffect, Heal, Shield, DoubleShield, RestoreResource, CrystalDamage, RemoveHandDamage, RemoveHandShield, 
-    Dump, Draw, RestoreCost, Search
+    Dump, Draw, RestoreCost, Search, InvestCrystal
 }
 
 public enum EffectType
 {
     IncreaseDamage, AreaEffect, LifeSteal, ReduceDamage, ReflectDamage, ReduceCost, Purification, 
-    Field, DecreaseDamage, SkipTurn, Confuse, RandomAction, DelayedImpact, InvestCrystal
+    Field, DecreaseDamage, SkipTurn, Confuse, RandomAction, DelayedImpact
 }
 
 [System.Serializable]
@@ -68,6 +68,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     private PlayerState player;
     private BuffDebuffManager buffDebuffManager;
     private int originalLayer;
+    private InvestCrystalManager investCrystal;
+    private PopupManager popupManager;
+    private DeckListManager deckListManager;
     public HandControl handController;
     public DeckManager deckManager;
 
@@ -103,6 +106,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         originalScale = transform.localScale;                       // 원본 스케일 저장
         handController = FindObjectOfType<HandControl>();
         deckManager = FindObjectOfType<DeckManager>();
+        investCrystal = FindObjectOfType<InvestCrystalManager>();
+        popupManager = FindObjectOfType<PopupManager>();
+        deckListManager = FindObjectOfType<DeckListManager>();
 
     }
 
@@ -308,6 +314,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 case CardActionType.Draw:
                 case CardActionType.RestoreCost:
                 case CardActionType.Search:
+                case CardActionType.InvestCrystal:
 
                     if (playerTarget != null)
                     {
@@ -342,7 +349,6 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 case EffectType.ReduceCost:
                 case EffectType.Purification:
                 case EffectType.Field:
-                case EffectType.InvestCrystal:
                     if (playerTarget != null)
                     {
                         ApplyToPlayer(playerTarget, buffDebuff);
@@ -561,6 +567,39 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
             case CardActionType.Dump:
                 cardActions.Dump(null, action.value);
                 break;
+            case CardActionType.RemoveHandShield:
+                GameObject[] cardInHands = GameObject.FindGameObjectsWithTag("CardInHand");
+                int cardNum = cardInHands.Length - 1;
+                if (cardNum < 0) cardNum = 0;
+
+                target.ApplyShield(action.value * cardNum);
+
+                foreach (GameObject card in cardInHands)
+                {
+                    if (card.layer != LayerMask.NameToLayer("Ignore Raycast"))
+                    {
+                        deckManager.graveArray = deckManager.Card2Grave(int.Parse(card.name));
+                        Destroy(card);
+                        Debug.Log(card.name);
+                    }
+                }
+                break;
+            case CardActionType.InvestCrystal:
+                if (player.crystal >= action.value)
+                {
+                    player.SpendCrystal(action.value);
+
+                    investCrystal.AddInvest(action.secondaryValue, action.thirdValue);
+                }
+                else
+                {
+                    message.ShowSystemMessage("크리스탈이 부족합니다.");
+                }
+                break;
+            case CardActionType.Search:
+                popupManager.ShowPopup("DeckList");
+                deckListManager.CardListUp("DeckArray");
+                break;
         }
     }
 
@@ -724,6 +763,21 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 case CardActionType.DoubleShield:
                     description += $"자신에게 부여된 방어도가 2배가 됩니다. ";
                     break;
+                case CardActionType.RemoveHandShield:
+                    description += $" 패의 카드 한장 당 자신에게 {action.value}의 방어도를 부여하고 모든 패를 버립니다. ";
+                    break;
+                case CardActionType.Draw:
+                    description += $" 카드를 {action.value}장 뽑습니다. ";
+                    break;
+                case CardActionType.Dump:
+                    description += $" 패에서 무작위 카드 {action.value}장 버립니다 ";
+                    break;
+                case CardActionType.InvestCrystal:
+                    description += $" {action.value} 크리스탈을 소모하고 {action.secondaryValue}턴 뒤 {action.thirdValue} 크리스탈을 얻습니다.";
+                    break;
+                case CardActionType.Search:
+                    description += $" 덱에서 원하는 카드 한장 가져옵니다.";
+                    break;
             }
         }
 
@@ -831,7 +885,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                action.actionType == CardActionType.Dump ||
                action.actionType == CardActionType.Draw ||
                action.actionType == CardActionType.RestoreCost ||
-               action.actionType == CardActionType.Search;
+               action.actionType == CardActionType.Search ||
+               action.actionType == CardActionType.InvestCrystal;
     }
 
     private bool IsMonsterDebuff(BuffDebuff effect)
@@ -852,7 +907,6 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                effect.effectType == EffectType.ReflectDamage ||
                effect.effectType == EffectType.ReduceCost ||
                effect.effectType == EffectType.Purification ||
-               effect.effectType == EffectType.Field ||
-               effect.effectType == EffectType.InvestCrystal;
+               effect.effectType == EffectType.Field;
     }
 }

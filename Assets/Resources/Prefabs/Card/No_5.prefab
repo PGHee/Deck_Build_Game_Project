@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b79a8a4944c2548a313b04d30c3a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeType: 6
-  cost: 3
+  attributeType: 9
+  cost: 1
   actions:
   - actionType: 26
     value: 2

@@ -28,7 +28,8 @@ public class CardActionDrawer : PropertyDrawer
             actionType.enumValueIndex == (int)CardActionType.DoublePoison ||
             actionType.enumValueIndex == (int)CardActionType.PoisonToDamage ||
             actionType.enumValueIndex == (int)CardActionType.killEffect || 
-            actionType.enumValueIndex == (int)CardActionType.DoubleShield)
+            actionType.enumValueIndex == (int)CardActionType.DoubleShield ||
+            actionType.enumValueIndex == (int)CardActionType.Search)
         {
             
         }
@@ -50,7 +51,8 @@ public class CardActionDrawer : PropertyDrawer
             actionType.enumValueIndex == (int)CardActionType.RandomTargetPoison ||
             actionType.enumValueIndex == (int)CardActionType.PoisonCheckDamage ||
             actionType.enumValueIndex == (int)CardActionType.CrystalDamage ||
-            actionType.enumValueIndex == (int)CardActionType.RemoveHandDamage)
+            actionType.enumValueIndex == (int)CardActionType.RemoveHandDamage ||
+            actionType.enumValueIndex == (int)CardActionType.InvestCrystal)
 
         {
             EditorGUI.PropertyField(secondaryValueRect, secondaryValue);
@@ -63,7 +65,8 @@ public class CardActionDrawer : PropertyDrawer
         }
 
         if (actionType.enumValueIndex == (int)CardActionType.RandomTargetDamageWithBonus ||
-            actionType.enumValueIndex == (int)CardActionType.CrystalDamage)
+            actionType.enumValueIndex == (int)CardActionType.CrystalDamage ||
+            actionType.enumValueIndex == (int)CardActionType.InvestCrystal)
         {
             EditorGUI.PropertyField(bonusAttackValue, bouseAttackValue);
         }
@@ -77,7 +80,8 @@ public class CardActionDrawer : PropertyDrawer
         if (actionType.enumValueIndex == (int)CardActionType.ShieldAttack ||
             actionType.enumValueIndex == (int)CardActionType.DoublePoison ||
             actionType.enumValueIndex == (int)CardActionType.PoisonToDamage ||
-            actionType.enumValueIndex == (int)CardActionType.DoubleShield)
+            actionType.enumValueIndex == (int)CardActionType.DoubleShield ||
+            actionType.enumValueIndex == (int)CardActionType.Search)
         {
             return EditorGUIUtility.singleLineHeight;
         }
@@ -100,7 +104,8 @@ public class CardActionDrawer : PropertyDrawer
         }
 
         if(actionType.enumValueIndex == (int)CardActionType.RandomTargetDamageWithBonus ||
-           actionType.enumValueIndex == (int)CardActionType.CrystalDamage)
+           actionType.enumValueIndex == (int)CardActionType.CrystalDamage ||
+            actionType.enumValueIndex == (int)CardActionType.InvestCrystal)
         {
             return EditorGUIUtility.singleLineHeight * 4 + 8;
         }

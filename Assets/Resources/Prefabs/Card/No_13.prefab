@@ -49,18 +49,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attributeType: 6
-  cost: 6
+  cost: 7
   actions:
-  - actionType: 1
-    value: 8
-    secondaryValue: 3
-    killEffectType: 0
-    thirdValue: 0
-  - actionType: 17
-    value: 20
+  - actionType: 23
+    value: 10
     secondaryValue: 1
     killEffectType: 0
-    thirdValue: 16
+    thirdValue: 0
   buffsAndDebuffs: []
   cardFrontFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
   cardBackFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}

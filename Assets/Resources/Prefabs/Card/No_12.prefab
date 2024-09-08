@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attributeType: 6
-  cost: 6
+  cost: 0
   actions:
-  - actionType: 4
-    value: 5
+  - actionType: 21
+    value: 2
     secondaryValue: 4
     killEffectType: 0
     thirdValue: 3

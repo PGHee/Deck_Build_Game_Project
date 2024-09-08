@@ -24,6 +24,7 @@ public class PopupManager : MonoBehaviour
     public ArtifactMountManager artifactMountManager;
     public GameDirector gameDirector;
     public AttributeLevelBarManager attributeLevelBarManager;
+    private HandControl handController;
 
     void Start()
     {
@@ -31,6 +32,7 @@ public class PopupManager : MonoBehaviour
 
         gameDirector = FindObjectOfType<GameDirector>();
         attributeLevelBarManager = FindObjectOfType<AttributeLevelBarManager>();
+        handController = FindObjectOfType<HandControl>();
     }
 
     public void ShowPopup(string message)
@@ -137,6 +139,7 @@ public class PopupManager : MonoBehaviour
 
             case "DeckList":
                 popupPanelDeckList.SetActive(false);
+                handController.HandSort(null, true);
                 break;
 
             case "StartDeck":
