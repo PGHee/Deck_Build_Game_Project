@@ -59,7 +59,7 @@ MonoBehaviour:
   buffsAndDebuffs: []
   cardFrontFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
   cardBackFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
-  cardImage: {fileID: 21300000, guid: 5388ec76ab9eda1479f83339263a7cfa, type: 3}
+  cardImage: {fileID: 21300000, guid: 063485723adce6d4d8f57cc411a4b970, type: 3}
   cardName: Wa_17
   attributeSprites:
   - {fileID: 21300000, guid: ef2cdaf7c60193240a2c02f35763827e, type: 3}
