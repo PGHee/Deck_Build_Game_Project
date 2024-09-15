@@ -250,6 +250,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         cardBack.sprite = cardBackFrame;
         cardNameText.text = cardName;
         cardImageUI.sprite = cardImage;
+        cardImageUI.transform.localScale = new Vector3(0.4f, 0.4f, 0.1f);
         cardDescriptionText.text = GetCardDescription();
         cardCostText.text = cost.ToString();
         cardTypeText.text = GetCardType();
