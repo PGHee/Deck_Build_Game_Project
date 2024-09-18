@@ -110,24 +110,24 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         investCrystal = FindObjectOfType<InvestCrystalManager>();
         popupManager = FindObjectOfType<PopupManager>();
         deckListManager = FindObjectOfType<DeckListManager>();
-        SetLayerOrders();
+        //SetLayerOrders();
     }
 
-    void SetLayerOrders()
+    void SetLayerOrders(GameObject card)
     {
-        Transform backSide = transform.Find("CardBack");
+        Transform backSide = card.transform.Find("CardBack");
         if (backSide != null) SetSortingOrder(backSide.gameObject, baseLayer + 1);
 
-        Transform frontImage = transform.Find("CardFront/CardImage");
+        Transform frontImage = card.transform.Find("CardFront/CardImage");
         if (frontImage != null) SetSortingOrder(frontImage.gameObject, baseLayer + 2);
 
-        Transform frontSide = transform.Find("CardFront");
+        Transform frontSide = card.transform.Find("CardFront");
         if (frontSide != null) SetSortingOrder(frontSide.gameObject, baseLayer + 3);
 
-        Transform canvas = transform.Find("CardFront/Canvas");
+        Transform canvas = card.transform.Find("CardFront/Canvas");
         if (canvas != null) SetSortingOrder(canvas.gameObject, baseLayer + 4);
 
-        Transform attributeImage = transform.Find("CardFront/CardAttribute");
+        Transform attributeImage = card.transform.Find("CardFront/CardAttribute");
         if (canvas != null) SetSortingOrder(attributeImage.gameObject, baseLayer + 4);
     }
 
@@ -244,6 +244,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+
         if (isDragging && zoomedCard != null) Destroy(zoomedCard);
         else if(isDragging) return;
         
@@ -255,6 +256,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
             Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width * fixedScreenPosition.x, Screen.height * fixedScreenPosition.y, fixedScreenPosition.z));
             zoomedCard.transform.position = worldPosition;
             zoomedCard.transform.localScale = originalScale * 2.0f; // 크기 조정
+
+            SetLayerOrders(zoomedCard);
         }
     }
 

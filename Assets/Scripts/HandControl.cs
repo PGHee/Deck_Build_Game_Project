@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Rendering;
 
 public class HandControl : MonoBehaviour
 {
@@ -53,6 +54,13 @@ public class HandControl : MonoBehaviour
             hands[j].transform.position = new Vector3((2.0f) * xposition, y - 1, transform.position.z);
 
             hands[j].transform.rotation = Quaternion.Euler(0, 0, xposition * -3);
+
+
+            Transform canvasT = hands[j].transform.Find("CardFront/Canvas");
+            Canvas canvas = canvasT.gameObject.GetComponent<Canvas>();
+            if (canvas != null) canvas.sortingOrder = 300 + 10 * j + 5;
+
+            hands[j].GetComponent<SortingGroup>().sortingOrder = 300 + j * 10;
         }
 
         handCardNumCh = handCardNum;        

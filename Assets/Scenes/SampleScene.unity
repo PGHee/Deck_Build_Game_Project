@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5407,7 +5406,7 @@ GameObject:
   - component: {fileID: 356592473}
   - component: {fileID: 356592472}
   m_Layer: 5
-  m_Name: Canvas_BattleReward
+  m_Name: Canvas_BattleReward_400
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5494,7 +5493,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 410
   m_TargetDisplay: 0
 --- !u!1 &359684912
 GameObject:
@@ -8310,7 +8309,7 @@ GameObject:
   - component: {fileID: 494104955}
   - component: {fileID: 494104954}
   m_Layer: 5
-  m_Name: Canvas_ArtifactSynthesis
+  m_Name: Canvas_ArtifactSynthesis_500
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8397,7 +8396,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 510
   m_TargetDisplay: 0
 --- !u!1 &496169054
 GameObject:
@@ -10577,7 +10576,7 @@ GameObject:
   - component: {fileID: 598463731}
   - component: {fileID: 598463730}
   m_Layer: 0
-  m_Name: Canvas_Shop
+  m_Name: Canvas_Shop_500
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10664,7 +10663,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 500
   m_TargetDisplay: 0
 --- !u!1 &607624655
 GameObject:
@@ -14798,7 +14797,7 @@ GameObject:
   - component: {fileID: 893877951}
   - component: {fileID: 893877950}
   m_Layer: 5
-  m_Name: Canvas_DeckList
+  m_Name: Canvas_DeckList_600
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14885,7 +14884,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 600
   m_TargetDisplay: 0
 --- !u!1 &899603620
 GameObject:
@@ -16801,7 +16800,7 @@ GameObject:
   - component: {fileID: 944888157}
   - component: {fileID: 944888156}
   m_Layer: 5
-  m_Name: Canvas_StartDeck
+  m_Name: Canvas_StartDeck_400
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16888,7 +16887,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 400
   m_TargetDisplay: 0
 --- !u!1 &947773854
 GameObject:
@@ -19644,7 +19643,7 @@ GameObject:
   - component: {fileID: 1090901921}
   - component: {fileID: 1090901920}
   m_Layer: 5
-  m_Name: Canvas_Artifact
+  m_Name: Canvas_Artifact_650
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19731,7 +19730,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 650
   m_TargetDisplay: 0
 --- !u!1 &1097116713
 GameObject:
@@ -26110,7 +26109,7 @@ GameObject:
   - component: {fileID: 1466016765}
   - component: {fileID: 1466016764}
   m_Layer: 0
-  m_Name: Canvas_AttributeLevel
+  m_Name: Canvas_AttributeLevel_650
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26197,7 +26196,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 675
   m_TargetDisplay: 0
 --- !u!1 &1475106710
 GameObject:
@@ -32292,7 +32291,7 @@ GameObject:
   - component: {fileID: 1904577203}
   - component: {fileID: 1904577202}
   m_Layer: 0
-  m_Name: Canvas_Event
+  m_Name: Canvas_Event_400
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32379,7 +32378,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 430
   m_TargetDisplay: 0
 --- !u!1 &1912501570
 GameObject:
@@ -36125,7 +36124,7 @@ GameObject:
   - component: {fileID: 2129483775}
   - component: {fileID: 2129483774}
   m_Layer: 0
-  m_Name: Canvas_VillageChief
+  m_Name: Canvas_VillageChief_400
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36212,7 +36211,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 420
   m_TargetDisplay: 0
 --- !u!1 &2132164733
 GameObject:
