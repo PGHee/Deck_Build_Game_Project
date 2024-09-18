@@ -57,8 +57,8 @@ MonoBehaviour:
     killEffectType: 0
     thirdValue: 0
   buffsAndDebuffs: []
-  cardFrontFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
-  cardBackFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
+  cardFrontFrame: {fileID: 21300000, guid: 1d57e5e448b552a47874a90e84c62100, type: 3}
+  cardBackFrame: {fileID: 21300000, guid: 09aa28a22a65e444e83a13bcbef50090, type: 3}
   cardImage: {fileID: 21300000, guid: 12d999ef7f141984e97b06b486089c96, type: 3}
   cardName: Wi_10
   attributeSprites:

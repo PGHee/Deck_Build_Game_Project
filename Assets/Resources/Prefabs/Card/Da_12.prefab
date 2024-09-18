@@ -57,8 +57,8 @@ MonoBehaviour:
     duration: 3
     effectValue: 0.5
     intValue: 0
-  cardFrontFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
-  cardBackFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
+  cardFrontFrame: {fileID: 21300000, guid: f82ad5dad9468a148b392bc801d1bbae, type: 3}
+  cardBackFrame: {fileID: 21300000, guid: 09aa28a22a65e444e83a13bcbef50090, type: 3}
   cardImage: {fileID: 21300000, guid: 22f479ddeb4c9a04881708f3bf948e22, type: 3}
   cardName: Da_12
   attributeSprites:

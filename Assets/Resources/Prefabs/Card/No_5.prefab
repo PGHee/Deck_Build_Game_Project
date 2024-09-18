@@ -62,8 +62,8 @@ MonoBehaviour:
     killEffectType: 0
     thirdValue: 0
   buffsAndDebuffs: []
-  cardFrontFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
-  cardBackFrame: {fileID: 21300000, guid: 3610c770e703de946b1759ee3340f6a3, type: 3}
+  cardFrontFrame: {fileID: 21300000, guid: 0d09871e56967794499b44cc9c7deb90, type: 3}
+  cardBackFrame: {fileID: 21300000, guid: 09aa28a22a65e444e83a13bcbef50090, type: 3}
   cardImage: {fileID: 21300000, guid: 9e96cfdb6d6b3a84983275b036237ff8, type: 3}
   cardName: No_5
   attributeSprites:
