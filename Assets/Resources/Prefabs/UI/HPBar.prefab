@@ -64,7 +64,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 41
   m_TargetDisplay: 0
 --- !u!114 &9015327505023950949
 MonoBehaviour:
@@ -400,13 +400,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 22012e0d10c484945ac3c4e09ac66a4e, type: 3}
+  m_SortingOrder: 40
+  m_Sprite: {fileID: 21300000, guid: 85eb61b0590f5c4418e0c138308f2ffd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 2, y: 0.3}
+  m_Size: {x: 2, y: 0.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -715,13 +715,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bd438f1e2c81aeb459a83ec0f720713c, type: 3}
+  m_SortingOrder: 39
+  m_Sprite: {fileID: 21300000, guid: 1c99b0e33a73e9d4a9ce1da9491aae10, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 2, y: 0.3}
+  m_Size: {x: 2, y: 0.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -745,8 +745,8 @@ MonoBehaviour:
   iconText: {fileID: 3525711557619601752}
   hpFillRenderer: {fileID: 475992961053143225}
   iconRenderer: {fileID: 1340883781702652894}
-  HPSprite: {fileID: 21300000, guid: 22012e0d10c484945ac3c4e09ac66a4e, type: 3}
-  shieldHPSprite: {fileID: 21300000, guid: b169e02ce71d5bc4994852ff2256c3ab, type: 3}
+  HPSprite: {fileID: 21300000, guid: 85eb61b0590f5c4418e0c138308f2ffd, type: 3}
+  shieldHPSprite: {fileID: 21300000, guid: ab6775886f3720840a3b9bd35f5ef78f, type: 3}
   poisonHPSprite: {fileID: 21300000, guid: 993afdc753cecae44a87649adc082f55, type: 3}
   shieldSprite: {fileID: 21300000, guid: 8e5f776c2802e014092c70c184f48e99, type: 3}
   poisonSprite: {fileID: 21300000, guid: b820609def1bb7042b73e2759e6a4f32, type: 3}

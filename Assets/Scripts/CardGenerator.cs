@@ -48,7 +48,7 @@ public class CardGenerator : MonoBehaviour
         handController.GetComponent<HandControl>().handCardNum++;
         cardNameNum++;
 
-        int sortingBase = cardNum * 2 + 4; // 기본적으로 카드 1개 당 2씩 증가
+        int sortingBase = cardNum * 2 + 310; // 기본적으로 카드 1개 당 2씩 증가
         SortingGroup sortingGroup = go.GetComponent<SortingGroup>(); // 부모 카드의 Sorting Group의 Order in Layer 설정
         Canvas cardCanvas = go.GetComponentInChildren<Canvas>(); // 자식 캔버스의 Sorting Order 설정
         if (sortingGroup != null) sortingGroup.sortingOrder = sortingBase;

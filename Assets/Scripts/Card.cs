@@ -81,6 +81,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     private Camera mainCamera;
     private Vector3 fixedScreenPosition = new Vector3(0.85f, 0.55f, 10f); // 화면 특정 위치, Z값은 카메라와의 거리
     private Vector3 originalScale; // 원본 스케일
+    private int baseLayer = 710;
 
     private SystemMessage message;
 
@@ -109,7 +110,34 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         investCrystal = FindObjectOfType<InvestCrystalManager>();
         popupManager = FindObjectOfType<PopupManager>();
         deckListManager = FindObjectOfType<DeckListManager>();
+        SetLayerOrders();
+    }
 
+    void SetLayerOrders()
+    {
+        Transform backSide = transform.Find("CardBack");
+        if (backSide != null) SetSortingOrder(backSide.gameObject, baseLayer + 1);
+
+        Transform frontImage = transform.Find("CardFront/CardImage");
+        if (frontImage != null) SetSortingOrder(frontImage.gameObject, baseLayer + 2);
+
+        Transform frontSide = transform.Find("CardFront");
+        if (frontSide != null) SetSortingOrder(frontSide.gameObject, baseLayer + 3);
+
+        Transform canvas = transform.Find("CardFront/Canvas");
+        if (canvas != null) SetSortingOrder(canvas.gameObject, baseLayer + 4);
+
+        Transform attributeImage = transform.Find("CardFront/CardAttribute");
+        if (canvas != null) SetSortingOrder(attributeImage.gameObject, baseLayer + 4);
+    }
+
+    void SetSortingOrder(GameObject obj, int order)
+    {
+        Renderer renderer = obj.GetComponent<Renderer>();
+        if (renderer != null) renderer.sortingOrder = order;
+
+        Canvas canvas = obj.GetComponent<Canvas>();
+        if (canvas != null) canvas.sortingOrder = order;
     }
 
     public void OnDrag(PointerEventData eventData)          // 카드를 드래그했을 때의 동작
