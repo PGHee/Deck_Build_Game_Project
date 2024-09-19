@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 using TMPro;
@@ -110,7 +111,44 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         investCrystal = FindObjectOfType<InvestCrystalManager>();
         popupManager = FindObjectOfType<PopupManager>();
         deckListManager = FindObjectOfType<DeckListManager>();
-        //SetLayerOrders();
+        SetCardPositions();
+    }
+
+    void SetCardPositions()
+    {
+        Transform cardAttribute = transform.Find("CardFront/CardAttribute");
+        cardAttribute.localPosition = new Vector3(2.06f, 3f, 0f);
+
+        Transform cardSprite = transform.Find("CardFront/CardImage");
+        cardSprite.localPosition = new Vector3(0f, 0.5f, 0f);
+
+        Transform cardCost = transform.Find("CardFront/Canvas/CardCost");
+        cardCost.localPosition = new Vector3(-2f, 2.25f, 0f);
+        TextMeshProUGUI costText = cardCost.GetComponent<TextMeshProUGUI>();
+        costText.fontSize = 0.75f;
+        RectTransform costRectTransform = cardCost.GetComponent<RectTransform>();
+        costRectTransform.sizeDelta = new Vector2(1f, 1f);
+
+        Transform cardType = transform.Find("CardFront/Canvas/CardType");
+        cardType.localPosition = new Vector3(-2f, 1.25f, 0f);
+        TextMeshProUGUI typeText = cardType.GetComponent<TextMeshProUGUI>();
+        typeText.fontSize = 0.25f;
+        RectTransform typeRectTransform = cardType.GetComponent<RectTransform>();
+        typeRectTransform.sizeDelta = new Vector2(1.5f, 1.5f);
+
+        Transform cardText = transform.Find("CardFront/Canvas/CardName");
+        cardText.localPosition = new Vector3(0f, 3f, 0f);
+        TextMeshProUGUI nameText = cardText.GetComponent<TextMeshProUGUI>();
+        nameText.fontSize = 0.5f;
+        RectTransform nameRectTransform = cardText.GetComponent<RectTransform>();
+        nameRectTransform.sizeDelta = new Vector2(3.5f, 0.75f);
+
+        Transform cardDescription = transform.Find("CardFront/Canvas/CardDescription");
+        cardDescription.localPosition = new Vector3(0f, -2.75f, 0f);
+        TextMeshProUGUI descriptionText = cardDescription.GetComponent<TextMeshProUGUI>();
+        descriptionText.fontSize = 0.25f;
+        RectTransform descriptionRectTransform = cardDescription.GetComponent<RectTransform>();
+        descriptionRectTransform.sizeDelta = new Vector2(4.5f, 1.75f);
     }
 
     void SetLayerOrders(GameObject card)
@@ -281,7 +319,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         cardBack.sprite = cardBackFrame;
         cardNameText.text = cardName;
         cardImageUI.sprite = cardImage;
-        cardImageUI.transform.localScale = new Vector3(0.4f, 0.4f, 0.1f);
+        cardImageUI.transform.localScale = new Vector3(0.46f, 0.46f, 0.1f);
         cardDescriptionText.text = GetCardDescription();
         cardCostText.text = cost.ToString();
         cardTypeText.text = GetCardType();

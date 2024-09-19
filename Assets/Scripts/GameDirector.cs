@@ -54,10 +54,10 @@ public class GameDirector : MonoBehaviour
                 StartCoroutine(StartBossBattle());
                 break;
             case "Village":
-                EnterVillage();
+                StartCoroutine(EnterVillage());
                 break;
             case "Event":
-                StartEvent();
+                StartCoroutine(StartEvent());
                 break;
         }
         // 맵 이동 후 다음 맵으로 전환
@@ -100,15 +100,17 @@ public class GameDirector : MonoBehaviour
         turnManager.StartBattle();
     }
 
-    void EnterVillage()
+    IEnumerator EnterVillage()
     {
         Debug.Log("Entering Village");
+        yield return new WaitForSeconds(1);
         popupManager.ShowPopup("VillageChief");
     }
 
-    void StartEvent()
+    IEnumerator StartEvent()
     {
         Debug.Log("Triggering Event");
+        yield return new WaitForSeconds(1);
         stageManager.GenerateEventOpener();
     }
 
