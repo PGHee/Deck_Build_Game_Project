@@ -11,7 +11,7 @@ public class CircleBar : MonoBehaviour
         Canvas canvas = GetComponentInChildren<Canvas>();
         if (canvas != null)
         {
-            canvas.sortingOrder = 10;
+            canvas.sortingOrder = 41;
         }
     }
 

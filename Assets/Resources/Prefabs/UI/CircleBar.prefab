@@ -136,7 +136,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 2, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &4149202987226860487
 SpriteRenderer:
@@ -336,7 +336,6 @@ GameObject:
   - component: {fileID: 7992881200329033653}
   - component: {fileID: 5982231497950838738}
   - component: {fileID: 4716187369197224054}
-  - component: {fileID: 3636295663418375307}
   m_Layer: 0
   m_Name: CircleBar
   m_TagString: Untagged
@@ -439,15 +438,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circleFill: {fileID: 3246818790665812945}
   circleText: {fileID: 842567748181017407}
---- !u!210 &3636295663418375307
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8965818987613377558}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_SortAtRoot: 0

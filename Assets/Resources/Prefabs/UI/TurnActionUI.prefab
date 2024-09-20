@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.4, y: 1.4}
+  m_SizeDelta: {x: 3, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5869533987940980685
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 55%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4126fb35fae6ad14e9e9d024bd800439, type: 2}
   m_sharedMaterial: {fileID: -6407930884979552518, guid: 4126fb35fae6ad14e9e9d024bd800439, type: 2}
@@ -74,15 +74,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0, g: 0, b: 0, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -92,15 +92,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 4
-  m_VerticalAlignment: 1024
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -170,8 +170,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.4, y: 1.4}
+  m_AnchoredPosition: {x: 0, y: -1.25}
+  m_SizeDelta: {x: 1.5, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7165392218626150726
 Canvas:
@@ -263,7 +263,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1059728043477085302}
@@ -309,7 +309,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 40
-  m_Sprite: {fileID: 21300000, guid: b4643eb73cfef894a905b550b6ac9937, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d46bfb6bdb0c003428103ba6cc0ec43f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -347,7 +347,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4421997886653439132}
@@ -369,22 +369,22 @@ MonoBehaviour:
   monsterActionUI: {fileID: 4479249614219278370}
   monsterActionText: {fileID: 6802438780898584480}
   monsterActionSprite:
-  - {fileID: 21300000, guid: c1aaa533dc3d0844cb1539153dbe1140, type: 3}
-  - {fileID: 21300000, guid: 569f28f64fb9a3b468ad90044c92a0d5, type: 3}
-  - {fileID: 21300000, guid: f81ed3c509163884eaa34a37aea61281, type: 3}
-  - {fileID: 21300000, guid: 03228ce4617a6a247bf0c5588d0df5fd, type: 3}
-  - {fileID: 21300000, guid: cfcb5e55b9ab7a846a6a322bde50a739, type: 3}
-  - {fileID: 21300000, guid: b4643eb73cfef894a905b550b6ac9937, type: 3}
-  - {fileID: 21300000, guid: b820609def1bb7042b73e2759e6a4f32, type: 3}
-  - {fileID: 21300000, guid: 4c53155f79ef8034d8c214ee6f8d8a4a, type: 3}
-  - {fileID: 21300000, guid: 664dcfafeda732147a556a7123f81f04, type: 3}
-  - {fileID: 21300000, guid: 84945cbe9e3cc4940be75dcd40f4016c, type: 3}
-  - {fileID: 21300000, guid: 6c318089a6715f1448826cb27ccfc715, type: 3}
-  - {fileID: 21300000, guid: 5ec5cfd7a2ff2db48957bc78fe9009a5, type: 3}
-  - {fileID: 21300000, guid: fa8ea21abaac3c6418f1516762937b58, type: 3}
-  - {fileID: 21300000, guid: d3687a4b9d8b2f446bbeb083fa149b85, type: 3}
-  - {fileID: 21300000, guid: d32a8a20eb63423439eddca95189a176, type: 3}
-  - {fileID: 21300000, guid: 378d320d83c006b45b1f57b6fb0dc87d, type: 3}
+  - {fileID: 21300000, guid: 1f2d4283a8703a64bb50c9c1f94ae5ee, type: 3}
+  - {fileID: 21300000, guid: 7f666f9532e7c074295038f77f2d89a7, type: 3}
+  - {fileID: 21300000, guid: 9bf84d1b4ceb9924abb7a8b46c8b40af, type: 3}
+  - {fileID: 21300000, guid: 388599434161d224191f2e4582e8a4ab, type: 3}
+  - {fileID: 21300000, guid: cc195b58e6100c247a532dcae137e586, type: 3}
+  - {fileID: 21300000, guid: d46bfb6bdb0c003428103ba6cc0ec43f, type: 3}
+  - {fileID: 21300000, guid: 063d82384b5c27747a17e1f9d110738d, type: 3}
+  - {fileID: 21300000, guid: a18ab82ea9f582e44b9a2330748bdd87, type: 3}
+  - {fileID: 21300000, guid: 85feb5687c7bc4b4c9e7c1490bbbf1a4, type: 3}
+  - {fileID: 21300000, guid: cb55fa1f6a794ba439a7399b242d375f, type: 3}
+  - {fileID: 21300000, guid: 157a036d976c2fe448d172ff99d71415, type: 3}
+  - {fileID: 21300000, guid: df36830f6b9e78c49be3185f4e06b40b, type: 3}
+  - {fileID: 21300000, guid: 5d3b71b0a0f53b34bbf732de02b49918, type: 3}
+  - {fileID: 21300000, guid: 3c3069f7816dbe54baca387120a85597, type: 3}
+  - {fileID: 21300000, guid: 0d5ea5dbaa359e34c80c382e652f61e7, type: 3}
+  - {fileID: 21300000, guid: 5f0fd59ae811e764989102b4a37ab840, type: 3}
   pulseDuration: 0.2
   pulseScale: 1.2
   pulseCount: 2
