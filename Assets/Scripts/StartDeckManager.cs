@@ -8,6 +8,8 @@ public class StartDeckManager : MonoBehaviour
 {
     public DeckManager deckManager;
     public RewardManager rewardManager;
+    private PopupManager popupManager;
+    private StageManager stageManager;
 
     public int[] chosenAttributeNums;
     public GameObject[] clearButtonsStartDeck;
@@ -20,6 +22,8 @@ public class StartDeckManager : MonoBehaviour
     {
         deckManager = FindObjectOfType<DeckManager>();
         rewardManager = FindObjectOfType<RewardManager>();
+        popupManager = FindObjectOfType<PopupManager>();
+        stageManager = FindObjectOfType<StageManager>();
     }
 
     public void GetClearButtonStartDeck()
@@ -133,6 +137,9 @@ public class StartDeckManager : MonoBehaviour
                 rewardManager.GetReward("Card", chosenAttributeNums[i] * 100 + 1, 0);
                 rewardManager.GetReward("Card", chosenAttributeNums[i] * 100 + 2, 0);
             }
+
+            popupManager.ClosePopup("StartDeck");
+            stageManager.GenerateRandomPortal();
         }
         else
         {
