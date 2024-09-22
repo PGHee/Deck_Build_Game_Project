@@ -1,13 +1,13 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class HPBar : MonoBehaviour
 {
-    public Transform barTransform;              // 채워진 HP 바의 Transform
+    public Image hpFillImage;
     public TextMeshProUGUI healthText;          // 체력을 표시할 Text
     public Transform iconTransform;             // 아이콘의 Transform
     public TextMeshProUGUI iconText;            // 아이콘에 표시할 Text
-    public SpriteRenderer hpFillRenderer;       // HP fill의 SpriteRenderer
     public SpriteRenderer iconRenderer;         // shield의 SpriteRenderer
 
     public Sprite HPSprite;                     // 빨간색 HP바 스프라이트
@@ -21,12 +21,6 @@ public class HPBar : MonoBehaviour
     public Transform buffIconPanel;             // 버프 아이콘 패널
     public Transform debuffIconPanel;           // 디버프 아이콘 패널
 
-    private void Awake()
-    {
-        SpriteRenderer barRenderer = GetComponent<SpriteRenderer>();
-        SpriteRenderer fillRenderer = barTransform.GetComponent<SpriteRenderer>();
-    }
-
     // Initialize 메서드
     public void Initialize(Transform target, int maxHealth, int shield, int poison, Vector3 offset)
     {
@@ -39,8 +33,7 @@ public class HPBar : MonoBehaviour
     public void UpdateHealth(int currentHealth, int maxHealth, int shield, int poison)
     {
         float healthPercentage = (float)currentHealth / maxHealth;
-        barTransform.localScale = new Vector3(healthPercentage, 1, 1);
-        barTransform.localPosition = new Vector3(-(1 - healthPercentage) * 1.0f, barTransform.localPosition.y, barTransform.localPosition.z);
+        hpFillImage.fillAmount = healthPercentage;
 
         if (healthText != null)
         {
@@ -62,7 +55,7 @@ public class HPBar : MonoBehaviour
                 iconText.text = $"{shield}";
                 iconRenderer.sprite = shieldSprite;         // shield 스프라이트
             }
-            hpFillRenderer.sprite = shieldHPSprite;         // 쉴드가 있을 때 파란색 HP바 스프라이트 사용
+            hpFillImage.sprite = shieldHPSprite;         // 쉴드가 있을 때 파란색 HP바 스프라이트 사용
         }
         else if (poison > 0)
         {
@@ -70,13 +63,13 @@ public class HPBar : MonoBehaviour
             iconText.gameObject.SetActive(true);
             healthText.text = $"{currentHealth} / {maxHealth} <color=#FF00FF>(-{poison})</color>";
             iconRenderer.sprite = poisonSprite;             // poison 스프라이트
-            hpFillRenderer.sprite = poisonHPSprite;         // 중독 상태일 때 보라색 HP바 스프라이트 사용
+            hpFillImage.sprite = poisonHPSprite;         // 중독 상태일 때 보라색 HP바 스프라이트 사용
         }
         else
         {
             iconTransform.gameObject.SetActive(false);
             iconText.gameObject.SetActive(false);
-            hpFillRenderer.sprite = HPSprite;               // 쉴드가 없을 때 빨간색 HP바 스프라이트 사용
+            hpFillImage.sprite = HPSprite;               // 쉴드가 없을 때 빨간색 HP바 스프라이트 사용
         }
     }
 }

@@ -80,7 +80,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     public GameObject originalPrefab;
     private GameObject zoomedCard; // 확대된 카드 오브젝트
     private Camera mainCamera;
-    private Vector3 fixedScreenPosition = new Vector3(0.85f, 0.55f, 10f); // 화면 특정 위치, Z값은 카메라와의 거리
+    private Vector3 fixedScreenPosition = new Vector3(0.85f, 0.6f, 10f); // 화면 특정 위치, Z값은 카메라와의 거리
     private Vector3 originalScale; // 원본 스케일
     private int baseLayer = 710;
 
@@ -118,6 +118,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     {
         Transform cardAttribute = transform.Find("CardFront/CardAttribute");
         cardAttribute.localPosition = new Vector3(2.06f, 3f, 0f);
+        cardAttribute.localScale = new Vector3(1f, 1f, 1f);
 
         Transform cardSprite = transform.Find("CardFront/CardImage");
         cardSprite.localPosition = new Vector3(0f, 0.5f, 0f);
@@ -293,7 +294,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
             // 화면의 특정 위치에 고정 (스크린 좌표를 월드 좌표로 변환)
             Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width * fixedScreenPosition.x, Screen.height * fixedScreenPosition.y, fixedScreenPosition.z));
             zoomedCard.transform.position = worldPosition;
-            zoomedCard.transform.localScale = originalScale * 2.0f; // 크기 조정
+            zoomedCard.transform.localScale = originalScale * 1.75f; // 크기 조정
 
             SetLayerOrders(zoomedCard);
         }

@@ -1,10 +1,11 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class CircleBar : MonoBehaviour
 {
-    public Transform circleFill;                // 채워진 서클 바
-    public TextMeshProUGUI circleText;          // 서클을 표시할 Text
+    public Image circleFill;                   // 채워진 서클 바의 Image 컴포넌트
+    public TextMeshProUGUI circleText;         // 서클을 표시할 Text
 
     private void Awake()
     {
@@ -28,7 +29,6 @@ public class CircleBar : MonoBehaviour
     {
         if (circleText != null) circleText.text = $"{currentCircle} / {maxCircle}";
         float circlePercentage = (float)currentCircle / maxCircle;
-        circleFill.localScale = new Vector3(circlePercentage, 1, 1);
-        circleFill.localPosition = new Vector3(-(1 - circlePercentage) * 1.0f, circleFill.localPosition.y, circleFill.localPosition.z);
+        circleFill.fillAmount = circlePercentage;
     }
 }
