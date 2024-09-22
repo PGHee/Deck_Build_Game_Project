@@ -176,5 +176,18 @@ public class PopupManager : MonoBehaviour
         popupPanelDeckList.SetActive(false);
         popupPanelStartDeck.SetActive(false);
     }
+
+    public bool IsPanelOpen()
+    {
+        return (popupPanelBattleReward.activeSelf ||
+        popupPanelEvent.activeSelf ||
+        popupPanelArtifactMount.activeSelf ||
+        popupPanelArtifactSynthesis.activeSelf ||
+        popupPanelShop.activeSelf ||
+        popupPanelAttributeLV.activeSelf ||
+        popupPanelVillageChief.activeSelf ||
+        popupPanelDeckList.activeSelf ||
+        popupPanelStartDeck.activeSelf);
+    }
 }
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4900908706625633415}
   - component: {fileID: 4447721648788959772}
   - component: {fileID: -9043566788370934434}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: EliteBattlePortal
   m_TagString: Portal
   m_Icon: {fileID: 0}
@@ -143,5 +143,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.26, y: 3.17}
+  m_Size: {x: 1.5, y: 3}
   m_EdgeRadius: 0

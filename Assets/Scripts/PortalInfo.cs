@@ -6,23 +6,25 @@ public class PortalInfo : MonoBehaviour
 {
     public string portalName;
     public GameObject gameDirector;
+    private PopupManager popupManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        popupManager = FindObjectOfType<PopupManager>();
     }
 
     void OnMouseDown()
     {
-        Debug.Log("portal spawned");
-
-        gameDirector = GameObject.Find("GameDirector");
-        gameDirector.GetComponent<GameDirector>().OnPortalEntered(portalName);
-        GameObject[] portals = GameObject.FindGameObjectsWithTag("Portal");
-        gameDirector.GetComponent<GameDirector>().currentMapName = portalName;
-        foreach (GameObject portal in portals)
+        if (!popupManager.IsPanelOpen())
         {
-            Destroy(portal);
-        }
+            gameDirector = GameObject.Find("GameDirector");
+            gameDirector.GetComponent<GameDirector>().OnPortalEntered(portalName);
+            GameObject[] portals = GameObject.FindGameObjectsWithTag("Portal");
+            gameDirector.GetComponent<GameDirector>().currentMapName = portalName;
+            foreach (GameObject portal in portals)
+            {
+                Destroy(portal);
+            }
+        }    
     }
 }
