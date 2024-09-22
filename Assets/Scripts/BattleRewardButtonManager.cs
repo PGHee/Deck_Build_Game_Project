@@ -16,6 +16,8 @@ public class BattleRewardButtonManager : MonoBehaviour, IPointerEnterHandler, IP
     public Vector2 canvasSize = new Vector2(0, 0);
     public Vector3 canvasPosition = new Vector3(0, 0, 0);
 
+    private int baseLayer = 710;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,8 @@ public class BattleRewardButtonManager : MonoBehaviour, IPointerEnterHandler, IP
                             rectTransform.localPosition = canvasPosition;
                         }
                     }
+
+                    SetLayerOrders(zoomedCard);
                 }
                 break;
 
@@ -72,5 +76,32 @@ public class BattleRewardButtonManager : MonoBehaviour, IPointerEnterHandler, IP
     {
         cardPrefabNum = 9999;
         artifactPrefabNum = 9999;
+    }
+
+    void SetLayerOrders(GameObject card)
+    {
+        Transform backSide = card.transform.Find("CardBack");
+        if (backSide != null) SetSortingOrder(backSide.gameObject, baseLayer + 1);
+
+        Transform frontImage = card.transform.Find("CardFront/CardImage");
+        if (frontImage != null) SetSortingOrder(frontImage.gameObject, baseLayer + 2);
+
+        Transform frontSide = card.transform.Find("CardFront");
+        if (frontSide != null) SetSortingOrder(frontSide.gameObject, baseLayer + 3);
+
+        Transform canvas = card.transform.Find("CardFront/Canvas");
+        if (canvas != null) SetSortingOrder(canvas.gameObject, baseLayer + 4);
+
+        Transform attributeImage = card.transform.Find("CardFront/CardAttribute");
+        if (canvas != null) SetSortingOrder(attributeImage.gameObject, baseLayer + 4);
+    }
+
+    void SetSortingOrder(GameObject obj, int order)
+    {
+        Renderer renderer = obj.GetComponent<Renderer>();
+        if (renderer != null) renderer.sortingOrder = order;
+
+        Canvas canvas = obj.GetComponent<Canvas>();
+        if (canvas != null) canvas.sortingOrder = order;
     }
 }

@@ -10,6 +10,7 @@ TagManager:
   - Monster
   - WaitingForDeath
   - Line_UI
+  - ClearButtonBook
   layers:
   - Default
   - TransparentFX

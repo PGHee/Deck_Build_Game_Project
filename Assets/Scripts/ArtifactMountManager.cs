@@ -64,7 +64,7 @@ public class ArtifactMountManager : MonoBehaviour
 
     public void GetClearButtonArtifact() // uiâ�� ���� ��ư���� ����
     {
-        clearButtonsArtifact = GameObject.FindGameObjectsWithTag("ClearButton");
+        clearButtonsArtifact = GameObject.FindGameObjectsWithTag("ClearButtonBook");
     }
 
     public void SetPageNext() // ���� ������

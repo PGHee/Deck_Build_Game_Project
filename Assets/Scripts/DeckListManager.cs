@@ -88,7 +88,7 @@ public class DeckListManager : MonoBehaviour
 
     public void GetClearButtonCard() // uiâ�� ���� ��ư���� ����
     {
-        clearButtonsCard = GameObject.FindGameObjectsWithTag("ClearButton");
+        clearButtonsCard = GameObject.FindGameObjectsWithTag("ClearButtonBook");
     }
 
     public void SetAllButtonClear() // ��Ƽ��Ʈ ���� �� ���� ��ư, �ʱ� ��ư ����ȭ
