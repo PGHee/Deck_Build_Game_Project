@@ -17,6 +17,7 @@ public class GameDirector : MonoBehaviour
 
     public StageManager stageManager;
     public GameObject endTurnButton;
+    private EventManager eventManager;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class GameDirector : MonoBehaviour
         turnManager = TurnManager.instance;
         popupManager = FindObjectOfType<PopupManager>();
         deckManager = FindObjectOfType<DeckManager>();
+        eventManager = FindObjectOfType<EventManager>();
         InitGame();
     }
 
@@ -111,7 +113,8 @@ public class GameDirector : MonoBehaviour
     {
         Debug.Log("Triggering Event");
         yield return new WaitForSeconds(1);
-        stageManager.GenerateEventOpener();
+        popupManager.ShowPopup("Event");
+        eventManager.GetComponent<EventManager>().SetEvent();
     }
 
     void EndGame()
