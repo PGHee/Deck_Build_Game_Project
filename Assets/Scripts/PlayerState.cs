@@ -124,7 +124,7 @@ public class PlayerState : MonoBehaviour
 
     int ExperienceToNextAttributeLevel(AttributeType attribute)
     {
-        int[] experienceRequired = { 3, 5, 7, 10, 15, 20, 25, 30, 35 };
+        int[] experienceRequired = { 1, 2, 6, 12, 25, 56, 117, 252 };
         int masteryLevel = attributeMastery[attribute] - 1;
         return masteryLevel < experienceRequired.Length ? experienceRequired[masteryLevel] : int.MaxValue;
     }

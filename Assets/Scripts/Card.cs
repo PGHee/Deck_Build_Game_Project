@@ -738,7 +738,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     // 코스트에 따라 속성 경험치를 반환하는 함수
     private int GetAttributeExperienceGain(int cost)
     {
-        int[] experienceGain = { 0, 25, 40, 60, 85, 115, 150, 14, 17, 20 };
+        int[] experienceGain = { 1, 1, 2, 3, 4, 5, 7, 9, 12, 15};
         if (cost < experienceGain.Length) return experienceGain[cost];
         return 0;
     }
