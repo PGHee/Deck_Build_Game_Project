@@ -74,6 +74,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     private DeckListManager deckListManager;
     public HandControl handController;
     public DeckManager deckManager;
+    private ArtifactManager artifactManager; 
 
 
     private bool isDragging = false;
@@ -111,6 +112,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         investCrystal = FindObjectOfType<InvestCrystalManager>();
         popupManager = FindObjectOfType<PopupManager>();
         deckListManager = FindObjectOfType<DeckListManager>();
+        artifactManager = FindObjectOfType<ArtifactManager>();
         SetCardPositions();
     }
 
@@ -254,6 +256,11 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                         }
                         else if (hasPlayerEffects | hasPlayerBuffs) ApplyEffects(player, null);
                         effectApplied = true;
+
+                        if(artifactManager.bonusPoison > 0) 
+                        {
+                            targetMonster.GetComponent<MonsterState>().ApplyPoison(artifactManager.bonusPoison);
+                        }
                     }
                 }
             }
@@ -269,6 +276,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         {
             player.SpendResource(adjustedCost);
             player.AddAttributeExperience(attributeType, GetAttributeExperienceGain(adjustedCost));     // 카드 사용 후 속성 경험치 추가
+            player.AddAttributeExperience(attributeType, (int)(GetAttributeExperienceGain(adjustedCost) * artifactManager.bonusAttributeExperience));     // 카드 사용 후 속성 경험치 추가 보너스(아티팩트)
             player.AttackMotion();          // attackMotion을 이곳으로 이동
 
             handController.HandSort(gameObject, false);     // 자신을 제외한 카드 정렬

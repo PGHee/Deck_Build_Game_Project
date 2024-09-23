@@ -79,4 +79,24 @@ public class HandControl : MonoBehaviour
             Destroy(hands[j]);
         }
     }
+
+    public void Dump(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            GameObject[] cardInHands = GameObject.FindGameObjectsWithTag("CardInHand");
+            int randNum = Random.Range(0, cardInHands.Length);
+            if (cardInHands[randNum].layer != LayerMask.NameToLayer("Ignore Raycast") && cardInHands[randNum] != null)
+            {
+                HandSort(cardInHands[randNum], false);
+                cardInHands[randNum].tag = "Untagged";
+                deckManager.graveArray = deckManager.Card2Grave(int.Parse(cardInHands[randNum].name));
+                Destroy(cardInHands[randNum]);
+            }
+            else
+            {
+                i--;
+            }
+        }
+    }
 }

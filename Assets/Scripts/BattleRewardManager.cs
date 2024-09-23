@@ -173,7 +173,7 @@ public class BattleRewardManager : MonoBehaviour
     {
         GetClearButtonBattleReward();
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 7; i++)
         {
             int rewardArtifactNum = RandomSelectArtifact();
 
@@ -232,7 +232,7 @@ public class BattleRewardManager : MonoBehaviour
         }
         else
         {
-            playerState.crystal = playerState.crystal + rewardCrystal;
+            playerState.GainCrystal(rewardCrystal);
             playerState.AddExperience(rewardEXP);
         }
 

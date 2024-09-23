@@ -10,6 +10,7 @@ public class Actions : MonoBehaviour
     private DamageText damageText;
     private HandControl handControl;
     private DeckManager deckManager;
+    private ArtifactManager artifactManager;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class Actions : MonoBehaviour
         damageText = FindObjectOfType<DamageText>();
         deckManager = FindObjectOfType<DeckManager>();
         handControl = FindObjectOfType<HandControl>();
+        artifactManager = FindObjectOfType<ArtifactManager>();
     }
 
     void ApplyPassiveEffects(PlayerState.AttributeType? attributeType, ref int damage, ref int hits)
@@ -74,6 +76,16 @@ public class Actions : MonoBehaviour
         for (int i = 0; i < hits; i++)
         {
             DealSingleTargetDamage(target, damage, killEffect, attributeType);
+
+            if(artifactManager.bonusAttack > 0)
+            {
+                float randNum = Random.Range(0.0f, 1.0f); // 확률 적용
+
+                if(randNum < artifactManager.bonusAttack) //확률 히트
+                {
+                    DealSingleTargetDamage(target, damage, killEffect, attributeType);
+                }
+            }
         }
     }
 

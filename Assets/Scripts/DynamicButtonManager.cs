@@ -32,7 +32,7 @@ public class DynamicButtonManager : MonoBehaviour
 
     public void ArtifactSpriteToButton(int artifactNum, GameObject clearButton)
     {
-        GameObject artifactPrefab = Resources.Load<GameObject>($"Prefabs/Artifact{artifactNum}");
+        GameObject artifactPrefab = Resources.Load<GameObject>($"Prefabs/Artifact/artifact_{artifactNum}");
 
         Sprite spriteFromPrefab = artifactPrefab.GetComponent<SpriteRenderer>().sprite;
 
