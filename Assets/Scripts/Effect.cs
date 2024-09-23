@@ -4,9 +4,10 @@ using System.Collections;
 
 public class Effect : MonoBehaviour
 {
-    public GameObject[] effects;        // 각 카드에 사용할 이펙트 프리팹 배열
-    public AudioClip[] effectSounds;    // 각 이펙트에 사용할 사운드 클립 배열
-    private AudioSource audioSource;    // 사운드를 재생할 AudioSource
+    public GameObject[] effects;         // 각 카드에 사용할 이펙트 프리팹 배열
+    public AudioClip[] effectSounds;     // 각 이펙트에 사용할 사운드 클립 배열
+    public GameObject[] screenEffectPrefabs;  // 화면 전체에 사용할 이펙트 프리팹 배열 (최대 8개)
+    private AudioSource audioSource;     // 사운드를 재생할 AudioSource
 
     private void Start()
     {
@@ -41,6 +42,19 @@ public class Effect : MonoBehaviour
             targetPositions.Add(target.transform.position);
         }
         StartCoroutine(ShowAreaEffectRoutine(targetPositions, effectIndex, hitCount, hitInterval));
+    }
+
+    // 화면 전체에 이펙트를 발동시키는 메소드
+    public void PlayScreenEffect(int effectIndex)
+    {
+        // 인덱스 범위가 유효한지 확인 (screenEffectPrefabs 배열의 범위 내에 있어야 함)
+        if (effectIndex < 0 || effectIndex >= screenEffectPrefabs.Length)
+        {
+            Debug.LogError("Invalid screen effect index");
+            return;
+        }
+
+        StartCoroutine(SpawnScreenEffect(effectIndex));
     }
 
     private IEnumerator ShowEffectRoutine(Vector3 targetPosition, int effectIndex, int hitCount, float hitInterval)
@@ -119,5 +133,38 @@ public class Effect : MonoBehaviour
 
         // 이펙트 오브젝트 삭제
         Destroy(effectInstance);
+    }
+
+    // 화면 전체 이펙트 생성 및 삭제 루틴
+    private IEnumerator SpawnScreenEffect(int effectIndex)
+    {
+        // 지정된 인덱스에 해당하는 화면 전체 이펙트 프리팹을 인스턴스화
+        GameObject screenEffectInstance = Instantiate(screenEffectPrefabs[effectIndex], Vector3.zero, Quaternion.identity);
+
+        // 화면 전체 이펙트의 ParticleSystem을 가져옴
+        var particleSystems = screenEffectInstance.GetComponentsInChildren<ParticleSystem>();
+        if (particleSystems != null && particleSystems.Length > 0)
+        {
+            float maxDuration = 0f;
+            foreach (var ps in particleSystems)
+            {
+                var psRenderer = ps.GetComponent<ParticleSystemRenderer>();
+                if (psRenderer != null)
+                {
+                    psRenderer.sortingLayerName = "Effects";
+                    psRenderer.sortingOrder = 95;  // 화면 전체 이펙트는 레이어 값 95로 설정
+                }
+
+                // 파티클 지속 시간 계산
+                float duration = ps.main.duration + ps.main.startLifetime.constantMax;
+                if (duration > maxDuration) maxDuration = duration;
+            }
+
+            // 가장 긴 지속 시간만큼 대기
+            yield return new WaitForSeconds(maxDuration);
+        }
+
+        // 이펙트 오브젝트 삭제
+        Destroy(screenEffectInstance);
     }
 }

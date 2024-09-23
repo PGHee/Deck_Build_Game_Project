@@ -14,9 +14,12 @@ public class BuffDebuffManager : MonoBehaviour
     public SpriteRenderer background;
     public Sprite[] backgroundSprite;
 
+    private Effect effect;
+
     void Start()
     {
         player = FindObjectOfType<PlayerState>();
+        effect = FindObjectOfType<Effect>();
     }
 
     public void ApplyBuff(GameObject entity, EffectType effectType, int duration, float effectValue, int intValue)
@@ -275,6 +278,7 @@ public class BuffDebuffManager : MonoBehaviour
         }
         background.sprite = backgroundSprite[(int)attributeType];
         currentField = attributeType;
+        effect.PlayScreenEffect((int) attributeType);
         Debug.Log($"Applied field: {attributeType}");
         
         switch(attributeType)

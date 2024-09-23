@@ -38,7 +38,6 @@ public class GameDirector : MonoBehaviour
         currentStage = 1;
         currentMap = 1;
         titleMessage.ShowTitleMessage($"{currentStage} - {currentMap}");
-        backgroundManager.ChangeBackground(currentStage - 1);
 
         popupManager.ShowPopup("StartDeck");
         message.ShowSystemMessage("3가지 속성 선택");
