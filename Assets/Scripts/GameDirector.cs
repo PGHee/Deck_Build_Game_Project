@@ -18,6 +18,7 @@ public class GameDirector : MonoBehaviour
     public StageManager stageManager;
     public GameObject endTurnButton;
     private EventManager eventManager;
+    private BackgroundManager backgroundManager;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class GameDirector : MonoBehaviour
         popupManager = FindObjectOfType<PopupManager>();
         deckManager = FindObjectOfType<DeckManager>();
         eventManager = FindObjectOfType<EventManager>();
+        backgroundManager = FindObjectOfType<BackgroundManager>();
         InitGame();
     }
 
@@ -36,6 +38,7 @@ public class GameDirector : MonoBehaviour
         currentStage = 1;
         currentMap = 1;
         titleMessage.ShowTitleMessage($"{currentStage} - {currentMap}");
+        backgroundManager.ChangeBackground(currentStage - 1);
 
         popupManager.ShowPopup("StartDeck");
         message.ShowSystemMessage("3가지 속성 선택");
@@ -70,6 +73,7 @@ public class GameDirector : MonoBehaviour
             currentMap = 1;
             currentStage++;
         }
+        backgroundManager.ChangeBackground(currentStage - 1);
         titleMessage.ShowTitleMessage($"{currentStage} - {currentMap}");
 
         deckManager.deckArray = deckManager.CopyOrigin2Deck();
