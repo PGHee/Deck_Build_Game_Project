@@ -9,7 +9,7 @@ public class ShopButtonManager : MonoBehaviour,IPointerEnterHandler, IPointerExi
     public int cardPrefabNum;
     public int artifactPrefabNum;
 
-    private Vector3 fixedScreenPosition = new Vector3(0.9f, 0.55f, 10f);
+    private Vector3 fixedScreenPosition = new Vector3(0.901f, 0.55f, 10f);
     private GameObject zoomedCard;
     public GameObject originalPrefab;
 
@@ -33,7 +33,7 @@ public class ShopButtonManager : MonoBehaviour,IPointerEnterHandler, IPointerExi
             case 9999:  // If shop item is card
                 originalPrefab = Resources.Load<GameObject>($"Prefabs/Card/{CardNameConverter.CardNumToCode(cardPrefabNum)}");
 
-                if (originalPrefab != null)
+                if (originalPrefab != null && cardPrefabNum != 9999)
                 {
                     zoomedCard = Instantiate(originalPrefab);   // 원본 프리팹을 복제하여 확대된 카드로 사용
 

@@ -18,7 +18,7 @@ public class DeckManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        deckArrayOrigin = new int[] {801,801,802,802,805};
+        deckArrayOrigin = new int[] {801,802};
 
         deckArray = CopyOrigin2Deck();
 

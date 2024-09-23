@@ -16,6 +16,7 @@ public class PopupManager : MonoBehaviour
     public GameObject popupPanelVillageChief;
     public GameObject popupPanelDeckList;
     public GameObject popupPanelStartDeck;
+    public GameObject popupPanelSetting;
 
     //public GameObject popupPanelUIBar;
 
@@ -187,7 +188,8 @@ public class PopupManager : MonoBehaviour
         popupPanelAttributeLV.activeSelf ||
         popupPanelVillageChief.activeSelf ||
         popupPanelDeckList.activeSelf ||
-        popupPanelStartDeck.activeSelf);
+        popupPanelStartDeck.activeSelf) ||
+        popupPanelSetting.activeSelf;
     }
 }
 
