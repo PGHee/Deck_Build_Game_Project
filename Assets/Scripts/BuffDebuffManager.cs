@@ -295,7 +295,7 @@ public class BuffDebuffManager : MonoBehaviour
         }
     }
 
-    private void RemoveCurrentField()
+    public void RemoveCurrentField()
     {
         switch(currentField)
         {

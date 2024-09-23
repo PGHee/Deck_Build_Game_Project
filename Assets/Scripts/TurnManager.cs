@@ -170,6 +170,7 @@ public class TurnManager : MonoBehaviour
             message.ShowSystemMessage("승리!");
 
             endTurnButton.SetActive(false);
+            buffDebuffManager.RemoveCurrentField();
             handController.DiscardAllHand(); // 핸드 비움
             investCrystal.ClearInvest(); // 투자 정보 삭제
 

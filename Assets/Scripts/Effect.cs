@@ -10,8 +10,8 @@ public class Effect : MonoBehaviour
 
     private void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();           // AudioSource 컴포넌트를 추가합니다.
-        audioSource.volume = PlayerPrefs.GetFloat("effectVolume", 1f);  // PlayerPrefs에 저장된 이펙트 볼륨을 불러와 설정합니다.
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.volume = PlayerPrefs.GetFloat("effectVolume", 1f);  // PlayerPrefs에 저장된 이펙트 볼륨을 불러와 설정
     }
 
     // 특정 카드 효과를 적용하는 메소드
@@ -79,18 +79,45 @@ public class Effect : MonoBehaviour
             audioSource.PlayOneShot(effectSounds[effectIndex]);
         }
 
-        var spriteRenderer = effectInstance.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
+        // 자식 오브젝트들의 ParticleSystem에 대한 처리
+        var childParticleSystems = effectInstance.GetComponentsInChildren<ParticleSystem>();
+        if (childParticleSystems != null && childParticleSystems.Length > 0)
         {
-            spriteRenderer.sortingLayerName = "Effects";
-            spriteRenderer.sortingOrder = 10;
-        }
-        
-        // 애니메이션이 끝날 때까지 대기
-        var animator = effectInstance.GetComponent<Animator>();
-        float animationDuration = animator != null ? animator.GetCurrentAnimatorStateInfo(0).length : 1.0f;
-        yield return new WaitForSeconds(animationDuration);
+            int baseSortingOrder = 45;  // 초기 레이어 값 설정
+            float maxDuration = 0f;     // 자식 중 가장 긴 파티클 지속 시간
 
+            // 모든 자식 오브젝트 순회
+            for (int i = 0; i < childParticleSystems.Length; i++)
+            {
+                var particleSystem = childParticleSystems[i];
+                var particleSystemRenderer = particleSystem.GetComponent<ParticleSystemRenderer>();
+
+                if (particleSystemRenderer != null)
+                {
+                    // 순차적으로 레이어 값 설정 (각 자식마다 하나씩 증가)
+                    particleSystemRenderer.sortingLayerName = "Effects";
+                    particleSystemRenderer.sortingOrder = baseSortingOrder + i;
+                }
+
+                // 루프하는 이펙트인 경우 수동으로 종료
+                var particleMain = particleSystem.main;
+                if (particleMain.loop) particleMain.loop = false; // 무한 루프를 중단
+
+                // 각 자식 오브젝트의 파티클 지속 시간을 계산하여 가장 긴 시간 저장
+                float particleDuration = particleMain.duration + particleMain.startLifetime.constantMax;
+                if (particleDuration > maxDuration) maxDuration = particleDuration;  // 가장 긴 지속 시간 저장
+            }
+
+            // 가장 긴 지속 시간만큼 대기
+            yield return new WaitForSeconds(maxDuration);
+        }
+        else
+        {
+            // ParticleSystem이 없을 경우 기본 대기 시간 설정 (Fallback)
+            yield return new WaitForSeconds(1.0f);
+        }
+
+        // 이펙트 오브젝트 삭제
         Destroy(effectInstance);
     }
 }
