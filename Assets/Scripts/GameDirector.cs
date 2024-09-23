@@ -38,6 +38,7 @@ public class GameDirector : MonoBehaviour
         titleMessage.ShowTitleMessage($"{currentStage} - {currentMap}");
 
         popupManager.ShowPopup("StartDeck");
+        message.ShowSystemMessage("3가지 속성 선택");
     }
 
     public void OnPortalEntered(string portalType)
