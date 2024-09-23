@@ -22,10 +22,20 @@ public class ArtifactMountManager : MonoBehaviour
     {
         gameDirector = FindObjectOfType<GameDirector>();
         ArtifactListPage = 0; // �⺻ �������� 0��
-        artifactPrefabs = new GameObject[3];
-        for (int i = 0; i < 3; i++)
+        artifactPrefabs = new GameObject[30];
+        for (int i = 0; i < 7; i++)
         {
-            artifactPrefabs[i] = Resources.Load<GameObject>($"Prefabs/artifact{i + 1}");
+            artifactPrefabs[i] = Resources.Load<GameObject>($"Prefabs/Artifact/artifact_{i + 1}");
+        }
+
+        for (int j = 10; j < 17; j++)
+        {
+            artifactPrefabs[j] = Resources.Load<GameObject>($"Prefabs/Artifact/artifact_{j + 1}");
+        }
+
+        for (int k = 20; k < 27; k++)
+        {
+            artifactPrefabs[k] = Resources.Load<GameObject>($"Prefabs/Artifact/artifact_{k + 1}");
         }
     }
 

@@ -9,10 +9,11 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public PlayerState playerState;
     public GameObject artifact;
     public Actions actions;
+    private HandControl handControl;
 
     public bool artifactReady;
     public bool artifactDamageReady;
-    public enum ActiveEffect { Heal, Shiled, Draw, Damage}
+    public enum ActiveEffect { Heal, Shiled, Draw, Damage, AreaDamage, MultiHit, Poison, Dump}
     public enum PassiveEffect 
     { 
         IncreaseDamage,
@@ -35,21 +36,55 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public int[] artifactInvenList;
     public Dictionary<int[], int> artifactSynthesizeDict;
 
+    public int bonusPoison;
+    public float bonusAttack;
+    public float bonusCrystal;
+    public float bonusAttributeExperience;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        artifactPrefabs = new GameObject[3];
-        for (int i = 0; i < 3; i++)
+        artifactPrefabs = new GameObject[30];
+        for (int i = 0; i < 7; i++)
         {
-            artifactPrefabs[i] = Resources.Load<GameObject>($"Prefabs/artifact{i + 1}");
+            artifactPrefabs[i] = Resources.Load<GameObject>($"Prefabs/Artifact/artifact_{i + 1}");
+        }
+
+        for (int j = 10; j < 17; j++)
+        {
+            artifactPrefabs[j] = Resources.Load<GameObject>($"Prefabs/Artifact/artifact_{j + 1}");
+        }
+
+        for (int k = 20; k < 27; k++)
+        {
+            artifactPrefabs[k] = Resources.Load<GameObject>($"Prefabs/Artifact/artifact_{k + 1}");
         }
 
         artifactSynthesizeDict = new Dictionary<int[], int>();
 
-        artifactSynthesizeDict.Add(new int[] {1, 2}, 3);
+        // 아티팩트 조합 법
+        artifactSynthesizeDict.Add(new int[] {1, 1}, 11);
+        artifactSynthesizeDict.Add(new int[] {1, 2}, 12);
+        artifactSynthesizeDict.Add(new int[] {1, 4}, 13);
+        artifactSynthesizeDict.Add(new int[] {2, 3}, 14);
+        artifactSynthesizeDict.Add(new int[] {4, 5}, 15);
+        artifactSynthesizeDict.Add(new int[] {5, 7}, 16);
+        artifactSynthesizeDict.Add(new int[] {6, 7}, 17);
+
+        artifactSynthesizeDict.Add(new int[] {11, 11}, 21);
+        artifactSynthesizeDict.Add(new int[] {12, 12}, 22);
+        artifactSynthesizeDict.Add(new int[] {13, 13}, 23);
+        artifactSynthesizeDict.Add(new int[] {14, 14}, 24);
+        artifactSynthesizeDict.Add(new int[] {15, 15}, 25);
+        artifactSynthesizeDict.Add(new int[] {16, 16}, 26);
+        artifactSynthesizeDict.Add(new int[] {17, 17}, 27);
+
+
 
         artifactDamageReady = false;
+
+        handControl = FindObjectOfType<HandControl>();
     }
 
     // Update is called once per frame
@@ -78,8 +113,27 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
 
                     if (hit.collider.CompareTag("Monster"))
                     {
-                        actions.DealMultipleHits(hit.collider.gameObject, activeCoef, 1, null, PlayerState.AttributeType.Fire);
-                        artifactReady = false;
+                        switch (activeEffect)
+                        {
+                            case ActiveEffect.Damage:
+                                actions.DealMultipleHits(hit.collider.gameObject, activeCoef, 1, null, PlayerState.AttributeType.Fire);
+                                artifactReady = false;
+                                break;
+
+                            case ActiveEffect.MultiHit:
+                                actions.DealMultipleHits(hit.collider.gameObject, 5, activeCoef, null, PlayerState.AttributeType.Wind);
+                                artifactReady = false;
+                                break;
+
+                            case ActiveEffect.AreaDamage:
+                                GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+                                foreach (GameObject monster in monsters)
+                                {
+                                    actions.DealMultipleHits(monster, activeCoef, 1, null, PlayerState.AttributeType.Lightning);
+                                }
+                                artifactReady = false;
+                                break;
+                        }                      
                         CostSpend();
                         Debug.Log("Target damaged");
                     }
@@ -108,7 +162,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public void GenerateArtifact(int artifactNum)
     {
         GameObject go = Instantiate(artifactPrefabs[artifactNum - 1]);
-        go.transform.position = new Vector3(-7, 3, 1);
+        go.transform.position = new Vector3(-5.5f, 3, 1);
         go.name = "Artifact";
 
         GetArtifactInfo();
@@ -122,7 +176,10 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         passiveEffectList = artifact.GetComponent<ArtifactInfo>().passiveListInfo;
         passiveCoefList = artifact.GetComponent<ArtifactInfo>().passiveCoefListInfo;
         artifactCost = artifact.GetComponent<ArtifactInfo>().artifactCost;
-
+        bonusPoison = artifact.GetComponent<ArtifactInfo>().bonusPoison;
+        bonusAttack = artifact.GetComponent<ArtifactInfo>().bonusAttack;
+        bonusCrystal = artifact.GetComponent<ArtifactInfo>().bonusCrystal;
+        bonusAttributeExperience = artifact.GetComponent<ArtifactInfo>().bonusAttributeExperience;
     }
 
     public void ArtifactBuffApply() // 전투 시작 시 플레이어에게 아티팩트의 버프 적용
@@ -143,6 +200,11 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         {
             playerState.RemoveBuffDebuff(passiveEffectList[i], 1, passiveCoefList[i], 0);
         }
+
+        bonusAttack = 0;
+        bonusCrystal = 0;
+        bonusPoison = 0;
+        bonusAttributeExperience = 0;
     }
 
     public void ResetArtifactReady()  // 아티팩트의 사용 횟수 초기화
@@ -172,7 +234,23 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
                         artifactReady = false;
                         break;
 
+                    case ActiveEffect.Dump:                       
+                        handControl.Dump(activeCoef);
+                        CostSpend();
+                        artifactReady = false;
+                        break;
+
                     case ActiveEffect.Damage:
+                        Debug.Log("Damage_Artifact");
+                        artifactDamageReady = true;
+                        break;
+
+                    case ActiveEffect.AreaDamage:
+                        Debug.Log("Damage_Artifact");
+                        artifactDamageReady = true;
+                        break;
+
+                    case ActiveEffect.MultiHit:
                         Debug.Log("Damage_Artifact");
                         artifactDamageReady = true;
                         break;
@@ -185,6 +263,16 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
 
                     case ActiveEffect.Shiled:
                         playerState.ApplyShield(activeCoef);
+                        CostSpend();
+                        artifactReady = false;
+                        break;
+
+                    case ActiveEffect.Poison:
+                        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+                        foreach(GameObject monster in monsters)
+                        {
+                            monster.GetComponent<MonsterState>().ApplyPoison(activeCoef);
+                        }
                         CostSpend();
                         artifactReady = false;
                         break;

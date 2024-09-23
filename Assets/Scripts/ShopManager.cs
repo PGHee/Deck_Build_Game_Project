@@ -173,7 +173,7 @@ public class ShopManager : MonoBehaviour
     {
         GetClearButtonShop();
 
-        for (int i = 0; i < 3; i++)    // �Ǹ��ϴ� ī�� �� ��ŭ �ݺ� ���� ����, ���� max�� 15����
+        for (int i = 0; i < 7; i++)    // �Ǹ��ϴ� ī�� �� ��ŭ �ݺ� ���� ����, ���� max�� 15����
         {
             int sellArtifactNum = RandomSelectArtifact();
             dynamicButtonManager.ArtifactSpriteToButton(sellArtifactNum, clearButtonsShop[i + 5]); // 일러만 가져오도록 수정 필요

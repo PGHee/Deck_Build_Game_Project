@@ -49,6 +49,7 @@ public class PlayerState : MonoBehaviour
     private MagicCircleManager magicCircle;
     private SystemMessage message;
     private BuffDebuffManager buffDebuffManager;
+    private ArtifactManager artifactManager;
 
     void Start()
     {
@@ -67,6 +68,7 @@ public class PlayerState : MonoBehaviour
         magicCircle = FindObjectOfType<MagicCircleManager>();
         message = FindObjectOfType<SystemMessage>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
+        artifactManager = FindObjectOfType<ArtifactManager>();
 
         InitializeAttributes();
     }
@@ -353,5 +355,6 @@ public class PlayerState : MonoBehaviour
     public void GainCrystal(int num)
     {
         crystal += num;
+        crystal += (int)(num * artifactManager.bonusCrystal);
     }
 }

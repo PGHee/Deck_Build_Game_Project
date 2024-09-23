@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 317094740307749382}
   - component: {fileID: 4301401284024980985}
-  - component: {fileID: 2734621909398070495}
-  - component: {fileID: 7118486550522331731}
+  - component: {fileID: -8389714407249845374}
+  - component: {fileID: 8542041004780399891}
   m_Layer: 0
-  m_Name: artifact3
+  m_Name: artifact_11
   m_TagString: Artifact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.52, y: -2.82, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 50
-  m_Sprite: {fileID: 21300000, guid: 48e9fe410bc81f34dbcdc1c6f13097b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 53ff2ce5a64a3c34892e799d98b12779, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,28 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2734621909398070495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8013344560810297594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94835ecff19879147b6d24d6d254563b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerstate: {fileID: 0}
-  activeEffectInfo: 3
-  activeCoefInfo: 10
-  passiveListInfo: 0300000004000000
-  passiveCoefListInfo:
-  - 0.3
-  - 0.3
-  artifactManager: {fileID: 0}
-  artifactCost: 2
---- !u!61 &7118486550522331731
+--- !u!61 &-8389714407249845374
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +122,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.74, y: 4.89}
     newSize: {x: 0.5, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -152,3 +131,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &8542041004780399891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8013344560810297594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94835ecff19879147b6d24d6d254563b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerstate: {fileID: 0}
+  activeEffectInfo: 3
+  activeCoefInfo: 12
+  passiveListInfo: 00000000
+  passiveCoefListInfo:
+  - 0.25
+  artifactManager: {fileID: 0}
+  artifactCost: 2
+  bonusPoison: 0
+  bonusAttack: 0
+  bonusCrystal: 0
+  bonusAttributeExperience: 0
