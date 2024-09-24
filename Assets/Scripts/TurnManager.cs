@@ -81,8 +81,6 @@ public class TurnManager : MonoBehaviour
 
         deckManager.TurnStartCard(); // draw cards when Pturn start
 
-        BonusDraw();
-
         message.ShowSystemMessage("플레이어 턴");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
     }
 
@@ -186,33 +184,6 @@ public class TurnManager : MonoBehaviour
             battleRewardManager.GetComponent<BattleRewardManager>().RestartBattleReward();
 
             this.enabled = false;
-        }
-    }
-
-    public void BonusDraw()
-    {
-        if (artifactManager.bonusDraw > 0)
-        {
-            for (int i = 0; i < artifactManager.bonusDraw; i++)
-            {
-                deckManager.CardDraw();
-            }
-        }
-    }
-
-    public void BonusShiled()
-    {
-        if(artifactManager.bonusShield > 0)
-        {
-            player.ApplyShield(artifactManager.bonusShield);
-        }
-    }
-
-    public void BonusHeal()
-    {
-        if (artifactManager.bonusHeal > 0)
-        {
-            player.Heal(artifactManager.bonusHeal);
         }
     }
 }

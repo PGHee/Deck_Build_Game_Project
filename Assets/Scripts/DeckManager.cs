@@ -63,14 +63,7 @@ public class DeckManager : MonoBehaviour
         // 덱에 카드가 없으면
         if (deckArray.Length < 1)
         {
-            if (graveArray.Length < 1) // 묘지에도 카드가 없으면
-            {
-                return;
-            }
-            else
-            {
-                deckArray = ReloadDeck(); // 묘지 전부 덱으로 이동(셔플ㅇ)
-            }
+            deckArray = ReloadDeck(); // 묘지 전부 덱으로 이동(셔플ㅇ)
         }
 
         //Debug.Log(array[array.Length - 1]);

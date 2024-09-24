@@ -40,10 +40,6 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public float bonusAttack;
     public float bonusCrystal;
     public float bonusAttributeExperience;
-    public int bonusShield;
-    public int bonusHeal;
-    public float bonusDamageReduce;
-    public int bonusDraw;
 
 
     // Start is called before the first frame update
@@ -184,10 +180,6 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         bonusAttack = artifact.GetComponent<ArtifactInfo>().bonusAttack;
         bonusCrystal = artifact.GetComponent<ArtifactInfo>().bonusCrystal;
         bonusAttributeExperience = artifact.GetComponent<ArtifactInfo>().bonusAttributeExperience;
-        bonusDraw = artifact.GetComponent<ArtifactInfo>().bonusDraw;
-        bonusDamageReduce = artifact.GetComponent<ArtifactInfo>().bonusDamageReduce;
-        bonusHeal = artifact.GetComponent<ArtifactInfo>().bonusHeal;
-        bonusShield = artifact.GetComponent<ArtifactInfo>().bonusShield;
     }
 
     public void ArtifactBuffApply() // 전투 시작 시 플레이어에게 아티팩트의 버프 적용
@@ -213,11 +205,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         bonusCrystal = 0;
         bonusPoison = 0;
         bonusAttributeExperience = 0;
-        bonusShield = 0;
-        bonusHeal = 0;
-        bonusDamageReduce = 0;
-        bonusDraw = 0;
-}
+    }
 
     public void ResetArtifactReady()  // 아티팩트의 사용 횟수 초기화
     {

@@ -21,7 +21,7 @@ public class AttributeLevelBarManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        experienceRequired = new int[] { 1, 2, 6, 12, 25, 56, 117, 252, 252};
+        experienceRequired = new int[] { 3, 5, 7, 10, 15, 20, 25, 30, 30 };
     }
 
     public void UpdateAttributeLevelImage()

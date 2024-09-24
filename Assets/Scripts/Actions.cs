@@ -59,7 +59,7 @@ public class Actions : MonoBehaviour
         {
             effect.ApplyEffect(target, 1, 1, 0.1f);   // 수정 필요
             damageText.ShowDamage(target, 9, damage, 1, 0.1f);
-            if(playerState.reduceDamage > 0) damage = Mathf.RoundToInt(damage * (1-( playerState.reduceDamage + BonusDamageReduce() )));
+            if(playerState.reduceDamage > 0) damage = Mathf.RoundToInt(damage * (1-playerState.reduceDamage));
             playerState.TakeDamage(damage);
             if(attackerState != null && attackerState.LifeSteal > 0) attackerState.Heal(Mathf.RoundToInt(damage * attackerState.LifeSteal));
             if(playerState.reflectDamage > 0) ReflectDamage(attackerState.gameObject, Mathf.RoundToInt(damage * playerState.reflectDamage));
@@ -331,27 +331,5 @@ public class Actions : MonoBehaviour
         {
             DealMultipleHits(target, damage, hits, killEffect, attributeType);
         }
-    }
-
-    public float BonusDamageReduce()
-    {
-        MonsterState attackerState = MonsterState.currentAttacker;
-
-        if (artifactManager.bonusDamageReduce > 0 && attackerState.poisonStacks > 0)
-        {
-            if( player.reduceDamage + artifactManager.bonusDamageReduce > 1)
-            {
-                return 1 - player.reduceDamage;
-            }
-            else
-            {
-                Debug.Log(artifactManager.bonusDamageReduce);
-                return artifactManager.bonusDamageReduce;
-            }  
-        }
-        else
-        {
-            return 0.0f;
-        }     
     }
 }
