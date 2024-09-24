@@ -14,6 +14,7 @@ public class DeckManager : MonoBehaviour
     public CardGenerator cardGenerator;
     public CardRewardManager cardRewardManager;
     public HandControl handController;
+    private SystemMessage message;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class DeckManager : MonoBehaviour
 
         DeckRandomSuffle(deckArray);
         handController = FindObjectOfType<HandControl>();
+        message = FindObjectOfType<SystemMessage>();
     }
 
     // Update is called once per frame
@@ -63,7 +65,16 @@ public class DeckManager : MonoBehaviour
         // µ¦¿¡ Ä«µå°¡ ¾øÀ¸¸é
         if (deckArray.Length < 1)
         {
-            deckArray = ReloadDeck(); // ¹¦Áö ÀüºÎ µ¦À¸·Î ÀÌµ¿(¼ÅÇÃ¤·)
+            if (graveArray.Length < 1)
+            {
+
+                message.ShowSystemMessage("»ÌÀ» Ä«µå°¡ ¾ø´Ù!.");
+                return;
+            }
+            else
+            {
+                deckArray = ReloadDeck(); // ¹¦Áö ÀüºÎ µ¦À¸·Î ÀÌµ¿(¼ÅÇÃ¤·)
+            } 
         }
 
         //Debug.Log(array[array.Length - 1]);

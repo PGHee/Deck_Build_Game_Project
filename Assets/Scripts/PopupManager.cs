@@ -54,7 +54,7 @@ public class PopupManager : MonoBehaviour
                 break;
 
             case "ArtifactMount":
-                if (!(gameDirector.currentMapName.Contains("Battle")))
+                if (!TurnManager.instance.enabled)
                 {
                     popupPanelArtifactMount.SetActive(true);
                     artifactMountManager.UnmountArtifact();

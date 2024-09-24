@@ -41,7 +41,7 @@ public class ArtifactMountManager : MonoBehaviour
 
     public void ArtifactListUp() // ��Ƽ��Ʈ �κ��丮�� uiâ�� ����
     {
-        if (!(gameDirector.currentMapName.Contains("Battle")))
+        if (!TurnManager.instance.enabled)
         {
             SetAllButtonClear();
 
@@ -110,7 +110,7 @@ public class ArtifactMountManager : MonoBehaviour
 
     public void MountArtifact(int ButtonNum)
     {
-        if (ButtonNum < pageArtifactNum && !(gameDirector.currentMapName.Contains("Battle")))
+        if (ButtonNum < pageArtifactNum && !TurnManager.instance.enabled)
         {
             // ������ ������ ��Ƽ��Ʈ ������Ʈ ����
             GameObject artifactMounted = GameObject.FindWithTag("Artifact");

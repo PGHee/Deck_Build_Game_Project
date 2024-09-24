@@ -21,7 +21,7 @@ public class AttributeLevelBarManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        experienceRequired = new int[] { 3, 5, 7, 10, 15, 20, 25, 30, 30 };
+        experienceRequired = new int[] { 1, 2, 6, 12, 25, 56, 117, 252, 252};
     }
 
     public void UpdateAttributeLevelImage()
@@ -37,18 +37,32 @@ public class AttributeLevelBarManager : MonoBehaviour
             {
                 fillAmount[i] = +0.05f;
             }
+
+            if (attributeLVList[i] == 9) fillAmount[i] = 1.0f;
+
             shapeImage[i].fillAmount = fillAmount[i];
         }
 
         for (int i = 0; i < 10; i++)
         {
-            LevelText[i].text = "[" + attributeLVList[i] + "] " + attributeEXPList[i] + "/" + experienceRequired[attributeLVList[i] - 1] + "";
+            if (attributeLVList[i] == 9)
+            {
+                LevelText[i].text = "[9] MAX";
+            }
+            else if (attributeLVList[i] == 10)
+            {
+                LevelText[i].text = "[10] SUPERIOR";
+            }
+            else
+            {
+                LevelText[i].text = "[" + attributeLVList[i] + "] " + attributeEXPList[i] + "/" + experienceRequired[attributeLVList[i] - 1] + "";
+            }          
         }
     }
 
     public void UpdateAttributeLevel()
     {
-        plyerState.AddAttributeExperience(PlayerState.AttributeType.Fire, 1);
+        plyerState.AddAttributeExperience(PlayerState.AttributeType.Fire, 100);
     }
 }
 
