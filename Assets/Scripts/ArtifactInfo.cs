@@ -12,10 +12,15 @@ public class ArtifactInfo : MonoBehaviour
     public List<float> passiveCoefListInfo;
     public GameObject artifactManager;
     public int artifactCost;
+
     public int bonusPoison;
     public float bonusAttack;
     public float bonusCrystal;
     public float bonusAttributeExperience;
+    public int bonusShield;
+    public int bonusHeal;
+    public float bonusDamageReduce;
+    public int bonusDraw;
 
 
 
