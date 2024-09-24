@@ -46,7 +46,6 @@ public class PlayerState : MonoBehaviour
     private DamageText damageText;
     private Animator animator;                      // 애니메이션 동작용
     private Transform playerTransform;              // 애니메이션 크기 맞추는 용
-    private MagicCircleManager magicCircle;
     private SystemMessage message;
     private BuffDebuffManager buffDebuffManager;
     private ArtifactManager artifactManager;
@@ -65,7 +64,6 @@ public class PlayerState : MonoBehaviour
         damageText = FindObjectOfType<DamageText>();                        // 데미지 출력용
         animator = GetComponent<Animator>();                                // 애니메이션 출력용
         playerTransform = GetComponent<Transform>();                        // 애니메이션 크기 맞추는 용
-        magicCircle = FindObjectOfType<MagicCircleManager>();
         message = FindObjectOfType<SystemMessage>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         artifactManager = FindObjectOfType<ArtifactManager>();
@@ -135,7 +133,6 @@ public class PlayerState : MonoBehaviour
     {
         attributeMastery[attribute]++;
         ApplyAttributePassiveEffect(attribute, attributeMastery[attribute]);
-        magicCircle.UpdateMagicCircle();
         message.ShowSystemMessage($"속성 레벨 업! {attribute} 레벨: {attributeMastery[attribute]}");
     }
 

@@ -141,6 +141,9 @@ public class Effect : MonoBehaviour
         // 지정된 인덱스에 해당하는 화면 전체 이펙트 프리팹을 인스턴스화
         GameObject screenEffectInstance = Instantiate(screenEffectPrefabs[effectIndex], Vector3.zero, Quaternion.identity);
 
+        // 카메라 화면 크기에 맞게 이펙트 스케일 조정
+        AdjustEffectScale(screenEffectInstance);
+
         // 화면 전체 이펙트의 ParticleSystem을 가져옴
         var particleSystems = screenEffectInstance.GetComponentsInChildren<ParticleSystem>();
         if (particleSystems != null && particleSystems.Length > 0)
@@ -158,6 +161,10 @@ public class Effect : MonoBehaviour
                 // 파티클 지속 시간 계산
                 float duration = ps.main.duration + ps.main.startLifetime.constantMax;
                 if (duration > maxDuration) maxDuration = duration;
+
+                // 무한 루프 제거
+                var mainModule = ps.main;
+                if (mainModule.loop) mainModule.loop = false; // 루프 중단
             }
 
             // 가장 긴 지속 시간만큼 대기
@@ -166,5 +173,23 @@ public class Effect : MonoBehaviour
 
         // 이펙트 오브젝트 삭제
         Destroy(screenEffectInstance);
+    }
+
+    // 화면 크기에 맞게 이펙트 스케일 조정
+    private void AdjustEffectScale(GameObject effectInstance)
+    {
+        // 카메라의 orthographicSize를 기반으로 화면의 월드 좌표 크기를 계산
+        Camera mainCamera = Camera.main;
+        float screenAspect = (float)Screen.width / Screen.height;
+        float cameraHeight = 0.5f * mainCamera.orthographicSize;
+        float cameraWidth = cameraHeight * screenAspect;
+
+        // 효과 오브젝트와 자식 오브젝트들의 스케일을 모두 조정
+        var transforms = effectInstance.GetComponentsInChildren<Transform>();
+
+        foreach (var childTransform in transforms)
+        {
+            childTransform.localScale = new Vector3(cameraWidth, cameraHeight, 1f);
+        }
     }
 }
