@@ -771,25 +771,47 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 
         foreach (var action in actions)
         {
+            int validDamage = action.value;
+            int validHit = action.secondaryValue;
+            int validKilleffectDamage = action.thirdValue;
+            if (action.actionType != CardActionType.Poison && action.actionType != CardActionType.AreaPoison && 
+                action.actionType != CardActionType.RandomTargetPoison && action.actionType != CardActionType.PoisonCheckDamage) 
+            {
+                validDamage = Mathf.RoundToInt(validDamage * player.damageMultiplier);
+            }
+            else if (action.actionType == CardActionType.Poison || action.actionType == CardActionType.AreaPoison ||
+                action.actionType == CardActionType.RandomTargetPoison || action.actionType == CardActionType.PoisonCheckDamage)
+            {
+                validDamage = action.value + player.woodPoisonBonus;
+            }
+
+            if(action.actionType == CardActionType.killEffect && attributeType == PlayerState.AttributeType.Fire)
+            {
+                validKilleffectDamage = Mathf.RoundToInt(validKilleffectDamage * player.fireDamageMultiplier);
+            }
+
+            if (attributeType == PlayerState.AttributeType.Fire) validDamage = Mathf.RoundToInt(validDamage * player.fireDamageMultiplier);
+            else if (attributeType == PlayerState.AttributeType.Wind) validHit = validHit + player.windHitBonus;
+
             switch (action.actionType)
             {
                 case CardActionType.Damage:
-                    description += $"적에게 {action.value} 데미지를 줍니다. ";
+                    description += $"적에게 {validDamage} 데미지를 줍니다. ";
                     break;
                 case CardActionType.MultiHit:
-                    description += $"적에게 {action.value} 데미지로 {action.secondaryValue}번 데미지를 줍니다. ";
+                    description += $"적에게 {validDamage} 데미지로 {validHit}번 데미지를 줍니다. ";
                     break;
                 case CardActionType.AreaDamage:
-                    description += $"적 전체에게 {action.value} 데미지로 {action.secondaryValue}번 데미지를 줍니다. ";
+                    description += $"적 전체에게 {validDamage} 데미지로 {validHit}번 데미지를 줍니다. ";
                     break;
                 case CardActionType.RandomTargetDamage:
-                    description += $"랜덤한 적에게 {action.value} 데미지로 {action.secondaryValue}번 데미지를 줍니다. ";
+                    description += $"랜덤한 적에게 {validDamage} 데미지로 {validHit}번 데미지를 줍니다. ";
                     break;
                 case CardActionType.RandomTargetDamageWithBonus:
-                    description += $"랜덤한 적에게 {action.value} 데미지로 {action.secondaryValue}번 데미지를 주며, 동일한 대상에게 {action.thirdValue}번 타격 시 1회 추가 타격합니다. ";
+                    description += $"랜덤한 적에게 {validDamage} 데미지로 {validHit}번 데미지를 주며, 동일한 대상에게 {action.thirdValue}번 타격 시 1회 추가 타격합니다. ";
                     break;
                 case CardActionType.IncrementalDamage:
-                    description += $"적에게 타격할 때마다 1 데미지가 증가하는 공격을 {action.value} 데미지로 {action.secondaryValue}번 데미지를 줍니다. ";
+                    description += $"적에게 타격할 때마다 1 데미지가 증가하는 공격을 {validDamage} 데미지로 {validHit}번 데미지를 줍니다. ";
                     break;
                 case CardActionType.TrueDamage:
                     description += $"적에게 {action.value}의 고정 데미지를 {action.secondaryValue}번 줍니다. ";
@@ -804,13 +826,13 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                     description += $"자신의 체력을 {action.value}만큼 회복하며, 초과된 회복량만큼 데미지를 줍니다. ";
                     break;
                 case CardActionType.StunCheckDamage:
-                    description += $"적에게 {action.value} 데미지를 주고, 적이 스턴 상태라면 추가로 {action.secondaryValue} 데미지를 줍니다. ";
+                    description += $"적에게 {validDamage} 데미지를 주고, 적이 스턴 상태라면 추가로 {action.secondaryValue} 데미지를 줍니다. ";
                     break;
                 case CardActionType.Poison:
-                    description += $"적에게 {action.value}의 독을 {action.secondaryValue}번 부여합니다. ";
+                    description += $"적에게 {validDamage}의 독을 {action.secondaryValue}번 부여합니다. ";
                     break;
                 case CardActionType.AreaPoison:
-                    description += $"적 전체에게 {action.value}의 독을 {action.secondaryValue}번 부여합니다. ";
+                    description += $"적 전체에게 {validDamage}의 독을 {action.secondaryValue}번 부여합니다. ";
                     break;
                 case CardActionType.DoublePoison:
                     description += $"적에게 부여된 독이 2배가 됩니다. ";
@@ -819,10 +841,10 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                     description += $"적에게 부여된 독만큼 데미지를 주고, 독을 제거합니다. ";
                     break;
                 case CardActionType.RandomTargetPoison:
-                    description += $"랜덤한 적에게 {action.value}의 독을 {action.secondaryValue}번 부여합니다. ";
+                    description += $"랜덤한 적에게 {validDamage}의 독을 {action.secondaryValue}번 부여합니다. ";
                     break;
                 case CardActionType.PoisonCheckDamage:
-                    description += $"적에게 {action.value} 데미지를 주고, 적이 중독 상태라면 추가로 {action.secondaryValue} 데미지를 줍니다. ";
+                    description += $"적에게 {validDamage} 독을 주고, 적이 중독 상태라면 추가로 {action.secondaryValue} 독을 줍니다. ";
                     break;
                 case CardActionType.CrystalDamage:
                     description += $"{action.secondaryValue} 크리스탈을 소모하고, 적에게 {action.value} 데미지를 줍니다. ";
@@ -834,7 +856,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                     switch (action.killEffectType)
                     {
                         case CardActionType.Damage:
-                            description += $"처치 시 추가로 랜덤한 적에게 {action.thirdValue} 데미지를 줍니다. ";
+                            description += $"처치 시 추가로 랜덤한 적에게 {validKilleffectDamage} 데미지를 줍니다. ";
                             break;
                         case CardActionType.Heal:
                             description += $"처치 시 추가로 자신의 체력을 {action.thirdValue}만큼 회복합니다. ";
@@ -927,7 +949,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                             description += $"필드를 땅 속성으로 바꿉니다. 자신이 받는 데미지가 25% 감소됩니다. ";
                             break;
                         case PlayerState.AttributeType.Lightning:
-                            description += $"필드를 전기 속성으로 바꿉니다. 매 턴 종료 시 스턴 상태의 적에게 20 데미지를 줍니다. ";
+                            description += $"필드를 전기 속성으로 바꿉니다. 매 턴 종료 시 경직 상태의 적에게 20 데미지를 줍니다. ";
                             break;
                         case PlayerState.AttributeType.Wind:
                             description += $"필드를 바람 속성으로 바꿉니다. 바람 마법의 고정 데미지가 1 추가됩니다.";
