@@ -152,6 +152,8 @@ MonoBehaviour:
   artifactManager: {fileID: 0}
   artifactCost: 2
   bonusPoison: 0
+  bonusDamage: 0
   bonusAttack: 0
   bonusCrystal: 0
   bonusAttributeExperience: 0
+  execution: 1

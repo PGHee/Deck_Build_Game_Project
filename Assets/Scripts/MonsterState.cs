@@ -70,6 +70,8 @@ public class MonsterState : MonoBehaviour
     private int intEffect = 0;
     private float floatEffect = 0.0f;
 
+    public bool applyExecution;
+
     void Start()
     {
         TurnManager.instance.RegisterMonster(this);
@@ -84,6 +86,7 @@ public class MonsterState : MonoBehaviour
         GetRandomAction();
         UpdateValueEffect();
         UpdateAction();
+        applyExecution = false;
     }
 
     public void SetHPBar(HPBar hpBar)

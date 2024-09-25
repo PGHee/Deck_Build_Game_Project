@@ -13,9 +13,15 @@ public class ArtifactInfo : MonoBehaviour
     public GameObject artifactManager;
     public int artifactCost;
     public int bonusPoison;
+    public int bonusDamage;
     public float bonusAttack;
     public float bonusCrystal;
     public float bonusAttributeExperience;
+    public bool execution;
+    public bool doubleLifeSteal;
+    public int bonusShield;
+    public int bonusHeal;
+    public int bonusDraw;
 
 
 

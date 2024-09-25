@@ -37,9 +37,15 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public Dictionary<int[], int> artifactSynthesizeDict;
 
     public int bonusPoison;
+    public int bonusDamage;
+    public int bonusShield;
+    public int bonusHeal;
+    public int bonusDraw;
     public float bonusAttack;
     public float bonusCrystal;
     public float bonusAttributeExperience;
+    public bool execution;
+    public bool doubleLifeSteal;
 
 
     // Start is called before the first frame update
@@ -180,6 +186,12 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         bonusAttack = artifact.GetComponent<ArtifactInfo>().bonusAttack;
         bonusCrystal = artifact.GetComponent<ArtifactInfo>().bonusCrystal;
         bonusAttributeExperience = artifact.GetComponent<ArtifactInfo>().bonusAttributeExperience;
+        execution = artifact.GetComponent<ArtifactInfo>().execution;
+        bonusDamage = artifact.GetComponent<ArtifactInfo>().bonusDamage;
+        bonusShield = artifact.GetComponent<ArtifactInfo>().bonusShield;
+        bonusHeal = artifact.GetComponent<ArtifactInfo>().bonusHeal;
+
+        
     }
 
     public void ArtifactBuffApply() // 전투 시작 시 플레이어에게 아티팩트의 버프 적용
@@ -205,6 +217,13 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         bonusCrystal = 0;
         bonusPoison = 0;
         bonusAttributeExperience = 0;
+        execution = false;
+        doubleLifeSteal = false;
+        bonusDamage = 0;
+        bonusHeal = 0;
+        bonusShield = 0;
+        bonusDraw = 0;
+        playerState.doubleLifeSteal = false;
     }
 
     public void ResetArtifactReady()  // 아티팩트의 사용 횟수 초기화

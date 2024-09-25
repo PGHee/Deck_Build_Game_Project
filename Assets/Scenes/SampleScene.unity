@@ -4076,7 +4076,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -108.3, y: 94.3}
-  m_SizeDelta: {x: -50, y: -50}
+  m_SizeDelta: {x: -38, y: -58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &273266998
 BoxCollider2D:
@@ -5757,7 +5757,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 135}
-  m_SizeDelta: {x: -50, y: -50}
+  m_SizeDelta: {x: -38, y: -58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &359684914
 BoxCollider2D:
@@ -15179,7 +15179,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -50, y: -50}
+  m_SizeDelta: {x: -38, y: -58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &890057678
 BoxCollider2D:
@@ -21855,7 +21855,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 108.3, y: -95}
-  m_SizeDelta: {x: -50, y: -50}
+  m_SizeDelta: {x: -38, y: -58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1198088661
 BoxCollider2D:
@@ -24613,7 +24613,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -108.30002, y: -95}
-  m_SizeDelta: {x: -50, y: -50}
+  m_SizeDelta: {x: -38, y: -58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1340417523
 BoxCollider2D:
@@ -26298,7 +26298,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -135, y: 0}
-  m_SizeDelta: {x: -50, y: -50}
+  m_SizeDelta: {x: -38, y: -58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1454406025
 BoxCollider2D:
@@ -28446,7 +28446,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 135, y: 0}
-  m_SizeDelta: {x: -50, y: -50}
+  m_SizeDelta: {x: -38, y: -58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1524362488
 BoxCollider2D:
@@ -33957,7 +33957,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 113.59999, y: 94.3}
-  m_SizeDelta: {x: -50, y: -50}
+  m_SizeDelta: {x: -38, y: -58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1943810585
 BoxCollider2D:
@@ -37042,7 +37042,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -135}
-  m_SizeDelta: {x: -50, y: -50}
+  m_SizeDelta: {x: -38, y: -58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &2123069520
 BoxCollider2D:

@@ -50,6 +50,8 @@ public class PlayerState : MonoBehaviour
     private BuffDebuffManager buffDebuffManager;
     private ArtifactManager artifactManager;
 
+    public bool doubleLifeSteal;                    // 피흡 2배
+
     void Start()
     {
         GameObject hpBarInstance = Instantiate(hpBarPrefab, transform.position, Quaternion.identity);
@@ -140,6 +142,14 @@ public class PlayerState : MonoBehaviour
     {
         hpBar.UpdateHealth(currentHealth, maxHealth, shield, poisonStacks);
         circleBar.UpdateCircle(currentResource, resource);
+        if (artifactManager.doubleLifeSteal && (float)currentHealth / (float)maxHealth < 0.5f)
+        {
+            doubleLifeSteal = true;
+        }
+        else
+        {
+            doubleLifeSteal = false;
+        }
     }
 
     public void Heal(int amount)

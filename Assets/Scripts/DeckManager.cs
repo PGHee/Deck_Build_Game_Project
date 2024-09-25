@@ -67,7 +67,6 @@ public class DeckManager : MonoBehaviour
         {
             if (graveArray.Length < 1)
             {
-
                 message.ShowSystemMessage("뽑을 카드가 없다!.");
                 return;
             }

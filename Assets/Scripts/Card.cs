@@ -87,6 +87,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 
     private SystemMessage message;
 
+
     private void Awake()
     {
         if (originalPrefab == null)
@@ -259,7 +260,20 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 
                         if(artifactManager.bonusPoison > 0) 
                         {
-                            targetMonster.GetComponent<MonsterState>().ApplyPoison(artifactManager.bonusPoison);
+                            if(targetMonster.GetComponent<MonsterState>().poisonStacks > 0)
+                            {
+                                targetMonster.GetComponent<MonsterState>().ApplyPoison(artifactManager.bonusPoison * 2);
+                            }
+                            else
+                            {
+                                targetMonster.GetComponent<MonsterState>().ApplyPoison(artifactManager.bonusPoison);
+                            }                         
+                        }
+
+                        if (targetMonster != null && targetMonster.GetComponent<MonsterState>().applyExecution)
+                        {
+                            targetMonster.GetComponent<MonsterState>().TakeDamage(999);
+                            message.ShowSystemMessage("처형!");
                         }
                     }
                 }

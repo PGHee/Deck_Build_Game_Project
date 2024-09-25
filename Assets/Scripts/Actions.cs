@@ -47,11 +47,18 @@ public class Actions : MonoBehaviour
         if (monsterState != null)
         {
             if(monsterState.reduceDamage > 0) damage = Mathf.RoundToInt(damage * (1-monsterState.reduceDamage));
+            if(artifactManager.bonusDamage > 0) damage = damage + artifactManager.bonusDamage;
             monsterState.TakeDamage(damage);
             if(player.LifeSteal > 0) player.Heal(Mathf.RoundToInt(damage * player.LifeSteal));
+            if(player.LifeSteal > 0 && player.doubleLifeSteal) player.Heal(Mathf.RoundToInt(damage * player.LifeSteal));       
             if(attributeType == PlayerState.AttributeType.Lightning) TryApplyStun(target, monsterState);
             if(monsterState.currentHealth <= 0 && killEffect != null) ApplyKillEffect(killEffect, attributeType);
             if(monsterState.reflectDamage > 0) ReflectDamage(player.gameObject, Mathf.RoundToInt(damage * monsterState.reflectDamage));
+
+            if (((float)monsterState.currentHealth / (float)monsterState.maxHealth) < 0.1f && artifactManager.execution)
+            {
+                monsterState.applyExecution = true;
+            }
         }
         
         PlayerState playerState = target.GetComponent<PlayerState>();
