@@ -17,25 +17,29 @@ public class TitleMessageManager : MonoBehaviour
 
     private IEnumerator ShowMessageRoutine(Vector3 screenPosition, string message)
     {
-        // UI 캔버스 좌표로 변환
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-        worldPosition.z = 0; // UI 상에서 Z 축은 0으로 고정
-
         // 타이틀 메시지 인스턴스 생성
-        GameObject textInstance = Instantiate(titleMessagePrefab, worldPosition, Quaternion.identity, transform);
+        GameObject textInstance = Instantiate(titleMessagePrefab, transform);
+
+        // RectTransform을 사용하여 캔버스의 중심 위쪽에 배치
+        RectTransform rectTransform = textInstance.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(screenPosition.x - Screen.width / 2, screenPosition.y - Screen.height / 2); 
+
+        // 텍스트 메시지 설정
         TextMeshProUGUI tmp = textInstance.GetComponent<TextMeshProUGUI>();
         if (tmp != null)
         {
             tmp.text = message;
+            tmp.raycastTarget = false;  // TextMeshProUGUI의 Raycast Target 비활성화
         }
 
-        // CanvasGroup을 추가하여 알파값 조절
+        // CanvasGroup을 추가하여 알파값 조절 및 클릭 방지 설정
         CanvasGroup canvasGroup = textInstance.GetComponent<CanvasGroup>();
         if (canvasGroup == null)
         {
             canvasGroup = textInstance.AddComponent<CanvasGroup>();
         }
         canvasGroup.alpha = 0; // 초기 알파값 0으로 설정 (투명)
+        canvasGroup.blocksRaycasts = false;  // 전체 CanvasGroup이 클릭을 차단하지 않도록 설정
 
         // 페이드 인 애니메이션
         yield return StartCoroutine(FadeText(canvasGroup, 0, 1, fadeDuration));
