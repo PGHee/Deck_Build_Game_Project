@@ -63,6 +63,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     public TextMeshProUGUI cardTypeText;
     public TextMeshProUGUI cardDescriptionText;
     public TextMeshProUGUI cardCostText;
+    public TMP_FontAsset nanumFont;
 
     private Vector3 startPosition;
     private Actions cardActions;
@@ -127,16 +128,14 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         cardSprite.localPosition = new Vector3(0f, 0.5f, 0f);
 
         Transform cardCost = transform.Find("CardFront/Canvas/CardCost");
-        cardCost.localPosition = new Vector3(-2f, 2.25f, 0f);
+        cardCost.localPosition = new Vector3(-1.87f, 2.15f, 0f);
         TextMeshProUGUI costText = cardCost.GetComponent<TextMeshProUGUI>();
-        costText.fontSize = 0.75f;
         RectTransform costRectTransform = cardCost.GetComponent<RectTransform>();
         costRectTransform.sizeDelta = new Vector2(1f, 1f);
 
         Transform cardType = transform.Find("CardFront/Canvas/CardType");
-        cardType.localPosition = new Vector3(-2f, 1.25f, 0f);
+        cardType.localPosition = new Vector3(-1.87f, 1.25f, 0f);
         TextMeshProUGUI typeText = cardType.GetComponent<TextMeshProUGUI>();
-        typeText.fontSize = 0.25f;
         RectTransform typeRectTransform = cardType.GetComponent<RectTransform>();
         typeRectTransform.sizeDelta = new Vector2(1.5f, 1.5f);
 
@@ -344,8 +343,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         cardImageUI.sprite = cardImage;
         cardImageUI.transform.localScale = new Vector3(0.46f, 0.46f, 0.1f);
         cardDescriptionText.text = GetCardDescription();
-        cardCostText.text = cost.ToString();
-        cardTypeText.text = GetCardType();
+        cardCostText.font = nanumFont;
+        cardCostText.text = "<size=0.25>소모 서클</size>\n<size=0.5>" + cost.ToString() + "</size>";
+        cardTypeText.text = "<size=0.25>종류</size>\n<size=0.35>" + GetCardType() + "</size>";
         cardAttributeImageUI.sprite = attributeSprites[(int)attributeType];
     }
 
