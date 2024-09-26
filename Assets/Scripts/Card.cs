@@ -121,7 +121,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     {
         Transform cardAttribute = transform.Find("CardFront/CardAttribute");
         cardAttribute.localPosition = new Vector3(2.06f, 3f, 0f);
-        cardAttribute.localScale = new Vector3(1f, 1f, 1f);
+        cardAttribute.localScale = new Vector3(0.1f, 0.1f, 1f);
 
         Transform cardSprite = transform.Find("CardFront/CardImage");
         cardSprite.localPosition = new Vector3(0f, 0.5f, 0f);
