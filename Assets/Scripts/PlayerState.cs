@@ -131,7 +131,7 @@ public class PlayerState : MonoBehaviour
         return masteryLevel < experienceRequired.Length ? experienceRequired[masteryLevel] : int.MaxValue;
     }
 
-    void AttributeLevelUp(AttributeType attribute)
+    public void AttributeLevelUp(AttributeType attribute)
     {
         attributeMastery[attribute]++;
         ApplyAttributePassiveEffect(attribute, attributeMastery[attribute]);
