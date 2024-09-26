@@ -164,7 +164,7 @@ public class BattleRewardManager : MonoBehaviour
             clearButtonsBattleReward[i].GetComponent<BattleRewardButtonManager>().cardPrefabNum = rewardCardNum;
             rewardCardNums[i] = rewardCardNum;
 
-            dynamicButtonManager.CardSpriteToButton(rewardCardNum, clearButtonsBattleReward[i]); // 일러만 가져오도록 수정 필요
+            dynamicButtonManager.CardSpriteToButton(rewardCardNum, clearButtonsBattleReward[i]);
         }
 
     }
@@ -173,16 +173,19 @@ public class BattleRewardManager : MonoBehaviour
     {
         GetClearButtonBattleReward();
 
-        for (int i = 0; i < 7; i++)
+        ButtonShapeChange();
+
+        for (int i = 0; i < 3; i++)
         {
             int rewardArtifactNum = RandomSelectArtifact();
 
             clearButtonsBattleReward[i].GetComponent<BattleRewardButtonManager>().ResetNumber();
 
-            dynamicButtonManager.ArtifactSpriteToButton(rewardArtifactNum, clearButtonsBattleReward[i]); // 일러만 가져오도록 수정 필요
+            dynamicButtonManager.ArtifactSpriteToButton(rewardArtifactNum, clearButtonsBattleReward[i]);
 
             clearButtonsBattleReward[i].GetComponent<BattleRewardButtonManager>().artifactPrefabNum = rewardArtifactNum;
             rewardArtifactNums[i] = rewardArtifactNum;
+
         }
     }
 
@@ -192,6 +195,8 @@ public class BattleRewardManager : MonoBehaviour
         {
             clearButtonsBattleReward[i].GetComponent<BattleRewardButtonManager>().ResetNumber();
         }
+
+        ButtonShapeReset();
         
         GameObject gameDirector = GameObject.Find("GameDirector");
         rewardCrystal = gameDirector.GetComponent<GameDirector>().currentStage * 10 * rewardCrystal;
@@ -224,7 +229,7 @@ public class BattleRewardManager : MonoBehaviour
     {
         if (battleRewardStep == 0)
         {
-            rewardManager.GetReward("Card", rewardCardNums[buttonNum], 0);
+            rewardManager.GetReward("Card", rewardCardNums[buttonNum] + 1, 0);
         }
         else if(battleRewardStep == 1)
         {
@@ -246,5 +251,31 @@ public class BattleRewardManager : MonoBehaviour
         battleRewardStep++;
 
         RestartBattleReward();
+    }
+
+    public void ButtonShapeChange()
+    {
+        if(clearButtonsBattleReward != null)
+        {
+            foreach(var button in clearButtonsBattleReward)
+            {
+                RectTransform rectTransform = button.GetComponent<RectTransform>();
+                rectTransform.sizeDelta = new Vector2(100, 32);
+                rectTransform.localEulerAngles = new Vector3(0, 0, 45);
+            }
+        }
+    }
+
+    public void ButtonShapeReset()
+    {
+        if (clearButtonsBattleReward != null)
+        {
+            foreach (var button in clearButtonsBattleReward)
+            {
+                RectTransform rectTransform = button.GetComponent<RectTransform>();
+                rectTransform.sizeDelta = new Vector2(100, 100);
+                rectTransform.localEulerAngles = new Vector3(0, 0, 0);
+            }
+        }
     }
 }

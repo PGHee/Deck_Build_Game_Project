@@ -17,6 +17,7 @@ public class PopupManager : MonoBehaviour
     public GameObject popupPanelDeckList;
     public GameObject popupPanelStartDeck;
     public GameObject popupPanelSetting;
+    public GameObject popupPanelSuperior;
 
     //public GameObject popupPanelUIBar;
 
@@ -92,6 +93,10 @@ public class PopupManager : MonoBehaviour
                 popupPanelStartDeck.SetActive(true);
                 break;
 
+            case "Superior":
+                popupPanelSuperior.SetActive(true);
+                break;
+
             default:
                 Debug.Log("wrong message: " + message);
                 break;
@@ -147,6 +152,10 @@ public class PopupManager : MonoBehaviour
                 popupPanelStartDeck.SetActive(false);
                 break;
 
+            case "Superior":
+                popupPanelSuperior.SetActive(false);
+                break;
+
             default:
                 Debug.Log("wrong map message: " + message);
                 break;
@@ -176,6 +185,7 @@ public class PopupManager : MonoBehaviour
         popupPanelVillageChief.SetActive(false);
         popupPanelDeckList.SetActive(false);
         popupPanelStartDeck.SetActive(false);
+        popupPanelSuperior.SetActive(false);
     }
 
     public bool IsPanelOpen()
@@ -189,7 +199,8 @@ public class PopupManager : MonoBehaviour
         popupPanelVillageChief.activeSelf ||
         popupPanelDeckList.activeSelf ||
         popupPanelStartDeck.activeSelf) ||
-        popupPanelSetting.activeSelf;
+        popupPanelSetting.activeSelf ||
+        popupPanelSuperior.activeSelf;
     }
 }
 
