@@ -4554,7 +4554,6 @@ GameObject:
   - component: {fileID: 244097922}
   - component: {fileID: 244097924}
   - component: {fileID: 244097923}
-  - component: {fileID: 244097925}
   m_Layer: 5
   m_Name: HelpPanel
   m_TagString: Untagged
@@ -4629,38 +4628,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244097921}
   m_CullTransparentMesh: 1
---- !u!114 &244097925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244097921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76494811e589a344bb5104111eb6f469, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  helpPanel: {fileID: 244097921}
-  parts:
-  - {fileID: 1970309760}
-  - {fileID: 618865138}
-  - {fileID: 579996888}
-  - {fileID: 1270239448}
-  - {fileID: 1528753525}
-  - {fileID: 699054641}
-  - {fileID: 1158033925}
-  partPanels:
-  - {fileID: 1970309760}
-  - {fileID: 618865138}
-  - {fileID: 579996888}
-  - {fileID: 116834884}
-  - {fileID: 1528753525}
-  - {fileID: 594572186}
-  - {fileID: 1158033925}
-  pageNumberText: {fileID: 1941218953}
-  helpButton: {fileID: 1465726312}
-  currentPartIndex: 0
 --- !u!1 &247563670
 GameObject:
   m_ObjectHideFlags: 0
@@ -4744,7 +4711,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 244097925}
+      - m_Target: {fileID: 1589895969}
         m_TargetAssemblyTypeName: HelpPanelManager, Assembly-CSharp
         m_MethodName: HideHelpPanel
         m_Mode: 1
@@ -6221,7 +6188,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 244097925}
+      - m_Target: {fileID: 1589895969}
         m_TargetAssemblyTypeName: HelpPanelManager, Assembly-CSharp
         m_MethodName: OnNextPart
         m_Mode: 1
@@ -17965,6 +17932,7 @@ MonoBehaviour:
   isConfuse: 0
   hpBarPrefab: {fileID: 6900245929710939685, guid: c60e935a902752f46a9f0e55f3b11507, type: 3}
   circleBarPrefab: {fileID: 8965818987613377558, guid: 3ae52a0921125f3469cc19398e58c617, type: 3}
+  doubleLifeSteal: 0
 --- !u!212 &655176851
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -25166,9 +25134,15 @@ MonoBehaviour:
   artifactPrefabs: []
   artifactInvenList: 0100000002000000030000000400000005000000
   bonusPoison: 0
+  bonusDamage: 0
+  bonusShield: 0
+  bonusHeal: 0
+  bonusDraw: 0
   bonusAttack: 0
   bonusCrystal: 0
   bonusAttributeExperience: 0
+  execution: 0
+  doubleLifeSteal: 0
 --- !u!1 &935228832
 GameObject:
   m_ObjectHideFlags: 0
@@ -38741,7 +38715,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 244097925}
+      - m_Target: {fileID: 1589895969}
         m_TargetAssemblyTypeName: HelpPanelManager, Assembly-CSharp
         m_MethodName: ShowHelpPanel
         m_Mode: 1
@@ -42177,6 +42151,7 @@ GameObject:
   - component: {fileID: 1589895968}
   - component: {fileID: 1589895967}
   - component: {fileID: 1589895966}
+  - component: {fileID: 1589895969}
   m_Layer: 5
   m_Name: Canvas_Help_999
   m_TagString: Untagged
@@ -42268,6 +42243,38 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 999
   m_TargetDisplay: 0
+--- !u!114 &1589895969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589895964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76494811e589a344bb5104111eb6f469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  helpPanel: {fileID: 244097921}
+  parts:
+  - {fileID: 1970309760}
+  - {fileID: 618865138}
+  - {fileID: 579996888}
+  - {fileID: 1270239448}
+  - {fileID: 1528753525}
+  - {fileID: 699054641}
+  - {fileID: 1158033925}
+  partPanels:
+  - {fileID: 1970309760}
+  - {fileID: 618865138}
+  - {fileID: 579996888}
+  - {fileID: 116834884}
+  - {fileID: 1528753525}
+  - {fileID: 594572186}
+  - {fileID: 1158033925}
+  pageNumberText: {fileID: 1941218953}
+  helpButton: {fileID: 1465726312}
+  currentPartIndex: 0
 --- !u!1 &1591019778
 GameObject:
   m_ObjectHideFlags: 0
@@ -46867,7 +46874,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 244097925}
+      - m_Target: {fileID: 1589895969}
         m_TargetAssemblyTypeName: HelpPanelManager, Assembly-CSharp
         m_MethodName: OnPreviousPart
         m_Mode: 1

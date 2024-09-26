@@ -12,8 +12,6 @@ public class HelpPanelManager : MonoBehaviour
     public GameObject helpButton;           // 도움말 패널을 여는 버튼
     public int currentPartIndex = 0;        // 현재 활성화된 파트 인덱스
 
-    private RectTransform helpButtonRect;   // 버튼의 RectTransform 저장
-
     void Start()
     {
         // 처음엔 패널과 모든 파트 및 파트 패널을 비활성화
@@ -24,16 +22,13 @@ public class HelpPanelManager : MonoBehaviour
 
         // 페이지 번호 텍스트가 클릭을 가로막지 않도록 설정
         pageNumberText.raycastTarget = false;
-
-        // 버튼의 RectTransform 가져오기
-        helpButtonRect = helpButton.GetComponent<RectTransform>();
     }
 
     // 도움말 패널을 활성화하는 함수
     public void ShowHelpPanel()
     {
         helpPanel.SetActive(true);         // 도움말 패널 활성화
-        helpButtonRect.anchoredPosition += new Vector2(50f, 0);
+        helpButton.SetActive(false);
         ShowCurrentPart();
     }
 
@@ -41,7 +36,7 @@ public class HelpPanelManager : MonoBehaviour
     public void HideHelpPanel()
     {
         helpPanel.SetActive(false);        // 도움말 패널 비활성화
-        helpButtonRect.anchoredPosition -= new Vector2(50f, 0);
+        helpButton.SetActive(true);
         SetAllPartsActive(false);
         SetAllPartPanelsActive(false);
     }

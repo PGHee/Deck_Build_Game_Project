@@ -847,10 +847,10 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                     description += $"적에게 {validDamage} 독을 주고, 적이 중독 상태라면 추가로 {action.secondaryValue} 독을 줍니다. ";
                     break;
                 case CardActionType.CrystalDamage:
-                    description += $"{action.secondaryValue} 크리스탈을 소모하고, 적에게 {action.value} 데미지를 줍니다. ";
+                    description += $"{action.secondaryValue} 크리스탈을 소모하고, 적에게 {validDamage} 데미지를 줍니다. ";
                     break;
                 case CardActionType.RemoveHandDamage:
-                    description += $" 패의 카드 한장 당 적에게 {action.value} 데미지를 주고 모든 패를 버립니다. ";
+                    description += $" 패의 카드 한장 당 적에게 {validDamage} 데미지를 주고 모든 패를 버립니다. ";
                     break;
                 case CardActionType.killEffect:
                     switch (action.killEffectType)
