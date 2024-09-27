@@ -10,9 +10,7 @@ public class BuffDebuffManager : MonoBehaviour
     public PlayerState.AttributeType? currentField = null;     // 현재 필드 속성을 저장
     private PlayerState player;
     public BuffDebuffUIManager uiManager;
-
-    public SpriteRenderer background;
-    public Sprite[] backgroundSprite;
+    public BackgroundManager backgroundManager;
 
     private Effect effect;
 
@@ -276,7 +274,7 @@ public class BuffDebuffManager : MonoBehaviour
         {
             RemoveCurrentField();
         }
-        background.sprite = backgroundSprite[(int)attributeType];
+        backgroundManager.ActivateFieldMagic((int) attributeType);
         currentField = attributeType;
         effect.PlayScreenEffect((int) attributeType);
         Debug.Log($"Applied field: {attributeType}");

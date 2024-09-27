@@ -49,6 +49,7 @@ public class PlayerState : MonoBehaviour
     private SystemMessage message;
     private BuffDebuffManager buffDebuffManager;
     private ArtifactManager artifactManager;
+    private PlayerUI playerUI;
 
     public bool doubleLifeSteal;                    // 피흡 2배
 
@@ -69,6 +70,7 @@ public class PlayerState : MonoBehaviour
         message = FindObjectOfType<SystemMessage>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         artifactManager = FindObjectOfType<ArtifactManager>();
+        playerUI = FindObjectOfType<PlayerUI>();
 
         InitializeAttributes();
     }
@@ -253,6 +255,7 @@ public class PlayerState : MonoBehaviour
                 isConfuse = true;
                 break;
         }
+        playerUI.UpdatePlayerUI();
     }
 
     public void RemoveBuffDebuff(EffectType effectType, int duration, float effectValue, int intValue)
@@ -284,6 +287,7 @@ public class PlayerState : MonoBehaviour
                 isConfuse = false;
                 break;
         }
+        playerUI.UpdatePlayerUI();
     }
 
     public void ApplyPoison(int amount)                 // 독을 받을 때 동작
@@ -344,6 +348,7 @@ public class PlayerState : MonoBehaviour
                 lightningStunChance = (level >= 6) ? 0.30f : (level >= 3) ? 0.15f : lightningStunChance;
                 break;
         }
+        playerUI.UpdatePlayerUI();
     }
 
     public void AttackMotion()
