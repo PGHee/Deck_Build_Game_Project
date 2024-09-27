@@ -33,7 +33,7 @@ public class EventManager : MonoBehaviour
 
     public void RandomSelectEvent()
     {
-        eventNum = Random.Range(1, 2);
+        eventNum = Random.Range(1, 27);
         eventPrefab = Resources.Load<GameObject>($"Prefabs/Event/event{eventNum}");
     }
 
@@ -63,7 +63,13 @@ public class EventManager : MonoBehaviour
             switch (eventInput)
             {
                 case "Crystal":
-                    rewardManager.GetReward(eventOutput, eventOutputNum, eventInputNum);
+                    if(playerState.crystal > eventInputNum)
+                    {
+                        rewardManager.GetReward(eventOutput, eventOutputNum, eventInputNum);
+                        message.ShowSystemMessage("-" + eventInput + "");
+                    }
+                    else message.ShowSystemMessage("크리스탈이 부족해.");
+
                     break;
 
                 case "Card":
@@ -71,6 +77,10 @@ public class EventManager : MonoBehaviour
                     {
                         deckManager.DeleteOriginCard(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
+                        if(eventInputNum != 0)
+                        {
+                            message.ShowSystemMessage("-" + eventInput + "");
+                        }  
                     }
                     else message.ShowSystemMessage("맞는 카드가 없어");
                     break;
@@ -80,6 +90,7 @@ public class EventManager : MonoBehaviour
                     {
                         artifactManager.DeleteArtifact2Inven(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
+                        message.ShowSystemMessage("-" + eventInput + "");
                     }
                     else message.ShowSystemMessage("맞는 아티팩트가 없어");
                     break ;
@@ -89,7 +100,9 @@ public class EventManager : MonoBehaviour
                     {
                         playerState.TakeDamage(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
-                    }else message.ShowSystemMessage("체력이 부족해");
+                        message.ShowSystemMessage("-" + eventInput + "");
+                    }
+                    else message.ShowSystemMessage("체력이 부족해");
                     break ;
 
                 default:
