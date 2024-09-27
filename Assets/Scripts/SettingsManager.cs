@@ -20,6 +20,7 @@ public class SettingsManager : MonoBehaviour
 
     void Start()
     {
+
         // 해상도 설정 초기화
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
@@ -50,9 +51,9 @@ public class SettingsManager : MonoBehaviour
         frameRateDropdown.value = PlayerPrefs.GetInt("frameRate", 1); // 기본값: 60 FPS
         frameRateDropdown.RefreshShownValue();
 
-        // 이전 설정 불러오기
-        bgmVolumeSlider.value = PlayerPrefs.GetFloat("volume", 1f);
-        effectVolumeSlider.value = PlayerPrefs.GetFloat("effectVolume", 1f);
+        // 이전 설정 불러오기, 기본값을 50%로 설정
+        bgmVolumeSlider.value = PlayerPrefs.GetFloat("bgmVolume", 0.8f);
+        effectVolumeSlider.value = PlayerPrefs.GetFloat("effectVolume", 0.8f);
         fullscreenToggle.isOn = Screen.fullScreen;
         vSyncToggle.isOn = QualitySettings.vSyncCount > 0;
 
@@ -77,13 +78,15 @@ public class SettingsManager : MonoBehaviour
 
     public void SetBGMVolume(float volume)
     {
-        audioMixer.SetFloat("BGMVolume", Mathf.Log10(volume) * 20);
+        // 볼륨 범위 0~1을 데시벨로 변환, 최대 6dB까지 증가
+        audioMixer.SetFloat("BGMVolume", Mathf.Lerp(-80f, 20f, Mathf.Clamp01(volume)));
         PlayerPrefs.SetFloat("bgmVolume", volume);
     }
 
     public void SetEffectVolume(float volume)
     {
-        audioMixer.SetFloat("EffectVolume", Mathf.Log10(volume) * 20);
+        // 볼륨 범위 0~1을 데시벨로 변환, 최대 6dB까지 증가
+        audioMixer.SetFloat("EffectVolume", Mathf.Lerp(-80f, 20f, Mathf.Clamp01(volume)));
         PlayerPrefs.SetFloat("effectVolume", volume);
     }
 

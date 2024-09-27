@@ -73,6 +73,7 @@ public class GameDirector : MonoBehaviour
             currentStage++;
         }
         backgroundManager.ChangeBackground(currentStage - 1);
+        if(currentMap == 10) backgroundManager.ChangeToBossMusic(currentStage);
         titleMessage.ShowTitleMessage($"{currentStage} - {currentMap}");
 
         deckManager.deckArray = deckManager.CopyOrigin2Deck();

@@ -188,6 +188,9 @@ public class TurnManager : MonoBehaviour
             GameObject popupManager = GameObject.Find("PopupManager");
             popupManager.GetComponent<PopupManager>().ShowPopup("BattleReward");
 
+            BackgroundManager background = FindObjectOfType<BackgroundManager>();
+            background.PlayRewardSound();
+
             GameObject battleRewardManager = GameObject.Find("BattleRewardManager");
             battleRewardManager.GetComponent<BattleRewardManager>().rewardCrystal = monsters.Count;
             battleRewardManager.GetComponent<BattleRewardManager>().rewardEXP = monsters.Count;
