@@ -137,7 +137,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         cardType.localPosition = new Vector3(-1.87f, 1.25f, 0f);
         TextMeshProUGUI typeText = cardType.GetComponent<TextMeshProUGUI>();
         RectTransform typeRectTransform = cardType.GetComponent<RectTransform>();
-        typeRectTransform.sizeDelta = new Vector2(1.5f, 1.5f);
+        typeRectTransform.sizeDelta = new Vector2(1.25f, 1.25f);
 
         Transform cardText = transform.Find("CardFront/Canvas/CardName");
         cardText.localPosition = new Vector3(0f, 3f, 0f);
@@ -339,14 +339,28 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     {
         cardFront.sprite = cardFrontFrame;
         cardBack.sprite = cardBackFrame;
-        cardNameText.text = cardName;
         cardImageUI.sprite = cardImage;
         cardImageUI.transform.localScale = new Vector3(0.46f, 0.46f, 0.1f);
-        cardDescriptionText.text = GetCardDescription();
+        cardAttributeImageUI.sprite = attributeSprites[(int)attributeType];
+
         cardCostText.font = nanumFont;
         cardCostText.text = "<size=0.25>소모 서클</size>\n<size=0.5>" + cost.ToString() + "</size>";
-        cardTypeText.text = "<size=0.25>종류</size>\n<size=0.35>" + GetCardType() + "</size>";
-        cardAttributeImageUI.sprite = attributeSprites[(int)attributeType];
+
+        cardNameText.enableAutoSizing = true; // 자동 크기 조정 활성화
+        cardNameText.fontSizeMin = 0.1f; // 최소 폰트 크기
+        cardNameText.fontSizeMax = 0.5f; // 최대 폰트 크기
+        cardNameText.text = cardName; // 텍스트 설정
+
+        cardTypeText.enableAutoSizing = true;
+        cardTypeText.fontSizeMin = 0.2f; // 최소 폰트 크기
+        cardTypeText.fontSizeMax = 0.4f; // 최대 폰트 크기
+        cardTypeText.enableWordWrapping = false;  // 한 줄로 표시되도록 설정
+        cardTypeText.text = "<size=0.25>종류</size>\n" + GetCardType();
+
+        cardDescriptionText.enableAutoSizing = true;
+        cardDescriptionText.fontSizeMin = 0.1f;    // 최소 폰트 크기
+        cardDescriptionText.fontSizeMax = 0.3f;    // 최대 폰트 크기
+        cardDescriptionText.text = GetCardDescription();
     }
 
     public string GetCardType()

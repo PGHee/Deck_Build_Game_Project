@@ -47,7 +47,7 @@ public class HPBar : MonoBehaviour
             if (poison > 0)
             {
                 iconText.text = $"{shield}";
-                healthText.text = $"{currentHealth} / {maxHealth} <color=#FF00FF>(-{poison})</color>";
+                healthText.text = $"{currentHealth} / {maxHealth} <color=#66FF66>(-{poison})</color>";
                 iconRenderer.sprite = poisonSheildSprite;   // poison + shield 스프라이트
             }
             else
@@ -61,7 +61,7 @@ public class HPBar : MonoBehaviour
         {
             iconTransform.gameObject.SetActive(true);
             iconText.gameObject.SetActive(true);
-            healthText.text = $"{currentHealth} / {maxHealth} <color=#FF00FF>(-{poison})</color>";
+            healthText.text = $"{currentHealth} / {maxHealth} <color=#66FF66>(-{poison})</color>";
             iconRenderer.sprite = poisonSprite;             // poison 스프라이트
             hpFillImage.sprite = poisonHPSprite;         // 중독 상태일 때 보라색 HP바 스프라이트 사용
         }

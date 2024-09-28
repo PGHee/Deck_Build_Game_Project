@@ -290,9 +290,9 @@ MonoBehaviour:
   m_fontSize: 0.25
   m_fontSizeBase: 0.25
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0.1
+  m_fontSizeMax: 0.5
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -430,14 +430,14 @@ RectTransform:
   m_GameObject: {fileID: 5993714744399509374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1644748486782336601}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.35, y: 0}
+  m_AnchoredPosition: {x: 1.3, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1340883781702652894
@@ -480,13 +480,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b60a6ecd7ab9aac48a5557ff6c591a83, type: 3}
+  m_SortingOrder: 40
+  m_Sprite: {fileID: -2137434757, guid: 0ab66b8984502204ea2e80bdda4cf10b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 4.17, y: 4.17}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -519,14 +519,14 @@ RectTransform:
   m_GameObject: {fileID: 6321313832280962013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6979381964483291869}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.35, y: 0}
+  m_AnchoredPosition: {x: 1.3, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6983916242026417482
@@ -587,9 +587,9 @@ MonoBehaviour:
   m_fontSize: 0.25
   m_fontSizeBase: 0.25
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0.1
+  m_fontSizeMax: 0.5
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -736,11 +736,11 @@ MonoBehaviour:
   iconText: {fileID: 3525711557619601752}
   iconRenderer: {fileID: 1340883781702652894}
   HPSprite: {fileID: 21300000, guid: 85eb61b0590f5c4418e0c138308f2ffd, type: 3}
-  shieldHPSprite: {fileID: 21300000, guid: 03dcbf169ef5c484694a464ff93869b8, type: 3}
-  poisonHPSprite: {fileID: 21300000, guid: b3d332697854fde419fc5198b6bd9f39, type: 3}
-  shieldSprite: {fileID: 21300000, guid: 8e5f776c2802e014092c70c184f48e99, type: 3}
-  poisonSprite: {fileID: 21300000, guid: b820609def1bb7042b73e2759e6a4f32, type: 3}
-  poisonSheildSprite: {fileID: 21300000, guid: b60a6ecd7ab9aac48a5557ff6c591a83, type: 3}
+  shieldHPSprite: {fileID: 21300000, guid: e9e36d56e42b38c4582c97ac99f32f19, type: 3}
+  poisonHPSprite: {fileID: 21300000, guid: 952e2c70d0d341e48b70023a2c3008b5, type: 3}
+  shieldSprite: {fileID: -2137434757, guid: 0ab66b8984502204ea2e80bdda4cf10b, type: 3}
+  poisonSprite: {fileID: -1534452145, guid: ca114851b9f1b6449a99f801ea00e8d1, type: 3}
+  poisonSheildSprite: {fileID: -34345388, guid: 73bf04d91c7faea459a8326826bef464, type: 3}
   buffIconPanel: {fileID: 2633783335862719672}
   debuffIconPanel: {fileID: 829774980174828782}
 --- !u!222 &9075610448519789269

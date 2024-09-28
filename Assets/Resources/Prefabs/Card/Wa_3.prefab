@@ -65,7 +65,7 @@ MonoBehaviour:
   cardFrontFrame: {fileID: 21300000, guid: edd02527a9247c84ebea9609f92b3e45, type: 3}
   cardBackFrame: {fileID: 21300000, guid: 09aa28a22a65e444e83a13bcbef50090, type: 3}
   cardImage: {fileID: 21300000, guid: 0c7af9bde8bc08e43ad1ded92be4c6ee, type: 3}
-  cardName: Wa_3
+  cardName: "\uC0DD\uBA85\uC758 \uBB3C\uBC29\uC6B8"
   attributeSprites:
   - {fileID: 940202206, guid: f6af0ec9c326d5945ba383e81490eace, type: 3}
   - {fileID: 123360023, guid: f6af0ec9c326d5945ba383e81490eace, type: 3}

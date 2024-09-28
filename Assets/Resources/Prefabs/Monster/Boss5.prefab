@@ -245,6 +245,7 @@ MonoBehaviour:
   debuffIconPanel: {fileID: 0}
   animator: {fileID: 0}
   originalTag: 
+  applyExecution: 0
 --- !u!61 &7632652373152406117
 BoxCollider2D:
   m_ObjectHideFlags: 0
