@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ArtifactMountManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class ArtifactMountManager : MonoBehaviour
     public int pageArtifactNum;
     public GameObject[] clearButtonsArtifact;
     public GameObject[] artifactPrefabs;
+    public TextMeshProUGUI artifactText;
 
 
 
@@ -130,6 +132,11 @@ public class ArtifactMountManager : MonoBehaviour
 
             // ����� ������ �ٽ� ����
             artifactMountImage.GetComponent<Image>().color = color;
+
+            artifactText.text = GetArtifactText(artifactInvenList[15 * ArtifactListPage + ButtonNum] - 1);
+
+            GameObject artifactGenerated = GameObject.FindWithTag("Artifact");
+            artifactGenerated.GetComponent<UIToolTip>().descriptionTextArtifact = GetArtifactText(artifactInvenList[15 * ArtifactListPage + ButtonNum] - 1); // 아티팩트 툴팁을 위한 
         }
     }
 
@@ -143,6 +150,7 @@ public class ArtifactMountManager : MonoBehaviour
         {
             Destroy(GameObject.FindWithTag("Artifact")); // 씬에 배치된 아티팩트 제거
             artifactManager.ArtifactBuffRemove();
+            artifactText.text = "";
         }
     }
 
@@ -153,5 +161,83 @@ public class ArtifactMountManager : MonoBehaviour
         {
             artifactManager.ArtifactBuffApply();
         }
+    }
+
+    public string GetArtifactText(int artifactnum)
+    {
+        string outputString = new string ("");
+
+        ArtifactInfo artifactInfo = artifactPrefabs[artifactnum].GetComponent<ArtifactInfo>();
+
+        if(artifactManager.activeCoef > 0)
+        {
+            outputString += "[코스트 : " + artifactInfo.artifactCost + "]";
+
+            switch (artifactInfo.activeEffectInfo)
+            {
+                case ArtifactManager.ActiveEffect.Heal:
+                    outputString += "<br>체력을 " + artifactInfo.activeCoefInfo + "회복합니다.";
+                    break;
+
+                case ArtifactManager.ActiveEffect.Damage:
+                    outputString += "<br>피해를 " + artifactInfo.activeCoefInfo + "입힙니다.";
+                    break;
+
+                case ArtifactManager.ActiveEffect.Draw:
+                    outputString += "<br>카드를 " + artifactInfo.activeCoefInfo + "장 뽑습니다.";
+                    break;
+
+                case ArtifactManager.ActiveEffect.Shiled:
+                    outputString += "<br><br>방어도를 " + artifactInfo.activeCoefInfo + "획득합니다.";
+                    break;
+
+                case ArtifactManager.ActiveEffect.AreaDamage:
+                    outputString += "<br>모든 적에게 피해를" + artifactInfo.activeCoefInfo + "입힙니다.";
+                    break;
+
+                case ArtifactManager.ActiveEffect.MultiHit:
+                    outputString += "<br>5 피해를 " + artifactInfo.activeCoefInfo + "번 입힙니다.";
+                    break;
+
+                case ArtifactManager.ActiveEffect.Poison:
+                    outputString += "<br>독을" + artifactInfo.activeCoefInfo + "부여합니다.";
+                    break;
+            }
+        }
+
+        for (int i = 0; i < artifactInfo.passiveListInfo.Count; i++)
+        {
+            switch (artifactInfo.passiveListInfo[i])
+            {
+                case EffectType.IncreaseDamage:
+                    outputString += "<br>피해가 " + artifactInfo.passiveCoefListInfo[i]+ "배 증가합니다.";
+                    break;
+
+                case EffectType.LifeSteal:
+                    outputString += "<br>가한 피해의 " + artifactInfo.passiveCoefListInfo[i] + "배 만큼 회복합니다.";
+                    break;
+
+                case EffectType.ReduceDamage:
+                    outputString += "<br>받는 피해가 " + artifactInfo.passiveCoefListInfo[i] + "배 만큼 감소합니다.";
+                    break;
+
+                default:
+                    outputString += "<br>알 수 없는 효과입니다.";
+                    break;
+            }
+        }
+
+        if (artifactInfo.bonusAttack != 0) outputString += "<br>타격 시" + (int)(artifactInfo.bonusAttack * 100)+ "% 확률로 재 타격 합니다.";
+        if (artifactInfo.bonusCrystal != 0) outputString += "<br>크리스탈을" + artifactInfo.bonusCrystal + "배 만큼 추가로 얻습니다.";
+        if (artifactInfo.bonusPoison != 0) outputString += "<br>카드의 대상에게 독을" + artifactInfo.bonusPoison + "부여합니다.";
+        if (artifactInfo.bonusAttributeExperience != 0) outputString += "<br>속성 경험치를" + artifactInfo.bonusAttributeExperience + "배 추가로 얻습니다.";
+        if (artifactInfo.execution != false) outputString += "<br>데미지를 준 대상의 남은 체력이 10% 이하면 처형합니다.";
+        if (artifactInfo.doubleLifeSteal != false) outputString += "<br>남은 체력이 50% 이하면 2배로 회복합니다.";
+        if (artifactInfo.bonusDamage != 0) outputString += "<br>타격 시 " + artifactInfo.bonusDamage+ "의 고정 데미지를 추가 합니다.";
+        if (artifactInfo.bonusHeal != 0) outputString += "<br>매 턴 " + artifactInfo.bonusHeal+ "만큼 회복합니다.";
+        if (artifactInfo.bonusShield != 0) outputString += "<br>매 턴 " + artifactInfo.bonusShield + "만큼 방어도를 얻습니다.";
+        if (artifactInfo.bonusDraw != 0) outputString += "<br>매 턴 카드를" + artifactInfo.bonusDraw + "장 드로우 합니다.";
+
+        return outputString;
     }
 }

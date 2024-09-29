@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4301401284024980985}
   - component: {fileID: -8389714407249845374}
   - component: {fileID: 8542041004780399891}
+  - component: {fileID: -489017352562569986}
+  - component: {fileID: 2700100144323173858}
   m_Layer: 0
   m_Name: artifact_15
   m_TagString: Artifact
@@ -129,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &8542041004780399891
 MonoBehaviour:
@@ -153,6 +155,41 @@ MonoBehaviour:
   artifactManager: {fileID: 0}
   artifactCost: 2
   bonusPoison: 0
+  bonusDamage: 0
   bonusAttack: 0
   bonusCrystal: 0
   bonusAttributeExperience: 0
+  execution: 0
+  doubleLifeSteal: 0
+  bonusShield: 0
+  bonusHeal: 0
+  bonusDraw: 0
+--- !u!114 &-489017352562569986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8013344560810297594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+--- !u!114 &2700100144323173858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8013344560810297594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []

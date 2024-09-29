@@ -19,7 +19,7 @@ public class TooltipManager : MonoBehaviour
         if (tooltipPanel.activeSelf)
         {
             Vector2 mousePosition = Input.mousePosition;
-            tooltipRectTransform.position = mousePosition + new Vector2(0, 150f);
+            tooltipRectTransform.position = mousePosition + new Vector2(150f, 0f);
         }
     }
 
