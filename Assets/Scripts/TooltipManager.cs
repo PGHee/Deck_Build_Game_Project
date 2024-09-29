@@ -32,7 +32,7 @@ public class TooltipManager : MonoBehaviour
         tooltipText.rectTransform.sizeDelta = new Vector2(tooltipRectTransform.sizeDelta.x - 20f, preferredHeight);
 
         // 툴팁이 화면 밖으로 나가는지 확인하여 위치를 조정
-        tooltipRectTransform.position = mousePosition + new Vector2(0, 10f);
+        tooltipRectTransform.position = mousePosition + new Vector2(150f, 10f);
         Vector3 tooltipPosition = tooltipRectTransform.position;
 
         // 화면 경계를 넘어가는지 확인 후 X축 좌표 보정

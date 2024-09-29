@@ -21,7 +21,7 @@ public class ArtifactTooltipManager : MonoBehaviour
         if (tooltipPanel.activeSelf)
         {
             Vector2 mousePosition = Input.mousePosition;
-            tooltipRectTransform.position = mousePosition + new Vector2(0f, 0f);
+            tooltipRectTransform.position = mousePosition + new Vector2(150f, 10f);
         }
     }
 
