@@ -222,9 +222,9 @@ public class BattleRewardManager : MonoBehaviour
         GameObject crystalAmount = GameObject.Find("CrystalAmount");
         crystalAmount.GetComponent<TextMeshProUGUI>().text = "+" + rewardCrystal + " crystal";
 
-        clearButtonsBattleReward[0].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/amethyst");
-        clearButtonsBattleReward[1].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/amethyst");
-        clearButtonsBattleReward[2].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/amethyst");
+        clearButtonsBattleReward[0].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
+        clearButtonsBattleReward[1].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
+        clearButtonsBattleReward[2].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
     }
 
     public void GetBattleReward(int buttonNum)

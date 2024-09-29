@@ -24,7 +24,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         IncreaseMaxHP, 
         IncreaseManaGain, 
         IncreaseMasteryGain
-    }
+    } //사용x
 
     public ActiveEffect activeEffect;
     public int activeCoef;
