@@ -18,8 +18,9 @@ public class TooltipManager : MonoBehaviour
     public void ShowTooltip(string text)
     {
         Vector2 mousePosition = Input.mousePosition;
-        tooltipRectTransform.position = mousePosition + new Vector2(0, 10f);
         tooltipText.text = text;
+
+        // 텍스트 레이아웃을 즉시 갱신하여 크기를 가져옴
         LayoutRebuilder.ForceRebuildLayoutImmediate(tooltipText.rectTransform);
 
         // 텍스트의 높이에 따라 툴팁 패널의 높이를 조정
@@ -29,6 +30,24 @@ public class TooltipManager : MonoBehaviour
 
         // 텍스트 RectTransform을 패널 크기에 맞춰 조정
         tooltipText.rectTransform.sizeDelta = new Vector2(tooltipRectTransform.sizeDelta.x - 20f, preferredHeight);
+
+        // 툴팁이 화면 밖으로 나가는지 확인하여 위치를 조정
+        tooltipRectTransform.position = mousePosition + new Vector2(0, 10f);
+        Vector3 tooltipPosition = tooltipRectTransform.position;
+
+        // 화면 경계를 넘어가는지 확인 후 X축 좌표 보정
+        float panelWidth = tooltipRectTransform.sizeDelta.x;
+        if (tooltipPosition.x + panelWidth / 2 > Screen.width) // 오른쪽 경계를 넘는 경우
+        {
+            tooltipPosition.x = Screen.width - panelWidth / 2;
+        }
+        else if (tooltipPosition.x - panelWidth / 2 < 0) // 왼쪽 경계를 넘는 경우
+        {
+            tooltipPosition.x = panelWidth / 2;
+        }
+
+        // X축이 조정된 위치로 재배치
+        tooltipRectTransform.position = new Vector3(tooltipPosition.x, tooltipPosition.y, tooltipPosition.z);
 
         tooltipPanel.SetActive(true);
     }
