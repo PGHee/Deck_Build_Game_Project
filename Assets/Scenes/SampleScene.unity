@@ -20674,6 +20674,8 @@ MonoBehaviour:
   fadeManager: {fileID: 308242726}
   stageManager: {fileID: 162533647}
   endTurnButton: {fileID: 939325982}
+  settingsManager: {fileID: 237406001}
+  audioMixer: {fileID: 24100000, guid: bf9784e367ea7b346ad891390df93e48, type: 2}
 --- !u!1 &751023788
 GameObject:
   m_ObjectHideFlags: 0
@@ -57820,6 +57822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2120515474}
   - component: {fileID: 2120515473}
+  - component: {fileID: 2120515475}
   m_Layer: 0
   m_Name: Effect
   m_TagString: Untagged
@@ -57853,13 +57856,13 @@ MonoBehaviour:
   effectSounds:
   - {fileID: 8300000, guid: a652877b012108e41871f867ada9f176, type: 3}
   - {fileID: 8300000, guid: 1eb7cbaf61d23a64bbd36c0a38b5cb0c, type: 3}
-  - {fileID: 8300000, guid: 83829ff414f47a048b5387e4ab33571c, type: 3}
+  - {fileID: 8300000, guid: 34fc4de1617e03d49938c421a2cf4d0b, type: 3}
   - {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
   - {fileID: 8300000, guid: b7f8695cf65a4f24eb37544298821146, type: 3}
   - {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}
-  - {fileID: 8300000, guid: c91fcf414acc0344cb03b13996f1bf3b, type: 3}
-  - {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
-  - {fileID: 8300000, guid: acbcb75601b0082458fda8807f67c813, type: 3}
+  - {fileID: 8300000, guid: de625f0c36b550743a6b718af7ae6730, type: 3}
+  - {fileID: 8300000, guid: 8ec059e70720f2f4280ba141ac76f884, type: 3}
+  - {fileID: 8300000, guid: 8ff2a2d7e79f81c40ac447512f879374, type: 3}
   - {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
   screenEffectPrefabs:
   - {fileID: 7330544260126814898, guid: da1978f57dc29a14e88a69509d42deca, type: 3}
@@ -57887,6 +57890,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1394310790}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &2120515475
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120515472}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -4808901192022218805, guid: bf9784e367ea7b346ad891390df93e48, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2121074571
 GameObject:
   m_ObjectHideFlags: 0

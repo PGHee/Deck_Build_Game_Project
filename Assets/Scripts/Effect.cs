@@ -11,7 +11,7 @@ public class Effect : MonoBehaviour
 
     private void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         audioSource.volume = PlayerPrefs.GetFloat("effectVolume", 1f);  // PlayerPrefs에 저장된 이펙트 볼륨을 불러와 설정
     }
 

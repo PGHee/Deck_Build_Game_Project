@@ -78,14 +78,14 @@ public class SettingsManager : MonoBehaviour
 
     public void SetBGMVolume(float volume)
     {
-        // 볼륨 범위 0~1을 데시벨로 변환, 최대 6dB까지 증가
+        // 볼륨 범위 0~1을 데시벨로 변환, 최대 20dB까지 증가
         audioMixer.SetFloat("BGMVolume", Mathf.Lerp(-80f, 20f, Mathf.Clamp01(volume)));
         PlayerPrefs.SetFloat("bgmVolume", volume);
     }
 
     public void SetEffectVolume(float volume)
     {
-        // 볼륨 범위 0~1을 데시벨로 변환, 최대 6dB까지 증가
+        // 볼륨 범위 0~1을 데시벨로 변환, 최대 20dB까지 증가
         audioMixer.SetFloat("EffectVolume", Mathf.Lerp(-80f, 20f, Mathf.Clamp01(volume)));
         PlayerPrefs.SetFloat("effectVolume", volume);
     }

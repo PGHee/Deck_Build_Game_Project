@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameDirector : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class GameDirector : MonoBehaviour
     public GameObject endTurnButton;
     private EventManager eventManager;
     private BackgroundManager backgroundManager;
+    public SettingsManager settingsManager;
+    public AudioMixer audioMixer;
 
     void Start()
     {
@@ -30,7 +33,13 @@ public class GameDirector : MonoBehaviour
         deckManager = FindObjectOfType<DeckManager>();
         eventManager = FindObjectOfType<EventManager>();
         backgroundManager = FindObjectOfType<BackgroundManager>();
+        
+        float bgmVolume = PlayerPrefs.GetFloat("bgmVolume", 0.8f);
+        float effectVolume = PlayerPrefs.GetFloat("effectVolume", 0.8f);
+        settingsManager.SetBGMVolume(bgmVolume);
+        settingsManager.SetEffectVolume(effectVolume);
         InitGame();
+        SetDefaultAudioSettings();
     }
 
     void InitGame()
@@ -41,6 +50,11 @@ public class GameDirector : MonoBehaviour
 
         popupManager.ShowPopup("StartDeck");
         message.ShowSystemMessage("3가지 속성 선택");
+    }
+
+    void SetDefaultAudioSettings()
+    {
+        audioMixer.SetFloat("MasterVolume", 20f);
     }
 
     public void OnPortalEntered(string portalType)
