@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class TurnActionUI : MonoBehaviour
+public class TurnActionUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public SpriteRenderer monsterActionUI;
     public TextMeshProUGUI monsterActionText;
@@ -14,14 +15,88 @@ public class TurnActionUI : MonoBehaviour
     public float pulseScale = 1.2f; // 펄스 시 커지는 크기 배율
     public int pulseCount = 2; // 펄스 반복 횟수
 
+    private TooltipManager tooltipManager;
+    private string description;
+
+    private void Start()
+    {
+        tooltipManager = FindObjectOfType<TooltipManager>();
+    }
+
     public void Initialize(Transform target, ActionType monsterAction)
     {
         transform.SetParent(target);
         transform.localPosition = new Vector3(0, 3.0f, 0);
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        tooltipManager.ShowTooltip(description);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        tooltipManager.HideTooltip();
+    }
+
+    private void UpdateDescription(ActionType monsterAction, int intEffect, float floatEffect)
+    {
+        switch (monsterAction)
+        {
+            case ActionType.Damage:
+                description = $"<size=15>이번 턴에 {intEffect} 데미지로 공격을 가합니다.</size>";
+                break;
+            case ActionType.StrongAttack:
+                description = $"<size=15>이번 턴에 {intEffect} 데미지로 강력한 공격을 가합니다.</size>";
+                break;
+            case ActionType.LifeStealAttack:
+                description = $"<size=15>이번 턴에 {intEffect} 데미지로 흡혈 공격을 가합니다.</size>";
+                break;
+            case ActionType.Shield:
+                description = $"<size=15>이번 턴에 {intEffect}만큼 방어도를 쌓습니다.</size>";
+                break;
+            case ActionType.Heal:
+                description = $"<size=15>이번 턴에 {intEffect}만큼 본인의 체력을 회복합니다.</size>";
+                break;
+            case ActionType.AreaHeal:
+                description = $"<size=15>이번 턴에 {intEffect}만큼 몬스터 전체의 체력을 회복합니다.</size>";
+                break;
+            case ActionType.Poison:
+                description = $"<size=15>이번 턴에 {intEffect}의 독을 부여합니다.</size>";
+                break;
+            case ActionType.SelfDestruct:
+                description = $"<size=15>이번 턴에 자폭하여 {intEffect}의 데미지를 줍니다.</size>";
+                break;
+            case ActionType.IncreaseDamage:
+                description = $"<size=15>이번 턴에 {floatEffect}% 데미지 증가 버프를 겁니다.</size>";
+                break;
+            case ActionType.IncreaseDamageStack:
+                description = $"<size=15>이번 턴에 영구적인 {floatEffect}% 데미지 증가 버프를 겁니다.</size>";
+                break;
+            case ActionType.LifeSteal:
+                description = $"<size=15>이번 턴에 {floatEffect}% 흡혈 버프를 겁니다.</size>";
+                break;
+            case ActionType.ReduceDamage:
+                description = $"<size=15>이번 턴에 {floatEffect}% 데미지 감소 버프를 겁니다.</size>";
+                break;
+            case ActionType.ReflectDamage:
+                description = $"<size=15>이번 턴에 {floatEffect}% 데미지 반사 버프를 겁니다.</size>";
+                break;
+            case ActionType.Wait:
+                description = $"<size=15>이번 턴에 아무런 행동을 하지 않습니다.</size>";
+                break;
+            case ActionType.SkipTurn:
+                description = $"<size=15>이번 턴에 마법사에게 경직 디버프를 겁니다.</size>";
+                break;
+            case ActionType.Confuse:
+                description = $"<size=15>이번 턴에 마법사에게 혼란 디버프를 겁니다.</size>";
+                break;
+        }
+    }
     
     public void UpdateAction(ActionType monsterAction, int intEffect, float floatEffect)
     {
+        UpdateDescription(monsterAction, intEffect, floatEffect);
         monsterActionUI.color = new Color(1, 1, 1, 1);
         switch (monsterAction)
         {

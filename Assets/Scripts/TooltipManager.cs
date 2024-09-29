@@ -72,7 +72,6 @@ public class TooltipManager : MonoBehaviour
                 description = $"한 턴 뒤 데미지: {intValue}";
                 break;
         }
-
         return description;
     }
 }
