@@ -11,6 +11,7 @@ public class BattleRewardManager : MonoBehaviour
     public DynamicButtonManager dynamicButtonManager;
     public RewardManager rewardManager;
     public GameObject[] clearButtonsBattleReward;
+    public UIBar uiBar;
 
     public int playerLevel;
     public Dictionary<PlayerState.AttributeType, int> attributeMastery;
@@ -21,6 +22,7 @@ public class BattleRewardManager : MonoBehaviour
     public int rewardEXP;
 
     public int battleRewardStep;
+
 
     // Start is called before the first frame update
     void Start()
@@ -239,6 +241,7 @@ public class BattleRewardManager : MonoBehaviour
         {
             playerState.GainCrystal(rewardCrystal);
             playerState.AddExperience(rewardEXP);
+            uiBar.UpdateUIBar();
         }
 
         battleRewardStep++;

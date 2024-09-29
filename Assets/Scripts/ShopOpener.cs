@@ -6,11 +6,6 @@ public class ShopOpener : MonoBehaviour
 {
     public GameObject shopManager;
     public GameObject popupManager;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void OnMouseDown()
     {

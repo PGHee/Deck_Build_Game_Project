@@ -5,13 +5,8 @@ using UnityEngine.UI;
 
 public class DynamicButtonManager : MonoBehaviour
 {
-    public GameObject[] cardPrefabs;  // Ä«µå ÇÁ¸®ÆÕ ¹è¿­
-    public GameObject[] artifactPrefabs; // ¾ÆÆ¼ÆÑÆ® ÇÁ¸®ÆÕ ¹è¿­
-
-    void Start()
-    {
-
-    }
+    public GameObject[] cardPrefabs;  // Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
+    public GameObject[] artifactPrefabs; // ï¿½ï¿½Æ¼ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
 
     public void CardSpriteToButton(int cardNum, GameObject clearButton)
     {
@@ -21,12 +16,12 @@ public class DynamicButtonManager : MonoBehaviour
 
         if (spriteFromPrefab != null)
         {
-            // ¹öÆ°ÀÇ ÀÌ¹ÌÁö ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿Í ½ºÇÁ¶óÀÌÆ®¸¦ º¯°æÇÕ´Ï´Ù.
+            // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
             clearButton.GetComponent<Image>().sprite = spriteFromPrefab;
         }
         else
         {
-            Debug.LogError("ÇÁ¸®ÆÕ¿¡¼­ ½ºÇÁ¶óÀÌÆ®¸¦ °¡Á®¿Ã ¼ö ¾ø½À´Ï´Ù. ÇÁ¸®ÆÕ¿¡ SpriteRenderer°¡ Æ÷ÇÔµÇ¾î ÀÖ´ÂÁö È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½ï¿½Õ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½Õ¿ï¿½ SpriteRendererï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
         }
     }
 
@@ -36,15 +31,15 @@ public class DynamicButtonManager : MonoBehaviour
 
         Sprite spriteFromPrefab = artifactPrefab.GetComponent<SpriteRenderer>().sprite;
 
-        // ½ºÇÁ¶óÀÌÆ®°¡ Á¤»óÀûÀ¸·Î °¡Á®¿ÍÁ³´ÂÁö È®ÀÎÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
         if (spriteFromPrefab != null)
         {
-            // ¹öÆ°ÀÇ ÀÌ¹ÌÁö ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿Í ½ºÇÁ¶óÀÌÆ®¸¦ º¯°æÇÕ´Ï´Ù.
+            // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
             clearButton.GetComponent<Image>().sprite = spriteFromPrefab;
         }
         else
         {
-            Debug.LogError("ÇÁ¸®ÆÕ¿¡¼­ ½ºÇÁ¶óÀÌÆ®¸¦ °¡Á®¿Ã ¼ö ¾ø½À´Ï´Ù. ÇÁ¸®ÆÕ¿¡ SpriteRenderer°¡ Æ÷ÇÔµÇ¾î ÀÖ´ÂÁö È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½ï¿½Õ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½Õ¿ï¿½ SpriteRendererï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
         }
     }
 

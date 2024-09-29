@@ -23,14 +23,6 @@ public class ArtifactInfo : MonoBehaviour
     public int bonusHeal;
     public int bonusDraw;
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     void OnMouseDown()
     {
         artifactManager = GameObject.Find("ArtifactManager");

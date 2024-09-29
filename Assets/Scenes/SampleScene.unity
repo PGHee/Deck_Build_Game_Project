@@ -1922,6 +1922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crystalCostText: {fileID: 1931869860}
   recoverResourceText: {fileID: 2121074572}
+  uiBar: {fileID: 915173986}
 --- !u!114 &139595327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46249,6 +46250,7 @@ MonoBehaviour:
   dynamicButtonManager: {fileID: 380729697}
   rewardManager: {fileID: 1674798270}
   clearButtonsBattleReward: []
+  uiBar: {fileID: 915173986}
   playerLevel: 0
   rewardCardNums: 
   rewardArtifactNums: 

@@ -21,9 +21,11 @@ public class UIBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         playerState = FindObjectOfType<PlayerState>();
         SetUIAlpha(fadedAlpha);
+        UpdateUIBar();
     }
 
-    private void Update()
+
+    public void UpdateUIBar()
     {
         UpdateLevelText();
         UpdateExperienceBar();

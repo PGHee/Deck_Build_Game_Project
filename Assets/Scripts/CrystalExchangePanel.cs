@@ -8,10 +8,10 @@ public class CrystalExchangePanel : MonoBehaviour
 {
     public TextMeshProUGUI crystalCostText;         // 크리스탈 요구량 텍스트
     public TextMeshProUGUI recoverResourceText;     // 회복할 서클 양 텍스트
+    public UIBar uiBar;
 
     private int targetRecoverAmount = 0;            // 회복하려는 서클 양
     private int crystalCostPerResource = 30;        // 서클 하나를 회복하는 데 필요한 크리스탈 양
-
     private PlayerState playerState;                // 플레이어 상태를 참조하기 위한 변수
     private SystemMessage message;                  // 시스템 메시지 출력을 위한 변수
 
@@ -76,6 +76,7 @@ public class CrystalExchangePanel : MonoBehaviour
                 targetRecoverAmount = 0;
                 UpdateUI();
                 playerState.UpdateHPBar();
+                uiBar.UpdateUIBar();
             }
             else message.ShowSystemMessage("플레이어의 마석이 부족합니다.");  // 크리스탈이 부족한 경우 메시지 출력
         }

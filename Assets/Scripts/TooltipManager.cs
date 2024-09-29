@@ -11,30 +11,24 @@ public class TooltipManager : MonoBehaviour
     private void Awake()
     {
         tooltipRectTransform = tooltipPanel.GetComponent<RectTransform>();
-        HideTooltip();  // 시작할 때 툴팁을 숨깁니다.
-    }
-
-    private void Update()
-    {
-        if (tooltipPanel.activeSelf)
-        {
-            Vector2 mousePosition = Input.mousePosition;
-            tooltipRectTransform.position = mousePosition + new Vector2(0, 150f);
-        }
+        tooltipRectTransform.pivot = new Vector2(0.5f, 0f); // 패널 하단 위치를 고정, 길이가 늘어나면 위쪽으로 확장
+        HideTooltip(); 
     }
 
     public void ShowTooltip(string text)
     {
+        Vector2 mousePosition = Input.mousePosition;
+        tooltipRectTransform.position = mousePosition + new Vector2(0, 10f);
         tooltipText.text = text;
         LayoutRebuilder.ForceRebuildLayoutImmediate(tooltipText.rectTransform);
 
-        // 텍스트의 높이에 따라 툴팁 패널의 높이를 조정합니다.
+        // 텍스트의 높이에 따라 툴팁 패널의 높이를 조정
         float preferredHeight = tooltipText.preferredHeight;
-        Vector2 newSize = new Vector2(tooltipRectTransform.sizeDelta.x, preferredHeight + 20f); // 20f는 패딩
+        Vector2 newSize = new Vector2(tooltipRectTransform.sizeDelta.x, preferredHeight + 20f);
         tooltipRectTransform.sizeDelta = newSize;
 
         // 텍스트 RectTransform을 패널 크기에 맞춰 조정
-        tooltipText.rectTransform.sizeDelta = new Vector2(tooltipRectTransform.sizeDelta.x - 20f, preferredHeight); // 20f는 패딩
+        tooltipText.rectTransform.sizeDelta = new Vector2(tooltipRectTransform.sizeDelta.x - 20f, preferredHeight);
 
         tooltipPanel.SetActive(true);
     }
@@ -69,7 +63,7 @@ public class TooltipManager : MonoBehaviour
                 description = $"데미지 감소: {effectValue*100}%, {duration}턴";
                 break;
             case EffectType.SkipTurn:
-                description = $"스턴: {duration}턴";
+                description = $"경직: {duration}턴";
                 break;
             case EffectType.Confuse:
                 description = $"혼란: {duration}턴";
@@ -81,5 +75,4 @@ public class TooltipManager : MonoBehaviour
 
         return description;
     }
-
 }

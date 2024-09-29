@@ -6,11 +6,6 @@ public class EventOpener : MonoBehaviour
 {
     public GameObject eventManager;
     public GameObject popupManager;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void OnMouseDown()
     {

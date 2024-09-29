@@ -18,23 +18,28 @@ public class BuffDebuffIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerEnter(PointerEventData eventData)
     {
         string description = "";
-        description += "[ 버프 ]\n";
-        if (buffDebuffManager.entityBuffs.TryGetValue(entity, out var buffs))
+
+        // 버프 출력
+        if (buffDebuffManager.entityBuffs.TryGetValue(entity, out var buffs) && buffs.Count > 0)
         {
+            description += "[ 버프 ]\n";
             foreach (var buff in buffs)
             {
                 description += tooltipManager.GetBuffDescription(buff.Item1, buff.Item2, buff.Item3, buff.Item4) + "\n";
             }
         }
-        
-        description += "\n[ 디버프 ]\n";
-        if (buffDebuffManager.entityDebuffs.TryGetValue(entity, out var debuffs))
+
+        // 디버프 출력
+        if (buffDebuffManager.entityDebuffs.TryGetValue(entity, out var debuffs) && debuffs.Count > 0)
         {
+            if (description.Length > 0) description += "\n"; // 버프가 있었으면 줄바꿈 추가
+            description += "[ 디버프 ]\n";
             foreach (var debuff in debuffs)
             {
                 description += tooltipManager.GetBuffDescription(debuff.Item1, debuff.Item2, debuff.Item3, debuff.Item4) + "\n";
             }
         }
+
         tooltipManager.ShowTooltip(description);
     }
 

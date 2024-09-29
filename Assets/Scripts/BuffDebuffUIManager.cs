@@ -25,30 +25,13 @@ public class BuffDebuffUIManager : MonoBehaviour
 
             string prefabPath = $"Prefabs/{folderPath}/{effectType}Prefab";
             GameObject prefab = Resources.Load<GameObject>(prefabPath);
-            if (prefab != null)
-            {
-                prefabDictionary[effectType] = prefab;
-            }
-            else
-            {
-                Debug.LogError($"Failed to load prefab at {prefabPath}");
-            }
+            if (prefab != null) prefabDictionary[effectType] = prefab;
         }
     }
 
     public GameObject AddBuffIcon(Transform panel, EffectType effectType)
     {
-        if (!iconPrefabs.ContainsKey(effectType))
-        {
-            Debug.LogError($"No buff icon prefab for effect type: {effectType}");
-            return null;
-        }
-
-        if (!activeBuffIcons.ContainsKey(panel))
-        {
-            activeBuffIcons[panel] = new List<GameObject>();
-        }
-
+        if (!activeBuffIcons.ContainsKey(panel)) activeBuffIcons[panel] = new List<GameObject>();
         if (!IconExists(activeBuffIcons[panel], effectType))
         {
             GameObject buffIcon = Instantiate(iconPrefabs[effectType], panel);
@@ -63,17 +46,7 @@ public class BuffDebuffUIManager : MonoBehaviour
 
     public GameObject AddDebuffIcon(Transform panel, EffectType effectType)
     {
-        if (!iconPrefabs.ContainsKey(effectType))
-        {
-            Debug.LogError($"No debuff icon prefab for effect type: {effectType}");
-            return null;
-        }
-
-        if (!activeDebuffIcons.ContainsKey(panel))
-        {
-            activeDebuffIcons[panel] = new List<GameObject>();
-        }
-
+        if (!activeDebuffIcons.ContainsKey(panel)) activeDebuffIcons[panel] = new List<GameObject>();
         if (!IconExists(activeDebuffIcons[panel], effectType))
         {
             GameObject debuffIcon = Instantiate(iconPrefabs[effectType], panel);
@@ -120,14 +93,7 @@ public class BuffDebuffUIManager : MonoBehaviour
         for (int i = 0; i < icons.Count; i++)
         {
             RectTransform iconTransform = icons[i].GetComponent<RectTransform>();
-            if (iconTransform != null)
-            {
-                iconTransform.anchoredPosition = new Vector2(i * iconSpacing, 0);
-            }
-            else
-            {
-                Debug.LogError($"Icon {icons[i].name} does not have a RectTransform component.");
-            }
+            if (iconTransform != null) iconTransform.anchoredPosition = new Vector2(i * iconSpacing, 0);
         }
     }
 }

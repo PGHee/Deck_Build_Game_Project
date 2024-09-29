@@ -10,18 +10,9 @@ public class CardRewardManager : MonoBehaviour
     public Transform cardPosition1;
     public Transform cardPosition2;
     public Transform cardPosition3;
-
     int[] playerElements = new int[] { 0, 0, 0 };
     int[] playerLevels = new int[] { 1, 1, 1, 2, 2, 3 };
-
     public DeckManager deckManager;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void randomRewardCards(int[] elements, int[] levels)
     {

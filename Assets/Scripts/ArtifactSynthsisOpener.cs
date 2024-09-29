@@ -7,12 +7,6 @@ public class ArtifactSynthsisOpener : MonoBehaviour
     public GameObject artifactSynthesisManager;
     public GameObject popupManager;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     void OnMouseDown()
     {
         Debug.Log("artifact synthesis open!!!");
