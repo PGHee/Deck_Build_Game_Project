@@ -58,7 +58,7 @@ public class PopupManager : MonoBehaviour
                 if (!TurnManager.instance.enabled)
                 {
                     popupPanelArtifactMount.SetActive(true);
-                    artifactMountManager.UnmountArtifact();
+                    //artifactMountManager.UnmountArtifact();
                 }
                 else
                 {

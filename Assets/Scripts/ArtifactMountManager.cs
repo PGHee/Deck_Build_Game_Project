@@ -118,6 +118,7 @@ public class ArtifactMountManager : MonoBehaviour
             GameObject artifactMounted = GameObject.FindWithTag("Artifact");
             if (artifactMounted != null)
             {
+                UnmountArtifact();
                 Destroy(artifactMounted);
             }
             
@@ -186,7 +187,7 @@ public class ArtifactMountManager : MonoBehaviour
 
         if(artifactInfo.activeCoefInfo > 0)
         {
-            outputString += "[코스트 : " + artifactInfo.artifactCost + "]";
+            outputString += "[액티브] : [코스트 : " + artifactInfo.artifactCost + "]";
 
             switch (artifactInfo.activeEffectInfo)
             {
@@ -219,6 +220,11 @@ public class ArtifactMountManager : MonoBehaviour
                     break;
             }
         }
+        else
+        {
+            outputString += "[액티브] : 없음";
+        }
+        outputString += "<br>[패시브] :";
 
         for (int i = 0; i < artifactInfo.passiveListInfo.Count; i++)
         {

@@ -50,9 +50,9 @@ MonoBehaviour:
   eventInputNum: 50
   eventOutputNum: 10
   eventImage: {fileID: 21300000, guid: 6ec2563ce629dce479643ccc0f4bbbd9, type: 3}
-  eventText: "\uC0AC\uB78C\uB4E4\uC774 \uBAA8\uC5EC \uC57C\uC601\uC744 \uD558\uACE0\uC788\uB2E4.<br>\uD5D8\uC0C1\uAD73\uC740
+  eventText: "\uC0AC\uB78C\uB4E4\uC774 \uBAA8\uC5EC \uC57C\uC601\uC744 \uD558\uACE0\uC788\uB2E4.<br>\uD5D8\uC0C1\uAD83\uC740
     \uC0AC\uB78C\uC774 \uB9D0\uC744 \uAC78\uC5B4\uC628\uB2E4.<br>[\uBAB8 \uC880 \uB179\uC774\uACE0
-    \uAC00\uB77C\uACE0, \uBE44\uC6A9\uC740 \uC870\uAE08\uB9CC \uBC1B\uC744\uD14C\uB2C8\uAE4C.]"
+    \uAC00\uB77C\uACE0, 50 \uD06C\uB9AC\uC2A4\uD0C8\uB9CC \uB0B4.]"
 --- !u!1 &4474382289309420246
 GameObject:
   m_ObjectHideFlags: 0

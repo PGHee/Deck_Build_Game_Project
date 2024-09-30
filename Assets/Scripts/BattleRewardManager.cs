@@ -157,6 +157,10 @@ public class BattleRewardManager : MonoBehaviour
     {
         GetClearButtonBattleReward();
 
+        UnClearButton(0);
+        UnClearButton(1);
+        UnClearButton(2);
+
         for (int i = 0; i < 3; i++)
         {
             int rewardCardNum = RandomSelectCard();
@@ -222,9 +226,13 @@ public class BattleRewardManager : MonoBehaviour
         GameObject crystalAmount = GameObject.Find("CrystalAmount");
         crystalAmount.GetComponent<TextMeshProUGUI>().text = "+" + rewardCrystal + " crystal";
 
-        clearButtonsBattleReward[0].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
+        //clearButtonsBattleReward[0].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
         clearButtonsBattleReward[1].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
-        clearButtonsBattleReward[2].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
+        //clearButtonsBattleReward[2].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
+
+        ClearButton(0);
+        ClearButton(2);
+
     }
 
     public void GetBattleReward(int buttonNum)
@@ -280,5 +288,25 @@ public class BattleRewardManager : MonoBehaviour
                 rectTransform.localEulerAngles = new Vector3(0, 0, 0);
             }
         }
+    }
+
+    public void ClearButton(int buttonNum)
+    {
+        GetClearButtonBattleReward();
+         
+        Color color = clearButtonsBattleReward[buttonNum].GetComponent<Image>().color;
+        color.a = 0.0f;
+
+        clearButtonsBattleReward[buttonNum].GetComponent<Image>().color = color;
+    }
+
+    public void UnClearButton(int buttonNum)
+    {
+        GetClearButtonBattleReward();
+
+        Color color = clearButtonsBattleReward[buttonNum].GetComponent<Image>().color;
+        color.a = 255.0f;
+
+        clearButtonsBattleReward[buttonNum].GetComponent<Image>().color = color;
     }
 }

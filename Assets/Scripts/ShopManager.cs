@@ -112,7 +112,9 @@ public class ShopManager : MonoBehaviour
             sellCardPrices[i] = ((int)(sellCardNum % 100) / 2 + 1) * 5;
 
             dynamicButtonManager.CardSpriteToButton(sellCardNum, clearButtonsShop[i]); // 일러만 가져오도록 수정 필요
-            PriceText[i].text = "[" + sellCardNum + " / " + sellCardPrices[i] + "]";
+
+            GameObject cardPrefab = Resources.Load<GameObject>($"Prefabs/Card/{CardNameConverter.CardNumToCode(sellCardNum)}");
+            PriceText[i].text = "[" + cardPrefab.GetComponent<Card>().cardName + "<br>" + sellCardPrices[i] + "]";
         }
         
     }
@@ -186,7 +188,7 @@ public class ShopManager : MonoBehaviour
 
             PriceText[i + 5].text = "[" + sellArtifactNum + " / " + sellArtifactPrices[i] + "]";
 
-            clearButtonsShop[i + 5].GetComponent<UIToolTip>().descriptionTextArtifact = artifactMountManager.GetArtifactText(sellArtifactNum);
+            clearButtonsShop[i + 5].GetComponent<UIToolTip>().descriptionTextArtifact = artifactMountManager.GetArtifactText(sellArtifactNum - 1 );
         }
     }
 
