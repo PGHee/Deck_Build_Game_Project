@@ -13,6 +13,8 @@ public class TurnManager : MonoBehaviour
     private Actions cardActions;
     private SystemMessage message;
     private InvestCrystalManager investCrystal;
+    private PopupManager popupManager;
+    private DeckListManager deckListManager;
     public ArtifactManager artifactManager;
     public HandControl handController;
     public GameObject endTurnButton;
@@ -40,6 +42,8 @@ public class TurnManager : MonoBehaviour
         handController = FindObjectOfType<HandControl>();
         artifactManager = FindObjectOfType<ArtifactManager>();
         investCrystal = FindObjectOfType<InvestCrystalManager>();
+        popupManager = FindObjectOfType<PopupManager>();
+        deckListManager = FindObjectOfType<DeckListManager>();
         this.enabled = false;
     }
 
@@ -80,6 +84,7 @@ public class TurnManager : MonoBehaviour
         }
 
         deckManager.TurnStartCard(); // draw cards when Pturn start
+
         if (artifactManager.bonusDraw > 0)
         {
             for (int i = 0; i < artifactManager.bonusDraw; i++)
@@ -89,6 +94,16 @@ public class TurnManager : MonoBehaviour
         }
         if (artifactManager.bonusShield > 0) player.ApplyShield(artifactManager.bonusShield);
         if (artifactManager.bonusHeal > 0) player.Heal(artifactManager.bonusHeal);
+
+        if (player.attributeMastery[PlayerState.AttributeType.Light] >= 3 && player.attributeMastery[PlayerState.AttributeType.Light] < 6)
+        {
+            deckManager.CardDraw();
+        }
+        else if(player.attributeMastery[PlayerState.AttributeType.Light] >= 6)
+        {
+            popupManager.ShowPopup("DeckList");
+            deckListManager.CardListUp("DeckArray");
+        }
 
         message.ShowSystemMessage("플레이어 턴");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
     }
