@@ -167,9 +167,24 @@ public class ArtifactMountManager : MonoBehaviour
     {
         string outputString = new string ("");
 
+        for (int i = 0; i < 7; i++)
+        {
+            artifactPrefabs[i] = Resources.Load<GameObject>($"Prefabs/Artifact/artifact_{i + 1}");
+        }
+
+        for (int j = 10; j < 17; j++)
+        {
+            artifactPrefabs[j] = Resources.Load<GameObject>($"Prefabs/Artifact/artifact_{j + 1}");
+        }
+
+        for (int k = 20; k < 27; k++)
+        {
+            artifactPrefabs[k] = Resources.Load<GameObject>($"Prefabs/Artifact/artifact_{k + 1}");
+        }
+
         ArtifactInfo artifactInfo = artifactPrefabs[artifactnum].GetComponent<ArtifactInfo>();
 
-        if(artifactManager.activeCoef > 0)
+        if(artifactInfo.activeCoefInfo > 0)
         {
             outputString += "[코스트 : " + artifactInfo.artifactCost + "]";
 

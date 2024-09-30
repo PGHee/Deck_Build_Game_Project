@@ -137,15 +137,15 @@ public class BattleRewardManager : MonoBehaviour
             {
                 if (attributeLevelList[i] == 10)
                 {
-                    return (int)(i * 100 + Random.Range(0, 9 * 2 + 1));
+                    return (int)(i * 100 + Random.Range(0, 9 * 2 ));
                 }
                 else
                 {
-                    return (int)(i * 100 + Random.Range(0, attributeLevelList[i] * 2 + 1));
+                    return (int)(i * 100 + Random.Range(0, attributeLevelList[i] * 2 ));
                 } 
             }
         }
-        return (int)(Random.Range(0,10) * 100 + Random.Range(0, attributeLevelList[9] * 2 + 1));
+        return (int)(Random.Range(0,10) * 100 + Random.Range(0, attributeLevelList[9] * 2 ));
     }
 
     public int RandomSelectArtifact()

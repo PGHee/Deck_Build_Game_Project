@@ -11,6 +11,7 @@ public class ShopManager : MonoBehaviour
     public DynamicButtonManager dynamicButtonManager;
     public RewardManager rewardManager;
     private SystemMessage message;
+    private ArtifactMountManager artifactMountManager;
     public GameObject[] clearButtonsShop;
 
     public int playerLevel;
@@ -37,6 +38,7 @@ public class ShopManager : MonoBehaviour
         buyHP = false;
         shopFirstOpen = true;
         message = FindObjectOfType<SystemMessage>();
+        artifactMountManager = FindObjectOfType<ArtifactMountManager>();
     }
 
     public void RestartShop()
@@ -183,6 +185,8 @@ public class ShopManager : MonoBehaviour
             sellArtifactPrices[i] = 100;
 
             PriceText[i + 5].text = "[" + sellArtifactNum + " / " + sellArtifactPrices[i] + "]";
+
+            clearButtonsShop[i + 5].GetComponent<UIToolTip>().descriptionTextArtifact = artifactMountManager.GetArtifactText(sellArtifactNum);
         }
     }
 

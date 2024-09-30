@@ -158,7 +158,7 @@ MonoBehaviour:
   bonusCrystal: 0
   bonusAttributeExperience: 0
   execution: 0
-  doubleLifeSteal: 1
+  doubleLifeSteal: 0
   bonusShield: 0
   bonusHeal: 0
   bonusDraw: 0
