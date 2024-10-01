@@ -171,4 +171,9 @@ public class TurnActionUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         monsterActionUI.transform.localScale = originalScale;
         monsterActionUI.color = new Color(1, 1, 1, alphaEnd); // 최종 투명도 설정
     }
+
+    public void DestroyActionUI()
+    {
+        Destroy(gameObject);
+    }
 }

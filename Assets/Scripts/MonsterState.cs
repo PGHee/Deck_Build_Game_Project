@@ -56,6 +56,7 @@ public class MonsterState : MonoBehaviour
     private BuffDebuffManager buffDebuffManager;
     private Actions monsterActions;
     public Action selectedAction;                                       // 몬스터가 이번 턴에 할 행동
+    private TooltipManager tooltipManager;
 
     public HPBar hpBar;
     private TurnActionUI actionUI;
@@ -76,6 +77,7 @@ public class MonsterState : MonoBehaviour
     {
         TurnManager.instance.RegisterMonster(this);
         monsterActions = FindObjectOfType<Actions>();
+        tooltipManager = FindObjectOfType<TooltipManager>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         effect = FindObjectOfType<Effect>();
         damageText = FindObjectOfType<DamageText>();
@@ -293,6 +295,7 @@ public class MonsterState : MonoBehaviour
         }
         // 완전히 사망 처리합니다.
         animator.SetTrigger("DieTrigger");
+        actionUI.DestroyActionUI();
         buffDebuffManager.RemoveAllEffects(this.gameObject);
         Destroy(hpBar.gameObject);
     }

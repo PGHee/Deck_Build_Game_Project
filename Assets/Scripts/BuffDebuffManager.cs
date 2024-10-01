@@ -13,11 +13,13 @@ public class BuffDebuffManager : MonoBehaviour
     public BackgroundManager backgroundManager;
 
     private Effect effect;
+    private TooltipManager tooltipManager;
 
     void Start()
     {
         player = FindObjectOfType<PlayerState>();
         effect = FindObjectOfType<Effect>();
+        tooltipManager = FindObjectOfType<TooltipManager>();
     }
 
     public void ApplyBuff(GameObject entity, EffectType effectType, int duration, float effectValue, int intValue)
@@ -100,6 +102,8 @@ public class BuffDebuffManager : MonoBehaviour
                 monsterState.RemoveBuffDebuff(effectType, 0, effectValue, intValue);
             }
         }
+
+        tooltipManager.HideTooltip();
     }
 
     private void RemoveDebuff(GameObject entity, EffectType effectType, float effectValue, int intValue)
@@ -123,6 +127,8 @@ public class BuffDebuffManager : MonoBehaviour
                 monsterState.RemoveBuffDebuff(effectType, 0, effectValue, intValue);
             }
         }
+
+        tooltipManager.HideTooltip();
     }
 
     public void RemoveAllEffects(GameObject entity)
@@ -149,6 +155,8 @@ public class BuffDebuffManager : MonoBehaviour
             }
             entityDebuffs.Remove(entity);
         }
+
+        tooltipManager.HideTooltip();
     }
 
     public void UpdateBuffs()
