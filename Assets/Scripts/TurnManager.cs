@@ -105,6 +105,16 @@ public class TurnManager : MonoBehaviour
             deckListManager.CardListUp("DeckArray");
         }
 
+        if (player.attributeMastery[PlayerState.AttributeType.Dark] >= 3 && player.attributeMastery[PlayerState.AttributeType.Dark] < 6)
+        {
+            deckManager.CardSalvage(Random.Range(0, deckManager.graveArray.Length));
+        }
+        else if (player.attributeMastery[PlayerState.AttributeType.Dark] >= 6)
+        {
+            popupManager.ShowPopup("DeckList");
+            deckListManager.CardListUp("GraveArray");
+        }
+
         message.ShowSystemMessage("플레이어 턴");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
     }
 
