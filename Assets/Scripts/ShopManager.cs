@@ -114,7 +114,7 @@ public class ShopManager : MonoBehaviour
             dynamicButtonManager.CardSpriteToButton(sellCardNum, clearButtonsShop[i]); // 일러만 가져오도록 수정 필요
 
             GameObject cardPrefab = Resources.Load<GameObject>($"Prefabs/Card/{CardNameConverter.CardNumToCode(sellCardNum)}");
-            PriceText[i].text = "[" + cardPrefab.GetComponent<Card>().cardName + "<br>" + sellCardPrices[i] + "]";
+            PriceText[i].text = "[" + cardPrefab.GetComponent<Card>().cardName + "]<br>[" + sellCardPrices[i] + " 크리스탈]";
         }
         
     }
@@ -150,7 +150,7 @@ public class ShopManager : MonoBehaviour
                 rewardManager.GetReward("Card", sellCardNums[buttonNum], sellCardPrices[buttonNum]);
                 sellCardNums[buttonNum] = 0;
 
-                message.ShowSystemMessage("구매 감사합니다!");
+                //message.ShowSystemMessage("구매 감사합니다!");
             }
             else
             {
@@ -186,7 +186,7 @@ public class ShopManager : MonoBehaviour
             sellArtifactNums[i] = sellArtifactNum;
             sellArtifactPrices[i] = 100;
 
-            PriceText[i + 5].text = "[" + sellArtifactNum + " / " + sellArtifactPrices[i] + "]";
+            PriceText[i + 5].text = "[" + sellArtifactPrices[i] + " 크리스탈]";
 
             clearButtonsShop[i + 5].GetComponent<UIToolTip>().descriptionTextArtifact = artifactMountManager.GetArtifactText(sellArtifactNum - 1 );
         }
@@ -200,7 +200,7 @@ public class ShopManager : MonoBehaviour
             {
                 rewardManager.GetReward("Artifact", sellArtifactNums[buttonNum], sellArtifactPrices[buttonNum]);
                 sellArtifactNums[buttonNum] = 0;
-                message.ShowSystemMessage("다른것도 어떠신가요?");
+                //message.ShowSystemMessage("다른것도 어떠신가요?");
             }
             else
             {
@@ -231,7 +231,7 @@ public class ShopManager : MonoBehaviour
 
             buyHP = false;
 
-            message.ShowSystemMessage("입맛엔 맞으시나요?");
+            //message.ShowSystemMessage("입맛엔 맞으시나요?");
         }
         else
         {

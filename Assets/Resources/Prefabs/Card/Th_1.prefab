@@ -60,7 +60,7 @@ MonoBehaviour:
   cardFrontFrame: {fileID: 21300000, guid: 7115149c22afad244b94e49550b5ec58, type: 3}
   cardBackFrame: {fileID: 21300000, guid: 09aa28a22a65e444e83a13bcbef50090, type: 3}
   cardImage: {fileID: 21300000, guid: a58dbf25f60567b489b5061d82e9dbb7, type: 3}
-  cardName: Th_1
+  cardName: "\uBC88\uAC1C\uC758 \uC12C\uAD11"
   attributeSprites:
   - {fileID: 940202206, guid: f6af0ec9c326d5945ba383e81490eace, type: 3}
   - {fileID: 123360023, guid: f6af0ec9c326d5945ba383e81490eace, type: 3}

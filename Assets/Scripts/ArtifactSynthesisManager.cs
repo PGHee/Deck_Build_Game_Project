@@ -7,6 +7,7 @@ public class ArtifactSynthesisManager : MonoBehaviour
 {
     public ArtifactManager artifactManager;
     private ArtifactMountManager artifactMountManager;
+    private SystemMessage message;
 
     public int ArtifactListPage;
     public int[] artifactInvenList;
@@ -20,6 +21,7 @@ public class ArtifactSynthesisManager : MonoBehaviour
     void Start()
     {
         artifactMountManager = FindObjectOfType<ArtifactMountManager>();
+        message = FindObjectOfType<SystemMessage>();
 
         ArtifactListPage = 0;
         artifactPrefabs = new GameObject[30];
@@ -180,6 +182,7 @@ public class ArtifactSynthesisManager : MonoBehaviour
 
                 ArtifactListPage = 0;
                 ArtifactListUp();
+                message.ShowSystemMessage("합성 성공!");
             }
         }  
     }

@@ -66,7 +66,7 @@ public class EventManager : MonoBehaviour
                     if(playerState.crystal >= eventInputNum)
                     {
                         rewardManager.GetReward(eventOutput, eventOutputNum, eventInputNum);
-                        message.ShowSystemMessage("-" + eventInput + "");
+                        //message.ShowSystemMessage("-" + eventInput + "");
                     }
                     else message.ShowSystemMessage("크리스탈이 부족해.");
 
@@ -79,7 +79,7 @@ public class EventManager : MonoBehaviour
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
                         if(eventInputNum != 0)
                         {
-                            message.ShowSystemMessage("-" + eventInput + "");
+                            //message.ShowSystemMessage("-" + eventInput + "");
                         }  
                     }
                     else message.ShowSystemMessage("맞는 카드가 없어");
@@ -90,7 +90,7 @@ public class EventManager : MonoBehaviour
                     {
                         artifactManager.DeleteArtifact2Inven(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
-                        message.ShowSystemMessage("-" + eventInput + "");
+                        //message.ShowSystemMessage("-" + eventInput + "");
                     }
                     else message.ShowSystemMessage("맞는 아티팩트가 없어");
                     break ;
@@ -100,7 +100,7 @@ public class EventManager : MonoBehaviour
                     {
                         playerState.TakeDamage(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
-                        message.ShowSystemMessage("-" + eventInput + "");
+                        //message.ShowSystemMessage("-" + eventInput + "");
                     }
                     else message.ShowSystemMessage("체력이 부족해");
                     break ;
