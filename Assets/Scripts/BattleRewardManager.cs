@@ -22,6 +22,7 @@ public class BattleRewardManager : MonoBehaviour
     public int rewardEXP;
 
     public int battleRewardStep;
+    private ArtifactMountManager artifactMountManager;
 
 
     // Start is called before the first frame update
@@ -31,6 +32,7 @@ public class BattleRewardManager : MonoBehaviour
         rewardArtifactNums = new int[3];
         battleRewardStep = 0;
         rewardCrystal = 0;
+        artifactMountManager = FindObjectOfType<ArtifactMountManager>();
     }
 
     public void RestartBattleReward()
@@ -150,12 +152,17 @@ public class BattleRewardManager : MonoBehaviour
 
     public int RandomSelectArtifact()
     {
-        return Random.Range(1, 4);
+        return Random.Range(1, 8);
     }
 
     public void SetCardsToBattleReward()
     {
         GetClearButtonBattleReward();
+
+        for (int i = 0; i < 3; i++)
+        {
+            clearButtonsBattleReward[i].GetComponent<UIToolTip>().openTooltip = false;
+        }
 
         UnClearButton(0);
         UnClearButton(1);
@@ -170,7 +177,7 @@ public class BattleRewardManager : MonoBehaviour
             clearButtonsBattleReward[i].GetComponent<BattleRewardButtonManager>().cardPrefabNum = rewardCardNum;
             rewardCardNums[i] = rewardCardNum;
 
-            dynamicButtonManager.CardSpriteToButton(rewardCardNum, clearButtonsBattleReward[i]);
+            dynamicButtonManager.CardSpriteToButton(rewardCardNum, clearButtonsBattleReward[i]);          
         }
 
     }
@@ -192,6 +199,9 @@ public class BattleRewardManager : MonoBehaviour
             clearButtonsBattleReward[i].GetComponent<BattleRewardButtonManager>().artifactPrefabNum = rewardArtifactNum;
             rewardArtifactNums[i] = rewardArtifactNum;
 
+            clearButtonsBattleReward[i].GetComponent<UIToolTip>().descriptionTextArtifact = artifactMountManager.GetArtifactText(rewardArtifactNum - 1);
+            clearButtonsBattleReward[i].GetComponent<UIToolTip>().isArtifact = true;
+            clearButtonsBattleReward[i].GetComponent<UIToolTip>().openTooltip = true;
         }
     }
 
@@ -200,6 +210,8 @@ public class BattleRewardManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             clearButtonsBattleReward[i].GetComponent<BattleRewardButtonManager>().ResetNumber();
+            clearButtonsBattleReward[i].GetComponent<UIToolTip>().isArtifact = false;
+            clearButtonsBattleReward[i].GetComponent<UIToolTip>().openTooltip = false;
         }
 
         ButtonShapeReset();

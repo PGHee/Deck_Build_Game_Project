@@ -21,6 +21,7 @@ public class TurnManager : MonoBehaviour
 
     private bool isPlayerTurn;
     public bool IsPlayerTurn => isPlayerTurn;
+    public string isSearchEnd;
 
     void Awake()
     {
@@ -95,27 +96,9 @@ public class TurnManager : MonoBehaviour
         if (artifactManager.bonusShield > 0) player.ApplyShield(artifactManager.bonusShield);
         if (artifactManager.bonusHeal > 0) player.Heal(artifactManager.bonusHeal);
 
-        if (player.attributeMastery[PlayerState.AttributeType.Light] >= 3 && player.attributeMastery[PlayerState.AttributeType.Light] < 6)
-        {
-            deckManager.CardDraw();
-        }
-        else if(player.attributeMastery[PlayerState.AttributeType.Light] >= 6)
-        {
-            popupManager.ShowPopup("DeckList");
-            deckListManager.CardListUp("DeckArray");
-        }
-
-        if (player.attributeMastery[PlayerState.AttributeType.Dark] >= 3 && player.attributeMastery[PlayerState.AttributeType.Dark] < 6)
-        {
-            deckManager.CardSalvage(Random.Range(0, deckManager.graveArray.Length));
-        }
-        else if (player.attributeMastery[PlayerState.AttributeType.Dark] >= 6)
-        {
-            popupManager.ShowPopup("DeckList");
-            deckListManager.CardListUp("GraveArray");
-        }
-
         message.ShowSystemMessage("플레이어 턴");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
+
+        StartCoroutine(CardSearchPhaseLight());
     }
 
     public void EndPlayerTurn()
@@ -165,6 +148,50 @@ public class TurnManager : MonoBehaviour
                 
         }
         if(!monsters.TrueForAll(m => m.currentHealth <= 0)) StartPlayerTurn();
+    }
+
+    IEnumerator CardSearchPhaseLight()
+    {
+        isSearchEnd = "Light";
+        
+        if (player.attributeMastery[PlayerState.AttributeType.Light] >= 3 && player.attributeMastery[PlayerState.AttributeType.Light] < 6)
+        {
+            deckManager.CardDraw();
+            TurnStartSearchSwitch();
+        }
+        else if (player.attributeMastery[PlayerState.AttributeType.Light] >= 6)
+        {
+            popupManager.ShowPopup("DeckList");
+            deckListManager.CardListUp("DeckArray");
+            yield return new WaitForSeconds(1);
+            message.ShowSystemMessage("덱에서 빛 속성 카드 획득");
+        }
+        else
+        {
+            TurnStartSearchSwitch();
+        }
+    }
+
+    IEnumerator CardSearchPhaseDark()
+    {
+        isSearchEnd = "Dark";
+        if (player.attributeMastery[PlayerState.AttributeType.Dark] >= 3 && player.attributeMastery[PlayerState.AttributeType.Dark] < 6)
+        {
+            deckManager.CardSalvage(Random.Range(0, deckManager.graveArray.Length));
+            TurnStartSearchSwitch();
+        }
+        else if (player.attributeMastery[PlayerState.AttributeType.Dark] >= 6)
+        {
+            yield return new WaitForSeconds(1);
+            popupManager.ShowPopup("DeckList");
+            deckListManager.CardListUp("GraveArray");
+            yield return new WaitForSeconds(1);
+            message.ShowSystemMessage("묘지에서 어둠 속성 카드 획득");
+        }
+        else
+        {
+            TurnStartSearchSwitch();
+        }
     }
 
     private void CheckBondedRevive()
@@ -222,6 +249,18 @@ public class TurnManager : MonoBehaviour
             battleRewardManager.GetComponent<BattleRewardManager>().RestartBattleReward();
 
             this.enabled = false;
+        }
+    }
+    
+    public void TurnStartSearchSwitch()
+    {
+        if (isSearchEnd == "Light")
+        {
+            StartCoroutine(CardSearchPhaseDark());
+        }
+        else if(isSearchEnd == "Dark")
+        {
+            isSearchEnd = "End";
         }
     }
 }

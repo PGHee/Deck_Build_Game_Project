@@ -10,6 +10,7 @@ public class DeckListManager : MonoBehaviour
     public DynamicButtonManager dynamicButtonManager;
 
     public bool search;
+    public bool delete;
     public int cardListPage;
     public int[] cardList;
     public int pageCardNum;
@@ -17,6 +18,9 @@ public class DeckListManager : MonoBehaviour
     public GameObject[] cardPrefabs;
 
     public string deckTypeListUP;
+
+    private SystemMessage message;
+    private PlayerState playerState;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +31,14 @@ public class DeckListManager : MonoBehaviour
 
         cardListPage = 0;
         search = true;
+        message = FindObjectOfType<SystemMessage>();
+        playerState = FindObjectOfType<PlayerState>();
     }
 
     public void CardListUp(string deckType)
     {
         search = true;
+        delete = false;
         switch (deckType)
         {
             case "DeckArrayOrigin":
@@ -47,18 +54,25 @@ public class DeckListManager : MonoBehaviour
                 cardList = deckManager.graveArray;
                 break ;
 
+            case "DeleteCard":
+                cardList = deckManager.deckArrayOrigin;
+                search = false;
+                delete = true;
+                break;
+
             default:
                 Debug.Log("Wrong Deck Type To List Up");
                 break;
         }
         deckTypeListUP = deckType; // 현재 표시되는 덱 타입을 저장
 
+
+        SetAllButtonClear();
+
+        GetClearButtonCard();
+
         if (cardList.Length > 0)
         {
-            SetAllButtonClear();
-
-            GetClearButtonCard();
-
             if (cardList.Length > 15 * (cardListPage + 1))
             {
                 pageCardNum = 15;
@@ -83,6 +97,7 @@ public class DeckListManager : MonoBehaviour
         else
         {
             Debug.Log("Empty Array" + deckTypeListUP + "");
+            message.ShowSystemMessage("빈 카드 더미 입니다.");
         }
     }
 
@@ -131,13 +146,43 @@ public class DeckListManager : MonoBehaviour
         {
             if (search)
             {
-                deckManager.CardSearch(15 * cardListPage + ButtonNum);
-                search = false;
+                if(deckTypeListUP == "DeckArray")
+                {
+                    deckManager.CardSearch(15 * cardListPage + ButtonNum);
+                    search = false;
+                }else if(deckTypeListUP == "GraveArray")
+                {
+                    deckManager.CardSalvage(15 * cardListPage + ButtonNum);
+                    search = false;
+                }
+                
             }
             else
             {
-                Debug.Log(" already search card");
+                message.ShowSystemMessage("이미 카드를 가져왔다.");
             }    
+        }
+        else if(ButtonNum < pageCardNum && gameDirector.currentMapName.Contains("Village") && deckTypeListUP != "DeckArrayOrigin")
+        {
+            if (delete)
+            {
+                if(playerState.crystal >= 100)
+                {
+                    playerState.SpendCrystal(100);
+                    deckManager.deckArrayOrigin = deckManager.DelCardFromDeck(deckManager.deckArrayOrigin, 15 * cardListPage + ButtonNum);
+                    delete = false;
+                    message.ShowSystemMessage("카드 제거");
+                }
+                else
+                {
+                    message.ShowSystemMessage("크리스탈이 부족하다.");
+                }
+                
+            }
+            else
+            {
+                message.ShowSystemMessage("이미 카드를 제거했다.");
+            }
         }
     }
 }

@@ -13,12 +13,14 @@ public class UIToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public string descriptionText;
     public string descriptionTextArtifact;
     public bool mouseOn;
+    public bool openTooltip;
 
     private void Start()
     {
         tooltipManager = FindObjectOfType<ArtifactTooltipManager>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         entity = GameObject.Find("Artifact");
+        openTooltip = true;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -32,11 +34,13 @@ public class UIToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             description += descriptionTextArtifact;
         }
 
-        tooltipManager.ShowTooltip(description);
-        GameObject tooltip = GameObject.Find("BuffDebuffTooltip");
-        RectTransform rectTransform = tooltip.GetComponent<RectTransform>();
-        rectTransform.position = new Vector3(0, 0, 0);
-
+        if (openTooltip)
+        {
+            tooltipManager.ShowTooltip(description);
+            GameObject tooltip = GameObject.Find("BuffDebuffTooltip");
+            RectTransform rectTransform = tooltip.GetComponent<RectTransform>();
+            rectTransform.position = new Vector3(0, 0, 0);
+        }
         mouseOn = true;
     }
 

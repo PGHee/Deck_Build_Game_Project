@@ -21,6 +21,7 @@ public class PlayerState : MonoBehaviour
     public float lightningStunChance = 0.0f;
     public int waterRegen = 0;
     public int earthDefense = 0;
+    public float extraCrystal = 0;
 
     public enum AttributeType { Fire, Water, Wood, Metal, Earth, Lightning, Wind, Light, Dark, Void }
     public Dictionary<AttributeType, int> attributeMastery;
@@ -50,6 +51,7 @@ public class PlayerState : MonoBehaviour
     private BuffDebuffManager buffDebuffManager;
     private ArtifactManager artifactManager;
     private PlayerUI playerUI;
+    private UIBar uiBar;
 
     public bool doubleLifeSteal;                    // 피흡 2배
 
@@ -71,6 +73,7 @@ public class PlayerState : MonoBehaviour
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         artifactManager = FindObjectOfType<ArtifactManager>();
         playerUI = FindObjectOfType<PlayerUI>();
+        uiBar = FindObjectOfType<UIBar>();
 
         InitializeAttributes();
     }
@@ -347,6 +350,9 @@ public class PlayerState : MonoBehaviour
             case AttributeType.Lightning:
                 lightningStunChance = (level >= 6) ? 0.30f : (level >= 3) ? 0.15f : lightningStunChance;
                 break;
+            case AttributeType.Void:
+                extraCrystal = (level >= 6) ? 1.0f : (level >= 3) ? 0.5f : extraCrystal;
+                break;
         }
         playerUI.UpdatePlayerUI();
     }
@@ -362,12 +368,14 @@ public class PlayerState : MonoBehaviour
         if(crystal >= num)
         {
             crystal -= num;
+            uiBar.UpdateUIBar();
         }
     }
 
     public void GainCrystal(int num)
     {
         crystal += num;
-        crystal += (int)(num * artifactManager.bonusCrystal);
+        crystal += (int)(num * (artifactManager.bonusCrystal + extraCrystal));
+        uiBar.UpdateUIBar();
     }
 }
