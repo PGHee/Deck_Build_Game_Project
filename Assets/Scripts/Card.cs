@@ -907,6 +907,9 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                 case CardActionType.Search:
                     description += $" 덱에서 원하는 카드 한장 가져옵니다.";
                     break;
+                case CardActionType.RestoreResource:
+                    description += $" 서클을 {action.value} 회복합니다.";
+                    break;                   
             }
         }
 

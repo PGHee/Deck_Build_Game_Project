@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ArtifactSynthesisManager : MonoBehaviour
 {
     public ArtifactManager artifactManager;
+    private ArtifactMountManager artifactMountManager;
 
     public int ArtifactListPage;
     public int[] artifactInvenList;
@@ -18,6 +19,8 @@ public class ArtifactSynthesisManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        artifactMountManager = FindObjectOfType<ArtifactMountManager>();
+
         ArtifactListPage = 0;
         artifactPrefabs = new GameObject[30];
         for (int i = 0; i < 7; i++)
@@ -36,6 +39,7 @@ public class ArtifactSynthesisManager : MonoBehaviour
         }
 
         ArtifactsToSynthesis = new int[3] {999, 999, 999};
+
     }
 
     public void ArtifactListUp() 
@@ -65,6 +69,9 @@ public class ArtifactSynthesisManager : MonoBehaviour
 
             
             clearButtonsArtifact[i].GetComponent<Image>().color = color;
+
+            clearButtonsArtifact[i].GetComponent<UIToolTip>().descriptionTextArtifact = artifactMountManager.GetArtifactText(artifactInvenList[15 * ArtifactListPage + i] - 1);
+            clearButtonsArtifact[i].GetComponent<UIToolTip>().openTooltip = true;
         }
     }
 
@@ -101,6 +108,8 @@ public class ArtifactSynthesisManager : MonoBehaviour
 
             
             clearButtonsArtifact[i].GetComponent<Image>().color = color;
+
+            clearButtonsArtifact[i].GetComponent<UIToolTip>().openTooltip = false;
         }
     }
 

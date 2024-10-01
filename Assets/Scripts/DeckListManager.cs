@@ -148,12 +148,27 @@ public class DeckListManager : MonoBehaviour
             {
                 if(deckTypeListUP == "DeckArray")
                 {
-                    deckManager.CardSearch(15 * cardListPage + ButtonNum);
-                    search = false;
+                    if ((int)(deckManager.deckArray[15 * cardListPage + ButtonNum] / 100) == 6)
+                    {
+                        deckManager.CardSearch(15 * cardListPage + ButtonNum);
+                        search = false;
+                    }
+                    else
+                    {
+                        message.ShowSystemMessage("빛 속성 카드만 가져올 수 있습니다.");
+                    }
+                    
                 }else if(deckTypeListUP == "GraveArray")
                 {
-                    deckManager.CardSalvage(15 * cardListPage + ButtonNum);
-                    search = false;
+                    if ((int)(deckManager.deckArray[15 * cardListPage + ButtonNum] / 100) == 7)
+                    {
+                        deckManager.CardSalvage(15 * cardListPage + ButtonNum);
+                        search = false;
+                    }
+                    else
+                    {
+                        message.ShowSystemMessage("어둠 속성 카드만 가져올 수 있습니다.");
+                    }
                 }
                 
             }

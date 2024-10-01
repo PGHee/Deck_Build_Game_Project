@@ -168,7 +168,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public void GenerateArtifact(int artifactNum)
     {
         GameObject go = Instantiate(artifactPrefabs[artifactNum - 1]);
-        go.transform.position = new Vector3(-5.5f, 3, 1);
+        go.transform.position = new Vector3(-2.0f, 0f, 1);
         go.name = "Artifact";
 
         GetArtifactInfo();
@@ -197,6 +197,9 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public void ArtifactBuffApply() // 전투 시작 시 플레이어에게 아티팩트의 버프 적용
     {
         GameObject mountedArtifact = GameObject.FindWithTag("Artifact");
+
+        passiveEffectList = mountedArtifact.GetComponent<ArtifactInfo>().passiveListInfo;
+        passiveCoefList = mountedArtifact.GetComponent<ArtifactInfo>().passiveCoefListInfo;
         if (mountedArtifact != null)
         {
             for (int i = 0; i < passiveEffectList.Count; i++)

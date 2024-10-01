@@ -15,6 +15,7 @@ public class ArtifactMountManager : MonoBehaviour
     public GameObject[] clearButtonsArtifact;
     public GameObject[] artifactPrefabs;
     public TextMeshProUGUI artifactText;
+    public bool buffOn;
 
 
 
@@ -150,7 +151,11 @@ public class ArtifactMountManager : MonoBehaviour
         if (mountedArtifact != null)
         {
             Destroy(GameObject.FindWithTag("Artifact")); // 씬에 배치된 아티팩트 제거
-            artifactManager.ArtifactBuffRemove();
+            if (buffOn)
+            {
+                artifactManager.ArtifactBuffRemove();
+                buffOn = false;
+            }    
             artifactText.text = "";
         }
     }
@@ -158,9 +163,10 @@ public class ArtifactMountManager : MonoBehaviour
     public void MountedArtifactBuffApply()
     {
         GameObject mountedArtifact = GameObject.FindWithTag("Artifact");
-        if (mountedArtifact != null)
+        if (mountedArtifact != null && !buffOn)
         {
             artifactManager.ArtifactBuffApply();
+            buffOn = true;
         }
     }
 
@@ -185,9 +191,25 @@ public class ArtifactMountManager : MonoBehaviour
 
         ArtifactInfo artifactInfo = artifactPrefabs[artifactnum].GetComponent<ArtifactInfo>();
 
+        switch ((int)(artifactnum / 10))
+        {
+            case 0:
+                outputString += "[하급 아티팩트]<br>";
+                break;
+            case 1:
+                outputString += "[중급 아티팩트]<br>";
+                break ;
+            case 2:
+                outputString += "[상급 아티팩트]<br>";
+                break;
+            default:
+                outputString += "[오류 아티팩트]<br>";
+                break;
+        }
+
         if(artifactInfo.activeCoefInfo > 0)
         {
-            outputString += "[액티브] : [코스트 : " + artifactInfo.artifactCost + "]";
+            outputString += "[액티브] : [서클 : " + artifactInfo.artifactCost + "]";
 
             switch (artifactInfo.activeEffectInfo)
             {
@@ -224,7 +246,7 @@ public class ArtifactMountManager : MonoBehaviour
         {
             outputString += "[액티브] : 없음";
         }
-        outputString += "<br>[패시브] :";
+        outputString += "<br>[패시브] ";
 
         for (int i = 0; i < artifactInfo.passiveListInfo.Count; i++)
         {

@@ -126,6 +126,8 @@ public class GameDirector : MonoBehaviour
         Debug.Log("Entering Village");
         yield return new WaitForSeconds(1);
         popupManager.ShowPopup("VillageChief");
+        yield return new WaitForSeconds(2);
+        titleMessage.ShowTitleMessage($"마을");
     }
 
     IEnumerator StartEvent()
@@ -134,6 +136,8 @@ public class GameDirector : MonoBehaviour
         yield return new WaitForSeconds(1);
         popupManager.ShowPopup("Event");
         eventManager.GetComponent<EventManager>().SetEvent();
+        yield return new WaitForSeconds(2);
+        titleMessage.ShowTitleMessage($"이벤트");
     }
 
     void EndGame()

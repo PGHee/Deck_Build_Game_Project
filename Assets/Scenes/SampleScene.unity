@@ -574,6 +574,7 @@ GameObject:
   - component: {fileID: 44242093}
   - component: {fileID: 44242092}
   - component: {fileID: 44242091}
+  - component: {fileID: 44242094}
   m_Layer: 5
   m_Name: ClearButton_Artifact12
   m_TagString: ClearButton
@@ -694,6 +695,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44242089}
   m_CullTransparentMesh: 1
+--- !u!114 &44242094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44242089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &51720670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,6 +1290,7 @@ GameObject:
   - component: {fileID: 94167903}
   - component: {fileID: 94167902}
   - component: {fileID: 94167901}
+  - component: {fileID: 94167904}
   m_Layer: 5
   m_Name: ClearButton_Artifact10
   m_TagString: ClearButton
@@ -1392,6 +1411,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 94167899}
   m_CullTransparentMesh: 1
+--- !u!114 &94167904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94167899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &95986519
 GameObject:
   m_ObjectHideFlags: 0
@@ -3370,6 +3406,7 @@ GameObject:
   - component: {fileID: 159564074}
   - component: {fileID: 159564073}
   - component: {fileID: 159564072}
+  - component: {fileID: 159564075}
   m_Layer: 5
   m_Name: ClearButton_Artifact8
   m_TagString: ClearButton
@@ -3490,6 +3527,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 159564070}
   m_CullTransparentMesh: 1
+--- !u!114 &159564075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159564070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &161291177
 GameObject:
   m_ObjectHideFlags: 0
@@ -5571,7 +5625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5463fc0478ea8044aa27fa41540b253c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 09580c9a2115ed34ebd751dbe5c7b5c8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8942,6 +8996,7 @@ GameObject:
   - component: {fileID: 329161124}
   - component: {fileID: 329161123}
   - component: {fileID: 329161122}
+  - component: {fileID: 329161125}
   m_Layer: 5
   m_Name: ClearButton_Artifact9
   m_TagString: ClearButton
@@ -9062,6 +9117,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329161120}
   m_CullTransparentMesh: 1
+--- !u!114 &329161125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329161120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &336516704
 GameObject:
   m_ObjectHideFlags: 0
@@ -13532,6 +13604,7 @@ MonoBehaviour:
   popupPanelStartDeck: {fileID: 2039922750}
   popupPanelSetting: {fileID: 778429934}
   popupPanelSuperior: {fileID: 528720469}
+  popupPanelHelp: {fileID: 244097921}
   contentArea: {fileID: 0}
   artifactMountManager: {fileID: 1990713725}
   gameDirector: {fileID: 0}
@@ -14627,6 +14700,7 @@ GameObject:
   - component: {fileID: 496177163}
   - component: {fileID: 496177162}
   - component: {fileID: 496177161}
+  - component: {fileID: 496177164}
   m_Layer: 5
   m_Name: ClearButton_Artifact2
   m_TagString: ClearButton
@@ -14747,6 +14821,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496177159}
   m_CullTransparentMesh: 1
+--- !u!114 &496177164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496177159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &499852458
 GameObject:
   m_ObjectHideFlags: 0
@@ -16883,6 +16974,7 @@ GameObject:
   - component: {fileID: 564712022}
   - component: {fileID: 564712021}
   - component: {fileID: 564712020}
+  - component: {fileID: 564712023}
   m_Layer: 5
   m_Name: ClearButton_Artifact0
   m_TagString: ClearButton
@@ -17003,6 +17095,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564712018}
   m_CullTransparentMesh: 1
+--- !u!114 &564712023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564712018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &565268789
 GameObject:
   m_ObjectHideFlags: 0
@@ -17649,6 +17758,7 @@ GameObject:
   - component: {fileID: 574294317}
   - component: {fileID: 574294316}
   - component: {fileID: 574294315}
+  - component: {fileID: 574294318}
   m_Layer: 5
   m_Name: ClearButton_Artifact6
   m_TagString: ClearButton
@@ -17769,6 +17879,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574294313}
   m_CullTransparentMesh: 1
+--- !u!114 &574294318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574294313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &579996888
 GameObject:
   m_ObjectHideFlags: 0
@@ -19836,6 +19963,7 @@ GameObject:
   - component: {fileID: 647879073}
   - component: {fileID: 647879072}
   - component: {fileID: 647879071}
+  - component: {fileID: 647879074}
   m_Layer: 5
   m_Name: ClearButton_Artifact1
   m_TagString: ClearButton
@@ -19956,6 +20084,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647879069}
   m_CullTransparentMesh: 1
+--- !u!114 &647879074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647879069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &649490921
 GameObject:
   m_ObjectHideFlags: 0
@@ -23392,6 +23537,7 @@ GameObject:
   - component: {fileID: 792289947}
   - component: {fileID: 792289946}
   - component: {fileID: 792289945}
+  - component: {fileID: 792289948}
   m_Layer: 5
   m_Name: ClearButton_Artifact14
   m_TagString: ClearButton
@@ -23512,6 +23658,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792289943}
   m_CullTransparentMesh: 1
+--- !u!114 &792289948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792289943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &793788933
 GameObject:
   m_ObjectHideFlags: 0
@@ -27263,6 +27426,7 @@ GameObject:
   - component: {fileID: 911279402}
   - component: {fileID: 911279401}
   - component: {fileID: 911279400}
+  - component: {fileID: 911279403}
   m_Layer: 5
   m_Name: ClearButton_ArtifactSprite1
   m_TagString: ClearButton
@@ -27383,6 +27547,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911279398}
   m_CullTransparentMesh: 1
+--- !u!114 &911279403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911279398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &915173982
 GameObject:
   m_ObjectHideFlags: 0
@@ -30388,6 +30569,7 @@ GameObject:
   - component: {fileID: 970676684}
   - component: {fileID: 970676683}
   - component: {fileID: 970676682}
+  - component: {fileID: 970676685}
   m_Layer: 5
   m_Name: ClearButton_ArtifactSprite0
   m_TagString: ClearButton
@@ -30508,6 +30690,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970676680}
   m_CullTransparentMesh: 1
+--- !u!114 &970676685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970676680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &975185977
 GameObject:
   m_ObjectHideFlags: 0
@@ -32071,6 +32270,7 @@ GameObject:
   - component: {fileID: 1021664810}
   - component: {fileID: 1021664809}
   - component: {fileID: 1021664808}
+  - component: {fileID: 1021664811}
   m_Layer: 5
   m_Name: ClearButton_Artifact13
   m_TagString: ClearButton
@@ -32191,6 +32391,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021664806}
   m_CullTransparentMesh: 1
+--- !u!114 &1021664811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021664806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &1022772093
 GameObject:
   m_ObjectHideFlags: 0
@@ -33186,6 +33403,7 @@ GameObject:
   - component: {fileID: 1080011846}
   - component: {fileID: 1080011845}
   - component: {fileID: 1080011844}
+  - component: {fileID: 1080011847}
   m_Layer: 5
   m_Name: ClearButton_Artifact7
   m_TagString: ClearButton
@@ -33306,6 +33524,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080011842}
   m_CullTransparentMesh: 1
+--- !u!114 &1080011847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080011842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &1080269529
 GameObject:
   m_ObjectHideFlags: 0
@@ -35530,6 +35765,7 @@ GameObject:
   - component: {fileID: 1167050587}
   - component: {fileID: 1167050586}
   - component: {fileID: 1167050585}
+  - component: {fileID: 1167050588}
   m_Layer: 5
   m_Name: ClearButton_Artifact5
   m_TagString: ClearButton
@@ -35650,6 +35886,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167050583}
   m_CullTransparentMesh: 1
+--- !u!114 &1167050588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167050583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &1172346619
 GameObject:
   m_ObjectHideFlags: 0
@@ -46470,6 +46723,7 @@ GameObject:
   - component: {fileID: 1511761205}
   - component: {fileID: 1511761204}
   - component: {fileID: 1511761203}
+  - component: {fileID: 1511761206}
   m_Layer: 5
   m_Name: ClearButton_Artifact4
   m_TagString: ClearButton
@@ -46590,6 +46844,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1511761201}
   m_CullTransparentMesh: 1
+--- !u!114 &1511761206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511761201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &1512831660
 GameObject:
   m_ObjectHideFlags: 0
@@ -50705,6 +50976,7 @@ GameObject:
   - component: {fileID: 1641355312}
   - component: {fileID: 1641355311}
   - component: {fileID: 1641355310}
+  - component: {fileID: 1641355313}
   m_Layer: 5
   m_Name: ClearButton_Artifact11
   m_TagString: ClearButton
@@ -50825,6 +51097,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641355308}
   m_CullTransparentMesh: 1
+--- !u!114 &1641355313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641355308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &1650006192
 GameObject:
   m_ObjectHideFlags: 0
@@ -51730,6 +52019,7 @@ GameObject:
   - component: {fileID: 1686038068}
   - component: {fileID: 1686038067}
   - component: {fileID: 1686038066}
+  - component: {fileID: 1686038069}
   m_Layer: 5
   m_Name: ClearButton_ArtifactSprite2
   m_TagString: ClearButton
@@ -51850,6 +52140,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686038064}
   m_CullTransparentMesh: 1
+--- !u!114 &1686038069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686038064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &1686482454
 GameObject:
   m_ObjectHideFlags: 0
@@ -53690,6 +53997,7 @@ GameObject:
   - component: {fileID: 1729838992}
   - component: {fileID: 1729838991}
   - component: {fileID: 1729838990}
+  - component: {fileID: 1729838993}
   m_Layer: 5
   m_Name: ClearButton_Artifact3
   m_TagString: ClearButton
@@ -53810,6 +54118,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729838988}
   m_CullTransparentMesh: 1
+--- !u!114 &1729838993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729838988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isArtifact: 1
+  descriptionText: 
+  descriptionTextArtifact: 
+  mouseOn: 0
+  openTooltip: 0
 --- !u!1 &1736547849
 GameObject:
   m_ObjectHideFlags: 0
@@ -60146,6 +60471,7 @@ MonoBehaviour:
   clearButtonsArtifact: []
   artifactPrefabs: []
   artifactText: {fileID: 321859674}
+  buffOn: 0
 --- !u!1 &1991786524
 GameObject:
   m_ObjectHideFlags: 0

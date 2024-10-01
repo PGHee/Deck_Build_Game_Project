@@ -63,7 +63,7 @@ public class EventManager : MonoBehaviour
             switch (eventInput)
             {
                 case "Crystal":
-                    if(playerState.crystal > eventInputNum)
+                    if(playerState.crystal >= eventInputNum)
                     {
                         rewardManager.GetReward(eventOutput, eventOutputNum, eventInputNum);
                         message.ShowSystemMessage("-" + eventInput + "");

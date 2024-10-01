@@ -18,6 +18,7 @@ public class PopupManager : MonoBehaviour
     public GameObject popupPanelStartDeck;
     public GameObject popupPanelSetting;
     public GameObject popupPanelSuperior;
+    public GameObject popupPanelHelp;
 
     //public GameObject popupPanelUIBar;
 
@@ -200,7 +201,8 @@ public class PopupManager : MonoBehaviour
         popupPanelDeckList.activeSelf ||
         popupPanelStartDeck.activeSelf) ||
         popupPanelSetting.activeSelf ||
-        popupPanelSuperior.activeSelf;
+        popupPanelSuperior.activeSelf ||
+        popupPanelHelp.activeSelf;
     }
 }
 
