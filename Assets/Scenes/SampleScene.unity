@@ -11322,6 +11322,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 2115923679}
+        m_TargetAssemblyTypeName: DeckListManager, Assembly-CSharp
+        m_MethodName: DeleteButtonConfirm
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 474652578}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: ClosePopup
@@ -28970,7 +28982,7 @@ MonoBehaviour:
   bonusDraw: 0
   bonusAttack: 0
   bonusCrystal: 0
-  bonusAttributeExperience: 300
+  bonusAttributeExperience: 0
   execution: 0
   doubleLifeSteal: 0
 --- !u!1 &935181296
@@ -63733,6 +63745,7 @@ MonoBehaviour:
   dynamicButtonManager: {fileID: 0}
   search: 0
   delete: 0
+  normalSearch: 0
   cardListPage: 0
   cardList: 
   pageCardNum: 0

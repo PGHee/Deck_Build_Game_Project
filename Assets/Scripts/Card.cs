@@ -706,6 +706,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
             case CardActionType.Search:
                 popupManager.ShowPopup("DeckList");
                 deckListManager.CardListUp("DeckArray");
+                deckListManager.normalSearch = true;
                 break;
         }
     }

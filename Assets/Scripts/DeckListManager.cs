@@ -11,6 +11,7 @@ public class DeckListManager : MonoBehaviour
 
     public bool search;
     public bool delete;
+    public bool normalSearch;
     public int cardListPage;
     public int[] cardList;
     public int pageCardNum;
@@ -31,6 +32,7 @@ public class DeckListManager : MonoBehaviour
 
         cardListPage = 0;
         search = true;
+        normalSearch = false;
         message = FindObjectOfType<SystemMessage>();
         playerState = FindObjectOfType<PlayerState>();
     }
@@ -148,14 +150,16 @@ public class DeckListManager : MonoBehaviour
             {
                 if(deckTypeListUP == "DeckArray")
                 {
-                    if ((int)(deckManager.deckArray[15 * cardListPage + ButtonNum] / 100) == 6)
+                    if ((int)(deckManager.deckArray[15 * cardListPage + ButtonNum] / 100) == 6 || normalSearch)
                     {
                         deckManager.CardSearch(15 * cardListPage + ButtonNum);
                         search = false;
+                        SetButtonConfirm(ButtonNum);
+                        normalSearch = false;
                     }
                     else
                     {
-                        message.ShowSystemMessage("빛 속성 카드만 가져올 수 있습니다.");
+                        if(!normalSearch) message.ShowSystemMessage("빛 속성 카드만 가져올 수 있습니다.");
                     }
                     
                 }else if(deckTypeListUP == "GraveArray")
@@ -164,6 +168,7 @@ public class DeckListManager : MonoBehaviour
                     {
                         deckManager.CardSalvage(15 * cardListPage + ButtonNum);
                         search = false;
+                        SetButtonConfirm(ButtonNum);
                     }
                     else
                     {
@@ -199,5 +204,20 @@ public class DeckListManager : MonoBehaviour
                 message.ShowSystemMessage("이미 카드를 제거했다.");
             }
         }
+    }
+
+    public void SetButtonConfirm(int buttonNum)
+    {
+        GetClearButtonCard();
+        RectTransform rectTransform = clearButtonsCard[buttonNum].GetComponent<RectTransform>();
+        GameObject go = Instantiate(Resources.Load<GameObject>($"Prefabs/UI/Item_Confirm"), rectTransform.position, Quaternion.identity, GameObject.Find("Panel_DeckList").GetComponent<RectTransform>());
+        go.GetComponent<RectTransform>().position = rectTransform.position;
+        go.name = "Item_Confirm";
+    }
+
+    public void DeleteButtonConfirm()
+    {
+        GameObject confirmed = GameObject.Find("Item_Confirm");
+        if(confirmed != null) Destroy(GameObject.Find("Item_Confirm"));
     }
 }
