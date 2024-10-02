@@ -147,7 +147,8 @@ public class BattleRewardManager : MonoBehaviour
                 } 
             }
         }
-        return (int)(Random.Range(0,10) * 100 + Random.Range(0, attributeLevelList[9] * 2 ));
+         int attributeNum = Random.Range(0, 10);
+        return (int)(attributeNum * 100 + Random.Range(0, Random.Range(0, attributeLevelList[attributeNum] * 2)));
     }
 
     public int RandomSelectArtifact()
@@ -177,7 +178,8 @@ public class BattleRewardManager : MonoBehaviour
             clearButtonsBattleReward[i].GetComponent<BattleRewardButtonManager>().cardPrefabNum = rewardCardNum;
             rewardCardNums[i] = rewardCardNum;
 
-            dynamicButtonManager.CardSpriteToButton(rewardCardNum, clearButtonsBattleReward[i]);          
+            dynamicButtonManager.CardSpriteToButton(rewardCardNum, clearButtonsBattleReward[i]);
+
         }
 
     }
@@ -238,12 +240,12 @@ public class BattleRewardManager : MonoBehaviour
         GameObject crystalAmount = GameObject.Find("CrystalAmount");
         crystalAmount.GetComponent<TextMeshProUGUI>().text = "+" + rewardCrystal + " crystal";
 
-        //clearButtonsBattleReward[0].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
+        clearButtonsBattleReward[0].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/ClearBox");
         clearButtonsBattleReward[1].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
-        //clearButtonsBattleReward[2].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
+        clearButtonsBattleReward[2].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/ClearBox");
 
-        ClearButton(0);
-        ClearButton(2);
+        //ClearButton(0);
+        //ClearButton(2);
 
     }
 
@@ -310,6 +312,7 @@ public class BattleRewardManager : MonoBehaviour
         color.a = 0.0f;
 
         clearButtonsBattleReward[buttonNum].GetComponent<Image>().color = color;
+        Debug.Log("is it clear?");
     }
 
     public void UnClearButton(int buttonNum)
