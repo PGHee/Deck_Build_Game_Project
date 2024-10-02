@@ -212,6 +212,7 @@ public class PlayerState : MonoBehaviour
                 Destroy(hpBar.gameObject);
             }
         }
+        playerUI.UpdatePlayerUI();
     }
 
     // 매 턴마다 적용되는 패시브 효과

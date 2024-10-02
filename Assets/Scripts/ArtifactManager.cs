@@ -171,27 +171,29 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         go.transform.position = new Vector3(-2.0f, 0f, 1);
         go.name = "Artifact";
 
-        GetArtifactInfo();
+        //GetArtifactInfo();
+        DeactivateArtfactReady();
     }
 
     public void GetArtifactInfo() // 착용된 아티팩트의 정보를 불러옴
     {
         artifact = GameObject.FindWithTag("Artifact");
-        activeEffect = artifact.GetComponent<ArtifactInfo>().activeEffectInfo;
-        activeCoef = artifact.GetComponent<ArtifactInfo>().activeCoefInfo;
-        passiveEffectList = artifact.GetComponent<ArtifactInfo>().passiveListInfo;
-        passiveCoefList = artifact.GetComponent<ArtifactInfo>().passiveCoefListInfo;
-        artifactCost = artifact.GetComponent<ArtifactInfo>().artifactCost;
-        bonusPoison = artifact.GetComponent<ArtifactInfo>().bonusPoison;
-        bonusAttack = artifact.GetComponent<ArtifactInfo>().bonusAttack;
-        bonusCrystal = artifact.GetComponent<ArtifactInfo>().bonusCrystal;
-        bonusAttributeExperience = artifact.GetComponent<ArtifactInfo>().bonusAttributeExperience;
-        execution = artifact.GetComponent<ArtifactInfo>().execution;
-        bonusDamage = artifact.GetComponent<ArtifactInfo>().bonusDamage;
-        bonusShield = artifact.GetComponent<ArtifactInfo>().bonusShield;
-        bonusHeal = artifact.GetComponent<ArtifactInfo>().bonusHeal;
-
-        
+        if (artifact)
+        {
+            activeEffect = artifact.GetComponent<ArtifactInfo>().activeEffectInfo;
+            activeCoef = artifact.GetComponent<ArtifactInfo>().activeCoefInfo;
+            passiveEffectList = artifact.GetComponent<ArtifactInfo>().passiveListInfo;
+            passiveCoefList = artifact.GetComponent<ArtifactInfo>().passiveCoefListInfo;
+            artifactCost = artifact.GetComponent<ArtifactInfo>().artifactCost;
+            bonusPoison = artifact.GetComponent<ArtifactInfo>().bonusPoison;
+            bonusAttack = artifact.GetComponent<ArtifactInfo>().bonusAttack;
+            bonusCrystal = artifact.GetComponent<ArtifactInfo>().bonusCrystal;
+            bonusAttributeExperience = artifact.GetComponent<ArtifactInfo>().bonusAttributeExperience;
+            execution = artifact.GetComponent<ArtifactInfo>().execution;
+            bonusDamage = artifact.GetComponent<ArtifactInfo>().bonusDamage;
+            bonusShield = artifact.GetComponent<ArtifactInfo>().bonusShield;
+            bonusHeal = artifact.GetComponent<ArtifactInfo>().bonusHeal;
+        }   
     }
 
     public void ArtifactBuffApply() // 전투 시작 시 플레이어에게 아티팩트의 버프 적용

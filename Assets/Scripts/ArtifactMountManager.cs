@@ -125,6 +125,8 @@ public class ArtifactMountManager : MonoBehaviour
             
             artifactManager.GenerateArtifact(artifactInvenList[15 * ArtifactListPage + ButtonNum]);
 
+            artifactManager.GetArtifactInfo();
+
             GameObject artifactMountImage = GameObject.Find("Artifact_Mount_Sprite");
 
             artifactMountImage.GetComponent<Image>().sprite = artifactPrefabs[artifactInvenList[15 * ArtifactListPage + ButtonNum] - 1].GetComponent<SpriteRenderer>().sprite;
