@@ -64,7 +64,8 @@ public class TooltipManager : MonoBehaviour
         switch (effectType)
         {
             case EffectType.IncreaseDamage:
-                description = $"데미지 증가: {effectValue*100}%, {duration}턴";
+                if(duration >= 100) description = $"영구 데미지 증가: {effectValue*100}%";
+                else description = $"데미지 증가: {effectValue*100}%, {duration}턴";
                 break;
             case EffectType.AreaEffect:
                 description = $"범위 공격: {duration}턴";

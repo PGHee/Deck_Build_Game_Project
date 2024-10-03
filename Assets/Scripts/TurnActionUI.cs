@@ -71,7 +71,7 @@ public class TurnActionUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 description = $"<size=15>이번 턴에 {floatEffect}% 데미지 증가 버프를 겁니다.</size>";
                 break;
             case ActionType.IncreaseDamageStack:
-                description = $"<size=15>이번 턴에 영구적인 {floatEffect}% 데미지 증가 버프를 겁니다.</size>";
+                description = $"<size=15>이번 턴에 {floatEffect}% 데미지 영구 증가 버프를 겁니다.</size>";
                 break;
             case ActionType.LifeSteal:
                 description = $"<size=15>이번 턴에 {floatEffect}% 흡혈 버프를 겁니다.</size>";
@@ -86,10 +86,10 @@ public class TurnActionUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 description = $"<size=15>이번 턴에 아무런 행동을 하지 않습니다.</size>";
                 break;
             case ActionType.SkipTurn:
-                description = $"<size=15>이번 턴에 마법사에게 경직 디버프를 겁니다.</size>";
+                description = $"<size=15>이번 턴에 경직 디버프를 겁니다.</size>";
                 break;
             case ActionType.Confuse:
-                description = $"<size=15>이번 턴에 마법사에게 혼란 디버프를 겁니다.</size>";
+                description = $"<size=15>이번 턴에 혼란 디버프를 겁니다.</size>";
                 break;
         }
     }

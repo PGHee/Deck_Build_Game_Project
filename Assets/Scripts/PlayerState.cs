@@ -159,24 +159,24 @@ public class PlayerState : MonoBehaviour
 
     public void Heal(int amount)
     {
-        effect.ApplyEffect(this.gameObject, 1, 1, 0.1f); //수정 필요
-        if (damageText != null) damageText.ShowDamage(this.gameObject, 2, amount, 1, 0.1f); //수정 필요
+        effect.ApplyEffect(this.gameObject, 10, 1, 0.1f);
+        if (damageText != null) damageText.ShowDamage(this.gameObject, 1, amount, 1, 0.1f); //수정 필요
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         UpdateHPBar();
     }
 
     public void RestoreResource(int amount)
     {
-        effect.ApplyEffect(this.gameObject, 1, 1, 0.1f); // 수정 필요
-        if (damageText != null) damageText.ShowDamage(this.gameObject, 2, amount, 1, 0.1f); //수정 필요
+        effect.ApplyEffect(this.gameObject, 10, 1, 0.1f);
+        if (damageText != null) damageText.ShowDamage(this.gameObject, 1, amount, 1, 0.1f); //수정 필요
         currentResource = Mathf.Min(currentResource + amount, resource);
         UpdateHPBar();
     }
 
     public void ApplyShield(int amount)
     {
-        effect.ApplyEffect(this.gameObject, 1, 1, 0.1f); // 수정 필요
-        if (damageText != null) damageText.ShowDamage(this.gameObject, 1, amount, 1, 0.1f); //수정 필요
+        effect.ApplyEffect(this.gameObject, 10, 1, 0.1f);
+        if (damageText != null) damageText.ShowDamage(this.gameObject, 4, amount, 1, 0.1f); //수정 필요
         shield += amount;
         UpdateHPBar();
     }
@@ -304,8 +304,8 @@ public class PlayerState : MonoBehaviour
     {
         if (poisonStacks > 0)
         {
-            effect.ApplyEffect(this.gameObject, 1, 1, 0.1f); // 수정 필요
-            if (damageText != null) damageText.ShowDamage(this.gameObject, 8, poisonStacks, 1, 0.1f); //수정 필요
+            effect.ApplyEffect(this.gameObject, 2, 1, 0.1f);
+            if (damageText != null) damageText.ShowDamage(this.gameObject, 2, poisonStacks, 1, 0.1f);
             TakeDamage(poisonStacks);
             poisonStacks--;
             hpBar.UpdateHealth(currentHealth, maxHealth, shield, poisonStacks);

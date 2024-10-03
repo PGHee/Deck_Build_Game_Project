@@ -64,7 +64,7 @@ public class Actions : MonoBehaviour
         PlayerState playerState = target.GetComponent<PlayerState>();
         if (playerState != null)
         {
-            effect.ApplyEffect(target, 1, 1, 0.1f);   // 수정 필요
+            effect.ApplyEffect(target, 9, 1, 0.1f);
             damageText.ShowDamage(target, 9, damage, 1, 0.1f);
             if(playerState.reduceDamage > 0) damage = Mathf.RoundToInt(damage * (1-playerState.reduceDamage));
             playerState.TakeDamage(damage);
@@ -192,7 +192,7 @@ public class Actions : MonoBehaviour
     public void DealTrueDamage(GameObject target, int damage, int hits, PlayerState.AttributeType? attributeType = null)
     {
         MonsterState monsterState = target.GetComponent<MonsterState>();
-        effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);   // 수정 필요
+        effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
         damageText.ShowDamage(target, (int)attributeType, damage, hits, 0.1f);
         if (monsterState != null)
         {
@@ -215,7 +215,7 @@ public class Actions : MonoBehaviour
         PlayerState playerState = target.GetComponent<PlayerState>();
         if(playerState != null)
         {
-            effect.ApplyEffect(target, 1, 1, 0.1f); // 수정 필요
+            effect.ApplyEffect(target, 2, 1, 0.1f);
             playerState.ApplyPoison(poisonAmount);
         }
     }
@@ -266,13 +266,13 @@ public class Actions : MonoBehaviour
         PlayerState playerState = target.GetComponent<PlayerState>();
         if (monsterState != null)
         {
-            effect.ApplyEffect(target, 1, 1, 0.1f); // 수정 필요
+            effect.ApplyEffect(target, 9, 1, 0.1f);
             damageText.ShowDamage(target, 9, damage, 1, 0.1f);
             monsterState.TakeDamage(damage);
         }
         else if (playerState != null)
         {
-            effect.ApplyEffect(target, 1, 1 , 0.1f); // 수정 필요
+            effect.ApplyEffect(target, 9, 1 , 0.1f);
             damageText.ShowDamage(target, 9, damage, 1, 0.1f);
             playerState.TakeDamage(damage);
         }

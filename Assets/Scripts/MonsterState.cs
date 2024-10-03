@@ -154,6 +154,7 @@ public class MonsterState : MonoBehaviour
 
     public void Heal(int amount)
     {
+        effect.ApplyEffect(this.gameObject, 10, 1, 0.1f);
         if (damageText != null) damageText.ShowDamage(this.gameObject, 2, amount, 1, 0.1f); //수정 필요
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         UpdateHPBar();
@@ -186,7 +187,7 @@ public class MonsterState : MonoBehaviour
     {
         if (poisonStacks > 0)
         {
-            effect.ApplyEffect(this.gameObject, 1, 1, 0.1f); // 수정 필요
+            effect.ApplyEffect(this.gameObject, 2, 1, 0.1f);
             if (damageText != null) damageText.ShowDamage(this.gameObject, 8, poisonStacks, 1, 0.1f); //수정 필요
             TakeDamage(poisonStacks);
             poisonStacks--;
@@ -263,8 +264,8 @@ public class MonsterState : MonoBehaviour
                 break;
             case EffectType.DelayedImpact:
                 if(duration == 0){
-                    effect.ApplyEffect(this.gameObject, 0, 1, 0.1f); // 수정 필요
-                    if (damageText != null) damageText.ShowDamage(this.gameObject, 0, intValue, 1, 0.1f); //수정 필요
+                    effect.ApplyEffect(this.gameObject, 0, 1, 0.1f);
+                    if (damageText != null) damageText.ShowDamage(this.gameObject, 0, intValue, 1, 0.1f);
                     TakeDamage(intValue);
                 }
                 break;
@@ -357,6 +358,7 @@ public class MonsterState : MonoBehaviour
                 Heal(intEffect);
                 break;
             case ActionType.Shield:
+                effect.ApplyEffect(this.gameObject, 10, 1, 0.1f);
                 if (damageText != null) damageText.ShowDamage(this.gameObject, 1, intEffect, 1, 0.1f); //수정 필요
                 shield += intEffect;
                 UpdateHPBar();

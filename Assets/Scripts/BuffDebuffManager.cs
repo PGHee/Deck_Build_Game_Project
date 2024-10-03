@@ -41,6 +41,7 @@ public class BuffDebuffManager : MonoBehaviour
         PlayerState playerState = entity.GetComponent<PlayerState>();
         if (playerState != null)
         {
+            effect.ApplyEffect(entity, 11, 1, 0.1f);
             playerState.ApplyBuffDebuff(effectType, duration, effectValue, intValue);
             return;
         }
@@ -48,6 +49,7 @@ public class BuffDebuffManager : MonoBehaviour
         MonsterState monsterState = entity.GetComponent<MonsterState>();
         if (monsterState != null)
         {
+            effect.ApplyEffect(entity, 13, 1, 0.1f);
             monsterState.ApplyBuffDebuff(effectType, duration, effectValue, intValue);
         }
     }
@@ -71,6 +73,7 @@ public class BuffDebuffManager : MonoBehaviour
         PlayerState playerState = entity.GetComponent<PlayerState>();
         if (playerState != null)
         {
+            effect.ApplyEffect(entity, 14, 1, 0.1f);
             playerState.ApplyBuffDebuff(effectType, duration, effectValue, intValue);
             return;
         }
@@ -78,6 +81,7 @@ public class BuffDebuffManager : MonoBehaviour
         MonsterState monsterState = entity.GetComponent<MonsterState>();
         if (monsterState != null)
         {
+            effect.ApplyEffect(entity, 12, 1, 0.1f);
             monsterState.ApplyBuffDebuff(effectType, duration, effectValue, intValue);
         }
     }
