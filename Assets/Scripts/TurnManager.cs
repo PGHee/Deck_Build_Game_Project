@@ -73,19 +73,23 @@ public class TurnManager : MonoBehaviour
         player.currentResource = player.resource;
         player.ApplyTurnBasedPassives();        // 패시브 효과 적용
         player.ApplyPoisonDamage();             // 독 데미지 적용
-        buffDebuffManager.UpdateBuffs();        // 버프 업데이트
-        buffDebuffManager.UpdateDebuffs();      // 디버프 업데이트
-
         artifactManager.ResetArtifactReady();
 
         player.UpdateHPBar();
         if (buffDebuffManager.entityDebuffs.ContainsKey(player.gameObject))
         {
-            if (buffDebuffManager.entityDebuffs[player.gameObject].Any(debuff => debuff.Item1 == EffectType.SkipTurn)) EndPlayerTurn();
+            if (buffDebuffManager.entityDebuffs[player.gameObject].Any(debuff => debuff.Item1 == EffectType.SkipTurn)) 
+            {
+                message.ShowSystemMessage("경직으로 인해 행동할 수 없습니다.");
+                buffDebuffManager.UpdateBuffs();        // 버프 업데이트
+                buffDebuffManager.UpdateDebuffs();      // 디버프 업데이트
+                EndPlayerTurn();
+                return;
+            }
         }
-
+        buffDebuffManager.UpdateBuffs();        // 버프 업데이트
+        buffDebuffManager.UpdateDebuffs();      // 디버프 업데이트
         deckManager.TurnStartCard(); // draw cards when Pturn start
-
         if (artifactManager.bonusDraw > 0)
         {
             for (int i = 0; i < artifactManager.bonusDraw; i++)
@@ -95,9 +99,7 @@ public class TurnManager : MonoBehaviour
         }
         if (artifactManager.bonusShield > 0) player.ApplyShield(artifactManager.bonusShield);
         if (artifactManager.bonusHeal > 0) player.Heal(artifactManager.bonusHeal);
-
         message.ShowSystemMessage("플레이어 턴");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
-
         StartCoroutine(CardSearchPhaseLight());
     }
 
@@ -115,6 +117,7 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator MonsterTurn()
     {
+        yield return new WaitForSeconds(1);
         message.ShowSystemMessage("몬스터 턴 시작");
         CheckBondedRevive();
         foreach (var monster in monsters)
@@ -139,6 +142,7 @@ public class TurnManager : MonoBehaviour
                     monster.executeAction();
                     if(monster.selectedAction.actionType != ActionType.Wait) monster.AttackMotion();
                     yield return new WaitForSeconds(1);
+                    if (monster.currentHealth <= 0) continue;
                     monster.GetRandomAction();
                     monster.UpdateValueEffect();
                     monster.UpdateAction();

@@ -4,8 +4,8 @@ using System.Collections;
 
 public class Effect : MonoBehaviour
 {
-    public GameObject[] effects;         // 각 카드에 사용할 이펙트 프리팹 배열
-    public AudioClip[] effectSounds;     // 각 이펙트에 사용할 사운드 클립 배열
+    public GameObject[] effects;         // 0~9 = 속성 별 이펙트, 10 = 힐, 11 = 버프, 12 = 디버프, 13 = 몬스터 버프, 14 = 몬스터 디버프
+    public AudioClip[] effectSounds;     // 0~9 = 속성 별 사운드, 10 = 힐, 11 = 버프, 12 = 디버프, 13 = 11번과 동일, 14 = 12번과 동일
     public GameObject[] screenEffectPrefabs;  // 화면 전체에 사용할 이펙트 프리팹 배열 (최대 8개)
     private AudioSource audioSource;     // 사운드를 재생할 AudioSource
 

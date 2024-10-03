@@ -375,7 +375,7 @@ public class MonsterState : MonoBehaviour
                 break;
             case ActionType.SelfDestruct:
                 monsterActions.DealSingleTargetDamage(targetObject, intEffect);
-                Die();
+                TakeDamage(10000);
                 break;
             case ActionType.Wait:
                 break;

@@ -182,8 +182,19 @@ public class BuffDebuffManager : MonoBehaviour
 
     public void UpdateDebuffs()
     {
-        foreach (var entity in entityDebuffs.Keys)
+        var entities = new List<GameObject>(entityDebuffs.Keys);
+        foreach (var entity in entities)
         {
+            var monsterComponent = entity.GetComponent<MonsterState>();
+            var playerComponent = entity.GetComponent<PlayerState>();
+
+            // 체력이 0 이하이거나 비활성화된 개체는 디버프 업데이트 생략
+            if ((monsterComponent != null && (monsterComponent.currentHealth <= 0 || !monsterComponent.gameObject.activeInHierarchy)) ||
+                (playerComponent != null && (playerComponent.currentHealth <= 0 || !playerComponent.gameObject.activeInHierarchy)))
+            {
+                continue;
+            }
+
             for (int i = entityDebuffs[entity].Count - 1; i >= 0; i--)
             {
                 var debuff = entityDebuffs[entity][i];
@@ -196,6 +207,12 @@ public class BuffDebuffManager : MonoBehaviour
                 else
                 {
                     entityDebuffs[entity][i] = debuff;
+                }
+
+                if ((monsterComponent != null && (monsterComponent.currentHealth <= 0 || !monsterComponent.gameObject.activeInHierarchy)) ||
+                (playerComponent != null && (playerComponent.currentHealth <= 0 || !playerComponent.gameObject.activeInHierarchy)))
+                {
+                    break;  // 개체가 죽었거나 비활성화되면 디버프 적용 중단
                 }
             }
         }
