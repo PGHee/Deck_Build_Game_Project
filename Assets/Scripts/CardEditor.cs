@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 // Card.cs가 들어있는 프리팹에서 지정된 ActionType에 따라 표시되는 변수를 달리하기 위해 존재하는 에디터 파일
@@ -188,3 +189,4 @@ public class BuffDebuffDrawer : PropertyDrawer
         return EditorGUIUtility.singleLineHeight * lineCount + (2 * (lineCount - 1));
     }
 }
+#endif
