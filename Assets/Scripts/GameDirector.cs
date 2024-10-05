@@ -33,11 +33,7 @@ public class GameDirector : MonoBehaviour
         deckManager = FindObjectOfType<DeckManager>();
         eventManager = FindObjectOfType<EventManager>();
         backgroundManager = FindObjectOfType<BackgroundManager>();
-        
-        float bgmVolume = PlayerPrefs.GetFloat("bgmVolume", 0.8f);
-        float effectVolume = PlayerPrefs.GetFloat("effectVolume", 0.8f);
-        settingsManager.SetBGMVolume(bgmVolume);
-        settingsManager.SetEffectVolume(effectVolume);
+
         InitGame();
         SetDefaultAudioSettings();
     }
