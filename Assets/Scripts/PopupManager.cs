@@ -125,7 +125,7 @@ public class PopupManager : MonoBehaviour
 
             case "ArtifactMount":
                 popupPanelArtifactMount.SetActive(false);
-                artifactMountManager.MountedArtifactBuffApply();
+                //artifactMountManager.MountedArtifactBuffApply();
                 break;
 
             case "ArtifactSynthesis":

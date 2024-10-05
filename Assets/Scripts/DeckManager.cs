@@ -121,6 +121,7 @@ public class DeckManager : MonoBehaviour
             }
             deckArray = DelCardFromDeck(deckArray, ind);
         }
+        handController.HandSort(null, true);
     }
 
     // 묘지에서 카드 생성(암속성 숙련도 효과)
@@ -145,7 +146,8 @@ public class DeckManager : MonoBehaviour
             {
                 Debug.Log("Full Hand");
             }           
-        }        
+        }
+        handController.HandSort(null, true);
     }
 
     // deckArray에서 카드 삭제

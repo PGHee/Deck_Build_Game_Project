@@ -163,6 +163,7 @@ public class PlayerState : MonoBehaviour
         if (damageText != null) damageText.ShowDamage(this.gameObject, 1, amount, 1, 0.1f); //수정 필요
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         UpdateHPBar();
+        uiBar.UpdateUIBar();
     }
 
     public void RestoreResource(int amount)

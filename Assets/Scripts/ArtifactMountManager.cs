@@ -24,7 +24,7 @@ public class ArtifactMountManager : MonoBehaviour
     void Start()
     {
         gameDirector = FindObjectOfType<GameDirector>();
-        ArtifactListPage = 0; // �⺻ �������� 0��
+        ArtifactListPage = 0; 
         artifactPrefabs = new GameObject[30];
         for (int i = 0; i < 7; i++)
         {
@@ -120,12 +120,12 @@ public class ArtifactMountManager : MonoBehaviour
             if (artifactMounted != null)
             {
                 UnmountArtifact();
-                Destroy(artifactMounted);
+                //Destroy(artifactMounted);
             }
             
             artifactManager.GenerateArtifact(artifactInvenList[15 * ArtifactListPage + ButtonNum]);
 
-            artifactManager.GetArtifactInfo();
+            artifactManager.GetArtifactInfo(artifactInvenList[15 * ArtifactListPage + ButtonNum]);
 
             GameObject artifactMountImage = GameObject.Find("Artifact_Mount_Sprite");
 
@@ -141,6 +141,8 @@ public class ArtifactMountManager : MonoBehaviour
 
             GameObject artifactGenerated = GameObject.FindWithTag("Artifact");
             artifactGenerated.GetComponent<UIToolTip>().descriptionTextArtifact = GetArtifactText(artifactInvenList[15 * ArtifactListPage + ButtonNum] - 1); // 아티팩트 툴팁을 위한 
+
+            MountedArtifactBuffApply();
         }
     }
 
@@ -152,7 +154,7 @@ public class ArtifactMountManager : MonoBehaviour
         GameObject mountedArtifact = GameObject.FindWithTag("Artifact");
         if (mountedArtifact != null)
         {
-            Destroy(GameObject.FindWithTag("Artifact")); // 씬에 배치된 아티팩트 제거
+            //Destroy(GameObject.FindWithTag("Artifact")); // 씬에 배치된 아티팩트 제거
             if (buffOn)
             {
                 artifactManager.ArtifactBuffRemove();

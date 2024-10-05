@@ -69,15 +69,18 @@ public class HandControl : MonoBehaviour
     public void DiscardAllHand()
     {
         hands = GameObject.FindGameObjectsWithTag("CardInHand");
-        for (int i = 0; i < hands.Length; i++)
+        if(hands != null)
         {
-            deckManager.graveArray = deckManager.Card2Grave(int.Parse(hands[i].name));
-        }
+            for (int i = 0; i < hands.Length; i++)
+            {
+                deckManager.graveArray = deckManager.Card2Grave(int.Parse(hands[i].name));
+            }
 
-        for (int j = 0; j < hands.Length; j++)
-        {
-            Destroy(hands[j]);
-        }
+            for (int j = 0; j < hands.Length; j++)
+            {
+                Destroy(hands[j]);
+            }
+        }      
     }
 
     public void Dump(int count)
