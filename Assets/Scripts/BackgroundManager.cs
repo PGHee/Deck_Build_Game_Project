@@ -18,24 +18,6 @@ public class BackgroundManager : MonoBehaviour
     {
         background = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
-
-        AdjustBackgroundScale();
-    }
-
-    private void AdjustBackgroundScale()
-    {
-        Camera mainCamera = Camera.main;    // 카메라의 뷰포트를 기준으로 크기 조정
-        Vector2 spriteSize = background.sprite.bounds.size; // 배경 이미지의 크기를 얻기 위해 SpriteRenderer의 bounds 사용
-
-        // 화면의 높이와 너비 계산
-        float screenHeight = mainCamera.orthographicSize * 2.0f;
-        float screenWidth = screenHeight * Screen.width / Screen.height;
-        
-        // 화면 크기와 스프라이트 크기 비교 후, 스케일 조정
-        Vector3 scale = transform.localScale;
-        scale.x = screenWidth / spriteSize.x;
-        scale.y = screenHeight / spriteSize.y;
-        transform.localScale = scale;
     }
 
     // 맵 이동 시 배경화면과 배경음을 변경하는 함수
