@@ -20,9 +20,8 @@ public class GameDirector : MonoBehaviour
     public GameObject endTurnButton;
     private EventManager eventManager;
     private BackgroundManager backgroundManager;
-    public SettingsManager settingsManager;
-    public AudioMixer audioMixer;
-
+    public GameObject settings;
+    
     void Start()
     {
         message = FindObjectOfType<SystemMessage>();
@@ -33,9 +32,7 @@ public class GameDirector : MonoBehaviour
         deckManager = FindObjectOfType<DeckManager>();
         eventManager = FindObjectOfType<EventManager>();
         backgroundManager = FindObjectOfType<BackgroundManager>();
-
         InitGame();
-        SetDefaultAudioSettings();
     }
 
     void InitGame()
@@ -46,11 +43,8 @@ public class GameDirector : MonoBehaviour
 
         popupManager.ShowPopup("StartDeck");
         message.ShowSystemMessage("3가지 속성 선택");
-    }
-
-    void SetDefaultAudioSettings()
-    {
-        audioMixer.SetFloat("MasterVolume", 20f);
+        settings.SetActive(true);
+        settings.SetActive(false);
     }
 
     public void OnPortalEntered(string portalType)

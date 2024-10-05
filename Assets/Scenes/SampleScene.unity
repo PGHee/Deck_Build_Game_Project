@@ -22765,8 +22765,7 @@ MonoBehaviour:
   fadeManager: {fileID: 308242726}
   stageManager: {fileID: 162533647}
   endTurnButton: {fileID: 939325982}
-  settingsManager: {fileID: 237406001}
-  audioMixer: {fileID: 24100000, guid: bf9784e367ea7b346ad891390df93e48, type: 2}
+  settings: {fileID: 778429934}
 --- !u!1 &751023788
 GameObject:
   m_ObjectHideFlags: 0

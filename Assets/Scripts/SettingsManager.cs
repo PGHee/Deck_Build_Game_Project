@@ -30,16 +30,15 @@ public class SettingsManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         InitializeSettings();  // 게임 시작 시 설정값을 UI에 반영 및 적용
     }
 
     void InitializeSettings()
     {
         // 해상도 설정 초기화
+        audioMixer.SetFloat("MasterVolume", 20f);
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
-
         List<string> options = new List<string>();
         List<Resolution> filteredResolutions = new List<Resolution>();
         HashSet<string> uniqueResolutions = new HashSet<string>();
@@ -55,7 +54,6 @@ public class SettingsManager : MonoBehaviour
                 filteredResolutions.Add(resolutions[i]); // 중복되지 않은 해상도만 추가
             }
         }
-
         resolutionDropdown.AddOptions(options);
 
         // 저장된 해상도 인덱스를 불러오거나 기본값으로 설정
