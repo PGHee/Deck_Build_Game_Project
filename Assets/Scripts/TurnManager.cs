@@ -17,6 +17,8 @@ public class TurnManager : MonoBehaviour
     private DeckListManager deckListManager;
     public ArtifactManager artifactManager;
     public HandControl handController;
+    private UIBar uiBar;
+
     public GameObject endTurnButton;
 
     private bool isPlayerTurn;
@@ -45,6 +47,7 @@ public class TurnManager : MonoBehaviour
         investCrystal = FindObjectOfType<InvestCrystalManager>();
         popupManager = FindObjectOfType<PopupManager>();
         deckListManager = FindObjectOfType<DeckListManager>();
+        uiBar = FindObjectOfType<UIBar>();
         this.enabled = false;
     }
 
@@ -97,6 +100,8 @@ public class TurnManager : MonoBehaviour
         if (artifactManager.bonusHeal > 0) player.Heal(artifactManager.bonusHeal);
 
         message.ShowSystemMessage("플레이어 턴");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
+
+        uiBar.UpdateUIBar();
 
         StartCoroutine(CardSearchPhaseLight());
     }
@@ -177,16 +182,33 @@ public class TurnManager : MonoBehaviour
         isSearchEnd = "Dark";
         if (player.attributeMastery[PlayerState.AttributeType.Dark] >= 3 && player.attributeMastery[PlayerState.AttributeType.Dark] < 6)
         {
-            deckManager.CardSalvage(Random.Range(0, deckManager.graveArray.Length));
+            if(deckManager.deckArray.Length > 4 + artifactManager.bonusDraw && deckManager.graveArray.Length != 0)
+            {
+                yield return new WaitForSeconds(1);
+                deckManager.CardSalvage(Random.Range(0, deckManager.graveArray.Length));
+            }
+            else
+            {
+                yield return new WaitForSeconds(1);
+                message.ShowSystemMessage("묘지에 카드가 없습니다.");
+            }
             TurnStartSearchSwitch();
         }
         else if (player.attributeMastery[PlayerState.AttributeType.Dark] >= 6)
         {
-            yield return new WaitForSeconds(1);
-            popupManager.ShowPopup("DeckList");
-            deckListManager.CardListUp("GraveArray");
-            yield return new WaitForSeconds(1);
-            message.ShowSystemMessage("묘지에서 어둠 속성 카드 획득");
+            if (deckManager.graveArray.Length != 0)
+            {
+                yield return new WaitForSeconds(1);
+                popupManager.ShowPopup("DeckList");
+                deckListManager.CardListUp("GraveArray");
+                yield return new WaitForSeconds(1);
+                message.ShowSystemMessage("묘지에서 어둠 속성 카드 획득");
+            }
+            else
+            {
+                message.ShowSystemMessage("묘지에 카드가 없습니다.");
+            }
+            
         }
         else
         {

@@ -167,32 +167,38 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
 
     public void GenerateArtifact(int artifactNum)
     {
-        GameObject go = Instantiate(artifactPrefabs[artifactNum - 1]);
-        go.transform.position = new Vector3(-2.0f, 0f, 1);
-        go.name = "Artifact";
-
+        //GameObject go = Instantiate(artifactPrefabs[artifactNum - 1]);
+        //go.transform.position = new Vector3(-2.0f, 0f, 1);
+        //go.name = "Artifact";
         //GetArtifactInfo();
+        artifact = GameObject.FindWithTag("Artifact");
+
+        if (artifact != null)
+        {
+            artifact.GetComponent<SpriteRenderer>().sprite = artifactPrefabs[artifactNum - 1].GetComponent<SpriteRenderer>().sprite;
+        }
+
         DeactivateArtfactReady();
     }
 
-    public void GetArtifactInfo() // 착용된 아티팩트의 정보를 불러옴
+    public void GetArtifactInfo(int artifactNum) // 착용된 아티팩트의 정보를 불러옴
     {
         artifact = GameObject.FindWithTag("Artifact");
         if (artifact)
         {
-            activeEffect = artifact.GetComponent<ArtifactInfo>().activeEffectInfo;
-            activeCoef = artifact.GetComponent<ArtifactInfo>().activeCoefInfo;
-            passiveEffectList = artifact.GetComponent<ArtifactInfo>().passiveListInfo;
-            passiveCoefList = artifact.GetComponent<ArtifactInfo>().passiveCoefListInfo;
-            artifactCost = artifact.GetComponent<ArtifactInfo>().artifactCost;
-            bonusPoison = artifact.GetComponent<ArtifactInfo>().bonusPoison;
-            bonusAttack = artifact.GetComponent<ArtifactInfo>().bonusAttack;
-            bonusCrystal = artifact.GetComponent<ArtifactInfo>().bonusCrystal;
-            bonusAttributeExperience = artifact.GetComponent<ArtifactInfo>().bonusAttributeExperience;
-            execution = artifact.GetComponent<ArtifactInfo>().execution;
-            bonusDamage = artifact.GetComponent<ArtifactInfo>().bonusDamage;
-            bonusShield = artifact.GetComponent<ArtifactInfo>().bonusShield;
-            bonusHeal = artifact.GetComponent<ArtifactInfo>().bonusHeal;
+            activeEffect = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().activeEffectInfo;
+            activeCoef = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().activeCoefInfo;
+            passiveEffectList = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().passiveListInfo;
+            passiveCoefList = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().passiveCoefListInfo;
+            artifactCost = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().artifactCost;
+            bonusPoison = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().bonusPoison;
+            bonusAttack = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().bonusAttack;
+            bonusCrystal = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().bonusCrystal;
+            bonusAttributeExperience = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().bonusAttributeExperience;
+            execution = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().execution;
+            bonusDamage = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().bonusDamage;
+            bonusShield = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().bonusShield;
+            bonusHeal = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().bonusHeal;
         }   
     }
 
@@ -200,8 +206,8 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     {
         GameObject mountedArtifact = GameObject.FindWithTag("Artifact");
 
-        passiveEffectList = mountedArtifact.GetComponent<ArtifactInfo>().passiveListInfo;
-        passiveCoefList = mountedArtifact.GetComponent<ArtifactInfo>().passiveCoefListInfo;
+        //passiveEffectList = mountedArtifact.GetComponent<ArtifactInfo>().passiveListInfo;
+        //passiveCoefList = mountedArtifact.GetComponent<ArtifactInfo>().passiveCoefListInfo;
         if (mountedArtifact != null)
         {
             for (int i = 0; i < passiveEffectList.Count; i++)
@@ -243,7 +249,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
 
     public void ActiveEffectApply() // 플레이어에 영향을 주는 액티브(회복,방어도,드로우)
     {
-        if (artifactReady)
+        if (artifactReady && activeCoef > 0)
         {
             if (playerState.currentResource >= artifactCost)
             {
