@@ -7,17 +7,28 @@ public class BuffDebuffIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private TooltipManager tooltipManager;
     private BuffDebuffManager buffDebuffManager;
     private GameObject entity;
+    private MonsterState monsterState;
 
     private void Start()
     {
         tooltipManager = FindObjectOfType<TooltipManager>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         entity = transform.parent.parent.parent.parent.gameObject;
+        monsterState = transform.parent.parent.parent.parent.GetComponent<MonsterState>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         string description = "";
+
+        if (monsterState != null && monsterState.passives.Count > 0)
+        {
+            description += "[ 패시브 ]\n";
+            foreach (Passive passive in monsterState.passives)
+            {
+                description += tooltipManager.GetPassiveDescription(passive.passiveType) + "\n";
+            }
+        }
 
         // 버프 출력
         if (buffDebuffManager.entityBuffs.TryGetValue(entity, out var buffs) && buffs.Count > 0)

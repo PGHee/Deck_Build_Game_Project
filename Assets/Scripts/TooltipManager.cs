@@ -94,4 +94,19 @@ public class TooltipManager : MonoBehaviour
         }
         return description;
     }
+
+    public string GetPassiveDescription(PassiveType passiveType)
+    {
+        string description = "";
+        switch (passiveType)
+        {
+            case PassiveType.Revive:
+                description = $"<size=15>부활 : 체력이 모두 소진되면 한 번 부활합니다.</size>";
+                break;
+            case PassiveType.Bond:
+                description = $"<size=15>결속 : 결속된 몬스터를 잡지 못하면 부활합니다.</size>";
+                break;
+        }
+        return description;
+    }
 }

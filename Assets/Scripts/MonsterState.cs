@@ -54,6 +54,7 @@ public class MonsterState : MonoBehaviour
     public List<Passive> passives = new List<Passive>();                // 몬스터 패시브
 
     private BuffDebuffManager buffDebuffManager;
+    private BuffDebuffUIManager uiManager;
     private Actions monsterActions;
     public Action selectedAction;                                       // 몬스터가 이번 턴에 할 행동
     private TooltipManager tooltipManager;
@@ -81,6 +82,7 @@ public class MonsterState : MonoBehaviour
         monsterActions = FindObjectOfType<Actions>();
         tooltipManager = FindObjectOfType<TooltipManager>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
+        uiManager = FindObjectOfType<BuffDebuffUIManager>();
         effect = FindObjectOfType<Effect>();
         damageText = FindObjectOfType<DamageText>();
         gameDirector = FindObjectOfType<GameDirector>();
@@ -88,6 +90,10 @@ public class MonsterState : MonoBehaviour
         currentHealth = maxHealth;
         isStunned = false;
         originalTag = gameObject.tag;
+        foreach (Passive passive in passives)
+        {
+            uiManager.AddPassiveIcon(buffIconPanel, passive.passiveType);
+        }
         GetRandomAction();
         UpdateValueEffect();
         UpdateAction();
@@ -277,27 +283,27 @@ public class MonsterState : MonoBehaviour
 
     void Die()
     {
-        Passive bondPassive = passives.Find(p => p.passiveType == PassiveType.Bond);        // 결속 패시브 확인
+        Passive bondPassive = passives.Find(p => p.passiveType == PassiveType.Bond);
         if (bondPassive != null)
         {
-            gameObject.tag = "WaitingForDeath";         // 태그를 "WaitingForDeath"로 변경하여 타겟팅에서 제외
-            currentHealth = 0;                          // 체력은 0으로 고정
-            UpdateHPBar();                              // HP 바 업데이트
+            gameObject.tag = "WaitingForDeath";
+            currentHealth = 0;
+            UpdateHPBar();
             buffDebuffManager.ApplySkipTurnDebuff(this.gameObject, 1);
-            Debug.Log($"{gameObject.name} is waiting for death.");
             return;
         }
 
-        Passive revivePassive = passives.Find(p => p.passiveType == PassiveType.Revive);    // 부활 패시브 확인
+        Passive revivePassive = passives.Find(p => p.passiveType == PassiveType.Revive);
         if (revivePassive != null)
         {
             passives.Remove(revivePassive);
             currentHealth = Mathf.RoundToInt(maxHealth * 0.5f);
             UpdateHPBar();
-            Debug.Log($"{gameObject.name} has revived with {currentHealth} health.");
+            uiManager.RemovePassiveIcon(buffIconPanel, PassiveType.Revive);
             return;
         }
-        // 완전히 사망 처리합니다.
+
+        // 완전히 사망 처리
         animator.SetTrigger("DieTrigger");
         actionUI.DestroyActionUI();
         buffDebuffManager.RemoveAllEffects(this.gameObject);

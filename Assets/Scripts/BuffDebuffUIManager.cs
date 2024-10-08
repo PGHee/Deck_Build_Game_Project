@@ -4,14 +4,17 @@ using UnityEngine;
 public class BuffDebuffUIManager : MonoBehaviour
 {
     private Dictionary<EffectType, GameObject> iconPrefabs = new Dictionary<EffectType, GameObject>();
+    private Dictionary<PassiveType, GameObject> passiveIconPrefabs = new Dictionary<PassiveType, GameObject>();
     private Dictionary<Transform, List<GameObject>> activeBuffIcons = new Dictionary<Transform, List<GameObject>>();
     private Dictionary<Transform, List<GameObject>> activeDebuffIcons = new Dictionary<Transform, List<GameObject>>();
+    private Dictionary<Transform, List<GameObject>> activePassiveIcons = new Dictionary<Transform, List<GameObject>>();
 
     public float iconSpacing = 30f;
 
     private void Awake()
     {
         LoadPrefabs(iconPrefabs, "Icons");
+        LoadPassivePrefabs(passiveIconPrefabs, "Icons");
     }
 
     private void LoadPrefabs(Dictionary<EffectType, GameObject> prefabDictionary, string folderPath)
@@ -26,6 +29,16 @@ public class BuffDebuffUIManager : MonoBehaviour
             string prefabPath = $"Prefabs/{folderPath}/{effectType}Prefab";
             GameObject prefab = Resources.Load<GameObject>(prefabPath);
             if (prefab != null) prefabDictionary[effectType] = prefab;
+        }
+    }
+
+    private void LoadPassivePrefabs(Dictionary<PassiveType, GameObject> prefabDictionary, string folderPath)
+    {
+        foreach (PassiveType passiveType in System.Enum.GetValues(typeof(PassiveType)))
+        {
+            string prefabPath = $"Prefabs/{folderPath}/{passiveType}Prefab";
+            GameObject prefab = Resources.Load<GameObject>(prefabPath);
+            if (prefab != null) prefabDictionary[passiveType] = prefab;
         }
     }
 
@@ -59,6 +72,26 @@ public class BuffDebuffUIManager : MonoBehaviour
         return null;  // 아이콘이 이미 존재하면 null 반환
     }
 
+    public GameObject AddPassiveIcon(Transform panel, PassiveType passiveType)
+    {
+        if (!activePassiveIcons.ContainsKey(panel)) activePassiveIcons[panel] = new List<GameObject>();
+        if (!PassiveIconExists(activePassiveIcons[panel], passiveType))
+        {
+            GameObject passiveIcon = Instantiate(passiveIconPrefabs[passiveType], panel);
+            activePassiveIcons[panel].Add(passiveIcon);
+            ReorganizeIcons(panel, activePassiveIcons[panel], true);
+
+            return passiveIcon;  // 생성된 아이콘을 반환
+        }
+
+        return null;  // 아이콘이 이미 존재하면 null 반환
+    }
+
+    private bool PassiveIconExists(List<GameObject> icons, PassiveType passiveType)
+    {
+        return icons.Exists(icon => icon.name.Contains(passiveType.ToString()));
+    }
+
     public void RemoveBuffIcon(Transform panel, EffectType effectType)
     {
         RemoveIcon(activeBuffIcons, panel, effectType);
@@ -67,6 +100,20 @@ public class BuffDebuffUIManager : MonoBehaviour
     public void RemoveDebuffIcon(Transform panel, EffectType effectType)
     {
         RemoveIcon(activeDebuffIcons, panel, effectType);
+    }
+
+    public void RemovePassiveIcon(Transform panel, PassiveType passiveType)
+    {
+        if (activePassiveIcons.ContainsKey(panel))
+        {
+            GameObject iconToRemove = activePassiveIcons[panel].Find(icon => icon.name.Contains(passiveType.ToString()));
+            if (iconToRemove != null)
+            {
+                activePassiveIcons[panel].Remove(iconToRemove);
+                Destroy(iconToRemove);
+                ReorganizeIcons(panel, activePassiveIcons[panel]);
+            }
+        }
     }
 
     private bool IconExists(List<GameObject> icons, EffectType effectType)
@@ -88,12 +135,16 @@ public class BuffDebuffUIManager : MonoBehaviour
         }
     }
 
-    private void ReorganizeIcons(Transform panel, List<GameObject> icons)
+    private void ReorganizeIcons(Transform panel, List<GameObject> icons, bool isPassive = false)
     {
         for (int i = 0; i < icons.Count; i++)
         {
             RectTransform iconTransform = icons[i].GetComponent<RectTransform>();
-            if (iconTransform != null) iconTransform.anchoredPosition = new Vector2(i * iconSpacing, 0);
+            if (iconTransform != null)
+            {
+                float offset = isPassive ? -0.5f : 0f;
+                iconTransform.anchoredPosition = new Vector2(i * iconSpacing + offset, - offset);
+            }
         }
     }
 }
