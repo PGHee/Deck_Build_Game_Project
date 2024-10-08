@@ -209,11 +209,19 @@ public class PlayerState : MonoBehaviour
             UpdateHPBar();
             if (currentHealth <= 0)
             {
-                Destroy(gameObject);
-                Destroy(hpBar.gameObject);
+                Die();
             }
         }
         playerUI.UpdatePlayerUI();
+    }
+
+    private void Die()
+    {
+        buffDebuffManager.RemoveAllEffects(this.gameObject);
+        Destroy(hpBar.gameObject);
+        Destroy(circleBar.gameObject);
+        TurnManager.instance.CheckBattleEnd();
+        Destroy(gameObject);
     }
 
     // 매 턴마다 적용되는 패시브 효과

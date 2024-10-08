@@ -73,6 +73,8 @@ public class MonsterState : MonoBehaviour
 
     public bool applyExecution;
 
+    private GameDirector gameDirector;
+
     void Start()
     {
         TurnManager.instance.RegisterMonster(this);
@@ -81,6 +83,7 @@ public class MonsterState : MonoBehaviour
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         effect = FindObjectOfType<Effect>();
         damageText = FindObjectOfType<DamageText>();
+        gameDirector = FindObjectOfType<GameDirector>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         isStunned = false;
@@ -303,6 +306,7 @@ public class MonsterState : MonoBehaviour
 
     public void OnDeathAnimationComplete()
     {
+        gameDirector.KillCount(gameObject.name.Substring(0, gameObject.name.Length - 9));
         TurnManager.instance.CheckBattleEnd();
         Destroy(gameObject);  // 오브젝트 삭제
     }

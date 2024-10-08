@@ -7,6 +7,12 @@ public class GameDirector : MonoBehaviour
 {
     public int currentStage;       // 현재 스테이지 번호
     public int currentMap;         // 현재 맵 번호
+    public int enterFight;
+    public int enterEvent;
+    public int killMonster;
+    public int killElite;
+    public int killBoss;
+
     public string currentMapName;
     private MonsterSpawnManager spawnManager;
     private TurnManager turnManager;
@@ -21,6 +27,7 @@ public class GameDirector : MonoBehaviour
     private EventManager eventManager;
     private BackgroundManager backgroundManager;
     public GameObject settings;
+    private EndingPanelManager endingPanelManager;
     
     void Start()
     {
@@ -32,6 +39,7 @@ public class GameDirector : MonoBehaviour
         deckManager = FindObjectOfType<DeckManager>();
         eventManager = FindObjectOfType<EventManager>();
         backgroundManager = FindObjectOfType<BackgroundManager>();
+        endingPanelManager = FindObjectOfType<EndingPanelManager>();
         InitGame();
     }
 
@@ -39,6 +47,11 @@ public class GameDirector : MonoBehaviour
     {
         currentStage = 1;
         currentMap = 1;
+        enterFight = 0;
+        enterEvent = 0;
+        killMonster = 0;
+        killElite = 0;
+        killBoss = 0;
         titleMessage.ShowTitleMessage($"{currentStage} - {currentMap}");
 
         popupManager.ShowPopup("StartDeck");
@@ -87,6 +100,7 @@ public class GameDirector : MonoBehaviour
     IEnumerator StartNormalBattle()
     {
         message.ShowSystemMessage("전투 시작!");
+        enterFight++;
         yield return new WaitForSeconds(1);
         endTurnButton.SetActive(true);
         spawnManager.SpawnNormalMonsters();
@@ -96,6 +110,7 @@ public class GameDirector : MonoBehaviour
     IEnumerator StartEliteBattle()
     {
         message.ShowSystemMessage("정예 몬스터 등장! 전투 시작");
+        enterFight++;
         yield return new WaitForSeconds(1);
         endTurnButton.SetActive(true);
         spawnManager.SpawnEliteMonster();
@@ -105,6 +120,7 @@ public class GameDirector : MonoBehaviour
     IEnumerator StartBossBattle()
     {
         message.ShowSystemMessage("보스 등장!! 전투 시작");
+        enterFight++;
         yield return new WaitForSeconds(1);
         endTurnButton.SetActive(true);
         spawnManager.SpawnBossMonster();
@@ -123,6 +139,7 @@ public class GameDirector : MonoBehaviour
     IEnumerator StartEvent()
     {
         Debug.Log("Triggering Event");
+        enterEvent++;
         yield return new WaitForSeconds(1);
         popupManager.ShowPopup("Event");
         eventManager.GetComponent<EventManager>().SetEvent();
@@ -130,9 +147,25 @@ public class GameDirector : MonoBehaviour
         titleMessage.ShowTitleMessage($"이벤트");
     }
 
-    void EndGame()
+    public IEnumerator EndGame()
     {
-        Debug.Log("Game Over");
-        // 게임 종료 로직
+        yield return new WaitForSeconds(0.5f);
+        endingPanelManager.ActivateEndingPanel();
+    }  
+
+    public void KillCount(string Monster)
+    {
+        switch(Monster)
+        {
+            case "Monster":
+                killMonster++;
+                break;
+            case "Elite":
+                killElite++;
+                break;
+            case "Bos":
+                killBoss++;
+                break;
+        }
     }
 }

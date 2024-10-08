@@ -18,6 +18,7 @@ public class TurnManager : MonoBehaviour
     public ArtifactManager artifactManager;
     public HandControl handController;
     public GameObject endTurnButton;
+    private GameDirector gameDirector;
 
     private bool isPlayerTurn;
     public bool IsPlayerTurn => isPlayerTurn;
@@ -45,6 +46,7 @@ public class TurnManager : MonoBehaviour
         investCrystal = FindObjectOfType<InvestCrystalManager>();
         popupManager = FindObjectOfType<PopupManager>();
         deckListManager = FindObjectOfType<DeckListManager>();
+        gameDirector = FindObjectOfType<GameDirector>();
         this.enabled = false;
     }
 
@@ -118,11 +120,11 @@ public class TurnManager : MonoBehaviour
     IEnumerator MonsterTurn()
     {
         yield return new WaitForSeconds(1);
-        message.ShowSystemMessage("몬스터 턴 시작");
+        message.ShowSystemMessage("몬스터 턴");
         CheckBondedRevive();
         foreach (var monster in monsters)
         {
-            if (monster != null && monster.gameObject.activeInHierarchy)
+            if (monster != null && monster.gameObject.activeInHierarchy && player != null)
             {
                 if(buffDebuffManager.currentField == PlayerState.AttributeType.Wood) monster.ApplyPoison(3);
                 yield return new WaitForSeconds(1);
@@ -244,7 +246,7 @@ public class TurnManager : MonoBehaviour
         if (player.currentHealth <= 0)
         {
             Debug.Log("Player is defeated. Battle ended.");
-            // 전투 종료 처리 (패배)
+            StartCoroutine(gameDirector.EndGame());
             this.enabled = false;
         }
         else if (monsters.TrueForAll(m => m.currentHealth <= 0))
