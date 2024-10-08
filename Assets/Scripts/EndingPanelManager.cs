@@ -18,7 +18,10 @@ public class EndingPanelManager : MonoBehaviour
 
     // 성취도 게이지 및 별 아이콘
     public Slider achievementGauge;
-    public Image[] achievementStars; // 5개의 별 이미지 (비활성화된 상태로 시작)
+    public Image[] achievementStars; // 5개 별 오브젝트
+    public TextMeshProUGUI achievementText;
+    public Image endingImage;
+    public Sprite[] endingSprite;
 
     // 점수 계산 배수
     public float levelMultiplier = 200f;
@@ -55,6 +58,7 @@ public class EndingPanelManager : MonoBehaviour
     public void ActivateEndingPanel()
     {
         endingPanel.SetActive(true);
+        endingImage.enabled = false;
         StartCoroutine(DisplayScoresWithDelay());
     }
 
@@ -80,8 +84,8 @@ public class EndingPanelManager : MonoBehaviour
             //playerSectionText.text = $"◈레벨: {playerLevelScore}\n◈경험치: {playerExperienceScore}\n◈마석: {playerCrystalScore}\n◈아티팩트 등급: {artifactScore}";
             int playerTotalScore = playerLevelScore + playerExperienceScore + playerCrystalScore;
             // int playerTotalScore = playerLevelScore + playerExperienceScore + playerCrystalScore + artifactScore;
-            UpdateAchievementGauge(playerTotalScore);
             totalScore += playerTotalScore;
+            UpdateAchievementGauge(totalScore);
         }
         else playerSectionText.text = "플레이어의 사망으로 점수를 획득할 수 없습니다.";
 
@@ -100,8 +104,8 @@ public class EndingPanelManager : MonoBehaviour
             }
             attributeSectionText.text = $"◈속성 레벨: {attributeLevelScore}점\n◈속성 경험치: {attributeExperienceScore}점";
             int attributeTotalScore = attributeLevelScore + attributeExperienceScore;
-            UpdateAchievementGauge(attributeTotalScore);
             totalScore += attributeTotalScore;
+            UpdateAchievementGauge(totalScore);
         }
         else attributeSectionText.text = "플레이어의 사망으로 점수를 획득할 수 없습니다.";
         
@@ -114,8 +118,8 @@ public class EndingPanelManager : MonoBehaviour
 
         stageSectionText.text = $"◈도달한 스테이지: {stageScore}점\n◈전투 횟수: {fightScore}점\n◈이벤트 횟수: {eventScore}점";
         int stageTotalScore = stageScore + fightScore + eventScore;
-        UpdateAchievementGauge(stageTotalScore);
         totalScore += stageTotalScore;
+        UpdateAchievementGauge(totalScore);
         yield return new WaitForSeconds(2f);
 
         // 4. 몬스터 부문 점수 계산 및 출력
@@ -125,25 +129,27 @@ public class EndingPanelManager : MonoBehaviour
 
         monsterSectionText.text = $"◈처치한 몬스터: {monsterScore}점\n◈처치한 정예: {eliteScore}점\n◈처치한 보스: {bossScore}점";
         int monsterTotalScore = monsterScore + eliteScore + bossScore;
-        UpdateAchievementGauge(monsterTotalScore);
         totalScore += monsterTotalScore;
+        UpdateAchievementGauge(totalScore);
 
         yield return new WaitForSeconds(2f);
         finalScoreText.text = $"최종 점수: {totalScore}점";
+        endingImage.enabled = true;
     }
 
     // 성취도 게이지 및 별 아이콘 업데이트
     private void UpdateAchievementGauge(int score)
     {
-        // 현재 게이지에 점수를 추가
-        int totalScore = Mathf.FloorToInt(achievementGauge.value * achievementThresholds[achievementStars.Length - 1]) + score;
-
+        int maxThreshold = 0;
         // 별 아이콘 업데이트
         for (int i = 0; i < achievementStars.Length; i++)
         {
-            if (totalScore >= achievementThresholds[i])
+            if (score >= achievementThresholds[i])
             {
                 achievementStars[i].enabled = true; // 별 활성화
+                score -= achievementThresholds[i];
+                maxThreshold = achievementThresholds[i];
+                endingImage.sprite = endingSprite[i];
             }
             else
             {
@@ -152,7 +158,7 @@ public class EndingPanelManager : MonoBehaviour
         }
 
         // 마지막 별 기준으로 Slider의 값 설정 (0에서 1 사이 값)
-        int maxThreshold = achievementThresholds[achievementStars.Length - 1];
-        achievementGauge.value = (float)totalScore / maxThreshold; // Slider를 0~1 범위로 설정
+        achievementGauge.value = (float)score / maxThreshold; // Slider를 0~1 범위로 설정
+        achievementText.text = $"{score} / {maxThreshold}";
     }
 }

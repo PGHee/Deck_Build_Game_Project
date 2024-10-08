@@ -56,10 +56,10 @@ public class TurnActionUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 description = $"<size=15>이번 턴에 {intEffect}만큼 방어도를 쌓습니다.</size>";
                 break;
             case ActionType.Heal:
-                description = $"<size=15>이번 턴에 {intEffect}만큼 본인의 체력을 회복합니다.</size>";
+                description = $"<size=15>이번 턴에 본인 체력을 {intEffect}만큼 회복합니다.</size>";
                 break;
             case ActionType.AreaHeal:
-                description = $"<size=15>이번 턴에 {intEffect}만큼 몬스터 전체의 체력을 회복합니다.</size>";
+                description = $"<size=15>이번 턴에 몬스터 전체 체력을 {intEffect}만큼 회복합니다.</size>";
                 break;
             case ActionType.Poison:
                 description = $"<size=15>이번 턴에 {intEffect}의 독을 부여합니다.</size>";

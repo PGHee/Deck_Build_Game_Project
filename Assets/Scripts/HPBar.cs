@@ -29,6 +29,26 @@ public class HPBar : MonoBehaviour
         UpdateHealth(maxHealth, maxHealth, shield, poison);
     }
 
+    public void MoveBuffDebuffPanel(float offsetY)
+    {
+        // 버프 아이콘 패널 이동
+        if (buffIconPanel != null)
+        {
+            Vector3 newBuffPosition = buffIconPanel.localPosition;
+            newBuffPosition.y += offsetY;  // 전달된 offsetY만큼 Y좌표 이동
+            buffIconPanel.localPosition = newBuffPosition;
+        }
+
+        // 디버프 아이콘 패널 이동
+        if (debuffIconPanel != null)
+        {
+            Vector3 newDebuffPosition = debuffIconPanel.localPosition;
+            newDebuffPosition.y += offsetY;  // 전달된 offsetY만큼 Y좌표 이동
+            debuffIconPanel.localPosition = newDebuffPosition;
+        }
+    }
+
+
     // UpdateHealth 메서드
     public void UpdateHealth(int currentHealth, int maxHealth, int shield, int poison)
     {
@@ -61,6 +81,7 @@ public class HPBar : MonoBehaviour
         {
             iconTransform.gameObject.SetActive(true);
             iconText.gameObject.SetActive(true);
+            iconText.text = "";
             healthText.text = $"{currentHealth} / {maxHealth} <color=#66FF66>(-{poison})</color>";
             iconRenderer.sprite = poisonSprite;             // poison 스프라이트
             hpFillImage.sprite = poisonHPSprite;         // 중독 상태일 때 보라색 HP바 스프라이트 사용
