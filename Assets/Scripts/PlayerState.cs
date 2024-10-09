@@ -87,6 +87,7 @@ public class PlayerState : MonoBehaviour
             attributeMastery[attr] = 1;
             attributeExperience[attr] = 0;
         }
+        //attributeMastery[AttributeType.Metal] = 0;
         hpBar.Initialize(transform, maxHealth, shield, poisonStacks, new Vector3(0, 1.0f, 0));   // 오프셋은 필요에 따라 조정
         hpBar.MoveBuffDebuffPanel(-0.5f);
         circleBar.Initialize(transform, resource, new Vector3(0, 0, 0));

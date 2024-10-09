@@ -192,6 +192,7 @@ public class DeckListManager : MonoBehaviour
                     deckManager.deckArrayOrigin = deckManager.DelCardFromDeck(deckManager.deckArrayOrigin, 15 * cardListPage + ButtonNum);
                     delete = false;
                     message.ShowSystemMessage("카드 제거");
+                    SetDeleteButtonConfirm(ButtonNum);
                 }
                 else
                 {
@@ -211,6 +212,15 @@ public class DeckListManager : MonoBehaviour
         GetClearButtonCard();
         RectTransform rectTransform = clearButtonsCard[buttonNum].GetComponent<RectTransform>();
         GameObject go = Instantiate(Resources.Load<GameObject>($"Prefabs/UI/Item_Confirm"), rectTransform.position, Quaternion.identity, GameObject.Find("Panel_DeckList").GetComponent<RectTransform>());
+        go.GetComponent<RectTransform>().position = rectTransform.position;
+        go.name = "Item_Confirm";
+    }
+
+    public void SetDeleteButtonConfirm(int buttonNum)
+    {
+        GetClearButtonCard();
+        RectTransform rectTransform = clearButtonsCard[buttonNum].GetComponent<RectTransform>();
+        GameObject go = Instantiate(Resources.Load<GameObject>($"Prefabs/UI/Item_Deleted_Confirm"), rectTransform.position, Quaternion.identity, GameObject.Find("Panel_DeckList").GetComponent<RectTransform>());
         go.GetComponent<RectTransform>().position = rectTransform.position;
         go.name = "Item_Confirm";
     }

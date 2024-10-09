@@ -114,7 +114,8 @@ public class ShopManager : MonoBehaviour
             dynamicButtonManager.CardSpriteToButton(sellCardNum, clearButtonsShop[i]); // 일러만 가져오도록 수정 필요
 
             GameObject cardPrefab = Resources.Load<GameObject>($"Prefabs/Card/{CardNameConverter.CardNumToCode(sellCardNum)}");
-            PriceText[i].text = "[" + cardPrefab.GetComponent<Card>().cardName + "]<br>[" + sellCardPrices[i] + " 크리스탈]";
+            //PriceText[i].text = "[" + cardPrefab.GetComponent<Card>().cardName + "]<br>[" + sellCardPrices[i] + " 마석]";
+            AutoSizeText(PriceText[i], "[" + cardPrefab.GetComponent<Card>().cardName + "]<br>[" + sellCardPrices[i] + " 마석]");
         }
         
     }
@@ -186,7 +187,8 @@ public class ShopManager : MonoBehaviour
             sellArtifactNums[i] = sellArtifactNum;
             sellArtifactPrices[i] = 100;
 
-            PriceText[i + 5].text = "[" + sellArtifactPrices[i] + " 크리스탈]";
+            //PriceText[i + 5].text = "[" + sellArtifactPrices[i] + " 마석]";
+            AutoSizeText(PriceText[i + 5], "[" + sellArtifactPrices[i] + " 마석]");
 
             clearButtonsShop[i + 5].GetComponent<UIToolTip>().descriptionTextArtifact = artifactMountManager.GetArtifactText(sellArtifactNum - 1 );
         }
@@ -242,6 +244,24 @@ public class ShopManager : MonoBehaviour
     public void trueShopFirstOpen()
     {
         shopFirstOpen = true;
+    }
+
+    public void  AutoSizeText(TextMeshProUGUI textBox, string text)
+    {
+        textBox.text = text;
+        RectTransform tooltipRectTransform = textBox.GetComponent<RectTransform>();
+        tooltipRectTransform.pivot = new Vector2(0.5f, 0f); // 패널 하단 위치를 고정, 길이가 늘어나면 위쪽으로 확장
+
+        // 텍스트 레이아웃을 즉시 갱신하여 크기를 가져옴
+        LayoutRebuilder.ForceRebuildLayoutImmediate(textBox.rectTransform);
+
+        // 텍스트의 높이에 따라 툴팁 패널의 높이를 조정
+        float preferredHeight = textBox.preferredHeight;
+        Vector2 newSize = new Vector2(tooltipRectTransform.sizeDelta.x, preferredHeight + 20f);
+        tooltipRectTransform.sizeDelta = newSize;
+
+        // 텍스트 RectTransform을 패널 크기에 맞춰 조정
+        textBox.rectTransform.sizeDelta = new Vector2(tooltipRectTransform.sizeDelta.x - 20f, preferredHeight);
     }
 }
 

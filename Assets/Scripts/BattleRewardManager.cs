@@ -23,6 +23,7 @@ public class BattleRewardManager : MonoBehaviour
 
     public int battleRewardStep;
     private ArtifactMountManager artifactMountManager;
+    private GameDirector gameDirector;
 
 
     // Start is called before the first frame update
@@ -33,6 +34,7 @@ public class BattleRewardManager : MonoBehaviour
         battleRewardStep = 0;
         rewardCrystal = 0;
         artifactMountManager = FindObjectOfType<ArtifactMountManager>();
+        gameDirector = FindObjectOfType<GameDirector>();
     }
 
     public void RestartBattleReward()
@@ -139,11 +141,11 @@ public class BattleRewardManager : MonoBehaviour
             {
                 if (attributeLevelList[i] == 10)
                 {
-                    return (int)(i * 100 + Random.Range(0, 9 * 2 ));
+                    return (int)(i * 100 + EliteCardBonusRatio(Random.Range(0, 9 * 2), attributeLevelList[i]));
                 }
                 else
                 {
-                    return (int)(i * 100 + Random.Range(0, attributeLevelList[i] * 2 ));
+                    return (int)(i * 100 + EliteCardBonusRatio(Random.Range(0, attributeLevelList[i] * 2), attributeLevelList[i]));
                 } 
             }
         }
@@ -238,7 +240,7 @@ public class BattleRewardManager : MonoBehaviour
 
 
         GameObject crystalAmount = GameObject.Find("CrystalAmount");
-        crystalAmount.GetComponent<TextMeshProUGUI>().text = "+" + rewardCrystal + " crystal";
+        crystalAmount.GetComponent<TextMeshProUGUI>().text = "+" + rewardCrystal + " 마석";
 
         clearButtonsBattleReward[0].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/UI/ClearBox");
         clearButtonsBattleReward[1].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Image/Icons/UIBar_Crystal");
@@ -323,5 +325,25 @@ public class BattleRewardManager : MonoBehaviour
         color.a = 255.0f;
 
         clearButtonsBattleReward[buttonNum].GetComponent<Image>().color = color;
+    }
+
+    public int EliteCardBonusRatio(int cardLVNum, int attributeLV)
+    {
+        if (gameDirector.currentMapName == "EliteBattle" || gameDirector.currentMapName == "BossBattle")
+        {
+            cardLVNum = cardLVNum + Random.Range(0, (attributeLV / 3));
+            if (cardLVNum > attributeLV * 2)
+            {
+                return (attributeLV * 2 - Random.Range(0, 2));
+            }
+            else
+            {
+                return cardLVNum;
+            }
+        }
+        else
+        {
+            return cardLVNum;
+        }
     }
 }

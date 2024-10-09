@@ -10,6 +10,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public GameObject artifact;
     public Actions actions;
     private HandControl handControl;
+    private SystemMessage message;
 
     public bool artifactReady;
     public bool artifactDamageReady;
@@ -91,6 +92,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         artifactDamageReady = false;
 
         handControl = FindObjectOfType<HandControl>();
+        message = FindObjectOfType<SystemMessage>();
     }
 
     // Update is called once per frame
@@ -403,12 +405,14 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
                 else
                 {
                     Debug.Log("no match");
+                    message.ShowSystemMessage("조합 불가능 합니다.");
                 }
             }
         }
         else
         {
             Debug.Log("grade missmatch");
+            message.ShowSystemMessage("등급이 맞지 않습니다.");
         }
     }
 
