@@ -19,6 +19,7 @@ public class EndingPanelManager : MonoBehaviour
     // 성취도 게이지 및 별 아이콘
     public Slider achievementGauge;
     public Image[] achievementStars; // 5개 별 오브젝트
+    public Image[] sectionBorder;
     public TextMeshProUGUI achievementText;
     public Image endingImage;
     public Sprite[] endingSprite;
@@ -73,6 +74,7 @@ public class EndingPanelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         // 1. 플레이어 부문 점수 계산 및 출력
+        sectionBorder[0].enabled = true;
         if(playerState.currentHealth >= 0)
         {
             int playerLevelScore = Mathf.Max(0, (playerState.level - 3) * (int)levelMultiplier);
@@ -92,6 +94,8 @@ public class EndingPanelManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         // 2. 속성 부문 점수 계산 및 출력
+        sectionBorder[0].enabled = false;
+        sectionBorder[1].enabled = true;
         if(playerState.currentHealth >= 0)
         {
             int attributeLevelScore = 0;
@@ -112,6 +116,8 @@ public class EndingPanelManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         // 3. 스테이지 부문 점수 계산 및 출력
+        sectionBorder[1].enabled = false;
+        sectionBorder[2].enabled = true;
         int stageScore = Mathf.FloorToInt((gameDirector.currentStage - 1) * stageMultiplier);
         int fightScore = Mathf.FloorToInt(gameDirector.enterFight * fightMultiplier);
         int eventScore = Mathf.FloorToInt(gameDirector.enterEvent * eventMultiplier);
@@ -123,6 +129,8 @@ public class EndingPanelManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         // 4. 몬스터 부문 점수 계산 및 출력
+        sectionBorder[2].enabled = false;
+        sectionBorder[3].enabled = true;
         int monsterScore = Mathf.FloorToInt(gameDirector.killMonster * monsterMultiplier);
         int eliteScore = Mathf.FloorToInt(gameDirector.killElite * eliteMultiplier);
         int bossScore = Mathf.FloorToInt(gameDirector.killBoss * bossMultiplier);
@@ -133,6 +141,8 @@ public class EndingPanelManager : MonoBehaviour
         UpdateAchievementGauge(totalScore);
 
         yield return new WaitForSeconds(2f);
+        sectionBorder[3].enabled = false;
+        sectionBorder[4].enabled = true;
         finalScoreText.text = $"최종 점수: {totalScore}점";
         endingImage.enabled = true;
     }
@@ -148,7 +158,8 @@ public class EndingPanelManager : MonoBehaviour
             {
                 achievementStars[i].enabled = true; // 별 활성화
                 score -= achievementThresholds[i];
-                maxThreshold = achievementThresholds[i];
+                if (i < 5) maxThreshold = achievementThresholds[i + 1];
+                else maxThreshold = achievementThresholds[4];
                 endingImage.sprite = endingSprite[i];
             }
             else
