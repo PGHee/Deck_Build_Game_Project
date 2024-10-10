@@ -181,6 +181,11 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
         if (canvas != null) canvas.sortingOrder = order;
     }
 
+    public void OnMouseDown()
+    {
+        UISoundManager.instance.PlaySound("DragCard");
+    }
+
     public void OnDrag(PointerEventData eventData)          // 카드를 드래그했을 때의 동작
     {
         Vector3 newPosition = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, Camera.main.nearClipPlane));

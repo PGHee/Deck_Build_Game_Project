@@ -28,6 +28,7 @@ public class PopupManager : MonoBehaviour
     public GameDirector gameDirector;
     public AttributeLevelBarManager attributeLevelBarManager;
     private HandControl handController;
+    private UISoundManager uiSoundManager;
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class PopupManager : MonoBehaviour
         gameDirector = FindObjectOfType<GameDirector>();
         attributeLevelBarManager = FindObjectOfType<AttributeLevelBarManager>();
         handController = FindObjectOfType<HandControl>();
+        uiSoundManager = FindObjectOfType<UISoundManager>();
     }
 
     public void ShowPopup(string message)
@@ -103,6 +105,8 @@ public class PopupManager : MonoBehaviour
                 break;
         }
 
+        UISoundManager.instance.PlaySound("PanelOpen");
+
         //popupPanelUIBar.SetActive(false);
     }
 
@@ -161,6 +165,8 @@ public class PopupManager : MonoBehaviour
                 Debug.Log("wrong map message: " + message);
                 break;
         }
+
+        UISoundManager.instance.PlaySound("PanelClose");
 
         //popupPanelUIBar.SetActive(true);
     }
