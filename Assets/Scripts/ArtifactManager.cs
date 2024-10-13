@@ -27,6 +27,8 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         IncreaseMasteryGain
     } //사용x
 
+    public int artifactGrade;
+
     public ActiveEffect activeEffect;
     public int activeCoef;
     public List<EffectType> passiveEffectList;
@@ -126,11 +128,13 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
                             case ActiveEffect.Damage:
                                 actions.DealMultipleHits(hit.collider.gameObject, activeCoef, 1, null, PlayerState.AttributeType.Fire);
                                 artifactReady = false;
+                                artifactDamageReady = false;
                                 break;
 
                             case ActiveEffect.MultiHit:
                                 actions.DealMultipleHits(hit.collider.gameObject, 5, activeCoef, null, PlayerState.AttributeType.Wind);
                                 artifactReady = false;
+                                artifactDamageReady = false;
                                 break;
 
                             case ActiveEffect.AreaDamage:
@@ -140,6 +144,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
                                     actions.DealMultipleHits(monster, activeCoef, 1, null, PlayerState.AttributeType.Lightning);
                                 }
                                 artifactReady = false;
+                                artifactDamageReady = false;
                                 break;
                         }                      
                         CostSpend();
@@ -188,6 +193,8 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         artifact = GameObject.FindWithTag("Artifact");
         if (artifact)
         {
+            artifactGrade = (int)(artifactNum / 10);
+
             activeEffect = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().activeEffectInfo;
             activeCoef = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().activeCoefInfo;
             passiveEffectList = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().passiveListInfo;
@@ -225,6 +232,8 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
         {
             playerState.RemoveBuffDebuff(passiveEffectList[i], 1, passiveCoefList[i], 0);
         }
+
+        artifactGrade = -1;
 
         bonusAttack = 0;
         bonusCrystal = 0;

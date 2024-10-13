@@ -41,6 +41,7 @@ public class EndingPanelManager : MonoBehaviour
     // 플레이어 상태 및 게임 디렉터 참조
     private PlayerState playerState;
     private GameDirector gameDirector;
+    private ArtifactManager artifactManager;
     private int totalScore = 0;
 
     // 성취도 단계
@@ -51,6 +52,7 @@ public class EndingPanelManager : MonoBehaviour
         // 플레이어 상태 및 게임 디렉터 참조
         playerState = FindObjectOfType<PlayerState>();
         gameDirector = FindObjectOfType<GameDirector>();
+        artifactManager = FindObjectOfType<ArtifactManager>();
 
         endingPanel.SetActive(false);
     }
@@ -80,12 +82,12 @@ public class EndingPanelManager : MonoBehaviour
             int playerLevelScore = Mathf.Max(0, (playerState.level - 3) * (int)levelMultiplier);
             int playerExperienceScore = Mathf.FloorToInt(playerState.experience * experienceMultiplier);
             int playerCrystalScore = Mathf.FloorToInt(playerState.crystal * crystalMultiplier);
-            //int artifactScore = ~ . 아티팩트 등급 부분
+            int artifactScore = artifactManager.artifactGrade + 1; 
             
             playerSectionText.text = $"◈레벨: {playerLevelScore}점\n◈경험치: {playerExperienceScore}점\n◈마석: {playerCrystalScore}점\n";
-            //playerSectionText.text = $"◈레벨: {playerLevelScore}\n◈경험치: {playerExperienceScore}\n◈마석: {playerCrystalScore}\n◈아티팩트 등급: {artifactScore}";
-            int playerTotalScore = playerLevelScore + playerExperienceScore + playerCrystalScore;
-            // int playerTotalScore = playerLevelScore + playerExperienceScore + playerCrystalScore + artifactScore;
+            playerSectionText.text = $"◈레벨: {playerLevelScore}\n◈경험치: {playerExperienceScore}\n◈마석: {playerCrystalScore}\n◈아티팩트 등급: {artifactScore}";
+            //int playerTotalScore = playerLevelScore + playerExperienceScore + playerCrystalScore;
+            int playerTotalScore = playerLevelScore + playerExperienceScore + playerCrystalScore + artifactScore;
             totalScore += playerTotalScore;
             UpdateAchievementGauge(totalScore);
         }
