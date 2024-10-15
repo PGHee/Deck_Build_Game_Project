@@ -186,9 +186,9 @@ public class DeckListManager : MonoBehaviour
         {
             if (delete)
             {
-                if(playerState.crystal >= 100)
+                if(playerState.crystal >= (int)(100 + 100 * (gameDirector.currentStage - 1) * 0.5))
                 {
-                    playerState.SpendCrystal(100);
+                    playerState.SpendCrystal((int)(100 + 100 * (gameDirector.currentStage - 1) * 0.5));
                     deckManager.deckArrayOrigin = deckManager.DelCardFromDeck(deckManager.deckArrayOrigin, 15 * cardListPage + ButtonNum);
                     delete = false;
                     message.ShowSystemMessage("카드 제거");

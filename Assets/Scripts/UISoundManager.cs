@@ -32,6 +32,12 @@ public class UISoundManager : MonoBehaviour
     // ��Ȳ�� ���� �ٸ� ȿ������ ����ϴ� �޼ҵ�
     public void PlaySound(string situation)
     {
+
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();  // 현재 재생 중인 사운드를 중지
+        }
+
         switch (situation)
         {
             case "PanelOpen":

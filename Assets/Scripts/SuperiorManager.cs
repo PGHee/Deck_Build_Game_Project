@@ -93,22 +93,7 @@ public class SuperiorManager : MonoBehaviour
 
     public void Superior()
     {
-        if (fillAmount[0] == 1.0f && fillAmount[1] == 1.0f)
-        {
-            plyerState.AttributeLevelUp(topAttributes[0]);
-            plyerState.AttributeLevelUp(topAttributes[1]);
-
-            rewardManager.GetReward("Card", Attribute2Num(topAttributes[0]) * 100 + 19, 0);
-            rewardManager.GetReward("Card", Attribute2Num(topAttributes[1]) * 100 + 19, 0);
-            Debug.Log(topAttributes[0]);
-            Debug.Log(topAttributes[1]);
-
-            message.ShowSystemMessage("초월 완료");
-        }
-        else
-        {
-            message.ShowSystemMessage("초월 불가.");
-        }
+        StartCoroutine(SuperiorOn());
     }
 
     int Attribute2Num(PlayerState.AttributeType arrtibute)
@@ -144,6 +129,46 @@ public class SuperiorManager : MonoBehaviour
 
             default:
                 return 0;
+        }
+    }
+
+    IEnumerator ShowSuperiorMessage()
+    {
+        yield return new WaitForSeconds(0.5f);
+        message.ShowSystemMessage("초월 완료");
+    }
+
+    IEnumerator SuperiorOn()
+    {
+        yield return new WaitForSeconds(0.3f);
+        if (fillAmount[0] == 1.0f && fillAmount[1] == 1.0f)
+        {
+            plyerState.AttributeLevelUp(topAttributes[0]);
+            yield return new WaitForSeconds(0.3f);
+            plyerState.AttributeLevelUp(topAttributes[1]);
+
+            yield return new WaitForSeconds(0.3f);
+            rewardManager.GetReward("Card", Attribute2Num(topAttributes[0]) * 100 + 19, 0);
+            yield return new WaitForSeconds(0.3f);
+            rewardManager.GetReward("Card", Attribute2Num(topAttributes[1]) * 100 + 19, 0);
+            Debug.Log(topAttributes[0]);
+            Debug.Log(topAttributes[1]);
+
+            StartCoroutine(ShowSuperiorMessage());
+
+            if(plyerState.level <= 9)
+            {
+                plyerState.level = 10;
+                plyerState.resource = 10;
+                plyerState.currentResource = 10;
+                yield return new WaitForSeconds(0.3f);
+                message.ShowSystemMessage("최고 레벨 달성");
+            }
+
+        }
+        else
+        {
+            message.ShowSystemMessage("초월 불가.");
         }
     }
 }

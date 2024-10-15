@@ -12,6 +12,7 @@ public class ShopManager : MonoBehaviour
     public RewardManager rewardManager;
     private SystemMessage message;
     private ArtifactMountManager artifactMountManager;
+    private GameDirector gameDirector;
     public GameObject[] clearButtonsShop;
 
     public int playerLevel;
@@ -39,6 +40,7 @@ public class ShopManager : MonoBehaviour
         shopFirstOpen = true;
         message = FindObjectOfType<SystemMessage>();
         artifactMountManager = FindObjectOfType<ArtifactMountManager>();
+        gameDirector = FindObjectOfType<GameDirector>();
     }
 
     public void RestartShop()
@@ -47,6 +49,7 @@ public class ShopManager : MonoBehaviour
         {
             SetCardsToShop();
             SetArtifactsToShop();
+            SetRest();
             buyHP = true;
 
             GetClearButtonShop();
@@ -109,7 +112,7 @@ public class ShopManager : MonoBehaviour
     
             clearButtonsShop[i].GetComponent<ShopButtonManager>().cardPrefabNum = sellCardNum;
             sellCardNums[i] = sellCardNum;
-            sellCardPrices[i] = ((int)(sellCardNum % 100) / 2 + 1) * 5;
+            sellCardPrices[i] = ((int)(sellCardNum % 100) / 2 + 1) * (int)(5 + 5 * (gameDirector.currentStage - 1)* 0.5);
 
             dynamicButtonManager.CardSpriteToButton(sellCardNum, clearButtonsShop[i]); // 일러만 가져오도록 수정 필요
 
@@ -185,7 +188,7 @@ public class ShopManager : MonoBehaviour
 
             clearButtonsShop[i + 5].GetComponent<ShopButtonManager>().artifactPrefabNum = sellArtifactNum;
             sellArtifactNums[i] = sellArtifactNum;
-            sellArtifactPrices[i] = 100;
+            sellArtifactPrices[i] = (int)(100 + 100 * (gameDirector.currentStage - 1) * 0.5);
 
             //PriceText[i + 5].text = "[" + sellArtifactPrices[i] + " 마석]";
             AutoSizeText(PriceText[i + 5], "[" + sellArtifactPrices[i] + " 마석]");
@@ -220,11 +223,20 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    public void SetRest()
+    {
+        PriceText[8].text = "[25% 회복]<br>[" + (int)(25 + 25 * (gameDirector.currentStage - 1) * 0.5) + "마석]";
+        PriceText[9].text = "[50% 회복]<br>[" + (int)(50 + 50 * (gameDirector.currentStage - 1) * 0.5) + "마석]";
+        PriceText[10].text = "[75% 회복]<br>[" + (int)(75 + 75 * (gameDirector.currentStage - 1) * 0.5) + "마석]";
+        PriceText[11].text = "[카드삭제]<br>[" + (int)(100 + 100 * (gameDirector.currentStage - 1) * 0.5) + "마석]";
+
+    }
+
     public void BuyHeal(int buttonNum)
     {
         if (buyHP == true && playerState.crystal >= 25 * (buttonNum + 1))
         {
-            rewardManager.GetReward("HP", 25 * (buttonNum + 1), 25 * (buttonNum + 1));
+            rewardManager.GetReward("HP", 25 * (buttonNum + 1), 25 * (buttonNum + 1) * (int)(1 + 1 * (gameDirector.currentStage - 1) * 0.5));
 
             // 모든 힐 구매 버튼 블러
             BlurClearButtonShop(clearButtonsShop[8]);

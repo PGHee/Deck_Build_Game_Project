@@ -257,15 +257,15 @@ public class ArtifactMountManager : MonoBehaviour
             switch (artifactInfo.passiveListInfo[i])
             {
                 case EffectType.IncreaseDamage:
-                    outputString += "<br>피해가 " + artifactInfo.passiveCoefListInfo[i]+ "배 증가합니다.";
+                    outputString += "<br>피해가 " + artifactInfo.passiveCoefListInfo[i] * 100+ "% 증가합니다.";
                     break;
 
                 case EffectType.LifeSteal:
-                    outputString += "<br>가한 피해의 " + artifactInfo.passiveCoefListInfo[i] + "배 만큼 회복합니다.";
+                    outputString += "<br>가한 피해의 " + artifactInfo.passiveCoefListInfo[i] * 100+ "% 만큼 회복합니다.";
                     break;
 
                 case EffectType.ReduceDamage:
-                    outputString += "<br>받는 피해가 " + artifactInfo.passiveCoefListInfo[i] + "배 만큼 감소합니다.";
+                    outputString += "<br>받는 피해가 " + artifactInfo.passiveCoefListInfo[i]  * 100+ "% 감소합니다.";
                     break;
 
                 default:
@@ -275,9 +275,9 @@ public class ArtifactMountManager : MonoBehaviour
         }
 
         if (artifactInfo.bonusAttack != 0) outputString += "<br>타격 시" + (int)(artifactInfo.bonusAttack * 100)+ "% 확률로 재 타격 합니다.";
-        if (artifactInfo.bonusCrystal != 0) outputString += "<br>크리스탈을" + artifactInfo.bonusCrystal + "배 만큼 추가로 얻습니다.";
+        if (artifactInfo.bonusCrystal != 0) outputString += "<br>크리스탈을" + artifactInfo.bonusCrystal * 100 + "% 추가로 얻습니다.";
         if (artifactInfo.bonusPoison != 0) outputString += "<br>카드의 대상에게 독을" + artifactInfo.bonusPoison + "부여합니다.";
-        if (artifactInfo.bonusAttributeExperience != 0) outputString += "<br>속성 경험치를" + artifactInfo.bonusAttributeExperience + "배 추가로 얻습니다.";
+        if (artifactInfo.bonusAttributeExperience != 0) outputString += "<br>속성 경험치를" + artifactInfo.bonusAttributeExperience * 100 + "% 추가로 얻습니다.";
         if (artifactInfo.execution != false) outputString += "<br>데미지를 준 대상의 남은 체력이 10% 이하면 처형합니다.";
         if (artifactInfo.doubleLifeSteal != false) outputString += "<br>남은 체력이 50% 이하면 2배로 회복합니다.";
         if (artifactInfo.bonusDamage != 0) outputString += "<br>타격 시 " + artifactInfo.bonusDamage+ "의 고정 데미지를 추가 합니다.";

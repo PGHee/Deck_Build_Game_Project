@@ -205,7 +205,7 @@ public class DeckManager : MonoBehaviour
     }
 
     // ¹¦Áö ¸®¼Â
-    void ClearGrave()
+     public void ClearGrave()
     {
         graveArray = new int[] { };
     }

@@ -401,21 +401,21 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
 
             System.Array.Sort(inputArtifacts); //정렬
 
-
+            bool ok = false;
             foreach (int[] key in artifactSynthesizeDict.Keys)
-            {
+            {               
                 if (key[0] == inputArtifacts[0] && key[1] == inputArtifacts[1])
                 {
                     AddArtifact2Inven(artifactSynthesizeDict[key]);
                     DeleteArtifact2Inven(a);
                     DeleteArtifact2Inven(b);
                     DeleteArtifact2Inven(c);
+                    ok = true;
                 }
-                else
-                {
-                    Debug.Log("no match");
-                    message.ShowSystemMessage("조합 불가능 합니다.");
-                }
+            }
+            if (!ok)
+            {
+                message.ShowSystemMessage("불가능한 조합입니다..");
             }
         }
         else

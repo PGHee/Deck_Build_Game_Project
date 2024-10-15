@@ -29,6 +29,7 @@ public class PopupManager : MonoBehaviour
     public AttributeLevelBarManager attributeLevelBarManager;
     private HandControl handController;
     private UISoundManager uiSoundManager;
+    private SystemMessage messageGo;
 
     void Start()
     {
@@ -38,6 +39,7 @@ public class PopupManager : MonoBehaviour
         attributeLevelBarManager = FindObjectOfType<AttributeLevelBarManager>();
         handController = FindObjectOfType<HandControl>();
         uiSoundManager = FindObjectOfType<UISoundManager>();
+        messageGo = FindObjectOfType<SystemMessage>();
     }
 
     public void ShowPopup(string message)
@@ -68,6 +70,7 @@ public class PopupManager : MonoBehaviour
                     popupPanelAttributeLV.SetActive(true);
 
                     attributeLevelBarManager.UpdateAttributeLevelImage();
+                    messageGo.ShowSystemMessage("전투 중에는 열 수 없습니다.");
                 }
                 break;
 

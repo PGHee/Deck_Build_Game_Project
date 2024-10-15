@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2840,7 +2839,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "[\uCE74\uB4DC\uC0AD\uC81C]<br>[100 \uB9C8\uC11D]"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4126fb35fae6ad14e9e9d024bd800439, type: 2}
   m_sharedMaterial: {fileID: -6407930884979552518, guid: 4126fb35fae6ad14e9e9d024bd800439, type: 2}
@@ -10302,8 +10301,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -10, y: -10}
+  m_AnchoredPosition: {x: -0.05230713, y: 0.5812988}
+  m_SizeDelta: {x: -46.5472, y: -14.081}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &344325320
 MonoBehaviour:
@@ -20999,7 +20998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 577.75806, y: -25}
+  m_AnchoredPosition: {x: 601.4364, y: -25}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &633340901
@@ -22710,7 +22709,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 755.5162, y: -25}
+  m_AnchoredPosition: {x: 802.8728, y: -25}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &687970654
@@ -23543,7 +23542,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "[50% \uD68C\uBCF5]<br>[50 \uB9C8\uC11D]"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4126fb35fae6ad14e9e9d024bd800439, type: 2}
   m_sharedMaterial: {fileID: -6407930884979552518, guid: 4126fb35fae6ad14e9e9d024bd800439, type: 2}
@@ -23987,7 +23986,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "[25% \uD68C\uBCF5]<br>[25 \uB9C8\uC11D]"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4126fb35fae6ad14e9e9d024bd800439, type: 2}
   m_sharedMaterial: {fileID: -6407930884979552518, guid: 4126fb35fae6ad14e9e9d024bd800439, type: 2}
@@ -29901,10 +29900,9 @@ GameObject:
   - component: {fileID: 911279402}
   - component: {fileID: 911279401}
   - component: {fileID: 911279400}
-  - component: {fileID: 911279403}
   m_Layer: 5
   m_Name: ClearButton_ArtifactSprite1
-  m_TagString: ClearButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30022,23 +30020,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911279398}
   m_CullTransparentMesh: 1
---- !u!114 &911279403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 911279398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isArtifact: 1
-  descriptionText: 
-  descriptionTextArtifact: 
-  mouseOn: 0
-  openTooltip: 0
 --- !u!1 &912160658
 GameObject:
   m_ObjectHideFlags: 0
@@ -33330,10 +33311,9 @@ GameObject:
   - component: {fileID: 970676684}
   - component: {fileID: 970676683}
   - component: {fileID: 970676682}
-  - component: {fileID: 970676685}
   m_Layer: 5
   m_Name: ClearButton_ArtifactSprite0
-  m_TagString: ClearButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33451,23 +33431,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970676680}
   m_CullTransparentMesh: 1
---- !u!114 &970676685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 970676680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isArtifact: 1
-  descriptionText: 
-  descriptionTextArtifact: 
-  mouseOn: 0
-  openTooltip: 0
 --- !u!1 &973158714
 GameObject:
   m_ObjectHideFlags: 0
@@ -36190,7 +36153,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4d51b675620402f4ba9e41cc680cf3de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dae0edd9a727d3d4d9d656fcc57a76da, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -42070,6 +42033,7 @@ MonoBehaviour:
   - {fileID: 727319788}
   - {fileID: 713664333}
   - {fileID: 2071945888}
+  - {fileID: 142613413}
 --- !u!1 &1258380249
 GameObject:
   m_ObjectHideFlags: 0
@@ -45018,6 +44982,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 474652578}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
+        m_MethodName: ClosePopup
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: AttributeLV
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 474652578}
+        m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: ShowPopup
         m_Mode: 5
         m_Arguments:
@@ -45038,18 +45014,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 474652578}
-        m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
-        m_MethodName: ClosePopup
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: AttributeLV
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1324153887
@@ -56292,10 +56256,9 @@ GameObject:
   - component: {fileID: 1686038068}
   - component: {fileID: 1686038067}
   - component: {fileID: 1686038066}
-  - component: {fileID: 1686038069}
   m_Layer: 5
   m_Name: ClearButton_ArtifactSprite2
-  m_TagString: ClearButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56413,23 +56376,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686038064}
   m_CullTransparentMesh: 1
---- !u!114 &1686038069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686038064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de5c00bfa4628cd4c9df999fa06db994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isArtifact: 1
-  descriptionText: 
-  descriptionTextArtifact: 
-  mouseOn: 0
-  openTooltip: 0
 --- !u!1 &1686482454
 GameObject:
   m_ObjectHideFlags: 0
@@ -62028,10 +61974,10 @@ RectTransform:
   - {fileID: 916915056}
   m_Father: {fileID: 1704511312}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -23.435, y: -59}
-  m_SizeDelta: {x: -598.8087, y: -289.5343}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -26.8868, y: -61.0711}
+  m_SizeDelta: {x: 98.2876, y: 84.3235}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1874945046
 MonoBehaviour:
@@ -64435,10 +64381,10 @@ RectTransform:
   - {fileID: 706957939}
   m_Father: {fileID: 1704511312}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 704, y: 378}
+  m_SizeDelta: {x: 22, y: -12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1959518401
 GameObject:
@@ -67791,7 +67737,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "[75% \uD68C\uBCF5]<br>[75 \uB9C8\uC11D]"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4126fb35fae6ad14e9e9d024bd800439, type: 2}
   m_sharedMaterial: {fileID: -6407930884979552518, guid: 4126fb35fae6ad14e9e9d024bd800439, type: 2}

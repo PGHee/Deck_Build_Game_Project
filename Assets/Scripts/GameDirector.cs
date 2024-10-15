@@ -95,6 +95,7 @@ public class GameDirector : MonoBehaviour
 
         deckManager.deckArray = deckManager.CopyOrigin2Deck();
         deckManager.DeckRandomSuffle(deckManager.deckArray);
+        deckManager.ClearGrave();
     }
 
     IEnumerator StartNormalBattle()
