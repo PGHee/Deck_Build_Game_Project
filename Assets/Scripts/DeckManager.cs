@@ -101,9 +101,9 @@ public class DeckManager : MonoBehaviour
     public void CardSearch(int ind)
     {
         // 묘지에 카드가 없으면
-        if (deckArray.Length < 1)
+        if (deckArray.Length < 1 && ind < 0)
         {
-            Debug.Log("Empty Deck");
+            message.ShowSystemMessage("뽑을 수 있는 카드가 없다.");
         }
         else
         {
@@ -128,9 +128,9 @@ public class DeckManager : MonoBehaviour
     public void CardSalvage(int ind)
     {
         // 묘지에 카드가 없으면
-        if (graveArray.Length < 1)
+        if (graveArray.Length < 1 && ind < 0)
         {
-            Debug.Log("Empty Grave");
+            message.ShowSystemMessage("뽑을 수 있는 카드가 없다.");
         }
         else
         {

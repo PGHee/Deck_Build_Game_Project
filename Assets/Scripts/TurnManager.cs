@@ -162,7 +162,8 @@ public class TurnManager : MonoBehaviour
         
         if (player.attributeMastery[PlayerState.AttributeType.Light] >= 3 && player.attributeMastery[PlayerState.AttributeType.Light] < 6)
         {
-            deckManager.CardDraw();
+            yield return new WaitForSeconds(1);
+            deckManager.CardSearch(GetCardDeck(6, deckManager.deckArray));
             TurnStartSearchSwitch();
         }
         else if (player.attributeMastery[PlayerState.AttributeType.Light] >= 6)
@@ -183,10 +184,10 @@ public class TurnManager : MonoBehaviour
         isSearchEnd = "Dark";
         if (player.attributeMastery[PlayerState.AttributeType.Dark] >= 3 && player.attributeMastery[PlayerState.AttributeType.Dark] < 6)
         {
-            if (deckManager.deckArray.Length > 4 + artifactManager.bonusDraw && deckManager.graveArray.Length != 0)
+            if (deckManager.graveArray.Length != 0)
             {
                 yield return new WaitForSeconds(1);
-                deckManager.CardSalvage(Random.Range(0, deckManager.graveArray.Length));
+                deckManager.CardSalvage(GetCardDeck(7, deckManager.graveArray));
             }
             else
             {
@@ -285,5 +286,37 @@ public class TurnManager : MonoBehaviour
         {
             isSearchEnd = "End";
         }
+    }
+
+    public int GetRandCardDeck(int num, int[] numbers)
+    {
+        List<int> validNumbers = new List<int>();
+        foreach (int number in numbers)
+        {
+            if ((int)(number / 100) == num)
+            {
+                validNumbers.Add(number);
+            }
+        }
+        if (validNumbers.Count == 0)
+        {
+            return -1;
+        }
+
+        int randomIndex = UnityEngine.Random.Range(0, validNumbers.Count);
+
+        return validNumbers[randomIndex];
+    }
+
+    public int GetCardDeck(int num, int[] numbers)
+    {
+        for(int i = 0; i < numbers.Length; i++)
+        {
+            if ((int)(numbers[i] / 100) == num)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }
