@@ -951,7 +951,7 @@ Transform:
   m_GameObject: {fileID: 63516851}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 4, y: 0.5, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5377,7 +5377,7 @@ GameObject:
   - component: {fileID: 216071487}
   - component: {fileID: 216071486}
   m_Layer: 0
-  m_Name: Canvas_ Superior_500
+  m_Name: Canvas_Superior_500
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7954,7 +7954,7 @@ Transform:
   m_GameObject: {fileID: 287024459}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7, y: 0, z: 0}
+  m_LocalPosition: {x: 7, y: 0.5, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13433,7 +13433,7 @@ RectTransform:
   m_GameObject: {fileID: 430114405}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8781377, y: 0.8781377, z: 0.8781377}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1138897219}
@@ -22049,7 +22049,7 @@ Transform:
   m_GameObject: {fileID: 655176847}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: -4, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -32007,7 +32007,7 @@ GameObject:
   - component: {fileID: 939325985}
   - component: {fileID: 939325984}
   m_Layer: 5
-  m_Name: Button
+  m_Name: TurnEndButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32031,7 +32031,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 375, y: -125}
-  m_SizeDelta: {x: 100, y: 50}
+  m_SizeDelta: {x: 100, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &939325984
 MonoBehaviour:
@@ -45623,7 +45623,6 @@ Transform:
   - {fileID: 2047644538}
   - {fileID: 1021387643}
   - {fileID: 882142288}
-  - {fileID: 1317897572}
   - {fileID: 1904577201}
   - {fileID: 2129483773}
   - {fileID: 356592471}
@@ -45634,6 +45633,7 @@ Transform:
   - {fileID: 893877949}
   - {fileID: 1466016763}
   - {fileID: 1090901919}
+  - {fileID: 1317897572}
   - {fileID: 1218919684}
   - {fileID: 837167084}
   - {fileID: 1589895965}
@@ -48422,7 +48422,7 @@ Transform:
   m_GameObject: {fileID: 1457296563}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0.5, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67960,6 +67960,7 @@ GameObject:
   - component: {fileID: 2085306890}
   - component: {fileID: 2085306892}
   - component: {fileID: 2085306891}
+  - component: {fileID: 2085306893}
   m_Layer: 5
   m_Name: EnrageBar
   m_TagString: Untagged
@@ -67985,7 +67986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 150}
+  m_AnchoredPosition: {x: 275, y: -125}
   m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2085306891
@@ -68026,6 +68027,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085306889}
   m_CullTransparentMesh: 1
+--- !u!114 &2085306893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085306889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1047429657}
+          m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+          m_MethodName: EnrageTooltip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1047429657}
+          m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+          m_MethodName: HideEnrageTooltip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2086665966
 GameObject:
   m_ObjectHideFlags: 0

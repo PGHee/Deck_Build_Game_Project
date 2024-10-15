@@ -11,7 +11,7 @@ public class TitleMessageManager : MonoBehaviour
     public void ShowTitleMessage(string message)
     {
         // 화면 중앙보다 약간 위쪽 위치로 설정
-        Vector3 screenCenterPosition = new Vector3(Screen.width / 2, Screen.height * 0.8f, 0);
+        Vector3 screenCenterPosition = new Vector3(Screen.width / 2, Screen.height * 0.75f, 0);
         StartCoroutine(ShowMessageRoutine(screenCenterPosition, message));
     }
 
