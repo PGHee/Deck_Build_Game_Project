@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using System.Linq;
 
 public class TurnManager : MonoBehaviour
@@ -19,6 +20,8 @@ public class TurnManager : MonoBehaviour
     public HandControl handController;
     public GameObject endTurnButton;
     private GameDirector gameDirector;
+    public GameObject enrageBar;
+    public TextMeshProUGUI enrageBarText;
 
     private bool isPlayerTurn;
     public bool IsPlayerTurn => isPlayerTurn;
@@ -48,6 +51,7 @@ public class TurnManager : MonoBehaviour
     public void StartBattle()
     {
         this.enabled = true;
+        enrageBar.SetActive(true);
         turnCount = 0;
         monsters = new List<MonsterState>(FindObjectsOfType<MonsterState>()); // 씬 내의 모든 몬스터를 가져옴
         foreach (var monster in monsters)
@@ -84,7 +88,7 @@ public class TurnManager : MonoBehaviour
                     }
                     else buffDebuffManager.ApplyEnrage(monster.gameObject);
                 }
-                else if(turnCount >= 6 && (turnCount-5) % 2 == 0)
+                else if(turnCount >= 6 && (turnCount - 5) % 3 == 0)
                 {
                     buffDebuffManager.ApplyEnrage(monster.gameObject);
                 }
@@ -121,6 +125,7 @@ public class TurnManager : MonoBehaviour
         if (artifactManager.bonusShield > 0) player.ApplyShield(artifactManager.bonusShield);
         if (artifactManager.bonusHeal > 0) player.Heal(artifactManager.bonusHeal);
         message.ShowSystemMessage("플레이어 턴");    // 플레이어가 행동을 완료하면 턴 종료 버튼으로 EndPlayerTurn 호출
+        EnrageBarUpdate();
         StartCoroutine(CardSearchPhaseLight());
     }
 
@@ -266,13 +271,14 @@ public class TurnManager : MonoBehaviour
         if (player.currentHealth <= 0)
         {
             Debug.Log("Player is defeated. Battle ended.");
+            enrageBar.SetActive(false);
             StartCoroutine(gameDirector.EndGame());
             this.enabled = false;
         }
         else if (monsters.TrueForAll(m => m.currentHealth <= 0))
         {
             message.ShowSystemMessage("승리!");
-
+            enrageBar.SetActive(false);
             endTurnButton.SetActive(false);
             buffDebuffManager.RemoveCurrentField();
             handController.DiscardAllHand(); // 핸드 비움
@@ -337,5 +343,11 @@ public class TurnManager : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    private void EnrageBarUpdate()
+    {
+        if(turnCount < 5) enrageBarText.text = "" + (5 - turnCount);
+        else enrageBarText.text = "" + (3 - ((turnCount - 5) % 3));
     }
 }

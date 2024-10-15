@@ -43,7 +43,8 @@ public class UIBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         int currentExperience = playerState.experience;
         int requiredExperience = playerState.level < playerState.maxLevel ? playerState.ExperienceToNextLevel() : 1;
 
-        experienceText.text = currentExperience + " / " + requiredExperience;
+        if(playerState.level != 9) experienceText.text = currentExperience + " / " + requiredExperience;
+        else experienceText.text = "MAX";
         experienceFill.fillAmount = (float)currentExperience / requiredExperience;
     }
 

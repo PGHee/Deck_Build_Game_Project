@@ -6,14 +6,14 @@ public class UISoundManager : MonoBehaviour
 {
     public static UISoundManager instance = null;
 
-    // ¿Àµð¿À Å¬¸³ ¸®½ºÆ® (È¿°úÀ½)
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® (È¿ï¿½ï¿½ï¿½ï¿½)
     public AudioClip PanelOpen;
     public AudioClip PanelClose;
     public AudioClip DragCard;
 
     private AudioSource audioSource;
 
-    // ½Ì±ÛÅæ ÆÐÅÏ ¼³Á¤
+    // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     void Awake()
     {
         if (instance == null)
@@ -25,11 +25,11 @@ public class UISoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(gameObject); // ¾ÀÀÌ º¯°æµÇ¾îµµ »ç¶óÁöÁö ¾Êµµ·Ï ¼³Á¤
+        DontDestroyOnLoad(gameObject); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾îµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         audioSource = GetComponent<AudioSource>();
     }
 
-    // »óÈ²¿¡ µû¶ó ´Ù¸¥ È¿°úÀ½À» Àç»ýÇÏ´Â ¸Þ¼Òµå
+    // ï¿½ï¿½È²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
     public void PlaySound(string situation)
     {
         switch (situation)
@@ -43,8 +43,14 @@ public class UISoundManager : MonoBehaviour
             case "DragCard":
                 audioSource.PlayOneShot(DragCard);
                 break;
+            case "UI":
+                break;
+            case "Shop":
+                break;
+            case "ArtipactSYS":
+                break;
             default:
-                Debug.LogWarning("¾Ë ¼ö ¾ø´Â »óÈ²: " + situation);
+                Debug.LogWarning("ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È²: " + situation);
                 break;
         }
     }

@@ -105,7 +105,7 @@ public class PlayerState : MonoBehaviour
 
     public int ExperienceToNextLevel()
     {
-        int[] experienceRequired = { 10, 30, 50, 80, 120, 160, 200, 250, 300 };
+        int[] experienceRequired = { 10, 30, 50, 70, 140, 180, 350, 400, 10000};
         if (level - 1 < experienceRequired.Length)
         {
             return experienceRequired[level - 1];
@@ -113,7 +113,7 @@ public class PlayerState : MonoBehaviour
         return 0; // 만약 maxLevel을 초과하면 0을 반환 (혹은 다른 적절한 값을 반환)
     }
 
-    void LevelUp()
+    public void LevelUp()
     {
         level++;
         resource = level;
@@ -133,7 +133,7 @@ public class PlayerState : MonoBehaviour
 
     int ExperienceToNextAttributeLevel(AttributeType attribute)
     {
-        int[] experienceRequired = { 1, 2, 6, 12, 25, 56, 117, 252 };
+        int[] experienceRequired = { 3, 7, 12, 18, 30, 50, 95, 150 };
         int masteryLevel = attributeMastery[attribute] - 1;
         return masteryLevel < experienceRequired.Length ? experienceRequired[masteryLevel] : int.MaxValue;
     }

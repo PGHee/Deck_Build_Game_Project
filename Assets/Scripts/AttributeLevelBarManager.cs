@@ -9,8 +9,8 @@ using TMPro;
 public class AttributeLevelBarManager : MonoBehaviour
 {
 
-    public Image[] shapeImage; // Ã¤¿ö³ª°¥ ÀÌ¹ÌÁö
-    public float[] fillAmount; // Ã¤¿öÁú ºñÀ² (0.0 ~ 1.0)
+    public Image[] shapeImage; // Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+    public float[] fillAmount; // Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (0.0 ~ 1.0)
     public TextMeshProUGUI[] LevelText;
     public int[] experienceRequired;
     //public int[] attributeMastery;
@@ -21,7 +21,7 @@ public class AttributeLevelBarManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        experienceRequired = new int[] { 1, 2, 6, 12, 25, 56, 117, 252, 252, 252};
+        experienceRequired = new int[] { 3, 7, 12, 18, 30, 50, 95, 150, 150, 150};
     }
 
     public void UpdateAttributeLevelImage()
