@@ -346,4 +346,9 @@ public class BuffDebuffManager : MonoBehaviour
         }
         currentField = null;
     }
+
+    public void ApplyEnrage(GameObject entity)
+    {
+        ApplyBuff(entity, EffectType.Enrage, 10000, 0f, 0);
+    }
 }

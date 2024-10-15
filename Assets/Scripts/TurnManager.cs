@@ -23,17 +23,12 @@ public class TurnManager : MonoBehaviour
     private bool isPlayerTurn;
     public bool IsPlayerTurn => isPlayerTurn;
     public string isSearchEnd;
+    private int turnCount;
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
     }
 
     void Start()
@@ -53,6 +48,7 @@ public class TurnManager : MonoBehaviour
     public void StartBattle()
     {
         this.enabled = true;
+        turnCount = 0;
         monsters = new List<MonsterState>(FindObjectsOfType<MonsterState>()); // 씬 내의 모든 몬스터를 가져옴
         foreach (var monster in monsters)
         {
@@ -72,6 +68,29 @@ public class TurnManager : MonoBehaviour
     public void StartPlayerTurn()
     {
         isPlayerTurn = true;
+        turnCount++;
+        foreach (var monster in monsters)
+        {
+            if (monster != null && monster.gameObject.activeInHierarchy && player != null)
+            {
+                if(turnCount == 5)
+                {
+                    if(buffDebuffManager.entityDebuffs.ContainsKey(monster.gameObject))
+                    {
+                        if(!buffDebuffManager.entityBuffs[monster.gameObject].Any(buff => buff.Item1 == EffectType.Enrage))
+                        {
+                            buffDebuffManager.ApplyEnrage(monster.gameObject);
+                        }
+                    }
+                    else buffDebuffManager.ApplyEnrage(monster.gameObject);
+                }
+                else if(turnCount >= 6 && (turnCount-5) % 2 == 0)
+                {
+                    buffDebuffManager.ApplyEnrage(monster.gameObject);
+                }
+            }
+        }
+        
         player.currentResource = player.resource;
         player.ApplyTurnBasedPassives();        // 패시브 효과 적용
         player.ApplyPoisonDamage();             // 독 데미지 적용

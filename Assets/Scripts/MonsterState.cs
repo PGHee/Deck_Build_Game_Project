@@ -37,6 +37,7 @@ public class MonsterState : MonoBehaviour
 {
     public static MonsterState currentAttacker;                         // 현재 공격 중인 몬스터를 파악하기 위해 사용
     public int maxHealth;                                               // 몬스터의 최대 체력
+    private int maxHealthPercent;
     public int currentHealth;                                           // 몬스터의 현재 체력
     public int attackPower;                                             // 몬스터의 데미지 (비용값)
     public int shield;                                                  // 몬스터의 방어
@@ -88,6 +89,7 @@ public class MonsterState : MonoBehaviour
         gameDirector = FindObjectOfType<GameDirector>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
+        maxHealthPercent = Mathf.RoundToInt(maxHealth * 0.25f);
         isStunned = false;
         originalTag = gameObject.tag;
         foreach (Passive passive in passives)
@@ -242,6 +244,11 @@ public class MonsterState : MonoBehaviour
                 break;
             case EffectType.Confuse:
                 isConfuse = true;
+                break;
+            case EffectType.Enrage:
+                damageMultiplier += 0.25f;
+                maxHealth += maxHealthPercent;
+                Heal(maxHealthPercent);
                 break;
         }
     }

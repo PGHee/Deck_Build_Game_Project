@@ -17,7 +17,7 @@ public enum CardActionType
 public enum EffectType
 {
     IncreaseDamage, AreaEffect, LifeSteal, ReduceDamage, ReflectDamage, ReduceCost, Purification, 
-    Field, DecreaseDamage, SkipTurn, Confuse, RandomAction, DelayedImpact
+    Field, DecreaseDamage, SkipTurn, Confuse, RandomAction, DelayedImpact, Enrage
 }
 
 [System.Serializable]
