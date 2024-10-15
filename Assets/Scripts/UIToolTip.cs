@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class UIToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private EffectType effectType;
-    private ArtifactTooltipManager tooltipManager;
+    private TooltipManager tooltipManager;
     private BuffDebuffManager buffDebuffManager;
     private GameObject entity;
     public bool isArtifact;
@@ -17,7 +17,7 @@ public class UIToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void Start()
     {
-        tooltipManager = FindObjectOfType<ArtifactTooltipManager>();
+        tooltipManager = FindObjectOfType<TooltipManager>();
         buffDebuffManager = FindObjectOfType<BuffDebuffManager>();
         entity = GameObject.Find("Artifact");
         openTooltip = true;
@@ -37,9 +37,6 @@ public class UIToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (openTooltip)
         {
             tooltipManager.ShowTooltip(description);
-            GameObject tooltip = GameObject.Find("BuffDebuffTooltip");
-            RectTransform rectTransform = tooltip.GetComponent<RectTransform>();
-            rectTransform.position = new Vector3(0, 0, 0);
         }
         mouseOn = true;
     }

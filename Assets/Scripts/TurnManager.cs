@@ -22,14 +22,17 @@ public class TurnManager : MonoBehaviour
     private GameDirector gameDirector;
     public GameObject enrageBar;
     public TextMeshProUGUI enrageBarText;
+    private TooltipManager tooltipManager;
 
     private bool isPlayerTurn;
     public bool IsPlayerTurn => isPlayerTurn;
     public string isSearchEnd;
     private int turnCount;
+    private string description;
 
     void Awake()
     {
+        tooltipManager = FindObjectOfType<TooltipManager>();
         if (instance == null) instance = this;
         else Destroy(gameObject);
     }
@@ -145,6 +148,7 @@ public class TurnManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         message.ShowSystemMessage("몬스터 턴");
+        EnrageBarUpdate();
         CheckBondedRevive();
         foreach (var monster in monsters)
         {
@@ -349,5 +353,16 @@ public class TurnManager : MonoBehaviour
     {
         if(turnCount < 5) enrageBarText.text = "" + (5 - turnCount);
         else enrageBarText.text = "" + (3 - ((turnCount - 5) % 3));
+    }
+
+    public void EnrageTooltip()
+    {
+        description = $"광폭화\n<size=15>전투가 길어지면 몬스터에게 광폭화 버프가 부여됩니다. 버프는 전투가 길어질수록 중첩됩니다.\n광폭화 : 데미지와 최대 체력 25% 증가 및 회복</size>";
+        tooltipManager.ShowTooltip(description);
+    }
+
+    public void HideEnrageTooltip()
+    {
+        tooltipManager.HideTooltip();
     }
 }
