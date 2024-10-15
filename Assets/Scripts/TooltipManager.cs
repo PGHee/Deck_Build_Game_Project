@@ -37,13 +37,13 @@ public class TooltipManager : MonoBehaviour
         float panelWidth = tooltipRectTransform.sizeDelta.x;
         
         
-        if (tooltipPosition.x + panelWidth / 2 > Screen.width) // 오른쪽 경계를 넘는 경우
+        if (tooltipPosition.x + panelWidth > Screen.width) // 오른쪽 경계를 넘는 경우
         {
-            tooltipPosition.x = Screen.width - panelWidth / 2 - 50;
+            tooltipPosition.x = Screen.width - panelWidth / 2 - 200;
         }
-        else if (tooltipPosition.x - panelWidth / 2 < 0) // 왼쪽 경계를 넘는 경우
+        else if (tooltipPosition.x - panelWidth < 0) // 왼쪽 경계를 넘는 경우
         {
-            tooltipPosition.x = panelWidth / 2 + 50;
+            tooltipPosition.x = panelWidth / 2 + 200;
         }
         // X축이 조정된 위치로 재배치
         tooltipRectTransform.position = new Vector3(tooltipPosition.x, tooltipPosition.y, tooltipPosition.z);
