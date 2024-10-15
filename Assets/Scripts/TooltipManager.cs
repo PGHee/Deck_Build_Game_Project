@@ -91,6 +91,9 @@ public class TooltipManager : MonoBehaviour
             case EffectType.DelayedImpact:
                 description = $"한 턴 뒤 데미지: {intValue}";
                 break;
+            case EffectType.Enrage:
+                description = $"광폭화";
+                break;
         }
         return description;
     }
