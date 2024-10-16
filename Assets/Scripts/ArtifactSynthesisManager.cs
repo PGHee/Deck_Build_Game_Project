@@ -142,7 +142,7 @@ public class ArtifactSynthesisManager : MonoBehaviour
             GameObject artifactMounted = GameObject.FindWithTag("Artifact");    // 버그 방지를 위한 장착된 아티팩트 해제
             if (artifactMounted != null)
             {
-                Destroy(artifactMounted);
+                artifactMountManager.UnmountArtifact();
             }
         }
     }

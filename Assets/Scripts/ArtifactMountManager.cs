@@ -159,8 +159,12 @@ public class ArtifactMountManager : MonoBehaviour
             {
                 artifactManager.ArtifactBuffRemove();
                 buffOn = false;
-            }    
-            artifactText.text = "";
+            }
+
+            //Color color = mountedArtifact.GetComponent<SpriteRenderer>().color;
+            //mountedArtifact.GetComponent<SpriteRenderer>().color = color;
+            mountedArtifact.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>($"Images/UI/ClearBox");
+            mountedArtifact.GetComponent<UIToolTip>().openTooltip = false;
         }
     }
 
