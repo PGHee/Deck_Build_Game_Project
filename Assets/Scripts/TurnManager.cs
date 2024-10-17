@@ -82,18 +82,13 @@ public class TurnManager : MonoBehaviour
             {
                 if(turnCount == 5)
                 {
-                    if(buffDebuffManager.entityDebuffs.ContainsKey(monster.gameObject))
-                    {
-                        if(!buffDebuffManager.entityBuffs[monster.gameObject].Any(buff => buff.Item1 == EffectType.Enrage))
-                        {
-                            buffDebuffManager.ApplyEnrage(monster.gameObject);
-                        }
-                    }
-                    else buffDebuffManager.ApplyEnrage(monster.gameObject);
+                    buffDebuffManager.ApplyEnrage(monster.gameObject);
+                    monster.UpdateValueEffect();
                 }
                 else if(turnCount >= 6 && (turnCount - 5) % 3 == 0)
                 {
                     buffDebuffManager.ApplyEnrage(monster.gameObject);
+                    monster.UpdateValueEffect();
                 }
             }
         }

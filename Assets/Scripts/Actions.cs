@@ -208,13 +208,16 @@ public class Actions : MonoBehaviour
         MonsterState monsterState = target.GetComponent<MonsterState>();
         if(monsterState != null)
         {
+            poisonAmount = Mathf.RoundToInt(poisonAmount * player.damageMultiplier);
             if(attributeType == PlayerState.AttributeType.Wood) poisonAmount += player.woodPoisonBonus;
             monsterState.ApplyPoison(poisonAmount);
         }
 
         PlayerState playerState = target.GetComponent<PlayerState>();
+        MonsterState attackerState = MonsterState.currentAttacker;
         if(playerState != null)
         {
+            poisonAmount = Mathf.RoundToInt(poisonAmount * attackerState.damageMultiplier);
             effect.ApplyEffect(target, 2, 1, 0.1f);
             playerState.ApplyPoison(poisonAmount);
         }
@@ -222,6 +225,7 @@ public class Actions : MonoBehaviour
 
     public void DealMultiplePoison(GameObject target, int poisonAmount, int hits, PlayerState.AttributeType? attributeType = null)
     {
+        poisonAmount = Mathf.RoundToInt(poisonAmount * player.damageMultiplier);
         effect.ApplyEffect(target, (int)attributeType, hits, 0.1f);
         for(int i = 0; i < hits; i++) DealSingleTargetPoison(target, poisonAmount, attributeType);
     }
@@ -229,6 +233,7 @@ public class Actions : MonoBehaviour
     public void DealRandomTargetPoison(List<GameObject> enemies, int poisonAmount, int hits, PlayerState.AttributeType? attributeType = null)
     {
         if (enemies.Count == 0) return;
+        poisonAmount = Mathf.RoundToInt(poisonAmount * player.damageMultiplier);
         if(attributeType == PlayerState.AttributeType.Wood) poisonAmount += player.woodPoisonBonus;
         for (int i = 0; i < hits; i++)
         {
