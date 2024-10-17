@@ -794,12 +794,8 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
             int validDamage = action.value;
             int validHit = action.secondaryValue;
             int validKilleffectDamage = action.thirdValue;
-            if (action.actionType != CardActionType.Poison && action.actionType != CardActionType.AreaPoison && 
-                action.actionType != CardActionType.RandomTargetPoison && action.actionType != CardActionType.PoisonCheckDamage) 
-            {
-                validDamage = Mathf.RoundToInt(validDamage * player.damageMultiplier);
-            }
-            else if (action.actionType == CardActionType.Poison || action.actionType == CardActionType.AreaPoison ||
+            validDamage = Mathf.RoundToInt(validDamage * player.damageMultiplier);
+            if (action.actionType == CardActionType.Poison || action.actionType == CardActionType.AreaPoison ||
                 action.actionType == CardActionType.RandomTargetPoison || action.actionType == CardActionType.PoisonCheckDamage)
             {
                 validDamage = action.value + player.woodPoisonBonus;

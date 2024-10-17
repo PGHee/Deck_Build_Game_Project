@@ -170,6 +170,7 @@ public class EndingPanelManager : MonoBehaviour
             // 이전 단계에서 남은 점수와 현재 단계 점수 비교
             if (remainingScore >= threshold)
             {
+                elapsed = 0f; // 별 오르기 이전 게이지 채우는 공간
                 // 남은 점수가 현재 성취도 단계의 최대값을 넘는다면, 별을 획득하고 남은 점수 계산
                 remainingScore -= threshold;
                 UpdateAchievementStars(threshold); // 별 획득
