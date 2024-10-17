@@ -321,6 +321,7 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
             Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width * fixedScreenPosition.x, Screen.height * fixedScreenPosition.y, fixedScreenPosition.z));
             zoomedCard.transform.position = worldPosition;
             zoomedCard.transform.localScale = originalScale * 1.75f; // 크기 조정
+            zoomedCard.tag = "Untagged";
 
             SetLayerOrders(zoomedCard);
         }

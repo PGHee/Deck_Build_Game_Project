@@ -100,8 +100,8 @@ public class DeckManager : MonoBehaviour
     // 덱에서 카드 생성(빛속성 숙련도 효과)
     public void CardSearch(int ind)
     {
-        // 묘지에 카드가 없으면
-        if (deckArray.Length < 1 && ind < 0)
+        // 덱에 카드가 없으면
+        if (deckArray.Length < 1 || ind < 0)
         {
             message.ShowSystemMessage("뽑을 수 있는 카드가 없다.");
         }
@@ -128,7 +128,7 @@ public class DeckManager : MonoBehaviour
     public void CardSalvage(int ind)
     {
         // 묘지에 카드가 없으면
-        if (graveArray.Length < 1 && ind < 0)
+        if (graveArray.Length < 1 || ind < 0)
         {
             message.ShowSystemMessage("뽑을 수 있는 카드가 없다.");
         }

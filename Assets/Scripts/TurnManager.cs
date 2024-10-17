@@ -190,7 +190,7 @@ public class TurnManager : MonoBehaviour
         
         if (player.attributeMastery[PlayerState.AttributeType.Light] >= 3 && player.attributeMastery[PlayerState.AttributeType.Light] < 6)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             deckManager.CardSearch(GetCardDeck(6, deckManager.deckArray));
             TurnStartSearchSwitch();
         }
@@ -198,7 +198,7 @@ public class TurnManager : MonoBehaviour
         {
             popupManager.ShowPopup("DeckList");
             deckListManager.CardListUp("DeckArray");
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             message.ShowSystemMessage("덱에서 빛 속성 카드 획득");
         }
         else
@@ -216,6 +216,7 @@ public class TurnManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(1);
                 deckManager.CardSalvage(GetCardDeck(7, deckManager.graveArray));
+                message.ShowSystemMessage("묘지에서 어둠 속성 카드 획득");
             }
             else
             {
