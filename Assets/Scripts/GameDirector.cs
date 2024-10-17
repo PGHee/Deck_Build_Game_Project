@@ -28,6 +28,7 @@ public class GameDirector : MonoBehaviour
     private BackgroundManager backgroundManager;
     public GameObject settings;
     private EndingPanelManager endingPanelManager;
+    public GameObject startPanel;
     
     void Start()
     {
@@ -40,6 +41,11 @@ public class GameDirector : MonoBehaviour
         eventManager = FindObjectOfType<EventManager>();
         backgroundManager = FindObjectOfType<BackgroundManager>();
         endingPanelManager = FindObjectOfType<EndingPanelManager>();
+    }
+    
+    public void StartButton()
+    {
+        startPanel.SetActive(false);
         InitGame();
     }
 

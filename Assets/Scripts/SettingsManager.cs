@@ -100,6 +100,7 @@ public class SettingsManager : MonoBehaviour
 
         ApplySettings(filteredResolutions);  // 설정을 실제 게임에 적용
         AttachEvents(filteredResolutions);   // 이벤트 연결
+        settingsPanel.SetActive(false);
     }
 
     void ApplySettings(List<Resolution> filteredResolutions)
