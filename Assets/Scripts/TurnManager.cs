@@ -76,22 +76,6 @@ public class TurnManager : MonoBehaviour
     {
         isPlayerTurn = true;
         turnCount++;
-        foreach (var monster in monsters)
-        {
-            if (monster != null && monster.gameObject.activeInHierarchy && player != null)
-            {
-                if(turnCount == 5)
-                {
-                    buffDebuffManager.ApplyEnrage(monster.gameObject);
-                    monster.UpdateValueEffect();
-                }
-                else if(turnCount >= 6 && (turnCount - 5) % 3 == 0)
-                {
-                    buffDebuffManager.ApplyEnrage(monster.gameObject);
-                    monster.UpdateValueEffect();
-                }
-            }
-        }
         
         player.currentResource = player.resource;
         player.ApplyTurnBasedPassives();        // 패시브 효과 적용
@@ -143,13 +127,23 @@ public class TurnManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         message.ShowSystemMessage("몬스터 턴");
-        EnrageBarUpdate();
         CheckBondedRevive();
+        
         foreach (var monster in monsters)
         {
             if (monster != null && monster.gameObject.activeInHierarchy && player != null)
             {
                 if(buffDebuffManager.currentField == PlayerState.AttributeType.Wood) monster.ApplyPoison(3);
+                if(turnCount == 5)
+                {
+                    buffDebuffManager.ApplyEnrage(monster.gameObject);
+                    monster.UpdateValueEffect();
+                }
+                else if(turnCount >= 6 && (turnCount - 5) % 3 == 0)
+                {
+                    buffDebuffManager.ApplyEnrage(monster.gameObject);
+                    monster.UpdateValueEffect();
+                }
                 yield return new WaitForSeconds(1);
                 monster.ApplyPoisonDamage();            // 독 데미지와 스택 감소 적용
                 if(monster.currentHealth > 0)
@@ -176,6 +170,7 @@ public class TurnManager : MonoBehaviour
             }
                 
         }
+        EnrageBarUpdate();
         if(!monsters.TrueForAll(m => m.currentHealth <= 0)) StartPlayerTurn();
     }
 
