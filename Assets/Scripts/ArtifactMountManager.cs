@@ -141,6 +141,7 @@ public class ArtifactMountManager : MonoBehaviour
 
             GameObject artifactGenerated = GameObject.FindWithTag("Artifact");
             artifactGenerated.GetComponent<UIToolTip>().descriptionTextArtifact = GetArtifactText(artifactInvenList[15 * ArtifactListPage + ButtonNum] - 1); // 아티팩트 툴팁을 위한 
+            artifactGenerated.GetComponent<UIToolTip>().openTooltip = true;
 
             MountedArtifactBuffApply();
         }

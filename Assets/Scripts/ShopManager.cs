@@ -76,30 +76,36 @@ public class ShopManager : MonoBehaviour
     public int RandomSelectCard()  // ������ �� ī�� ���� ����
     {
         GetPlayerState();
-        
+
         List<int> attributeLevelList = new List<int>(attributeMastery.Values);
 
-        int sumLevel = attributeLevelList.Sum();
-        int randomNum = Random.Range(1, sumLevel);
-        Debug.Log("randomNum:" + randomNum + "");
-
-        for (int i = 0; i < 10; i++)
+        List<int> attributeRatioList = new List<int>();
+        for (int j = 0; j < attributeLevelList.Count; j++)
         {
-            randomNum = randomNum - attributeLevelList[i];
-
-            if (randomNum <= 0)
+            for (int k = 0; k < attributeLevelList[j]; k++)
             {
-                if (attributeLevelList[i] == 10)
+                if (j != 3) // 메탈 속성 제외
                 {
-                    return (int)(i * 100 + Random.Range(0, 9 * 2 + 1));
-                }
-                else
-                {
-                    return (int)(i * 100 + Random.Range(0, attributeLevelList[i] * 2 + 1));
+                    attributeRatioList.Add(j);
                 }
             }
         }
-        return (int)(Random.Range(0, 10) * 100 + Random.Range(0, attributeLevelList[9] * 2 + 1));
+
+        int randomAtrribute = attributeRatioList[Random.Range(0, attributeRatioList.Count)]; // 랜덤 선택 된 속성
+        Debug.Log(randomAtrribute);
+        int randomGrade = Random.Range(0, attributeLevelList[randomAtrribute]) * 3 + Random.Range(0, 2);// 랜덤 선택된 등급(최대 조절 전)
+        if (randomGrade > attributeLevelList[randomAtrribute] * 2 - 1) // 속성 레벨보다 등급이 높을 경우 조정
+        {
+            randomGrade = attributeLevelList[randomAtrribute] * 2 - Random.Range(0, 2);
+        }
+
+        if (attributeLevelList[randomAtrribute] == 10)
+        {
+            randomGrade = Random.Range(17, 19); // 초월을 했을 경우 17,18번 카드만 나오게 조정(임시)
+        }
+        Debug.Log(randomGrade);
+
+        return randomAtrribute * 100 + randomGrade;
     }
 
     public void SetCardsToShop()
