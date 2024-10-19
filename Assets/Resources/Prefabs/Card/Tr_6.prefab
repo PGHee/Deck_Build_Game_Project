@@ -52,7 +52,7 @@ MonoBehaviour:
   cost: 3
   actions:
   - actionType: 12
-    value: 3
+    value: 4
     secondaryValue: 1
     killEffectType: 0
     thirdValue: 0

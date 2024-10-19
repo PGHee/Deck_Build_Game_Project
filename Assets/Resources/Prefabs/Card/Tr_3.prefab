@@ -57,7 +57,7 @@ MonoBehaviour:
     killEffectType: 0
     thirdValue: 0
   - actionType: 11
-    value: 4
+    value: 5
     secondaryValue: 1
     killEffectType: 0
     thirdValue: 0

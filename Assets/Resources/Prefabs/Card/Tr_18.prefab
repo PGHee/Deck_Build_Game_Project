@@ -52,8 +52,8 @@ MonoBehaviour:
   cost: 9
   actions:
   - actionType: 16
-    value: 18
-    secondaryValue: 9
+    value: 24
+    secondaryValue: 12
     killEffectType: 0
     thirdValue: 0
   buffsAndDebuffs: []

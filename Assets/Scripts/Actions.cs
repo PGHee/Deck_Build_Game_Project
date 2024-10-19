@@ -94,6 +94,7 @@ public class Actions : MonoBehaviour
                 }
             }
         }
+        ApplySingleBonusPoison(target);
     }
 
     // 범위 공격
@@ -110,6 +111,7 @@ public class Actions : MonoBehaviour
                 DealSingleTargetDamage(target, damage, null, attributeType);
             }
         }
+        ApplyMultyBonusPoison(targets);
     }
     
     // 랜덤 대상 공격
@@ -118,15 +120,25 @@ public class Actions : MonoBehaviour
         if (enemies.Count == 0) return;
         damage = Mathf.RoundToInt(damage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
+
+        bool[] boolsPoison = new bool[] { false, false, false };
+
         for (int i = 0; i < hits; i++)
         {
             if (enemies.Count == 0) break;
             int randomIndex = Random.Range(0, enemies.Count);
             GameObject target = enemies[randomIndex];
+
+            if (!boolsPoison[randomIndex])
+            {
+                ApplySingleBonusPoison(enemies[randomIndex]);
+                boolsPoison[randomIndex] = true;
+            }
+
             effect.ApplyEffect(target, (int)attributeType, 1, 0.1f * i);
             damageText.ShowDamage(target, (int)attributeType, damage, 1, 0.1f * i);
             DealSingleTargetDamage(enemies[randomIndex], damage, null, attributeType);
-
+          
             if (target.GetComponent<MonsterState>().currentHealth <= 0)
             {
                 enemies.RemoveAt(randomIndex);
@@ -141,13 +153,22 @@ public class Actions : MonoBehaviour
         damage = Mathf.RoundToInt(damage * player.damageMultiplier);
         ApplyPassiveEffects(attributeType, ref damage, ref hits);
         Dictionary<GameObject, int> hitCounts = new Dictionary<GameObject, int>();
+
+        bool[] boolsPoison = new bool[] { false, false, false };
+
         for (int i = 0; i < hits; i++)
         {
             if (enemies.Count == 0) break;
             int randomIndex = Random.Range(0, enemies.Count);
             GameObject target = enemies[randomIndex];
-            
+
             // 데미지 적용 및 이펙트 호출
+            if (!boolsPoison[randomIndex])
+            {
+                ApplySingleBonusPoison(enemies[randomIndex]);
+                boolsPoison[randomIndex] = true;
+            }
+
             effect.ApplyEffect(target, (int)attributeType, 1, 0.1f * i);
             damageText.ShowDamage(target, (int)attributeType, damage, 1, 0.1f * i);
             DealSingleTargetDamage(target, damage, null, attributeType);
@@ -186,6 +207,7 @@ public class Actions : MonoBehaviour
             damageText.ShowDamage(target, (int)attributeType, baseDamage + i, 1, 0.1f * i);
             DealSingleTargetDamage(target, baseDamage + i, null, attributeType);
         }
+        ApplySingleBonusPoison(target);
     }
 
     // 고정 데미지
@@ -200,6 +222,7 @@ public class Actions : MonoBehaviour
             if(player.LifeSteal > 0) player.Heal(Mathf.RoundToInt(damage * player.LifeSteal));
             if(monsterState.reflectDamage > 0) ReflectDamage(player.gameObject, Mathf.RoundToInt(damage * monsterState.reflectDamage));
         }
+        ApplySingleBonusPoison(target);
     }
     
     // 독 적용
@@ -211,6 +234,7 @@ public class Actions : MonoBehaviour
             poisonAmount = Mathf.RoundToInt(poisonAmount * player.damageMultiplier);
             if(attributeType == PlayerState.AttributeType.Wood) poisonAmount += player.woodPoisonBonus;
             monsterState.ApplyPoison(poisonAmount);
+            ApplySingleBonusPoison(target);
         }
 
         PlayerState playerState = target.GetComponent<PlayerState>();
@@ -342,6 +366,30 @@ public class Actions : MonoBehaviour
         for (int i = 0; i < hits; i++)
         {
             DealMultipleHits(target, damage, hits, killEffect, attributeType);
+        }
+        ApplySingleBonusPoison(target);
+    }
+
+    public void ApplySingleBonusPoison(GameObject target)
+    {
+        if (artifactManager.bonusPoison > 0)
+        {
+            if (target.GetComponent<MonsterState>().poisonStacks > 0 && artifactManager.doubleBonusPoison)
+            {
+                target.GetComponent<MonsterState>().ApplyPoison(artifactManager.bonusPoison * 2);
+            }
+            else
+            {
+                target.GetComponent<MonsterState>().ApplyPoison(artifactManager.bonusPoison);
+            }
+        }
+    }
+
+    public void ApplyMultyBonusPoison(List<GameObject> Monsters)
+    {
+        foreach(var monster in Monsters)
+        {
+            ApplySingleBonusPoison(monster);
         }
     }
 }
