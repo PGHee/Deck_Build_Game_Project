@@ -262,18 +262,6 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                         else if (hasPlayerEffects | hasPlayerBuffs) ApplyEffects(player, null);
                         effectApplied = true;
 
-                        if(artifactManager.bonusPoison > 0) 
-                        {
-                            if(targetMonster.GetComponent<MonsterState>().poisonStacks > 0)
-                            {
-                                targetMonster.GetComponent<MonsterState>().ApplyPoison(artifactManager.bonusPoison * 2);
-                            }
-                            else
-                            {
-                                targetMonster.GetComponent<MonsterState>().ApplyPoison(artifactManager.bonusPoison);
-                            }                         
-                        }
-
                         if (targetMonster != null && targetMonster.GetComponent<MonsterState>().applyExecution)
                         {
                             targetMonster.GetComponent<MonsterState>().TakeDamage(999);
@@ -1047,5 +1035,10 @@ public class Card : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
                effect.effectType == EffectType.ReduceCost ||
                effect.effectType == EffectType.Purification ||
                effect.effectType == EffectType.Field;
+    }
+
+    private void applyBonusPoison()
+    {
+
     }
 }

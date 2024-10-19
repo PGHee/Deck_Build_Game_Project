@@ -160,6 +160,7 @@ MonoBehaviour:
   bonusAttributeExperience: 0
   execution: 0
   doubleLifeSteal: 0
+  doubleBonusPoison: 0
   bonusShield: 0
   bonusHeal: 0
   bonusDraw: 0
@@ -179,6 +180,7 @@ MonoBehaviour:
   descriptionText: 
   descriptionTextArtifact: 
   mouseOn: 0
+  openTooltip: 0
 --- !u!114 &2075278958322684720
 MonoBehaviour:
   m_ObjectHideFlags: 0

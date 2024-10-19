@@ -19,6 +19,7 @@ public class ArtifactInfo : MonoBehaviour
     public float bonusAttributeExperience;
     public bool execution;
     public bool doubleLifeSteal;
+    public bool doubleBonusPoison;
     public int bonusShield;
     public int bonusHeal;
     public int bonusDraw;

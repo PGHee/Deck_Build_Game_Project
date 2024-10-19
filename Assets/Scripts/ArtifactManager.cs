@@ -49,6 +49,7 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
     public float bonusAttributeExperience;
     public bool execution;
     public bool doubleLifeSteal;
+    public bool doubleBonusPoison;
 
 
     // Start is called before the first frame update
@@ -208,6 +209,8 @@ public class ArtifactManager : MonoBehaviour // 아티팩트 매니저 오브젝트에 적용,
             bonusDamage = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().bonusDamage;
             bonusShield = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().bonusShield;
             bonusHeal = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().bonusHeal;
+            doubleBonusPoison = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().doubleBonusPoison;
+            doubleLifeSteal = artifactPrefabs[artifactNum - 1].GetComponent<ArtifactInfo>().doubleLifeSteal;
         }   
     }
 
