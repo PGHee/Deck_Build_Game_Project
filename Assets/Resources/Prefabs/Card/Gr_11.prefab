@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attributeType: 4
-  cost: 5
+  cost: 4
   actions:
   - actionType: 8
     value: 34

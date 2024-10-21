@@ -74,7 +74,7 @@ public class EndingPanelManager : MonoBehaviour
     // 점수 계산 및 시간차 출력
     private IEnumerator DisplayScoresWithDelay()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         // 1. 플레이어 부문 점수 계산 및 출력
         sectionBorder[0].enabled = true;
         if(playerState.currentHealth >= 0)
@@ -93,7 +93,7 @@ public class EndingPanelManager : MonoBehaviour
         }
         else playerSectionText.text = "플레이어의 사망으로 점수를 획득할 수 없습니다.";
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
 
         // 2. 속성 부문 점수 계산 및 출력
         sectionBorder[0].enabled = false;
@@ -115,7 +115,7 @@ public class EndingPanelManager : MonoBehaviour
         }
         else attributeSectionText.text = "플레이어의 사망으로 점수를 획득할 수 없습니다.";
         
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
 
         // 3. 스테이지 부문 점수 계산 및 출력
         sectionBorder[1].enabled = false;
@@ -128,7 +128,7 @@ public class EndingPanelManager : MonoBehaviour
         int stageTotalScore = stageScore + fightScore + eventScore;
         StartCoroutine(SmoothUpdateAchievementGauge(totalScore, stageTotalScore));
         totalScore += stageTotalScore;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
 
         // 4. 몬스터 부문 점수 계산 및 출력
         sectionBorder[2].enabled = false;
@@ -142,7 +142,7 @@ public class EndingPanelManager : MonoBehaviour
         StartCoroutine(SmoothUpdateAchievementGauge(totalScore, monsterTotalScore));
         totalScore += monsterTotalScore;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         sectionBorder[3].enabled = false;
         sectionBorder[4].enabled = true;
         finalScoreText.text = $"최종 점수: {totalScore}점";
@@ -152,57 +152,51 @@ public class EndingPanelManager : MonoBehaviour
     // 성취도 게이지 및 별 아이콘 업데이트 (실시간으로 부드럽게 증가)
     private IEnumerator SmoothUpdateAchievementGauge(int previousScore, int newScore)
     {
-        float duration = 1.5f; // 점수 증가에 소요될 시간
-        float elapsed = 0f; 
-        int initialScore = previousScore;
-
+        float maxDuration = 1.5f; // 섹션 당 최대 소요 시간
         int targetScore = previousScore + newScore; // 목표 점수
-        int maxThreshold = achievementThresholds[achievementThresholds.Length - 1]; // 마지막 성취도 단계 기준
-
         int remainingScore = targetScore;
 
-        // 성취도 단계별로 점수를 나눠서 계산
         for (int i = 0; i < achievementStars.Length; i++)
         {
-            // 현재 단계의 최대 값 계산
             int threshold = achievementThresholds[i];
+            int startScore = Mathf.Min(previousScore, threshold); // 현재 구간의 시작 점수
+            int currentSectionScore = Mathf.Min(remainingScore, threshold - startScore); // 남은 점수 계산
 
-            // 이전 단계에서 남은 점수와 현재 단계 점수 비교
-            if (remainingScore >= threshold)
+            // 점수를 추가하는 섹션에서 사용할 실제 시간을 계산 (점수 비례)
+            float duration = Mathf.Lerp(0.1f, maxDuration, (float)currentSectionScore / threshold);
+            float elapsed = 0f;
+
+            // 점수 증가 애니메이션
+            while (elapsed < duration)
             {
-                elapsed = 0f; // 별 오르기 이전 게이지 채우는 공간
-                // 남은 점수가 현재 성취도 단계의 최대값을 넘는다면, 별을 획득하고 남은 점수 계산
-                remainingScore -= threshold;
-                UpdateAchievementStars(threshold); // 별 획득
-                achievementGauge.value = 1f; // 게이지를 가득 채움
+                elapsed += Time.deltaTime;
+                float t = elapsed / duration;
+                int currentScore = Mathf.FloorToInt(Mathf.Lerp(startScore, startScore + currentSectionScore, t));
 
-                // 게이지 초기화
-                achievementGauge.value = 0f;
-                achievementText.text = $"0 / {threshold}";
+                // 게이지 값 및 텍스트 업데이트
+                achievementGauge.value = (float)currentScore / threshold;
+                achievementText.text = $"{currentScore} / {threshold}";
+
+                yield return null; // 한 프레임 대기
+            }
+
+            // 최종 값 업데이트
+            achievementGauge.value = (float)(startScore + currentSectionScore) / threshold;
+            achievementText.text = $"{startScore + currentSectionScore} / {threshold}";
+
+            // 남은 점수 업데이트 및 별 획득 처리
+            remainingScore -= currentSectionScore;
+
+            if (remainingScore > 0 && startScore + currentSectionScore >= threshold)
+            {
+                UpdateAchievementStars(threshold); // 별 획득
+                achievementGauge.value = 0f; // 게이지 초기화
+                achievementText.text = $"0 / {achievementThresholds[i + 1]}"; // 다음 섹션의 목표점수
+                previousScore = 0; // 다음 섹션을 위해 점수 초기화
             }
             else
             {
-                // 남은 점수가 현재 단계의 최대값보다 작다면 게이지를 해당 값만큼 채움
-                elapsed = 0f;
-                while (elapsed < duration)
-                {
-                    elapsed += Time.deltaTime;
-                    float t = elapsed / duration;
-                    int currentScore = Mathf.FloorToInt(Mathf.Lerp(0, remainingScore, t)); // 남은 점수를 부드럽게 증가시킴
-
-                    // 게이지 값 및 텍스트 업데이트
-                    achievementGauge.value = (float)currentScore / threshold;
-                    achievementText.text = $"{currentScore} / {threshold}";
-
-                    yield return null; // 한 프레임 대기
-                }
-
-                // 남은 점수에 따른 최종 업데이트
-                achievementGauge.value = (float)remainingScore / threshold;
-                achievementText.text = $"{remainingScore} / {threshold}";
-
-                // 다음 단계로 넘어갈 필요 없으므로 종료
-                break;
+                break; // 남은 점수가 더 이상 없을 경우 종료
             }
         }
     }
