@@ -183,6 +183,7 @@ public class ArtifactSynthesisManager : MonoBehaviour
                 ArtifactListPage = 0;
                 ArtifactListUp();
                 message.ShowSystemMessage("합성 성공!");
+                UISoundManager.instance.PlaySound("ArtifactSYS");
             }
         }  
     }

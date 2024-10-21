@@ -160,6 +160,7 @@ public class ShopManager : MonoBehaviour
                 rewardManager.GetReward("Card", sellCardNums[buttonNum], sellCardPrices[buttonNum]);
                 sellCardNums[buttonNum] = 0;
 
+                UISoundManager.instance.PlaySound("Shop");
                 //message.ShowSystemMessage("구매 감사합니다!");
             }
             else
@@ -212,6 +213,7 @@ public class ShopManager : MonoBehaviour
                 rewardManager.GetReward("Artifact", sellArtifactNums[buttonNum], sellArtifactPrices[buttonNum]);
                 sellArtifactNums[buttonNum] = 0;
                 //message.ShowSystemMessage("다른것도 어떠신가요?");
+                UISoundManager.instance.PlaySound("Shop");
             }
             else
             {
@@ -250,7 +252,7 @@ public class ShopManager : MonoBehaviour
             BlurClearButtonShop(clearButtonsShop[10]);
 
             buyHP = false;
-
+            UISoundManager.instance.PlaySound("Shop");
             //message.ShowSystemMessage("입맛엔 맞으시나요?");
         }
         else

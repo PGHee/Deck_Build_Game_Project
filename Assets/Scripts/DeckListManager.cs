@@ -193,6 +193,7 @@ public class DeckListManager : MonoBehaviour
                     delete = false;
                     message.ShowSystemMessage("카드 제거");
                     SetDeleteButtonConfirm(ButtonNum);
+                    UISoundManager.instance.PlaySound("Shop");
                 }
                 else
                 {

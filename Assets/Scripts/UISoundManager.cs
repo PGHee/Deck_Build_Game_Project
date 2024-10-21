@@ -10,6 +10,9 @@ public class UISoundManager : MonoBehaviour
     public AudioClip PanelOpen;
     public AudioClip PanelClose;
     public AudioClip DragCard;
+    public AudioClip CoinSound;
+    public AudioClip UIClick;
+    public AudioClip ArtifactSys;
 
     private AudioSource audioSource;
 
@@ -50,13 +53,16 @@ public class UISoundManager : MonoBehaviour
                 audioSource.PlayOneShot(DragCard);
                 break;
             case "UI":
+                audioSource.PlayOneShot(UIClick);
                 break;
             case "Shop":
+                audioSource.PlayOneShot(CoinSound);
                 break;
-            case "ArtipactSYS":
+            case "ArtifactSYS":
+                audioSource.PlayOneShot(ArtifactSys);
                 break;
             default:
-                Debug.LogWarning("�� �� ���� ��Ȳ: " + situation);
+                Debug.LogWarning(situation);
                 break;
         }
     }

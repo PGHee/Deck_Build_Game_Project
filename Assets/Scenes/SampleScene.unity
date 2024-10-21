@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20787,6 +20786,7 @@ MonoBehaviour:
   bonusAttributeExperience: 0
   execution: 0
   doubleLifeSteal: 0
+  doubleBonusPoison: 0
   bonusShield: 0
   bonusHeal: 0
   bonusDraw: 0
@@ -31990,6 +31990,7 @@ MonoBehaviour:
   bonusAttributeExperience: 0
   execution: 0
   doubleLifeSteal: 0
+  doubleBonusPoison: 0
 --- !u!1 &935181296
 GameObject:
   m_ObjectHideFlags: 0
@@ -60901,6 +60902,9 @@ MonoBehaviour:
   PanelOpen: {fileID: 8300000, guid: af946f3b4f6ff2847a3f3cf4b699162b, type: 3}
   PanelClose: {fileID: 8300000, guid: 5e628dab33eab3c4698a549f96741461, type: 3}
   DragCard: {fileID: 8300000, guid: a3dae81d22c2c0746b4a977e50a38295, type: 3}
+  CoinSound: {fileID: 8300000, guid: 8c7783698858ff84dac436dd3cb6d361, type: 3}
+  UIClick: {fileID: 8300000, guid: 9e071dd0211f87449b5746cc2c6656fe, type: 3}
+  ArtifactSys: {fileID: 8300000, guid: b73858ef3d9bf0f4b807704093fc5f76, type: 3}
 --- !u!82 &1809110966
 AudioSource:
   m_ObjectHideFlags: 0
@@ -69852,6 +69856,7 @@ MonoBehaviour:
   bonusAttributeExperience: 0
   execution: 0
   doubleLifeSteal: 0
+  doubleBonusPoison: 0
   bonusShield: 0
   bonusHeal: 0
   bonusDraw: 0
