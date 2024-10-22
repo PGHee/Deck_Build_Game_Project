@@ -22,6 +22,7 @@ public class PlayerUI : MonoBehaviour
     
     private string description;
     private TooltipManager tooltipManager;
+    public UISoundManager uiSound;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class PlayerUI : MonoBehaviour
     // 패널 열기 함수
     public void OpenPlayerPanel()
     {
+        uiSound.PlaySound("UI");
         panel.SetActive(true);
         UpdatePlayerUI();
         openPanelButton.gameObject.SetActive(false);
@@ -44,6 +46,7 @@ public class PlayerUI : MonoBehaviour
     // 패널 닫기 함수
     public void ClosePlayerPanel()
     {
+        uiSound.PlaySound("UI");
         panel.SetActive(false);
         openPanelButton.gameObject.SetActive(true);
         closePanelButton.gameObject.SetActive(false);

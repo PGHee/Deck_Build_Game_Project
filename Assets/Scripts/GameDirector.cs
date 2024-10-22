@@ -29,6 +29,7 @@ public class GameDirector : MonoBehaviour
     public GameObject settings;
     private EndingPanelManager endingPanelManager;
     public GameObject startPanel;
+    public UISoundManager uiSound;
     
     void Start()
     {
@@ -45,6 +46,7 @@ public class GameDirector : MonoBehaviour
     
     public void StartButton()
     {
+        uiSound.PlaySound("UI");
         startPanel.SetActive(false);
         InitGame();
     }

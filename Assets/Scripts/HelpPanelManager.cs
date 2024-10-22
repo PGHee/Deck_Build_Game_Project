@@ -12,6 +12,8 @@ public class HelpPanelManager : MonoBehaviour
     public GameObject helpButton;           // 도움말 패널을 여는 버튼
     public int currentPartIndex = 0;        // 현재 활성화된 파트 인덱스
 
+    public UISoundManager uiSound;
+
     void Start()
     {
         // 처음엔 패널과 모든 파트 및 파트 패널을 비활성화
@@ -27,6 +29,7 @@ public class HelpPanelManager : MonoBehaviour
     // 도움말 패널을 활성화하는 함수
     public void ShowHelpPanel()
     {
+        uiSound.PlaySound("UI");
         helpPanel.SetActive(true);         // 도움말 패널 활성화
         helpButton.SetActive(false);
         ShowCurrentPart();
@@ -35,6 +38,7 @@ public class HelpPanelManager : MonoBehaviour
     // 도움말 패널을 비활성화하는 함수
     public void HideHelpPanel()
     {
+        uiSound.PlaySound("UI");
         helpPanel.SetActive(false);        // 도움말 패널 비활성화
         helpButton.SetActive(true);
         SetAllPartsActive(false);
@@ -44,6 +48,7 @@ public class HelpPanelManager : MonoBehaviour
     // 이전 버튼 클릭 시 호출될 함수
     public void OnPreviousPart()
     {
+        uiSound.PlaySound("UI");
         if (currentPartIndex > 0)
         {
             currentPartIndex--;
@@ -54,6 +59,7 @@ public class HelpPanelManager : MonoBehaviour
     // 다음 버튼 클릭 시 호출될 함수
     public void OnNextPart()
     {
+        uiSound.PlaySound("UI");
         if (currentPartIndex < parts.Count - 1)
         {
             currentPartIndex++;

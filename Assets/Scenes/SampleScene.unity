@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2535,6 +2536,7 @@ MonoBehaviour:
   crystalCostText: {fileID: 1931869860}
   recoverResourceText: {fileID: 2121074572}
   uiBar: {fileID: 915173986}
+  uiSound: {fileID: 1809110965}
 --- !u!114 &139595327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6509,6 +6511,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1218919684}
     m_Modifications:
+    - target: {fileID: 1184889271109452682, guid: be1153325d4e2ae43addfcc99b46deac, type: 3}
+      propertyPath: uiSound
+      value: 
+      objectReference: {fileID: 1809110965}
     - target: {fileID: 1184889271109452682, guid: be1153325d4e2ae43addfcc99b46deac, type: 3}
       propertyPath: backgroundObject
       value: 
@@ -17692,6 +17698,7 @@ MonoBehaviour:
   lightningStunChanceText: {fileID: 1071331493}
   waterRegenText: {fileID: 481597649}
   earthDefenseText: {fileID: 846613736}
+  uiSound: {fileID: 1809110965}
 --- !u!1 &543663903
 GameObject:
   m_ObjectHideFlags: 0
@@ -24462,6 +24469,7 @@ MonoBehaviour:
   endTurnButton: {fileID: 939325982}
   settings: {fileID: 778429934}
   startPanel: {fileID: 1772741273}
+  uiSound: {fileID: 1809110965}
 --- !u!1 &751023788
 GameObject:
   m_ObjectHideFlags: 0
@@ -53691,6 +53699,7 @@ MonoBehaviour:
   pageNumberText: {fileID: 1941218953}
   helpButton: {fileID: 1465726312}
   currentPartIndex: 0
+  uiSound: {fileID: 1809110965}
 --- !u!1 &1591019778
 GameObject:
   m_ObjectHideFlags: 0

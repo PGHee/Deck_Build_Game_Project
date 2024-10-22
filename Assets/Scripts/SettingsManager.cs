@@ -17,6 +17,7 @@ public class SettingsManager : MonoBehaviour
     public AudioMixer audioMixer;
     private Resolution[] availableResolutions;
     public GameObject backgroundObject;
+    public UISoundManager uiSound;
 
     // 사용자 지정 해상도 목록
     private readonly List<Vector2Int> targetResolutions = new List<Vector2Int>
@@ -182,34 +183,40 @@ public class SettingsManager : MonoBehaviour
 
     public void OpenSettings()
     {
+        uiSound.PlaySound("UI");
         settingsPanel.SetActive(true);
     }
 
     public void CloseSettings()
     {
+        uiSound.PlaySound("UI");
         settingsPanel.SetActive(false);
     }
 
     public void SetBGMVolume(float volume)
     {
+        uiSound.PlaySound("UI");
         audioMixer.SetFloat("BGMVolume", Mathf.Lerp(-80f, 20f, Mathf.Clamp01(volume)));
         PlayerPrefs.SetFloat("bgmVolume", volume);
     }
 
     public void SetEffectVolume(float volume)
     {
+        uiSound.PlaySound("UI");
         audioMixer.SetFloat("EffectVolume", Mathf.Lerp(-80f, 20f, Mathf.Clamp01(volume)));
         PlayerPrefs.SetFloat("effectVolume", volume);
     }
 
     public void SetFullscreen(bool isFullscreen)
     {
+        uiSound.PlaySound("UI");
         Screen.fullScreen = isFullscreen;
         PlayerPrefs.SetInt("fullscreen", isFullscreen ? 1 : 0);
     }
 
     public void SetFrameRate(int frameRateIndex)
     {
+        uiSound.PlaySound("UI");
         int[] frameRates = { 30, 60, 120, -1 };  // 프레임 제한 설정
         Application.targetFrameRate = frameRates[frameRateIndex];
         PlayerPrefs.SetInt("frameRate", frameRateIndex);
@@ -217,6 +224,7 @@ public class SettingsManager : MonoBehaviour
 
     public void SetVSync(bool isVSync)
     {
+        uiSound.PlaySound("UI");
         QualitySettings.vSyncCount = isVSync ? 1 : 0;
         PlayerPrefs.SetInt("vSync", isVSync ? 1 : 0);
     }

@@ -15,6 +15,8 @@ public class CrystalExchangePanel : MonoBehaviour
     private PlayerState playerState;                // 플레이어 상태를 참조하기 위한 변수
     private SystemMessage message;                  // 시스템 메시지 출력을 위한 변수
 
+    public UISoundManager uiSound;
+
     private void Start()
     {
         playerState = FindObjectOfType<PlayerState>();  // 플레이어 상태 찾기
@@ -92,12 +94,14 @@ public class CrystalExchangePanel : MonoBehaviour
 
     public void OnOpenButtonClicked()
     {
-        gameObject.SetActive(true);  // 패널 비활성화
+        uiSound.PlaySound("UI");
+        gameObject.SetActive(true);  // 패널 활성화
     }
 
     // 패널 닫기 버튼을 눌렀을 때 호출되는 함수
     public void OnCloseButtonClicked()
     {
+        uiSound.PlaySound("UI");
         gameObject.SetActive(false);  // 패널 비활성화
     }
 }
