@@ -82,7 +82,9 @@ public class StartDeckManager : MonoBehaviour
         {
             GameObject go_circle = Instantiate(Resources.Load<GameObject>($"Prefabs/UI/Circle_Attribute"), clearButtonsStartDeck[chosenAttributeNums[j]].GetComponent<RectTransform>().position, Quaternion.identity, parentObject);
         }
-        
+
+        UISoundManager.instance.PlaySound("StoneOn");
+
     }
 
     public float GetDistance(GameObject bt1, GameObject bt2)

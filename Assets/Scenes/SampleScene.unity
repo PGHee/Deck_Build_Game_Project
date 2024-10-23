@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -61103,6 +61102,7 @@ MonoBehaviour:
   CoinSound: {fileID: 8300000, guid: 8c7783698858ff84dac436dd3cb6d361, type: 3}
   UIClick: {fileID: 8300000, guid: 9e071dd0211f87449b5746cc2c6656fe, type: 3}
   ArtifactSys: {fileID: 8300000, guid: b73858ef3d9bf0f4b807704093fc5f76, type: 3}
+  StartDeckStoneOn: {fileID: 8300000, guid: 5101df70db8c54d408e4bdaa7d7fd718, type: 3}
 --- !u!82 &1809110966
 AudioSource:
   m_ObjectHideFlags: 0

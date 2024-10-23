@@ -13,6 +13,7 @@ public class UISoundManager : MonoBehaviour
     public AudioClip CoinSound;
     public AudioClip UIClick;
     public AudioClip ArtifactSys;
+    public AudioClip StartDeckStoneOn;
 
     private AudioSource audioSource;
 
@@ -60,6 +61,9 @@ public class UISoundManager : MonoBehaviour
                 break;
             case "ArtifactSYS":
                 audioSource.PlayOneShot(ArtifactSys);
+                break;
+            case "StoneOn":
+                audioSource.PlayOneShot(StartDeckStoneOn);
                 break;
             default:
                 Debug.LogWarning(situation);
