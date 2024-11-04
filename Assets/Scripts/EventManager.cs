@@ -15,6 +15,7 @@ public class EventManager : MonoBehaviour
 
     public int eventNum;
     public GameObject eventPrefab;
+    public GameObject[] eventPrefabs;
 
     public GameObject eventImage;
     public TextMeshProUGUI eventText;
@@ -33,7 +34,20 @@ public class EventManager : MonoBehaviour
 
     public void RandomSelectEvent()
     {
-        eventNum = Random.Range(1, 27);
+        // "Prefabs"는 Resources 폴더 내의 서브 폴더 이름입니다.
+        eventPrefabs = Resources.LoadAll<GameObject>($"Prefabs/Event");
+        Debug.Log(eventPrefabs.Length);
+        List<int> chanceList = new List<int>();
+
+        for(int i = 0; i < eventPrefabs.Length; i++)
+        {
+            for (int j = 0; j < eventPrefabs[i].GetComponent<EventInfo>().eventChance; j++)
+            {
+                chanceList.Add(i + 1);
+            }
+        }
+        eventNum = chanceList[Random.Range(0, chanceList.Count)];
+        
         eventPrefab = Resources.Load<GameObject>($"Prefabs/Event/event{eventNum}");
     }
 

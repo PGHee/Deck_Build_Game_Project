@@ -50,11 +50,12 @@ MonoBehaviour:
   eventInputNum: 30
   eventOutputNum: 215
   eventImage: {fileID: 21300000, guid: f7cdc6ba27f32014a90e7cab65fe0d98, type: 3}
-  eventText: "[\uD2B9\uAC00 \uCC2C\uC2A4! \uB9C8\uAC10 \uC784\uBC15! HP 30\uC774\uBA74
-    \uAC15\uB825\uD55C \uD798\uC774 \uB2F9\uC2E0\uC758 \uC190\uC73C\uB85C!]<br>\uC54C
+  eventText: "[\uD2B9\uAC00 \uCC2C\uC2A4! \uB9C8\uAC10 \uC784\uBC15! \uCCB4\uB825
+    30\uC774\uBA74 \uAC15\uB825\uD55C \uD798\uC774 \uB2F9\uC2E0\uC758 \uC190\uC73C\uB85C!]<br>\uC54C
     \uC218 \uC5C6\uB294 \uB9D0\uC744 \uD558\uB294 \uC545\uB9C8\uAC00 \uB208 \uC55E\uC5D0
     \uB098\uD0C0\uB0AC\uB2E4.<br>\uC545\uB9C8\uC758 \uC190\uC5D0\uB294 \uBE5B\uB098\uB294
     \uCE74\uB4DC\uAC00 \uB4E4\uB824\uC788\uB2E4."
+  eventChance: 1
 --- !u!1 &4474382289309420246
 GameObject:
   m_ObjectHideFlags: 0

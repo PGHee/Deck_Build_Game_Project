@@ -54,6 +54,7 @@ MonoBehaviour:
     \uADF8\uB294 \uAC70\uB798\uB97C \uC81C\uC548\uD574 \uC654\uC2B5\uB2C8\uB2E4.<br>[
     \uB3CC\uC544\uAC08 \uC5EC\uBE44\uAC00 \uC5C6\uB2E4\uB124... 100\uD06C\uB9AC\uC2A4\uD0C8\uC744
     \uC8FC\uBA74 \uB300\uAC00\uB97C \uC9C0\uBD88\uD558\uC9C0. ]"
+  eventChance: 2
 --- !u!1 &5572209008847127427
 GameObject:
   m_ObjectHideFlags: 0

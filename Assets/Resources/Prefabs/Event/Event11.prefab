@@ -53,6 +53,7 @@ MonoBehaviour:
   eventText: "\uC0AC\uB78C\uB4E4\uC774 \uBAA8\uC5EC \uC57C\uC601\uC744 \uD558\uACE0\uC788\uB2E4.<br>\uD5D8\uC0C1\uAD82\uC740
     \uC0AC\uB78C\uC774 \uB9D0\uC744 \uAC78\uC5B4\uC628\uB2E4.<br>[\uBAB8 \uC880 \uB179\uC774\uACE0
     \uAC00\uB77C\uACE0, 20 \uD06C\uB9AC\uC2A4\uD0C8\uB9CC \uB0B4.]"
+  eventChance: 5
 --- !u!1 &4474382289309420246
 GameObject:
   m_ObjectHideFlags: 0

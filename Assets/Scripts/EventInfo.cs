@@ -10,4 +10,5 @@ public class EventInfo : MonoBehaviour
     public int eventOutputNum;
     public Sprite eventImage;
     public string eventText;
+    public int eventChance;
 }
