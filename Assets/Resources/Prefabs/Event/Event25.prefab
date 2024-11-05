@@ -47,11 +47,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventInput: HP
   eventOutput: Crystal
-  eventInputNum: 5
+  eventInputNum: 0
   eventOutputNum: 50
   eventImage: {fileID: 21300000, guid: c047e9da9e51de146b540c67374f7c41, type: 3}
   eventText: "\uB3D9\uAD74\uC5D0\uC11C \uB9C8\uC11D \uAD11\uC0B0\uC744 \uBC1C\uACAC\uD588\uB2E4.<br>\uCCB4\uB825\uC744
     \uC18C\uBAA8\uD574 \uB9C8\uC11D\uC744 \uCE98 \uC218 \uC788\uC744 \uAC83 \uAC19\uB2E4."
+  eventOutputText: "50\uB9C8\uC11D\uC744 \uD68D\uB4DD\uD588\uB2E4."
   eventChance: 5
 --- !u!1 &4474382289309420246
 GameObject:

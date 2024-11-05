@@ -26,9 +26,12 @@ public class EventManager : MonoBehaviour
     public int eventInputNum;
     public int eventOutputNum;
 
+    public bool eventON;
+
     void Start()
     {
         message = FindObjectOfType<SystemMessage>();
+        eventON = true;
     }
 
 
@@ -63,6 +66,8 @@ public class EventManager : MonoBehaviour
         eventInputNum = eventPrefab.GetComponent<EventInfo>().eventInputNum;
         eventOutputNum = eventPrefab.GetComponent<EventInfo>().eventOutputNum;
 
+        eventON = true;
+
     }
 
     public void ResetEvent()
@@ -72,7 +77,7 @@ public class EventManager : MonoBehaviour
 
     public void AcceptEvent()
     {
-        if (eventInput.Length > 0)
+        if (eventInput.Length > 0 && eventON)
         {
             switch (eventInput)
             {
@@ -81,6 +86,8 @@ public class EventManager : MonoBehaviour
                     {
                         rewardManager.GetReward(eventOutput, eventOutputNum, eventInputNum);
                         //message.ShowSystemMessage("-" + eventInput + "");
+                        eventText.text = eventPrefab.GetComponent<EventInfo>().eventOutputText;
+                        eventON = false;
                     }
                     else message.ShowSystemMessage("크리스탈이 부족해.");
 
@@ -91,7 +98,9 @@ public class EventManager : MonoBehaviour
                     {
                         deckManager.DeleteOriginCard(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
-                        if(eventInputNum != 0)
+                        eventText.text = eventPrefab.GetComponent<EventInfo>().eventOutputText;
+                        eventON = false;
+                        if (eventInputNum != 0)
                         {
                             //message.ShowSystemMessage("-" + eventInput + "");
                         }  
@@ -104,6 +113,8 @@ public class EventManager : MonoBehaviour
                     {
                         artifactManager.DeleteArtifact2Inven(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
+                        eventText.text = eventPrefab.GetComponent<EventInfo>().eventOutputText;
+                        eventON = false;
                         //message.ShowSystemMessage("-" + eventInput + "");
                     }
                     else message.ShowSystemMessage("맞는 아티팩트가 없어");
@@ -114,6 +125,8 @@ public class EventManager : MonoBehaviour
                     {
                         playerState.TakeDamage(eventInputNum);
                         rewardManager.GetReward(eventOutput, eventOutputNum, 0);
+                        eventText.text = eventPrefab.GetComponent<EventInfo>().eventOutputText;
+                        eventON = false;
                         //message.ShowSystemMessage("-" + eventInput + "");
                     }
                     else message.ShowSystemMessage("체력이 부족해");
@@ -123,6 +136,10 @@ public class EventManager : MonoBehaviour
                     Debug.Log("unknown inputcode");
                     break;
             }
+        }
+        else
+        {
+            message.ShowSystemMessage("이미 지나간 일이야");
         }
     }
 

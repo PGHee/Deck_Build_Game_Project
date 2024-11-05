@@ -15760,42 +15760,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 474652578}
-        m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
-        m_MethodName: ClosePopup
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Event
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 162533647}
-        m_TargetAssemblyTypeName: StageManager, Assembly-CSharp
-        m_MethodName: GenerateRandomPortal
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 162533647}
-        m_TargetAssemblyTypeName: StageManager, Assembly-CSharp
-        m_MethodName: DestroyEventOpener
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &496169057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40245,6 +40209,7 @@ MonoBehaviour:
   rewardManager: {fileID: 1674798270}
   eventNum: 0
   eventPrefab: {fileID: 0}
+  eventPrefabs: []
   eventImage: {fileID: 27954380}
   eventText: {fileID: 654189456}
   eventInput: 
