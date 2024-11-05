@@ -29,7 +29,7 @@ public class GameDirector : MonoBehaviour
     public GameObject settings;
     private EndingPanelManager endingPanelManager;
     public GameObject startPanel;
-    public UISoundManager uiSound;
+    private UISoundManager uiSound;
     
     void Start()
     {
@@ -42,6 +42,7 @@ public class GameDirector : MonoBehaviour
         eventManager = FindObjectOfType<EventManager>();
         backgroundManager = FindObjectOfType<BackgroundManager>();
         endingPanelManager = FindObjectOfType<EndingPanelManager>();
+        uiSound = FindObjectOfType<UISoundManager>();
     }
     
     public void StartButton()

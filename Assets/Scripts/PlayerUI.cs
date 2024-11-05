@@ -22,12 +22,13 @@ public class PlayerUI : MonoBehaviour
     
     private string description;
     private TooltipManager tooltipManager;
-    public UISoundManager uiSound;
+    private UISoundManager uiSound;
 
     void Start()
     {
         playerState = FindObjectOfType<PlayerState>();
         tooltipManager = FindObjectOfType<TooltipManager>();
+        uiSound = FindObjectOfType<UISoundManager>();
         openPanelButton.gameObject.SetActive(false);
         panel.SetActive(true);
         closePanelButton.gameObject.SetActive(true); 

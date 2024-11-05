@@ -14,13 +14,13 @@ public class CrystalExchangePanel : MonoBehaviour
     private int crystalCostPerResource = 30;        // 서클 하나를 회복하는 데 필요한 크리스탈 양
     private PlayerState playerState;                // 플레이어 상태를 참조하기 위한 변수
     private SystemMessage message;                  // 시스템 메시지 출력을 위한 변수
-
-    public UISoundManager uiSound;
+    private UISoundManager uiSound;
 
     private void Start()
     {
         playerState = FindObjectOfType<PlayerState>();  // 플레이어 상태 찾기
         message = FindObjectOfType<SystemMessage>();    // 시스템 메시지 찾기
+        uiSound = FindObjectOfType<UISoundManager>();
         UpdateUI();                                     // UI 초기화
     }
 

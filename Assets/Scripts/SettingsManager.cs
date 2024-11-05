@@ -17,7 +17,7 @@ public class SettingsManager : MonoBehaviour
     public AudioMixer audioMixer;
     private Resolution[] availableResolutions;
     public GameObject backgroundObject;
-    public UISoundManager uiSound;
+    private UISoundManager uiSound;
 
     // 사용자 지정 해상도 목록
     private readonly List<Vector2Int> targetResolutions = new List<Vector2Int>
@@ -29,6 +29,7 @@ public class SettingsManager : MonoBehaviour
 
     void Awake()
     {
+        uiSound = FindObjectOfType<UISoundManager>();
         // 싱글톤 인스턴스 설정
         if (Instance == null)
         {

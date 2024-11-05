@@ -37,6 +37,17 @@ public class UISoundManager : MonoBehaviour
     public void PlaySound(string situation)
     {
         if(instance == null) return;
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                Debug.LogWarning("AudioSource component is missing from UISoundManager.");
+                return;
+            }
+        }
+        
         if (audioSource.isPlaying)
         {
             audioSource.Stop();  // 현재 재생 중인 사운드를 중지
