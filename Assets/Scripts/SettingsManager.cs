@@ -34,6 +34,7 @@ public class SettingsManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            settingsPanel.SetActive(true);
         }
         else
         {
@@ -41,6 +42,7 @@ public class SettingsManager : MonoBehaviour
             return;
         }
         InitializeSettings();  // 게임 시작 시 설정값을 UI에 반영 및 적용
+        settingsPanel.SetActive(false);
     }
 
     void InitializeSettings()
@@ -101,7 +103,6 @@ public class SettingsManager : MonoBehaviour
 
         ApplySettings(filteredResolutions);  // 설정을 실제 게임에 적용
         AttachEvents(filteredResolutions);   // 이벤트 연결
-        settingsPanel.SetActive(false);
     }
 
     void ApplySettings(List<Resolution> filteredResolutions)
