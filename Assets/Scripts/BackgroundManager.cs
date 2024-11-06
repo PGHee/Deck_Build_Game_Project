@@ -37,8 +37,9 @@ public class BackgroundManager : MonoBehaviour
     }
 
     // 필드 마법 발동 시 배경을 필드 마법용 이미지로 변경하는 함수
-    public void ActivateFieldMagic(int fieldMagicIndex)
+    public IEnumerator ActivateFieldMagic(int fieldMagicIndex)
     {
+        yield return new WaitForSeconds(1);
         if (fieldMagicIndex >= 0 && fieldMagicIndex < fieldMagicSprites.Length)
         {
             background.sprite = fieldMagicSprites[fieldMagicIndex];
