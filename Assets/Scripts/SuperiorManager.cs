@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 public class SuperiorManager : MonoBehaviour
 {
     public float[] fillAmount;
     public Image[] shapeImage;
+    public Image[] cardImage;
+    public TextMeshProUGUI[] levelText;
     public PlayerState.AttributeType[] topAttributes;
 
     private PlayerState plyerState;
     private RewardManager rewardManager;
     private SystemMessage message;
+
+    public bool superiorAvailable;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +25,7 @@ public class SuperiorManager : MonoBehaviour
         plyerState = FindObjectOfType<PlayerState>();
         rewardManager = FindObjectOfType<RewardManager>();
         message = FindObjectOfType<SystemMessage>();
+        superiorAvailable = true;
     }
 
     public void UpdateSuperior()
@@ -37,56 +43,69 @@ public class SuperiorManager : MonoBehaviour
                              .Select(pair => pair.Value)
                              .ToList();
 
-        shapeImage[0].fillAmount = (float)topTwoValues[0] / (float)9;
+        //shapeImage[0].fillAmount = (float)topTwoValues[0] / (float)9;
         fillAmount[0] = (float)topTwoValues[0] / (float)9;
         topAttributes[0] = topTwoKeys[0];
 
-        shapeImage[1].fillAmount = (float)topTwoValues[1] / (float)9;
+        //shapeImage[1].fillAmount = (float)topTwoValues[1] / (float)9;
         fillAmount[1] = (float)topTwoValues[1] / (float)9;
         topAttributes[1] = topTwoKeys[1];
 
-        ChangeColor(shapeImage[0], topTwoKeys[0]);
-        ChangeColor(shapeImage[1], topTwoKeys[1]);
+        ChangeColor(shapeImage[0], cardImage[0], topTwoKeys[0]);
+        ChangeColor(shapeImage[1], cardImage[1], topTwoKeys[1]);
+        levelText[0].text = "" + topTwoValues[0] + "";
+        levelText[1].text = "" + topTwoValues[1] + "";
+
     }
 
-    public void ChangeColor(Image halfCircle, PlayerState.AttributeType arrtibute)
+    public void ChangeColor(Image halfCircle, Image cardImage, PlayerState.AttributeType arrtibute)
     {
         switch (arrtibute)
         {
             case PlayerState.AttributeType.Fire:
-                halfCircle.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Fire");
+                cardImage.sprite = Resources.Load<Sprite>($"Image/Card/Fi_19");
                 break;
 
             case PlayerState.AttributeType.Water:
-                halfCircle.color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Water");
+                cardImage.sprite = Resources.Load<Sprite>($"Image/Card/Wa_19");
                 break;
 
             case PlayerState.AttributeType.Wood:
-                halfCircle.color = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Tree");
+                cardImage.sprite = Resources.Load<Sprite>($"Image/Card/Tr_19");
                 break;
 
             case PlayerState.AttributeType.Earth:
-                halfCircle.color = new Color(153f / 255f, 102f / 255f, 0.0f, 1.0f);
+                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Earth");
+                cardImage.sprite = Resources.Load<Sprite>($"Image/Card/Gr_19");
                 break;
 
             case PlayerState.AttributeType.Lightning:
-                halfCircle.color = new Color(1.0f, 1.0f, 0.0f, 1.0f);
+                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Thunder");
+                cardImage.sprite = Resources.Load<Sprite>($"Image/Card/Th_19");
                 break;
 
             case PlayerState.AttributeType.Wind:
-                halfCircle.color = new Color(153f / 255f, 255f / 255f, 153f / 255f, 1.0f);
+                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Wind");
+                cardImage.sprite = Resources.Load<Sprite>($"Image/Card/Wi_19");
                 break;
 
             case PlayerState.AttributeType.Light:
-                halfCircle.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Light");
+                cardImage.sprite = Resources.Load<Sprite>($"Image/Card/Li_19");
                 break;
 
             case PlayerState.AttributeType.Dark:
-                halfCircle.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Dark");
+                cardImage.sprite = Resources.Load<Sprite>($"Image/Card/Da_19");
                 break;
 
             case PlayerState.AttributeType.Void:
-                halfCircle.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Normal");
+                cardImage.sprite = Resources.Load<Sprite>($"Image/Card/No_19");
+
                 break;
         }
     }
@@ -94,6 +113,7 @@ public class SuperiorManager : MonoBehaviour
     public void Superior()
     {
         StartCoroutine(SuperiorOn());
+        StartCoroutine(SuperiorImageOn());
     }
 
     int Attribute2Num(PlayerState.AttributeType arrtibute)
@@ -141,8 +161,9 @@ public class SuperiorManager : MonoBehaviour
     IEnumerator SuperiorOn()
     {
         yield return new WaitForSeconds(0.3f);
-        if (fillAmount[0] == 1.0f && fillAmount[1] == 1.0f)
+        if (superiorAvailable && fillAmount[0] == 1.0f && fillAmount[1] == 1.0f)
         {
+            superiorAvailable = false;
             plyerState.AttributeLevelUp(topAttributes[0]);
             yield return new WaitForSeconds(0.3f);
             plyerState.AttributeLevelUp(topAttributes[1]);
@@ -169,6 +190,19 @@ public class SuperiorManager : MonoBehaviour
         else
         {
             message.ShowSystemMessage("초월 불가.");
+        }
+    }
+
+    IEnumerator SuperiorImageOn()
+    {
+        if (superiorAvailable && fillAmount[0] == 1.0f && fillAmount[1] == 1.0f)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                cardImage[0].fillAmount = (float)i / (float)50;
+                cardImage[1].fillAmount = (float)i / (float)50;
+                yield return new WaitForSeconds(0.03f);
+            }
         }
     }
 }
