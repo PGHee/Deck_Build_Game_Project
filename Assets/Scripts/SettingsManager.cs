@@ -17,7 +17,7 @@ public class SettingsManager : MonoBehaviour
     public AudioMixer audioMixer;
     private Resolution[] availableResolutions;
     public GameObject backgroundObject;
-    public UISoundManager uiSound;
+    private UISoundManager uiSound;
 
     // 사용자 지정 해상도 목록
     private readonly List<Vector2Int> targetResolutions = new List<Vector2Int>
@@ -29,11 +29,13 @@ public class SettingsManager : MonoBehaviour
 
     void Awake()
     {
+        uiSound = FindObjectOfType<UISoundManager>();
         // 싱글톤 인스턴스 설정
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            settingsPanel.SetActive(true);
         }
         else
         {
@@ -41,6 +43,7 @@ public class SettingsManager : MonoBehaviour
             return;
         }
         InitializeSettings();  // 게임 시작 시 설정값을 UI에 반영 및 적용
+        settingsPanel.SetActive(false);
     }
 
     void InitializeSettings()
@@ -101,7 +104,6 @@ public class SettingsManager : MonoBehaviour
 
         ApplySettings(filteredResolutions);  // 설정을 실제 게임에 적용
         AttachEvents(filteredResolutions);   // 이벤트 연결
-        settingsPanel.SetActive(false);
     }
 
     void ApplySettings(List<Resolution> filteredResolutions)

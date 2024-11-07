@@ -303,7 +303,7 @@ public class BuffDebuffManager : MonoBehaviour
         {
             RemoveCurrentField();
         }
-        backgroundManager.ActivateFieldMagic((int) attributeType);
+        StartCoroutine(backgroundManager.ActivateFieldMagic((int) attributeType));
         currentField = attributeType;
         effect.PlayScreenEffect((int) attributeType);
         Debug.Log($"Applied field: {attributeType}");

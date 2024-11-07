@@ -12,10 +12,11 @@ public class HelpPanelManager : MonoBehaviour
     public GameObject helpButton;           // 도움말 패널을 여는 버튼
     public int currentPartIndex = 0;        // 현재 활성화된 파트 인덱스
 
-    public UISoundManager uiSound;
+    private UISoundManager uiSound;
 
     void Start()
     {
+        uiSound = FindObjectOfType<UISoundManager>();
         // 처음엔 패널과 모든 파트 및 파트 패널을 비활성화
         helpPanel.SetActive(false);
         SetAllPartsActive(false);

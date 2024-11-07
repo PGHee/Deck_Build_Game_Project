@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler
 {
@@ -10,6 +11,7 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler
     public Transform dropZone; // 드롭존 지정
     public GameObject[] cutScenes; // 컷신 오브젝트들 (4개)
     private bool isCutscenePlaying = false; // 컷신이 재생 중인지 여부
+    public float fadeDuration = 0.5f; // 페이드 인 지속 시간
 
     void Start()
     {
@@ -70,10 +72,18 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SampleScene");
         asyncLoad.allowSceneActivation = false; // 로딩 완료 후 씬 전환을 잠시 보류
 
-        // 컷신 재생과 동시에 씬 로딩을 진행
+        // 특정 컷신만 서서히 등장시키고 나머지는 바로 활성화
         for (int i = 0; i < cutScenes.Length; i++)
         {
-            cutScenes[i].SetActive(true);
+            if (i == 2 || i == 6) // 예시로 두 번째 컷신만 서서히 등장
+            {
+                cutScenes[i].SetActive(true);
+                yield return StartCoroutine(FadeInImage(cutScenes[i].GetComponent<Image>()));
+            }
+            else
+            {
+                cutScenes[i].SetActive(true);
+            }
             yield return new WaitForSeconds(2.5f); // 각 컷신 재생 시간
         }
 
@@ -84,6 +94,25 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler
         asyncLoad.allowSceneActivation = true;
 
         isCutscenePlaying = false;
+    }
+
+    // 이미지의 투명도를 서서히 증가시키는 코루틴
+    IEnumerator FadeInImage(Image image)
+    {
+        if (image == null) yield break;
+        
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 0); // 투명도 초기화
+
+        float timer = 0;
+        while (timer <= fadeDuration)
+        {
+            timer += Time.deltaTime;
+            float alpha = Mathf.Lerp(0, 1, timer / fadeDuration); // 투명도를 점진적으로 증가
+            image.color = new Color(image.color.r, image.color.g, image.color.b, alpha);
+            yield return null;
+        }
+        
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 1); // 완전히 보이도록 설정
     }
 
     // 게임 종료
