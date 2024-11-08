@@ -157,7 +157,7 @@ public class ShopManager : MonoBehaviour
 
             if (sellCardPrices[buttonNum] <= playerState.crystal)
             {
-                rewardManager.GetReward("Card", sellCardNums[buttonNum], sellCardPrices[buttonNum]);
+                rewardManager.GetReward("Card", sellCardNums[buttonNum] + 1, sellCardPrices[buttonNum]);
                 sellCardNums[buttonNum] = 0;
 
                 UISoundManager.instance.PlaySound("Shop");

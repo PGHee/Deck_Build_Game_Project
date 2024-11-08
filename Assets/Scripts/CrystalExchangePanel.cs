@@ -22,6 +22,7 @@ public class CrystalExchangePanel : MonoBehaviour
         message = FindObjectOfType<SystemMessage>();    // 시스템 메시지 찾기
         uiSound = FindObjectOfType<UISoundManager>();
         UpdateUI();                                     // UI 초기화
+        gameObject.SetActive(false);
     }
 
     private void UpdateUI()
