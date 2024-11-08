@@ -28,15 +28,6 @@ public class DeckManager : MonoBehaviour
         message = FindObjectOfType<SystemMessage>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown("c"))
-        {
-            CardDraw();
-        }
-    }
-
     // µ¦ ·£´ý ¼ÅÇÃ
     public void DeckRandomSuffle(int[] array) 
     {

@@ -18,9 +18,13 @@ public class StageManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("p"))
+        if (Input.GetKey("p"))
         {
-            GenerateRandomPortal();
+            if (Input.GetKey("q"))
+            {
+                //GenerateRandomPortal();
+            }
+            
         }
     }
 
