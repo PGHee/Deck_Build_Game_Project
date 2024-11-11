@@ -167,11 +167,6 @@ MonoBehaviour:
     duration: 2
     floatValue: 0.5
     intValue: 0
-  - actionType: 7
-    isRandomTargetBuff: 0
-    duration: 2
-    floatValue: 0.5
-    intValue: 0
   - actionType: 8
     isRandomTargetBuff: 0
     duration: 1
@@ -255,7 +250,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.6}
     oldSize: {x: 4.000951, y: 3.7533333}
     newSize: {x: 6.0000005, y: 5.683594}
     adaptiveTilingThreshold: 0.5

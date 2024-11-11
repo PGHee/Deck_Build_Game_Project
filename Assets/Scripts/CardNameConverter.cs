@@ -18,22 +18,22 @@ public class CardNameConverter : MonoBehaviour
             case 2:
                 return ("Tr_" + (cardNum % 100 + 1)+ "");
                 
-            case 3:
+            case 4:
                 return ("Gr_" + (cardNum % 100 + 1) + "");
                 
-            case 4:
+            case 5:
                 return ("Th_" + (cardNum % 100 + 1) + "");
                 
-            case 5:
+            case 6:
                 return ("Wi_" + (cardNum % 100 + 1) + "");
                 
-            case 6:
+            case 7:
                 return ("Li_" + (cardNum % 100 + 1) + "");
                 
-            case 7:
+            case 8:
                 return ("Da_" + (cardNum % 100 + 1) + "");
                 
-            case 8:
+            case 9:
                 return ("No_" + (cardNum % 100 + 1) + "");
                 
             default:

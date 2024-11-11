@@ -136,8 +136,16 @@ public class StartDeckManager : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                rewardManager.GetReward("Card", chosenAttributeNums[i] * 100 + 1, 0);
-                rewardManager.GetReward("Card", chosenAttributeNums[i] * 100 + 2, 0);
+                if(chosenAttributeNums[i] >= 3)
+                {
+                    rewardManager.GetReward("Card", (chosenAttributeNums[i] + 1)* 100 + 1, 0);
+                    rewardManager.GetReward("Card", (chosenAttributeNums[i] + 1)* 100 + 2, 0);
+                }
+                else
+                {
+                    rewardManager.GetReward("Card", chosenAttributeNums[i] * 100 + 1, 0);
+                    rewardManager.GetReward("Card", chosenAttributeNums[i] * 100 + 2, 0);
+                }
             }
 
             popupManager.ClosePopup("StartDeck");

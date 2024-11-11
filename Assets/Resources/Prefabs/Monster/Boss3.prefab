@@ -231,11 +231,6 @@ MonoBehaviour:
     duration: 3
     floatValue: 0
     intValue: 0
-  - actionType: 7
-    isRandomTargetBuff: 0
-    duration: 3
-    floatValue: 0
-    intValue: 0
   - actionType: 8
     isRandomTargetBuff: 0
     duration: 3

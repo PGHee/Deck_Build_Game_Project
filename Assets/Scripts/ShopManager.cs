@@ -123,8 +123,8 @@ public class ShopManager : MonoBehaviour
             dynamicButtonManager.CardSpriteToButton(sellCardNum, clearButtonsShop[i]); // 일러만 가져오도록 수정 필요
 
             GameObject cardPrefab = Resources.Load<GameObject>($"Prefabs/Card/{CardNameConverter.CardNumToCode(sellCardNum)}");
-            //PriceText[i].text = "[" + cardPrefab.GetComponent<Card>().cardName + "]<br>[" + sellCardPrices[i] + " 마석]";
-            AutoSizeText(PriceText[i], "[" + cardPrefab.GetComponent<Card>().cardName + "]<br>[" + sellCardPrices[i] + " 마석]");
+            PriceText[i].text = "[" + cardPrefab.GetComponent<Card>().cardName + "]<br>[" + sellCardPrices[i] + " 마석]";
+            //AutoSizeText(PriceText[i], "[" + cardPrefab.GetComponent<Card>().cardName + "]<br>[" + sellCardPrices[i] + " 마석]");
         }
         
     }

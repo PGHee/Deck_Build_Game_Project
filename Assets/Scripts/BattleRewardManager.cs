@@ -278,6 +278,13 @@ public class BattleRewardManager : MonoBehaviour
         battleRewardStep++;
 
         RestartBattleReward();
+
+        GameObject card2des = GameObject.FindWithTag("CardInHand");
+
+        if(card2des != null)
+        {
+            Destroy(card2des);
+        }
     }
 
     public void RefuseBattleReward()

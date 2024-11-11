@@ -22,7 +22,7 @@ public class StageManager : MonoBehaviour
         {
             if (Input.GetKey("q"))
             {
-                //GenerateRandomPortal();
+                GenerateRandomPortal();
             }
             
         }
