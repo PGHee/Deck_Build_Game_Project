@@ -78,7 +78,7 @@ public class SuperiorManager : MonoBehaviour
                 break;
 
             case PlayerState.AttributeType.Earth:
-                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Earth");
+                halfCircle.sprite = Resources.Load<Sprite>($"Image/Card/Card_Ground");
                 cardImage.sprite = Resources.Load<Sprite>($"Image/Card/Gr_19");
                 break;
 
